@@ -1,0 +1,11 @@
+startup_message off
+defscrollback 2048
+defutf8 on
+autodetach on
+
+term screen-256color
+termcapinfo rxvt-unicode 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+termcapinfo rxvt-256color 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+
+bindkey "^[Od" prev
+bindkey "^[Oc" next

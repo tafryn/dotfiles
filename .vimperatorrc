@@ -1,0 +1,11 @@
+" Restart Vimperator
+"map <C-r> :restart<CR>
+
+" Tab Navigation
+map <C-l> gt
+map <C-h> gT
+
+" Make sure IFL is keyed to 'g'
+:set defsearch=g
+
+echo ".vimperatorrc sourced"
