@@ -41,4 +41,19 @@ map 	<PageUp> 	<C-U>
 imap 	<PageUp> 	<C-O><C-U>
 map 	<PageDown> 	<C-D>
 imap 	<PageDown> 	<C-O><C-D>
+map		<C-t>		:tabnew<CR>
+map!	<C-t>		<C-O>:tabnew<CR>
+" Hack to fix non-standard C-Page* codes in urxvt
+set		timeout timeoutlen=1000 ttimeoutlen=100
+set		<F13>=[5^
+set		<F14>=[6^
+map		<F13>	<C-PageUp>
+map!	<F13>	<C-PageUp>
+map		<F14>	<C-PageDown>
+map!	<F14>	<C-PageDown>
+" This is another kludge that does the same thing
+"nmap	<ESC>[5^	<C-PageUp>
+"nmap	<ESC>[6^	<C-PageDown>
+"imap	<ESC>[5^	<C-O><C-PageUp>
+"imap	<ESC>[6^	<C-O><C-PageDown>
 " vim: set ft=vim :

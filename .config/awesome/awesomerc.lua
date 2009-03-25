@@ -273,7 +273,7 @@ globalkeys =
     -- Prompt
     key({ modkey            }, "p"		,
         function ()
-            awful.prompt.run({ prompt = "Run: " },
+            awful.prompt.run({ prompt = ">> " },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
@@ -281,7 +281,7 @@ globalkeys =
 
     key({ modkey            }, "F1"		,
         function ()
-            awful.prompt.run({ prompt = "Run: " },
+            awful.prompt.run({ prompt = ">> " },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
