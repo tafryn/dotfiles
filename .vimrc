@@ -29,6 +29,7 @@ set nostartofline
 set wildignore+=*.pyc
 hi Folded ctermfg=green ctermbg=darkgray
 colo jellybeans
+set timeout timeoutlen=1000 ttimeoutlen=100
 " Keybindings
 imap 	<Insert>	<Nop>
 map 	<F8> 		<Esc>{j!}fmt -71<CR>}k$
@@ -41,6 +42,6 @@ map 	<PageUp> 	<C-U>
 imap 	<PageUp> 	<C-O><C-U>
 map 	<PageDown> 	<C-D>
 imap 	<PageDown> 	<C-O><C-D>
-map		<C-t>		:tabnew<CR>
-map!	<C-t>		<C-O>:tabnew<CR>
+map		<C-t>		:tabnew<CR>:edit 
+map!	<C-t>		<C-O>:tabnew<CR>:edit 
 " vim: set ft=vim :
