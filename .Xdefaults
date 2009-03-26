@@ -60,6 +60,9 @@ URxvt.perl-ext:			default,matcher
 URxvt.urlLauncher:		firefox
 URxvt.matcher.button:	2
 URxvt.underlineColor:	#ff87ff
+! These two lines compensate for urxvt's crappy control codes
+URxvt.keysym.C-Prior:	[5;5~
+URxvt.keysym.C-Next:	[6;5~
 ! Tango color palate
 URxvt.foreground:		#ffffff
 URxvt.background:		#0e0e0e
