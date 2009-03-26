@@ -282,15 +282,24 @@ globalkeys =
     -- Prompt
     key({ modkey            }, "p"		,
         function ()
-            awful.prompt.run({ prompt = ">> " },
+            awful.prompt.run({ prompt = markup.fg("#ffd75f", ">> ") },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
         end),
 
+    key({ modkey            }, "g"		,
+        function ()
+            awful.prompt.run({ prompt = markup.fg("#5fafff", "Google: ") },
+            mypromptbox[mouse.screen],
+			function (command) awful.util.spawn(
+				"firefox -new-tab 'http://www.google.com/search?ie=UTF-8&oe=UTF-8&sourceid=navclient&gfns=1&q="
+				.. command .. "'") end) 
+        end),
+
     key({ modkey            }, "F1"		,
         function ()
-            awful.prompt.run({ prompt = ">> " },
+            awful.prompt.run({ prompt = markup.fg("#ff87ff", ">> ") },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
