@@ -7,7 +7,9 @@ require("naughty")
 -- Widget library
 require("wicked")
 -- Local Libraries
+require("markup")
 require("calendar")
+require("battery")
 require("myutils")
 
 -- {{{ Variable definitions
@@ -155,6 +157,7 @@ mytasklist.buttons = { button({ }, 1, function (c)
 -- Custom widgets section
 myspacer = widget({ type = "textbox", align = "right", name = "myspacer"})
 myspacer.text = '<span color="white">||</span>'
+
 mytextbox.mouse_enter = function() add_calendar(0) end 
 mytextbox.mouse_leave = remove_calendar
 mytextbox:buttons({ button({ }, 1, function () awful.util.spawn('dzen-calendar') end),
@@ -173,6 +176,11 @@ wicked.register( mympdbox, wicked.widgets.mpd, ' $1')
 
 myvolbox = widget({ type = "textbox", align = "left", name = "myvolbox"})
 --wicked.register( myvolbox, volume, ' $1%')
+
+batterywidget = widget({ type = "textbox", name = "batterywidget", align = "right"})
+battery.init(batterywidget)
+awful.hooks.timer.register(50, battery.info)
+
 -- End Custom widgets section
 
 for s = 1, screen.count() do
@@ -204,6 +212,7 @@ for s = 1, screen.count() do
 						   s == 1 and mympdbox or nil,
 						   s == 1 and mypalbox or nil,
 						   s == 2 and mytodobox or nil,
+                           s == 1 and batterywidget or nil,
 						   s == 1 and myspacer or nil,
                            s == 1 and mytextbox or nil,
 						   mylauncher,
