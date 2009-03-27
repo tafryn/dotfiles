@@ -10,7 +10,7 @@ require("wicked")
 require("markup")
 require("calendar")
 require("battery")
-require("myutils")
+require("widgets")
 
 -- {{{ Variable definitions
 home = os.getenv("HOME")
@@ -101,9 +101,9 @@ end
 
 -- {{{ Wibox
 -- Create a textbox widget
-mytextbox = widget({ type = "textbox", align = "right" })
+clockbox = widget({ type = "textbox", align = "right" })
 -- Set the default text in textbox
-mytextbox.text = "<b><small> " .. AWESOME_RELEASE .. " </small></b>"
+clockbox.text = "<b><small> " .. AWESOME_RELEASE .. " </small></b>"
 
 -- Create a laucher widget and a main menu
 myawesomemenu = {
@@ -155,31 +155,28 @@ mytasklist.buttons = { button({ }, 1, function (c)
                                       end) }
 
 -- Custom widgets section
-myspacer = widget({ type = "textbox", align = "right", name = "myspacer"})
-myspacer.text = '<span color="white">||</span>'
+clockbox.mouse_enter = function() add_calendar(0) end 
+clockbox.mouse_leave = remove_calendar
+clockbox:buttons({ button({ }, 4, function () add_calendar(-1) end),
+                     button({ }, 5, function () add_calendar(1) end) })
 
-mytextbox.mouse_enter = function() add_calendar(0) end 
-mytextbox.mouse_leave = remove_calendar
-mytextbox:buttons({ button({ }, 1, function () awful.util.spawn('dzen-calendar') end),
-                    button({ }, 3, function () awful.util.spawn('killall dzen2') end),
-                    button({ }, 4, function () add_calendar(-1) end),
-                    button({ }, 5, function () add_calendar(1) end) })
+palbox = widget({ type = "textbox", align = "right", name = "palbox"})
+wicked.register( palbox, function (fmt) return {system('~/bin/upcomming')} end, " $1 ", 120)
 
-mypalbox = widget({ type = "textbox", align = "right", name = "mypalbox"})
-wicked.register( mypalbox, function (fmt) return {system('~/bin/upcomming')} end, " $1 ", 120)
+todobox = widget({ type = "textbox", align = "right", name = "todobox"})
+wicked.register( todobox, function (fmt) return {system('~/bin/todo-check')} end, " $1 ", 1)
 
-mytodobox = widget({ type = "textbox", align = "right", name = "mytodobox"})
-wicked.register( mytodobox, function (fmt) return {system('~/bin/todo-check')} end, " $1 ", 1)
+mpdbox = widget({ type = "textbox", align = "left", name = "mpdbox"})
+wicked.register( mpdbox, wicked.widgets.mpd, ' $1')
 
-mympdbox = widget({ type = "textbox", align = "left", name = "mympdbox"})
-wicked.register( mympdbox, wicked.widgets.mpd, ' $1')
+volbox = widget({ type = "textbox", align = "right", name = "volbox"})
+volbox.text = volume_info('#5f87d7')
 
-myvolbox = widget({ type = "textbox", align = "left", name = "myvolbox"})
---wicked.register( myvolbox, volume, ' $1%')
+tempwidget = widget({ type = "textbox", align = "right"})
+tempwidget.text = temperature_info('#5faf5f')
 
-batterywidget = widget({ type = "textbox", name = "batterywidget", align = "right"})
+batterywidget = widget({ type = "textbox", align = "right", name = "batterywidget"})
 battery.init(batterywidget)
-awful.hooks.timer.register(50, battery.info)
 
 -- End Custom widgets section
 
@@ -208,13 +205,18 @@ for s = 1, screen.count() do
                            mypromptbox[s],
                            mylayoutbox[s],
                            --mytasklist[s],
-						   s == 1 and myvolbox or nil,
-						   s == 1 and mympdbox or nil,
-						   s == 1 and mypalbox or nil,
-						   s == 2 and mytodobox or nil,
+						   s == 1 and mpdbox or nil,
+						   s == 1 and palbox or nil,
+						   s == 1 and widget_divider_r or nil,
+						   s == 2 and todobox or nil,
+						   s == 1 and volbox or nil,
+						   s == 1 and widget_divider_r or nil,
                            s == 1 and batterywidget or nil,
-						   s == 1 and myspacer or nil,
-                           s == 1 and mytextbox or nil,
+						   s == 1 and widget_divider_r or nil,
+                           s == 1 and tempwidget or nil,
+						   s == 1 and widget_divider_r or nil,
+                           s == 1 and clockbox or nil,
+						   s == 1 and widget_spacer_r or nil,
 						   mylauncher,
                            s == 1 and mysystray or nil }
     mywibox[s].screen = s
@@ -282,7 +284,7 @@ globalkeys =
     -- Prompt
     key({ modkey            }, "p"		,
         function ()
-            awful.prompt.run({ prompt = markup.fg("#ffd75f", ">> ") },
+            awful.prompt.run({ prompt = markup.fg("#ffd75f", " >> ") },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
@@ -299,7 +301,7 @@ globalkeys =
 
     key({ modkey            }, "F1"		,
         function ()
-            awful.prompt.run({ prompt = markup.fg("#ff87ff", ">> ") },
+            awful.prompt.run({ prompt = markup.fg("#ff87ff", " >> ") },
             mypromptbox[mouse.screen],
             awful.util.spawn, awful.completion.bash,
             awful.util.getdir("cache") .. "/history")
@@ -500,8 +502,16 @@ awful.hooks.arrange.register(function (screen)
     end
 end)
 
+-- Hook called every 5 seconds
+awful.hooks.timer.register(5, function ()
+	tempwidget.text = temperature_info('#5faf5f')
+	volbox.text = volume_info('#5f87d7')
+end)
+
 -- Hook called every minute
 awful.hooks.timer.register(60, function ()
-    mytextbox.text = os.date(" %H:%M on %A %d %B ")
+	clockbox.text = clock_info("#c4a000", "%A %d %B", "%H:%M")
+	battery.info()
 end)
+
 -- }}}
