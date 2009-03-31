@@ -13,8 +13,8 @@ set history=50
 set printoptions=paper:letter
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set viminfo='20,\"50
-set nomodeline
 " Environment Setup
+set modeline
 syntax enable
 set showcmd
 set ruler
@@ -23,6 +23,7 @@ set textwidth=70
 set autoindent
 set foldmethod=syntax
 set ts=4
+set sw=4
 set mouse=a
 set hlsearch
 set nostartofline
