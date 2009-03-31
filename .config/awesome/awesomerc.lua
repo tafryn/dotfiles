@@ -238,16 +238,8 @@ globalkeys =
     key({ modkey,           }, "Right"	, awful.tag.viewnext       ),
     key({ modkey,           }, "Escape"	, awful.tag.history.restore),
 
-    key({ modkey,           }, "j"		,
-        function ()
-            awful.client.focus.byidx( 1)
-            if client.focus then client.focus:raise() end
-        end),
-    key({ modkey,           }, "k"		,
-        function ()
-            awful.client.focus.byidx(-1)
-            if client.focus then client.focus:raise() end
-        end),
+    key({ modkey,           }, "j"		, function () awful.client.focus.byidx( 1) end),
+    key({ modkey,           }, "k"		, function () awful.client.focus.byidx(-1) end),
     key({ modkey,           }, "Tab"	,
         function ()
             awful.client.focus.history.previous()

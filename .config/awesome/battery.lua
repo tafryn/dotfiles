@@ -100,11 +100,11 @@ function info()
   -- decide which and where to put the charging state indicator
 	local adapter = state()
   if adapter:match("charged") then
-    bwidget.text = "⚡:"..battery.."↯"
+    bwidget.text = "⚡: "..battery.."↯"
   elseif adapter:match("discharging") then
-    bwidget.text = "⚡:"..battery.."▼"
+    bwidget.text = "⚡: "..battery.."▼"
   else
-    bwidget.text = "⚡:"..battery.."▲"
+    bwidget.text = "⚡: "..battery.."▲"
   end
 end
 ---}}}
@@ -112,7 +112,7 @@ end
 --{{{ 
 function init(w, width)
   bwidget = w
-  bwidget.width = width or 48
+  bwidget.width = width or 50
 	local hal = io.popen("hal-find-by-capability --capability battery")
 	if hal ~= nil then
 		device = hal:read()
