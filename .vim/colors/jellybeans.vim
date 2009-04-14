@@ -65,7 +65,7 @@ hi Statement      guifg=#8197bf gui=none ctermfg=68 cterm=none
 " Keywords  d: import, module...
 hi PreProc        guifg=#8fbfdc ctermfg=153
 
-hi link Operator Normal
+hi link Operator Statement
 
 hi Type           guifg=#ffb964 gui=none ctermfg=215 cterm=none
 hi NonText        guifg=#808080 guibg=#151515 ctermfg=255 ctermbg=none
