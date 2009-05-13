@@ -50,6 +50,7 @@ alias gs="git status"
 alias a='screen -raAd'
 alias t='todo'
 alias ag='sudo apt-get'
+alias agi='sudo apt-get install'
 alias p='pacman'
 alias y='yaourt'
 

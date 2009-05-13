@@ -31,6 +31,7 @@ set wildignore+=*.pyc
 hi Folded ctermfg=green ctermbg=darkgray
 colo jellybeans
 set timeout timeoutlen=1000 ttimeoutlen=100
+"autocmd FileType c,py,rb set formatoptions=croql
 " Keybindings
 imap 	<Insert>	<Nop>
 map 	<F8> 		<Esc>{j!}fmt -71<CR>}k$

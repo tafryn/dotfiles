@@ -201,7 +201,6 @@ tasklist.buttons =
 }
 
 
-
 for s = 1, screen.count() do
     -- Create a promptbox for each screen
     promptbox[s] = widget({ type = "textbox", align = "left" })
@@ -358,6 +357,7 @@ user.keys =
 user.ckeys =
 {
     key({ modkey,           }, "f"      , function (c) c.fullscreen = not c.fullscreen  end),
+    key({ modkey, "Control" }, "f"      , function (c) c:raise() end),
     key({ modkey, "Shift"   }, "c"      , function (c) c:kill()                         end),
     key({ modkey, "Control" }, "space"  , awful.client.floating.toggle                     ),
     key({ modkey, "Control" }, "Return" , function (c) c:swap(awful.client.getmaster()) end),
