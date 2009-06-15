@@ -18,16 +18,22 @@ export MANPAGER='/usr/bin/most'
 if [[ $COLORTERM == 'rxvt-xpm' ]] then
 	export TERM='rxvt-unicode' 
 fi
+fpath=(~/.zsh $fpath)
 
 # a hack for awesome+java
 export AWT_TOOLKIT='MToolkit'
 export OOO_FORCE_DESKTOP='gnome'
 export INTEL_BATCH=2
 
-# Adds user and hostname to the main prompt and path to the right prompt. 
-# Any user PROMPT settings should go before this.
-PROMPT="%n@%{[33m%}%m%{[0m%}$ "
-RPROMPT=":%{[36m%}%~%{[0m%}"
+# Tab completion and prompt themeing
+autoload -U compinit promptinit
+compinit
+promptinit
+prompt ceatinge #single
+
+# Old PROMPT settings
+#PROMPT="%n@%{[33m%}%m%{[0m%}$ "
+#RPROMPT=":%{[36m%}%~%{[0m%}"
 
 #----------------
 # Aliases
@@ -57,6 +63,7 @@ alias y='yaourt'
 #----------------
 # Misc. Options
 #----------------
+
 # Fix git tab completion problems by turning it off.
 compdef -d git
 

@@ -80,8 +80,8 @@ user.rules = {
     [{ class = 'MPlayer'        }] = { float = true         },
     [{ class = 'gimp'           }] = { float = true         },
     [{ class = 'Tomboy'         }] = { float = true         },
-    [{ class = 'Thunderbird-bin'}] = { screen = 1, tag = 2  },
-    [{ class = 'Vmplayer'       }] = { screen = 2, tag = 9  },
+    [{ class = 'Thunderbird-bin'}] = { screen = 2, tag = 2  },
+    [{ class = 'Vmplayer'       }] = { screen = 1, tag = 9  },
 }
 
 -- Define if we want to use titlebar on all applications.
@@ -98,7 +98,7 @@ for s = 1, screen.count() do
         tags[s][tagnumber] = tag(" "..tagnumber)
         -- Add tags to screen one by one
         tags[s][tagnumber].screen = s
-        awful.layout.set(layouts[1], tags[s][tagnumber])
+        awful.layout.set(layouts[4], tags[s][tagnumber])
         awful.tag.setproperty(tags[s][tagnumber],"mwfact",0.58)
     end
     -- I'm sure you want to see at least one tag.
@@ -130,7 +130,7 @@ user.mainmenu = awful.menu.new(
 -- Custom widgets section
 
 -- Upcomming events widget
-palbox = widget({ type = "textbox", align = "right", name = "palbox"})
+palbox = widget({ type = "textbox", align = "left", name = "palbox"})
 wicked.register( palbox, function (fmt) return {system('~/bin/upcomming')} end, " $1 ", 120)
 
 -- Top todo item widget
@@ -243,7 +243,7 @@ for s = 1, screen.count() do
         layoutbox[s],
         --tasklist[s],
         s == 1 and mpdbox           or nil,
-        s == 1 and palbox           or nil,
+        s == 2 and palbox           or nil,
         s == 1 and widget_divider_r or nil,
         s == 2 and todobox          or nil,
         s == 1 and volbox           or nil,
@@ -288,17 +288,17 @@ user.keys =
     key({ modkey,           }, "Escape" , awful.tag.history.restore),
 
     -- Client focusing
-    key({ modkey,           }, "j"      , function () awful.client.focus.byidx( 1)  end),
-    key({ modkey,           }, "k"      , function () awful.client.focus.byidx(-1)  end),
+    key({ modkey,           }, "h"      , function () awful.client.focus.byidx( 1)  end),
+    key({ modkey,           }, "t"      , function () awful.client.focus.byidx(-1)  end),
     key({ modkey,           }, "Tab"    , function () awful.client.focus.history.previous() end),
 
     -- Screen focusing
-    key({ modkey,           }, "h"      , function () awful.screen.focus( 1)        end),
-    key({ modkey,           }, "l"      , function () awful.screen.focus(-1)        end),
+    key({ modkey,           }, "d"      , function () awful.screen.focus( 1)        end),
+    key({ modkey,           }, "n"      , function () awful.screen.focus(-1)        end),
 
     -- Client manipulation
-    key({ modkey, "Shift"   }, "j"      , function () awful.client.swap.byidx( 1)   end),
-    key({ modkey, "Shift"   }, "k"      , function () awful.client.swap.byidx(-1)   end),
+    key({ modkey, "Shift"   }, "h"      , function () awful.client.swap.byidx( 1)   end),
+    key({ modkey, "Shift"   }, "t"      , function () awful.client.swap.byidx(-1)   end),
     key({ modkey,           }, "u"      , awful.client.urgent.jumpto                   ),
 
     -- Awesome control
@@ -308,15 +308,15 @@ user.keys =
     key({ modkey, "Shift"   }, "space"  , function () awful.layout.inc(layouts, -1) end),
 
     -- Layout manipulation
-    key({ modkey, "Control" }, "j"      , function () awful.tag.incmwfact( 0.05)    end),
-    key({ modkey, "Control" }, "k"      , function () awful.tag.incmwfact(-0.05)    end),
+    key({ modkey, "Control" }, "h"      , function () awful.tag.incmwfact( 0.05)    end),
+    key({ modkey, "Control" }, "t"      , function () awful.tag.incmwfact(-0.05)    end),
     key({ modkey, "Shift"   }, "Up"     , function () awful.client.incwfact( 0.05)  end),
     key({ modkey, "Shift"   }, "Down"   , function () awful.client.incwfact(-0.05)  end),
 
-    key({ modkey, "Shift"   }, "h"      , function () awful.tag.incnmaster( 1)      end),
-    key({ modkey, "Shift"   }, "l"      , function () awful.tag.incnmaster(-1)      end),
-    key({ modkey, "Control" }, "h"      , function () awful.tag.incncol( 1)         end),
-    key({ modkey, "Control" }, "l"      , function () awful.tag.incncol(-1)         end),
+    key({ modkey, "Shift"   }, "d"      , function () awful.tag.incnmaster( 1)      end),
+    key({ modkey, "Shift"   }, "n"      , function () awful.tag.incnmaster(-1)      end),
+    key({ modkey, "Control" }, "d"      , function () awful.tag.incncol( 1)         end),
+    key({ modkey, "Control" }, "n"      , function () awful.tag.incncol(-1)         end),
 
     -- Prompts
     key({ modkey            }, "p"      ,
@@ -363,7 +363,7 @@ user.ckeys =
     key({ modkey, "Control" }, "Return" , function (c) c:swap(awful.client.getmaster()) end),
     key({ modkey,           }, "o"      , awful.client.movetoscreen                        ),
     key({ modkey, "Shift"   }, "r"      , function (c) c:redraw()                       end),
-    key({ modkey,           }, "t"      , awful.client.togglemarked                        ),
+    --key({ modkey,           }, "t"      , awful.client.togglemarked                        ),
     key({ modkey,           }, "m"      , 
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal

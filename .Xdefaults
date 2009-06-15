@@ -47,10 +47,11 @@ XTerm*saveLines: 		2048
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! urxvt
 !URxvt.font: -*-bitstream vera sans mono-*-r-*-*-14-*-*-*-*-*-*-*
-URxvt.font: 			xft:Bitstream Vera Sans Mono:size=13
-URxvt.boldfont: 		xft:Bitstream Vera Sans Mono:bold:size=13
-URxvt.italicfont: 		xft:Bitstream Vera Sans Mono:italic:size=13
-URxvt.bolditalicfont: 	xft:Bitstream Vera Sans Mono:bold:italic:size=13
+URxvt.font: 			xft:Bitstream Vera Sans Mono:size=12
+!URxvt.font: 			xft:Bitstream Vera Sans Mono:size=10
+URxvt.boldfont: 		xft:Bitstream Vera Sans Mono:bold:size=12
+URxvt.italicfont: 		xft:Bitstream Vera Sans Mono:italic:size=12
+URxvt.bolditalicfont: 	xft:Bitstream Vera Sans Mono:bold:italic:size=12
 URxvt.shading:			20
 URxvt.transparent:		true
 URxvt.scrollBar: 		false
