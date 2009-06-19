@@ -24,6 +24,8 @@ prompt_ceatinge_setup () {
   local prompt_gfx_tlc prompt_gfx_mlc prompt_gfx_blc
 
   autoload zsh/terminfo
+  autoload -U zgitinit
+  zgitinit
 
   if [[ $1 == '8bit' ]]; then
     shift
@@ -79,12 +81,20 @@ prompt_ceatinge_setup () {
   prompt_l_paren="%B%F{black}("
   prompt_r_paren="%B%F{black})"
 
-  prompt_user_host="%b%(!.%F{red}.%F{$prompt_ceatinge_color3})%n%F{$prompt_ceatinge_color4}@%b%F{$prompt_ceatinge_color5}%m"
+  if [[ -n "$SSH_CLIENT" ]]; then
+    prompt_user_host="$prompt_l_paren%b%(!.%F{red}.%F{$prompt_ceatinge_color3})%n%F{$prompt_ceatinge_color4}@%b%F{$prompt_ceatinge_color5}%m$prompt_r_paren"
+  elif [[ $prompt_single_line == 'true' ]]; then
+    prompt_user_host="%b%(!.%F{red}.%F{$prompt_ceatinge_color3})%n%F{$prompt_ceatinge_color4}@%b%F{$prompt_ceatinge_color5}%m"
+  else
+    prompt_user_host=""
+  fi
+
+  prompt_last_exit="%(?..%B%F{black}[%B%F{red}%?%B%F{black}])"
 
   prompt_line_1a="$prompt_gfx_tbox$prompt_l_paren%b%F{$prompt_ceatinge_color2}%~$prompt_r_paren%b%F{$prompt_ceatinge_color1}"
-  prompt_line_1b="$prompt_l_paren$prompt_user_host$prompt_r_paren%b%F{$prompt_ceatinge_color1}${prompt_gfx_hyphen}"
+  prompt_line_1b="$prompt_user_host%b%F{$prompt_ceatinge_color1}${prompt_gfx_hyphen}"
 
-  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}%B%F{white}"
+  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}\$(prompt_ceatinge_git_status)$prompt_last_exit%B%F{white}"
 
   prompt_char="%(!.#.%%)"
 
@@ -108,7 +118,7 @@ prompt_ceatinge_precmd() {
   fi
   PS2="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}%_> %b%f%k"
   PS3="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}?# %b%f%k"
-  zle_highlight[(r)default:*]="default:fg=$prompt_ceatinge_color4"
+  zle_highlight[(r)default:*]="default:fg=$prompt_ceatinge_color2,bold"
 }
 
 prompt_ceatinge_choose_prompt () {
@@ -141,5 +151,35 @@ prompt_ceatinge_choose_prompt () {
   local prompt_pwd_size=$(( COLUMNS - 5 ))
   prompt_line_1="$prompt_gfx_tbox$prompt_l_paren%B%F{$prompt_ceatinge_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_ceatinge_color1}$prompt_gfx_hyphen"
 }
+
+prompt_ceatinge_git_status() {
+  zgit_isgit || return
+
+  if zgit_inworktree; then
+    if ! zgit_isindexclean; then
+      echo -n " %F{green}+"
+    fi
+
+    local -a dirty
+    if ! zgit_isworktreeclean; then
+      dirty+='%B%F{red}!'
+    fi
+
+    if zgit_hasunmerged; then
+      dirty+='%B%F{yellow}*'
+    fi
+
+    if zgit_hasuntracked; then
+      dirty+="%b%F{yellow}?"
+    fi
+
+    if [ $#dirty -gt 0 ]; then
+      echo -n " ${(j::)dirty} "
+    fi
+  fi
+
+  echo $pc[reset]
+}
+
 
 prompt_ceatinge_setup "$@"

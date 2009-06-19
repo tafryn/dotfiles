@@ -20,16 +20,10 @@ if [[ $COLORTERM == 'rxvt-xpm' ]] then
 fi
 fpath=(~/.zsh $fpath)
 
-# a hack for awesome+java
+# A hack for awesome+java
 export AWT_TOOLKIT='MToolkit'
 export OOO_FORCE_DESKTOP='gnome'
 export INTEL_BATCH=2
-
-# Tab completion and prompt themeing
-autoload -U compinit promptinit
-compinit
-promptinit
-prompt ceatinge #single
 
 # Old PROMPT settings
 #PROMPT="%n@%{[33m%}%m%{[0m%}$ "
@@ -64,20 +58,38 @@ alias y='yaourt'
 # Misc. Options
 #----------------
 
+# Tab completion and prompt themeing
+autoload -U compinit promptinit
+compinit
+promptinit
+prompt ceatinge #single
+
 # Fix git tab completion problems by turning it off.
 compdef -d git
 
 # Disable core files. 
 ulimit -c 0
 
-# Make sure to use emacs keybindings
-bindkey -e
-
 # Where have you been all my life
 setopt nobeep
 
 setopt completeinword
 setopt histverify
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+setopt auto_cd
+setopt multios
+
+# Protect the defenseless files
+unsetopt clobber
+
+# Remove duplicates entries from various paths.
+typeset -U path cdpath manpath fpath
+
+# Make sure to use emacs keybindings
+bindkey -e
+bindkey "\e[7~" beginning-of-line
+bindkey "\e[8~" end-of-line
 
 # terminal title updates; the screen one isn't so useful to me so I left it out
 case $TERM in
