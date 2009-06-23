@@ -6,13 +6,21 @@ map <C-l> gt
 map <C-h> gT
 
 " Dvorak Compensators
-"map d h
-"map h j
-"map t k
-"map n l
-"map j d
-"map l n
-"map L N
+no d h
+no D H
+no h j
+no H J
+no t k
+no T K
+no n l
+no N L
+
+no j d
+no J D
+no l n
+no L N
+no k t
+no K T
 
 " Make sure IFL is keyed to 'g'
 :set defsearch=g

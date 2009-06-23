@@ -47,11 +47,14 @@ imap 	<PageDown> 	<C-O><C-D>
 map		<C-t>		:tabnew<CR>:edit 
 map!	<C-t>		<C-O>:tabnew<CR>:edit 
 " Dvorak Compensators
-"no d h
-"no h j
-"no t k
-"no n l
-"no j d
-"no l n
-"no L N
+no d h
+no h j
+no t k
+no n l
+
+no s :
+no S :
+no j d
+no l n
+no L N
 " vim: set ft=vim :
