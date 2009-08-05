@@ -11,7 +11,7 @@ end
 
 function volume_info(widget_color)
 	--local vol = io.popen('mpc volume')
-	local vol = io.popen('amixer get PCM | grep -m 1 %')
+	local vol = io.popen('amixer get Master | grep -m 1 %')
 	for line in vol:lines() do
 		if line:match("%%") then
 			volume = line:match("(%d+%%)")
@@ -36,15 +36,6 @@ function clock_info(widget_color, dateformat, timeformat)
 	local date = os.date(dateformat)
 	local time = os.date(timeformat)
 	return date..spacer..markup.fg(widget_color, time)
-end
-
-function pal_info()
-	local cmd = io.popen('~/bin/upcomming')
-	for line in cmd:lines() do
-		pal = line
-	end
-	cmd:close()
-	return pal
 end
 
 -- Borrowed from someone, can't remember who.
