@@ -50,7 +50,7 @@ settings.audio_stop     = 'mpc stop'
 --settings.win_info = 'xmessage -c "$(xprop | awk -F \" \'/^WM_CLASS/ { printf("%s:%s:",$4,$2) }; /^WM_NAME/ { printf("%s\\n",$2) }\')"'
 
 -- Load Theme
---settings.theme_path     = os.getenv('HOME') .. ".config/awesome/theme.lua"
+settings.theme_path     = os.getenv('HOME') .. "/.config/awesome/theme.lua"
 
 if settings.theme_path then
     beautiful.init(settings.theme_path)
@@ -259,8 +259,8 @@ local globalkeys = awful.util.table.join(
     end),
     
     --Screen focusing
-    awful.key({ modkey,           }, "d"     , function () awful.screen.focus( 1)       end),
-    awful.key({ modkey,           }, "n"     , function () awful.screen.focus(-1)       end),
+    awful.key({ modkey,           }, "d"     , function () focus_by_idx(2)       end),
+    awful.key({ modkey,           }, "n"     , function () focus_by_idx(1)       end),
 
     --Client manipulation
     awful.key({ modkey, "Shift"   }, "h"     , function () awful.client.swap.byidx(  1) end),

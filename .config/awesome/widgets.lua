@@ -93,3 +93,31 @@ widget_divider_l.width = 16
 widget_divider_r = widget({ type = "textbox", align = "right" })
 widget_divider_r.text = markup.fg("#ffffff", divider)
 widget_divider_r.width = 16
+
+-- Stolen bit of code from awful.screen that's been slightly modified
+-- to take absolute values instead of relative ones
+
+-- Grab environment we need
+local capi =
+{
+    mouse = mouse,
+    screen = screen,
+    client = client
+}
+local util = require("awful.util")
+local client = require("awful.client")
+
+--- Give the focus to a screen, and move pointer.
+-- @param i Absolute screen number.
+function focus_by_idx(i)
+    if i > capi.screen.count() then
+        s = capi.mouse.screen
+    else
+        s = i
+    end
+    local c = client.focus.history.get(s, 0)
+    if c then capi.client.focus = c end
+    -- Move the mouse on the screen
+    capi.mouse.screen = s
+end
+
