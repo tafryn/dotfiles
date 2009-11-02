@@ -101,23 +101,6 @@ for s = 1, screen.count() do
     tags[s][1].selected = true
 end
 
--- {{{1 Rules
-awful.rules.rules = {
-    -- All clients will match this rule.
-    { rule = { },
-      properties = { border_width = beautiful.border_width,
-                     border_color = beautiful.border_normal,
-                     focus = true,
-                     keys = clientkeys,
-                     buttons = clientbuttons } },
-    { rule = { class = "Firefox" }        , properties = { tag = tags[screen.count()][1] } },
-    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[2][1] } },
-    { rule = { class = "Vmplayer" }       , properties = { tag = tags[screen.count()][9] } },
-    { rule = { class = "MPlayer" }        , properties = { floating = true } },
-    { rule = { class = "Tomboy" }         , properties = { floating = true } },
-    { rule = { class = "gimp" }           , properties = { floating = true } },
-}
-
 -- {{{1 Menu
 
 menus.awesome = {
@@ -400,6 +383,23 @@ end
 
 -- Set keys
 root.keys(globalkeys)
+
+-- {{{1 Rules
+awful.rules.rules = {
+    -- All clients will match this rule.
+    { rule = { },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons } },
+    { rule = { class = "Firefox" }        , properties = { tag = tags[screen.count()][1] } },
+    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[2][1] } },
+    { rule = { class = "Vmplayer" }       , properties = { tag = tags[screen.count()][9] } },
+    { rule = { class = "MPlayer" }        , properties = { floating = true } },
+    { rule = { class = "Tomboy" }         , properties = { floating = true } },
+    { rule = { class = "gimp" }           , properties = { floating = true } },
+}
 
 -- {{{1 Signals
 -- Signal function to execute when a new client appears.
