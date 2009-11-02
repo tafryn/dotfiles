@@ -385,6 +385,7 @@ end
 root.keys(globalkeys)
 
 -- {{{1 Rules
+foo = screen.count()
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
@@ -393,8 +394,8 @@ awful.rules.rules = {
                      focus = true,
                      keys = clientkeys,
                      buttons = clientbuttons } },
-    { rule = { class = "Firefox" }        , properties = { tag = tags[screen.count()][1] } },
-    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[2][1] } },
+    { rule = { class = "Shiretoko" }      , properties = { tag = tags[1][1] } },
+    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[screen.count()][5] } },
     { rule = { class = "Vmplayer" }       , properties = { tag = tags[screen.count()][9] } },
     { rule = { class = "MPlayer" }        , properties = { floating = true } },
     { rule = { class = "Tomboy" }         , properties = { floating = true } },
