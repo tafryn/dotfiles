@@ -395,7 +395,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons } },
     { rule = { class = "Shiretoko" }      , properties = { tag = tags[1][1] } },
-    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[screen.count()][5] } },
+    { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[screen.count()][1] } },
     { rule = { class = "Vmplayer" }       , properties = { tag = tags[screen.count()][9] } },
     { rule = { class = "MPlayer" }        , properties = { floating = true } },
     { rule = { class = "Tomboy" }         , properties = { floating = true } },
@@ -415,6 +415,8 @@ client.add_signal("manage", function (c, startup)
             client.focus = c
         end
     end)
+
+    c.size_hints_honor = false 
 
     if not startup then
         -- Set the windows at the slave,
