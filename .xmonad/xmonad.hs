@@ -36,24 +36,25 @@ main = do
 -- hooks
 ruleManageHook = composeAll . concat $
     [[isFullscreen                      --> doFullFloat
-    , className =? "Xmessage"           --> doCenterFloat 
-    , className =? "Tomboy"             --> doCenterFloat 
-    , className =? "feh"                --> doCenterFloat 
-    , className =? "MPlayer"            --> doCenterFloat
-    , className =? "Iron"               --> doShift "1:web"
-    , className =? "Uzbl-core"          --> doShift "1:web"
-    , className =? "Mail"               --> doShift "2:mail"
-    , className =? "Shredder"           --> doShift "2:mail"
-    , className =? "Xpdf"               --> doShift "6:pdf"
-    , className =? "Evince"             --> doShift "6:pdf"
-    , className =? "OpenOffice.org 3.1" --> doShift "7:doc" 
-    , className =? "Vmplayer"           --> doShift "8:vm"
-    , className =? "VirtualBox"         --> doShift "8:vm"
-    , className =? "Gimp"               --> doShift "9"]
+    , isDialog                          --> doCenterFloat]
+    , [className =? c   --> doCenterFloat    | c <- cfloatApps]
+    , [className =? c   --> doShift "1:web"  | c <- webApps]
+    , [className =? c   --> doShift "2:mail" | c <- mailApps]
+    , [className =? c   --> doShift "6:pdf"  | c <- pdfApps]
+    , [className =? c   --> doShift "7:doc"  | c <- docApps]
+    , [className =? c   --> doShift "8:vm"   | c <- vmApps]
+    , [className =? c   --> doShift "9"      | c <- otherApps]
     ]
+cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage"]
+webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox"]
+mailApps    = ["Mail", "Shredder"]
+pdfApps     = ["Xpdf", "Evince"]
+docApps     = ["OpenOffice.org 3.1"]
+vmApps      = ["Vmplayer", "VirtualBox"]
+otherApps   = ["Gimp"]
 
 myManageHook :: ManageHook
-myManageHook = insertPosition End Newer <+> manageDocks <+> ruleManageHook
+myManageHook = ruleManageHook <+> insertPosition End Newer <+> manageDocks
                <+> manageHook defaultConfig
 
 myLayoutHook = avoidStruts $ (Mirror tiled ||| tiled ||| Full)
