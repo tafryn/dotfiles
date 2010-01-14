@@ -10,13 +10,14 @@ import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.InsertPosition
+import XMonad.Hooks.UrgencyHook
 
 -- utils
 import XMonad.Util.Run(spawnPipe)
 
 main = do
     xmproc <- spawnPipe "/usr/bin/xmobar $HOME/.xmobarrc"  -- start xmobar
-    xmonad $ defaultConfig
+    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
         { manageHook = myManageHook
         , layoutHook            = myLayoutHook
         , logHook               = myLogHook xmproc
@@ -63,6 +64,7 @@ myLogHook h = dynamicLogWithPP $ xmobarPP
     , ppTitle = xmobarColor "#4e9a06" "" . shorten 50
     , ppCurrent = xmobarColor "#c4a000" "" . wrap "<" ">"
     , ppVisible = xmobarColor "#3465a4" "" . wrap "(" ")"
+    , ppUrgent = xmobarColor "#cc0000" "" . wrap "!" "!"
     , ppSep = xmobarColor "#d3d7cf" "" " | "
     }
 

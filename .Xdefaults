@@ -55,6 +55,7 @@ URxvt.bolditalicfont: 	xft:Bitstream Vera Sans Mono:bold:italic:size=12
 URxvt.shading:			20
 URxvt.transparent:		true
 URxvt.scrollBar: 		false
+URxvt.urgentOnBell:		true
 URxvt.secondaryScroll:	true
 URxvt.saveLines: 		4096
 URxvt.perl-ext:			default,matcher
