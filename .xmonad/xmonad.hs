@@ -34,18 +34,20 @@ main = do
         }
 
 -- hooks
-ruleManageHook = composeAll . concat $
-    [[isFullscreen                      --> doFullFloat
-    , isDialog                          --> doCenterFloat]
-    , [className =? c   --> doCenterFloat    | c <- cfloatApps]
-    , [className =? c   --> doShift "1:web"  | c <- webApps]
-    , [className =? c   --> doShift "2:mail" | c <- mailApps]
-    , [className =? c   --> doShift "6:pdf"  | c <- pdfApps]
-    , [className =? c   --> doShift "7:doc"  | c <- docApps]
-    , [className =? c   --> doShift "8:vm"   | c <- vmApps]
-    , [className =? c   --> doShift "9"      | c <- otherApps]
+ruleManageHook = composeOne . concat $
+    [[checkDock         -?> doIgnore
+    , isFullscreen      -?> doFullFloat
+    , isDialog          -?> (doF(W.shiftMaster) <+> doCenterFloat)]
+    , [className =? c   -?> doCenterFloat    | c <- cfloatApps]
+    , [className =? c   -?> doShift "1:web"  | c <- webApps]
+    , [className =? c   -?> doShift "2:mail" | c <- mailApps]
+    , [className =? c   -?> doShift "6:pdf"  | c <- pdfApps]
+    , [className =? c   -?> doShift "7:doc"  | c <- docApps]
+    , [className =? c   -?> doShift "8:vm"   | c <- vmApps]
+    , [className =? c   -?> doShift "9"      | c <- otherApps]
+    , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage"]
+cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmessage"]
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox"]
 mailApps    = ["Mail", "Shredder"]
 pdfApps     = ["Xpdf", "Evince"]
@@ -54,8 +56,7 @@ vmApps      = ["Vmplayer", "VirtualBox"]
 otherApps   = ["Gimp"]
 
 myManageHook :: ManageHook
-myManageHook = ruleManageHook <+> insertPosition End Newer <+> manageDocks
-               <+> manageHook defaultConfig
+myManageHook = ruleManageHook <+> manageHook defaultConfig
 
 myLayoutHook = avoidStruts $ (Mirror tiled ||| tiled ||| Full)
     where
