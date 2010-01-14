@@ -9,6 +9,7 @@ import System.Exit
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.InsertPosition
 
 -- utils
 import XMonad.Util.Run(spawnPipe)
@@ -46,7 +47,8 @@ ruleManageHook = composeAll . concat $
     ]
 
 myManageHook :: ManageHook
-myManageHook = manageDocks <+> ruleManageHook <+> manageHook defaultConfig
+myManageHook = insertPosition End Newer <+> manageDocks <+> ruleManageHook
+               <+> manageHook defaultConfig
 
 myLayoutHook = avoidStruts $ (Mirror tiled ||| tiled ||| Full)
     where
@@ -58,10 +60,10 @@ myLayoutHook = avoidStruts $ (Mirror tiled ||| tiled ||| Full)
 myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ xmobarPP
     { ppOutput = hPutStrLn h
-    , ppTitle = xmobarColor "green" "" . shorten 70
-    , ppCurrent = xmobarColor "yellow" "" . wrap "<" ">"
-    , ppVisible = xmobarColor "lightblue" "" . wrap "(" ")"
-    , ppSep = xmobarColor "gray" "" " | "
+    , ppTitle = xmobarColor "#4e9a06" "" . shorten 50
+    , ppCurrent = xmobarColor "#c4a000" "" . wrap "<" ">"
+    , ppVisible = xmobarColor "#3465a4" "" . wrap "(" ")"
+    , ppSep = xmobarColor "#d3d7cf" "" " | "
     }
 
 -- workspaces
@@ -77,7 +79,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_Down   ), spawn "amixer set Master 3%-")
     , ((modMask                 , xK_End    ), spawn "amixer set Master toggle")
     , ((modMask                 , xK_s      ), spawn "mpc stop")
-    , ((modMask                 , xK_p      ), spawn "exe=`dmenu_path | dmenu` && eval \"exec $exe\"")
+    , ((modMask                 , xK_p      ), spawn "dmenu_run")
     , ((controlMask             , xK_6      ), spawn "xscreensaver-command -lock")
     , ((modMask .|. shiftMask   , xK_c      ), kill)
 
