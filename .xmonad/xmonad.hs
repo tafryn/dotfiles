@@ -5,6 +5,9 @@ import XMonad.Util.EZConfig(additionalKeys)
 import System.IO
 import System.Exit
 
+-- actions
+import qualified XMonad.Actions.FlexibleResize as Flex
+
 -- hooks
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.ManageDocks
@@ -22,6 +25,7 @@ main = do
         , layoutHook            = myLayoutHook
         , logHook               = myLogHook xmproc
         , workspaces            = myWorkspaces
+        , mouseBindings         = myMouseBindings
         , keys                  = myKeys
         , normalBorderColor     = "#222222"
         , focusedBorderColor    = "#99ccff"
@@ -36,15 +40,16 @@ ruleManageHook = composeAll . concat $
     , className =? "Tomboy"             --> doCenterFloat 
     , className =? "feh"                --> doCenterFloat 
     , className =? "MPlayer"            --> doCenterFloat
-    , className =? "Gimp"               --> doShift "9"
     , className =? "Iron"               --> doShift "1:web"
     , className =? "Uzbl-core"          --> doShift "1:web"
     , className =? "Mail"               --> doShift "2:mail"
+    , className =? "Shredder"           --> doShift "2:mail"
     , className =? "Xpdf"               --> doShift "6:pdf"
     , className =? "Evince"             --> doShift "6:pdf"
     , className =? "OpenOffice.org 3.1" --> doShift "7:doc" 
     , className =? "Vmplayer"           --> doShift "8:vm"
-    , className =? "VirtualBox"         --> doShift "8:vm"]
+    , className =? "VirtualBox"         --> doShift "8:vm"
+    , className =? "Gimp"               --> doShift "9"]
     ]
 
 myManageHook :: ManageHook
@@ -97,7 +102,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. controlMask , xK_h      ), sendMessage (IncMasterN (-1)))
 
     -- client control
-    , ((modMask .|. shiftMask   , xK_t      ), withFocused $ windows . W.sink)
+    , ((modMask .|. shiftMask   , xK_s      ), withFocused $ windows . W.sink)
     , ((modMask                 , xK_Tab    ), windows W.focusDown)
     , ((modMask                 , xK_h      ), windows W.focusDown)
     , ((modMask                 , xK_t      ), windows W.focusUp)
@@ -124,5 +129,11 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
         | (key, sc) <- zip [xK_n, xK_d, xK_r] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
+
+myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+     [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster))
+     , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
+     , ((modm, button3), (\w -> focus w >> Flex.mouseResizeWindow w >> windows W.shiftMaster))
+     ]
 
 -- vim: set ts=4 sw=4 et:
