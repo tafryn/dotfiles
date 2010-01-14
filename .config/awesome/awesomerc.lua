@@ -273,7 +273,7 @@ globalkeys = awful.util.table.join(
     -- Awesome control
     awful.key({ modkey, "Control" }, "r"     , awesome.restart                                 ),
     awful.key({ modkey, "Shift"   }, "q"     , awesome.quit                                    ),
-    awful.key({ modkey,           }, "w"     , function () menus.main:show(true)            end),
+    awful.key({ modkey,           }, "w"     , function () menus.main:toggle()              end),
 
     -- Tag navigation
     awful.key({ modkey,           }, "Left"  , awful.tag.viewprev                              ),

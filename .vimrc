@@ -19,7 +19,6 @@ syntax enable
 set showcmd
 set ruler
 set number
-set textwidth=70
 set autoindent
 set foldmethod=syntax
 set ts=4
