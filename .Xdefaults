@@ -58,7 +58,7 @@ URxvt.scrollBar: 		false
 URxvt.secondaryScroll:	true
 URxvt.saveLines: 		4096
 URxvt.perl-ext:			default,matcher
-URxvt.urlLauncher:		firefox
+URxvt.urlLauncher:		piron
 URxvt.matcher.button:	2
 URxvt.underlineColor:	#ff87ff
 ! These two lines compensate for urxvt's crappy control codes
