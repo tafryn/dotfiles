@@ -397,6 +397,7 @@ awful.rules.rules = {
     { rule = { class = "Shiretoko" }      , properties = { tag = tags[1][1] } },
     { rule = { class = "Thunderbird-bin" }, properties = { tag = tags[screen.count()][1] } },
     { rule = { class = "Vmplayer" }       , properties = { tag = tags[screen.count()][9] } },
+    { rule = { class = "VirtualBox" }     , properties = { tag = tags[screen.count()][9] } },
     { rule = { class = "MPlayer" }        , properties = { floating = true } },
     { rule = { class = "Tomboy" }         , properties = { floating = true } },
     { rule = { class = "gimp" }           , properties = { floating = true } },
