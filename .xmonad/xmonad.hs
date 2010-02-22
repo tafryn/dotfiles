@@ -51,7 +51,7 @@ cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmes
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
 mailApps    = ["Mail", "Shredder"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
-docApps     = ["OpenOffice.org 3.1"]
+docApps     = ["OpenOffice.org 3.2"]
 vmApps      = ["Vmplayer", "VirtualBox"]
 otherApps   = ["Gimp"]
 
