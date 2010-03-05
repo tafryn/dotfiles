@@ -23,6 +23,7 @@ set autoindent
 set foldmethod=syntax
 set ts=4
 set sw=4
+set smarttab
 set mouse=a
 set hlsearch
 set nostartofline
