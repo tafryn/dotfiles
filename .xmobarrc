@@ -6,10 +6,12 @@ Config { font = "xft:Bitstream Vera Sans Mono:size=9"
        , commands = [ Run Cpu ["-t","▣: <total>","-L","20","-H","40","--normal","#4e9a06","--high","#cc0000"] 10
                     , Run Memory ["-t","Mem: <usedratio>%","-L","40","-H","80","--normal","#fce94f","--high","#cc0000"] 10
 					, Run Thermal "THM" ["-t","<temp>°C","-H","60","--high","#cc0000"] 10
-                    , Run Date "%A %d %B %H:%M" "date" 10
+                    , Run Date "" "date" 10
                     , Run StdinReader
                     ]
        , sepChar = "%"
        , alignSep = "}{"
        , template = "%StdinReader% }{ %memory% <fc=#d3d7cf>|</fc> %cpu% %THM% <fc=#d3d7cf>|</fc> <fc=#c4a000>%date%</fc>"
        }
+
+"%A %d %B %H:%M"
