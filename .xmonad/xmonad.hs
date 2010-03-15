@@ -68,7 +68,7 @@ myLayoutHook = avoidStruts $ (Mirror tiled ||| tiled ||| Full)
 myLogHook :: Handle -> X ()
 myLogHook h = dynamicLogWithPP $ xmobarPP
     { ppOutput = hPutStrLn h
-    , ppTitle = xmobarColor "#4e9a06" "" . shorten 50
+    , ppTitle = xmobarColor "#4e9a06" "" . shorten 70
     , ppCurrent = xmobarColor "#c4a000" "" . wrap "<" ">"
     , ppVisible = xmobarColor "#3465a4" "" . wrap "(" ")"
     , ppUrgent = xmobarColor "#cc0000" "" . wrap "!" "!"
