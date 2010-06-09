@@ -56,6 +56,15 @@ alias agi='sudo apt-get install'
 alias p='pacman'
 alias y='yaourt'
 
+clyde() {
+   case $1 in
+       (-Ss | -Si | -Q* | -T | -G)
+           /usr/bin/clyde "$@" ;;
+       (-S* | -R* | -U | *)
+           /usr/bin/sudo /usr/bin/clyde "$@" ;;
+   esac
+}
+
 #----------------
 # Misc. Options
 #----------------
