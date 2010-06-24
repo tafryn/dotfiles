@@ -47,13 +47,13 @@ ruleManageHook = composeOne . concat $
     , [className =? c   -?> doShift "9"      | c <- otherApps]
     , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmessage"]
+cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmessage", "Xephyr"]
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
 mailApps    = ["Mail", "Shredder"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
 docApps     = ["OpenOffice.org 3.2"]
 vmApps      = ["Vmplayer", "VirtualBox"]
-otherApps   = ["Gimp"]
+otherApps   = ["Gimp", "Inkscape"]
 
 myManageHook :: ManageHook
 myManageHook = ruleManageHook <+> manageHook defaultConfig
