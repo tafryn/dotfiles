@@ -51,7 +51,7 @@ ruleManageHook = composeOne . concat $
     ]
 cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmessage", "Xephyr"]
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
-mailApps    = ["Mail", "Shredder"]
+mailApps    = ["Mail", "Lanikai"]
 chatApps    = ["Pidgin"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
 docApps     = ["OpenOffice.org 3.2"]
