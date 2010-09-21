@@ -31,7 +31,7 @@ main = do
         , normalBorderColor     = "#222222"
         , focusedBorderColor    = "#99ccff"
         , modMask               = mod4Mask          -- Use Super instead of Alt
-        , terminal              = "term-wrapper"
+        , terminal              = "urxvt"
         }
 
 -- hooks
