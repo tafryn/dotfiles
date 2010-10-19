@@ -61,7 +61,7 @@ otherApps   = ["Gimp", "Inkscape"]
 myManageHook :: ManageHook
 myManageHook = ruleManageHook <+> manageHook defaultConfig
 
-myLayoutHook = avoidStruts $ (reflectVert . Mirror $ tiled ||| tiled ||| Full)
+myLayoutHook = avoidStruts $ ((reflectVert . Mirror $ tiled) ||| tiled ||| Full)
     where
             tiled = Tall nmaster delta ratio
             nmaster = 1
