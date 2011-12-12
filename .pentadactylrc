@@ -1,0 +1,27 @@
+"1.0b6 (created: 2011/03/09 09:25:18)
+
+loadplugins '\.(js|penta)$'
+group user
+highlight Hint font: bold "Droid Sans Mono", monospace !important; margin: -.2ex; padding: 0 0 0 1px; outline: 1px solid rgba(0, 0, 0, .5); background: rgba(255, 248, 231, .8); color: black;
+map -modes=n,v <C-d> gT
+map -modes=n,v <C-n> gt
+map -modes=n,v D -c -builtin <count>H
+map -modes=n,v H -c -builtin <count><C-d>
+map -modes=n,v J -c -builtin <count>D
+map -modes=n,v K -c -builtin <count>T
+map -modes=n,v L -c -builtin <count>N
+map -modes=n,v N -c -builtin <count>L
+map -modes=n,v T -c -builtin <count><C-u>
+map -modes=n,v d -c -builtin <count>h
+map -modes=n,v h -c -builtin <count>j
+map -modes=n,v j -c -builtin <count>d
+map -modes=n,v k -c -builtin <count>t
+map -modes=n,v l -c -builtin <count>n
+map -modes=n,v n -c -builtin <count>l
+map -modes=n,v t -c -builtin <count>k
+set autocomplete=
+set defsearch=g
+set hintkeys=uhetonasid
+set hlfind
+
+" vim: set ft=pentadactyl:
