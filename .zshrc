@@ -44,6 +44,7 @@ alias desocks="pkill -f 'ssh -f -N -D 8080'"
 alias xlog="sudo less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
 alias less="vimpager"
+alias tmux="tmux -2"
 alias git="git --no-pager"
 
 alias gd="git diff"
