@@ -49,10 +49,10 @@ ruleManageHook = composeOne . concat $
     , [className =? c   -?> doShift "9"      | c <- otherApps]
     , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim","feh","MPlayer","Tomboy","/usr/lib/tomboy/Tomboy.exe","Xmessage", "Xephyr"]
+cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage", "Xephyr", "Keepassx"]
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
-mailApps    = ["Mail", "Lanikai"]
-chatApps    = ["Pidgin"]
+mailApps    = ["Mail", "Lanikai", "Thunderbird"]
+chatApps    = ["Pidgin", "Gajim"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
 docApps     = ["OpenOffice.org 3.2"]
 vmApps      = ["Vmplayer", "VirtualBox"]
@@ -61,7 +61,7 @@ otherApps   = ["Gimp", "Inkscape"]
 myManageHook :: ManageHook
 myManageHook = ruleManageHook <+> manageHook defaultConfig
 
-myLayoutHook = avoidStruts $ ((reflectVert . Mirror $ tiled) ||| tiled ||| Full)
+myLayoutHook = avoidStruts $ (tiled ||| (reflectVert . Mirror $ tiled) ||| Full)
     where
             tiled = Tall nmaster delta ratio
             nmaster = 1
@@ -92,6 +92,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_End    ), spawn "amixer set Master toggle")
     , ((modMask                 , xK_s      ), spawn "mpc stop")
     , ((modMask                 , xK_p      ), spawn "dmenu_run")
+    , ((shiftMask               , xK_Scroll_Lock ), spawn "~/bin/kvm-swap")
     , ((controlMask             , xK_6      ), spawn "xscreensaver-command -lock")
     , ((modMask .|. shiftMask   , xK_c      ), kill)
 
@@ -115,6 +116,9 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_space  ), windows W.swapMaster)
     , ((modMask .|. shiftMask   , xK_h      ), windows W.swapDown)
     , ((modMask .|. shiftMask   , xK_t      ), windows W.swapUp)
+    , ((mod1Mask                , xK_h      ), spawn "tmux select-pane -t :.+")
+    , ((mod1Mask                , xK_t      ), spawn "tmux select-pane -t :.-")
+
 
     -- resizing
     , ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size

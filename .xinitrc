@@ -2,6 +2,8 @@
 
 syndaemon -d
 # sleep 3 && setxkbmap dvorak &
-sleep 3 && synergys &
+# sleep 3 && synergys &
 xscreensaver -nosplash &
-startxfce4
+sleep 3 && SpiderOak &
+#startxfce4
+xmonad
