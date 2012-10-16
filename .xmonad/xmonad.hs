@@ -121,7 +121,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 
     -- resizing
-    , ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size
+    {-, ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size-}
     , ((modMask .|. controlMask , xK_d      ), sendMessage Shrink)
     , ((modMask .|. controlMask , xK_n      ), sendMessage Expand)
 
