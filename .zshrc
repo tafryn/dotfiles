@@ -15,9 +15,9 @@ export PAGER='vimpager' # annoying for git
 export MANPAGER='/usr/bin/most'
 
 # Set the TERM variable for 256 colors
-if [[ $COLORTERM == 'rxvt-xpm' ]] then
-	export TERM='rxvt-unicode' 
-fi
+#if [[ $COLORTERM == 'rxvt-xpm' ]] then
+	#export TERM='rxvt-unicode' 
+#fi
 fpath=(~/.zsh $fpath)
 
 # A hack for awesome+java
@@ -37,11 +37,10 @@ if [[ `uname` = "Linux" ]]; then
 fi
 alias ll="ls -l"
 alias la="ls -a"
-alias ..="cd .."
 alias cls="clear;ls"
 alias socks="ssh -f -N -D 8080"
 alias desocks="pkill -f 'ssh -f -N -D 8080'"
-alias xlog="sudo less /var/log/Xorg.0.log"
+alias xlog="less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
 alias less="vimpager"
 alias tmux="tmux -2"
@@ -57,15 +56,6 @@ alias ag='sudo apt-get'
 alias agi='sudo apt-get install'
 alias p='pacman'
 alias y='yaourt'
-
-clyde() {
-   case $1 in
-       (-Ss | -Si | -Q* | -T | -G)
-           /usr/bin/clyde "$@" ;;
-       (-S* | -R* | -U | *)
-           /usr/bin/sudo /usr/bin/clyde "$@" ;;
-   esac
-}
 
 #----------------
 # Misc. Options

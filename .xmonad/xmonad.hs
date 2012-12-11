@@ -49,7 +49,7 @@ ruleManageHook = composeOne . concat $
     , [className =? c   -?> doShift "9"      | c <- otherApps]
     , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage", "Xephyr", "Keepassx"]
+cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage", "Xephyr", "Keepassx", "qemu-system-x86_64", "qemu-system-i386"]
 webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
 mailApps    = ["Mail", "Lanikai", "Thunderbird"]
 chatApps    = ["Pidgin", "Gajim"]
@@ -121,7 +121,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
 
 
     -- resizing
-    {-, ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size-}
+    , ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size
     , ((modMask .|. controlMask , xK_d      ), sendMessage Shrink)
     , ((modMask .|. controlMask , xK_n      ), sendMessage Expand)
 
@@ -136,7 +136,7 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- mod-{w,e,r}, Switch to physical/Xinerama screens 1, 2, or 3
     -- mod-shift-{w,e,r}, Move client to screen 1, 2, or 3
     [((m .|. modMask, key), screenWorkspace sc >>= flip whenJust (windows . f))
-        | (key, sc) <- zip [xK_n, xK_d, xK_r] [0..]
+        | (key, sc) <- zip [xK_n, xK_d, xK_i] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
 myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
