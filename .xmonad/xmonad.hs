@@ -8,6 +8,7 @@ import XMonad.Layout.Reflect
 
 -- actions
 import qualified XMonad.Actions.FlexibleResize as Flex
+import XMonad.Actions.GridSelect
 
 -- hooks
 import XMonad.Hooks.DynamicLog
@@ -101,17 +102,46 @@ workspaces' = ["1:web", "2:mail", "3:chat", "4:dev-α", "5:dev-β", "6:pdf", "7:
 layoutHook' = avoidStruts $ (tiled ||| rmTiled ||| full)
     where
             rt = ResizableTall nmaster delta ratio []
-            tiled = renamed [Replace "[]="] $ smartBorders rt
-            rmTiled = renamed [Replace "[ü]"] $ smartBorders (reflectVert . Mirror $ rt)
+            tiled = renamed [Replace "[]Ξ"] $ smartBorders rt
+            rmTiled = renamed [Replace "[⊥]"] $ smartBorders (reflectVert . Mirror $ rt)
             full = renamed [Replace "[ ]"] $ noBorders Full
             nmaster = 1
             delta = 3/100
             ratio = toRational (2/(1+sqrt(5)::Double))
 
+-- gridSelect config
+gsConfig' = defaultGSConfig
+    { gs_cellwidth = 160
+    , gs_navigate = gsNav'
+    }
+
 {------------------------------------------------------------------------------}
 -- keys
 toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
 toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
+gsNav' :: TwoD a (Maybe a)
+gsNav' = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
+    where
+        navKeyMap = M.fromList
+            [ ((0,xK_Escape), cancel)
+            , ((0,xK_Return), select)
+            , ((0,xK_slash) , substringSearch gsNav')
+            , ((0,xK_Left)  , move (-1,0)  >> gsNav')
+            , ((0,xK_d)     , move (-1,0)  >> gsNav')
+            , ((0,xK_Right) , move (1,0)   >> gsNav')
+            , ((0,xK_n)     , move (1,0)   >> gsNav')
+            , ((0,xK_Down)  , move (0,1)   >> gsNav')
+            , ((0,xK_h)     , move (0,1)   >> gsNav')
+            , ((0,xK_Up)    , move (0,-1)  >> gsNav')
+            , ((0,xK_t)     , move (0,-1)  >> gsNav')
+            , ((0,xK_f)     , move (-1,-1) >> gsNav')
+            , ((0,xK_g)     , move (1,-1)  >> gsNav')
+            , ((0,xK_b)     , move (-1,1)  >> gsNav')
+            , ((0,xK_m)     , move (1,1)   >> gsNav')
+            , ((0,xK_space) , setPos (0,0) >> gsNav')
+            ]
+        navDefaultHandler = const gsNav'
 
 keys' :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
@@ -148,7 +178,7 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_t      ), windows W.swapUp)
     , ((mod1Mask                , xK_h      ), spawn "tmux select-pane -t :.+")
     , ((mod1Mask                , xK_t      ), spawn "tmux select-pane -t :.-")
-
+    , ((modMask                 , xK_g      ), goToSelected gsConfig')
 
     -- resizing
     , ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size
