@@ -1,11 +1,11 @@
-# ceatinge prompt theme
+# tafryn prompt theme
 # based on adam2
 
-prompt_ceatinge_help () {
+prompt_tafryn_help () {
   cat <<'EOF'
 This prompt is color-scheme-able.  You can invoke it thus:
 
-  prompt ceatinge [ 8bit ] [<color1> [<color2> [<color3>] [<color4>]]
+  prompt tafryn [ 8bit ] [<color1> [<color2> [<color3>] [<color4>]]
 
 where the colors are for the hyphens, current directory, user@host,
 and user input bits respectively.  The default colors are cyan, green,
@@ -19,7 +19,7 @@ And you probably thought adam1 was overkill ...
 EOF
 }
 
-prompt_ceatinge_setup () {
+prompt_tafryn_setup () {
   # Some can't be local
   local prompt_gfx_tlc prompt_gfx_mlc prompt_gfx_blc
 
@@ -65,63 +65,67 @@ prompt_ceatinge_setup () {
     prompt_single_line='false'
   fi
   # Colour scheme
-  prompt_ceatinge_color1=${1:-'cyan'}    # hyphens
-  prompt_ceatinge_color2=${2:-'green'}   # current directory
-  prompt_ceatinge_color3=${3:-'white'}   # user
-  prompt_ceatinge_color4=${4:-'white'}   # user input
-  prompt_ceatinge_color5=${5:-'yellow'}  # host
+  if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
+      prompt_tafryn_color1=${1:-'yellow'}    # hyphens
+  else
+      prompt_tafryn_color1=${1:-'cyan'}    # hyphens
+  fi
+  prompt_tafryn_color2=${2:-'green'}   # current directory
+  prompt_tafryn_color3=${3:-'white'}   # user
+  prompt_tafryn_color4=${4:-'white'}   # user input
+  prompt_tafryn_color5=${5:-'yellow'}  # host
 
   local prompt_gfx_bbox 
-  prompt_gfx_tbox="$prompt_set_charset%F{$prompt_ceatinge_color1}${prompt_gfx_tlc}%b%F{$prompt_ceatinge_color1}${prompt_gfx_hyphen}"
-  prompt_gfx_bbox="%F{$prompt_ceatinge_color1}${prompt_gfx_blc}${prompt_gfx_hyphen}%b%F{$prompt_ceatinge_color1}"
+  prompt_gfx_tbox="$prompt_set_charset%F{$prompt_tafryn_color1}${prompt_gfx_tlc}%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}"
+  prompt_gfx_bbox="%F{$prompt_tafryn_color1}${prompt_gfx_blc}${prompt_gfx_hyphen}%b%F{$prompt_tafryn_color1}"
 
   # This is a cute hack.  Well I like it, anyway.
-  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_ceatinge_color1}${prompt_gfx_mlc}%b%F{$prompt_ceatinge_color1}${prompt_gfx_hyphen}%{"$'\e[B%}'
+  prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_tafryn_color1}${prompt_gfx_mlc}%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}%{"$'\e[B%}'
 
   prompt_l_paren="%B%F{black}("
   prompt_r_paren="%B%F{black})"
 
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_user_host="$prompt_l_paren%b%(!.%F{red}.%F{$prompt_ceatinge_color3})%n%F{$prompt_ceatinge_color4}@%b%F{$prompt_ceatinge_color5}%m$prompt_r_paren"
+    prompt_user_host="$prompt_l_paren%b%(!.%F{red}.%F{$prompt_tafryn_color3})%n%F{$prompt_tafryn_color4}@%b%F{$prompt_tafryn_color5}%m$prompt_r_paren"
   elif [[ $prompt_single_line == 'true' ]]; then
-    prompt_user_host="%b%(!.%F{red}.%F{$prompt_ceatinge_color3})%n%F{$prompt_ceatinge_color4}@%b%F{$prompt_ceatinge_color5}%m"
+    prompt_user_host="%b%(!.%F{red}.%F{$prompt_tafryn_color3})%n%F{$prompt_tafryn_color4}@%b%F{$prompt_tafryn_color5}%m"
   else
     prompt_user_host=""
   fi
 
   prompt_last_exit="%(?..%B%F{black}[%B%F{red}%?%B%F{black}])"
 
-  prompt_line_1a="$prompt_gfx_tbox$prompt_l_paren%b%F{$prompt_ceatinge_color2}%~$prompt_r_paren%b%F{$prompt_ceatinge_color1}"
-  prompt_line_1b="$prompt_user_host%b%F{$prompt_ceatinge_color1}${prompt_gfx_hyphen}"
+  prompt_line_1a="$prompt_gfx_tbox$prompt_l_paren%b%F{$prompt_tafryn_color2}%~$prompt_r_paren%b%F{$prompt_tafryn_color1}"
+  prompt_line_1b="$prompt_user_host%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}"
 
-  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}\$(prompt_ceatinge_git_status)$prompt_last_exit%B%F{white}"
+  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}\$(prompt_tafryn_git_status)$prompt_last_exit%B%F{white}"
 
   prompt_char="%(!.#.%%)"
 
   prompt_opts=(cr subst percent)
 
-  add-zsh-hook precmd prompt_ceatinge_precmd
+  add-zsh-hook precmd prompt_tafryn_precmd
 }
 
-prompt_ceatinge_precmd() {
+prompt_tafryn_precmd() {
   setopt noxtrace localoptions extendedglob
   local prompt_line_1
 
-  prompt_ceatinge_choose_prompt
+  prompt_tafryn_choose_prompt
 
   if [[ $prompt_single_line == 'true' ]]; then
     PS1="$prompt_user_host%B%F{white}$prompt_char %b%f%k"
-    RPROMPT=":%F{$prompt_ceatinge_color2}%~"
+    RPROMPT=":%F{$prompt_tafryn_color2}%~"
   else
     PS1="$prompt_line_1$prompt_newline$prompt_line_2%B%F{white}$prompt_char %b%f%k"
     RPROMPT=""
   fi
   PS2="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}%_> %b%f%k"
   PS3="$prompt_line_2$prompt_gfx_bbox_to_mbox%B%F{white}?# %b%f%k"
-  zle_highlight[(r)default:*]="default:fg=$prompt_ceatinge_color2,bold"
+  zle_highlight[(r)default:*]="default:fg=$prompt_tafryn_color2,bold"
 }
 
-prompt_ceatinge_choose_prompt () {
+prompt_tafryn_choose_prompt () {
   local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
   local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
 
@@ -149,10 +153,10 @@ prompt_ceatinge_choose_prompt () {
 
   # Still didn't fit; truncate 
   local prompt_pwd_size=$(( COLUMNS - 5 ))
-  prompt_line_1="$prompt_gfx_tbox$prompt_l_paren%B%F{$prompt_ceatinge_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_ceatinge_color1}$prompt_gfx_hyphen"
+  prompt_line_1="$prompt_gfx_tbox$prompt_l_paren%B%F{$prompt_tafryn_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_tafryn_color1}$prompt_gfx_hyphen"
 }
 
-prompt_ceatinge_git_status() {
+prompt_tafryn_git_status() {
   zgit_isgit || return
 
   if zgit_inworktree; then
@@ -181,5 +185,6 @@ prompt_ceatinge_git_status() {
   echo $pc[reset]
 }
 
+prompt_tafryn_setup "$@"
 
-prompt_ceatinge_setup "$@"
+# vim: ft=zsh

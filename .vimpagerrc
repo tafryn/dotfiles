@@ -1,0 +1,29 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                                  Theme                                  "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"autocmd ColorScheme * highlight RedundantSpaces term=standout ctermbg=red guibg=red
+colo jellybeans
+"match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
+hi Folded ctermfg=green ctermbg=darkgray
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"                               Keybindings                               "
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"" Dvorak Compensators
+no d h
+no h <C-e>
+no t <C-y>
+no n l
+
+no D ^
+no H <C-d>
+no T <C-u>
+no N $
+
+no s :
+no S :
+no j d
+no l n
+no L N
+
+" vim: set ft=vim :
