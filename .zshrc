@@ -26,6 +26,10 @@ export AWT_TOOLKIT='MToolkit'
 export OOO_FORCE_DESKTOP='gnome'
 export INTEL_BATCH=2
 
+# Colors for autocompletion listings
+LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
+export LS_COLORS
+
 # Old PROMPT settings
 #PROMPT="%n@%{[33m%}%m%{[0m%}$ "
 #RPROMPT=":%{[36m%}%~%{[0m%}"
@@ -62,9 +66,12 @@ alias y='yaourt'
 # Misc. Options
 ##############################################################################
 
-# Tab completion and prompt themeing
+# Tab completion
 autoload -U compinit promptinit
 compinit
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+
+# Prompt themeing
 promptinit
 prompt tafryn #single
 
@@ -95,7 +102,7 @@ bindkey -e
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[8~" end-of-line
 
-# terminal title updates; the screen one isn't so useful to me so I left it out
+# terminal title updates
 case $TERM in
     xterm*|rxvt*|eterm)
         # Truncate the working directory or command to be run to prevent the window
