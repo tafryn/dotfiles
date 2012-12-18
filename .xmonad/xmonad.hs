@@ -16,25 +16,44 @@ import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.UrgencyHook
 
--- utils
-import XMonad.Util.Run(spawnPipe)
+-- layouts
+import XMonad.Layout.NoBorders
+import XMonad.Layout.Renamed
+import XMonad.Layout.ResizableTile
 
-main = do
-    xmproc <- spawnPipe "/usr/bin/xmobar $HOME/.xmobarrc"  -- start xmobar
-    xmonad $ withUrgencyHook NoUrgencyHook $ defaultConfig
-        { manageHook = myManageHook
-        , layoutHook            = myLayoutHook
-        , logHook               = myLogHook xmproc
-        , workspaces            = myWorkspaces
-        , mouseBindings         = myMouseBindings
-        , keys                  = myKeys
-        , normalBorderColor     = "#222222"
-        , focusedBorderColor    = "#99ccff"
-        , modMask               = mod4Mask          -- Use Super instead of Alt
-        , terminal              = "urxvt"
-        }
+{------------------------------------------------------------------------------}
+-- Main --
+main :: IO ()
+main = xmonad =<< statusBar cmd pp kb conf
+    where
+        uhook = withUrgencyHook NoUrgencyHook
+        cmd = "xmobar $HOME/.xmobarrc"
+        pp = customPP
+        kb = toggleStrutsKey
+        conf = uhook config'
 
--- hooks
+{------------------------------------------------------------------------------}
+-- Config --
+config' = defaultConfig
+    { manageHook            = manageHook'
+    , layoutHook            = layoutHook'
+    , handleEventHook       = eventHook'
+    , workspaces            = workspaces'
+    , mouseBindings         = mouseBindings'
+    , keys                  = keys'
+    , modMask               = mod4Mask          -- Use Super instead of Alt
+    , normalBorderColor     = normalBorderColor'
+    , focusedBorderColor    = focusedBorderColor'
+    , terminal              = "urxvt"
+    }
+
+{------------------------------------------------------------------------------}
+-- Window Management --
+eventHook' = handleEventHook defaultConfig <+> docksEventHook
+
+manageHook' :: ManageHook
+manageHook' = ruleManageHook <+> manageHook defaultConfig
+
 ruleManageHook = composeOne . concat $
     [[checkDock         -?> doIgnore
     , isFullscreen      -?> doFullFloat
@@ -49,42 +68,53 @@ ruleManageHook = composeOne . concat $
     , [className =? c   -?> doShift "9"      | c <- otherApps]
     , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim","feh","MPlayer","Tomboy","Xmessage", "Xephyr", "Keepassx", "qemu-system-x86_64", "qemu-system-i386"]
-webApps     = ["Iron", "Uzbl-core", "Shiretoko", "Firefox", "Namoroka"]
-mailApps    = ["Mail", "Lanikai", "Thunderbird"]
+cfloatApps  = ["Zim", "feh", "MPlayer", "Xmessage", "Xephyr", "Keepassx", "qemu-system-x86_64", "qemu-system-i386"]
+webApps     = ["Uzbl-core", "Firefox"]
+mailApps    = ["Mail", "Thunderbird"]
 chatApps    = ["Pidgin", "Gajim"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
-docApps     = ["OpenOffice.org 3.2"]
+docApps     = ["OpenOffice.org 3.2", "LibreOffice 3.6"]
 vmApps      = ["Vmplayer", "VirtualBox"]
 otherApps   = ["Gimp", "Inkscape"]
 
-myManageHook :: ManageHook
-myManageHook = ruleManageHook <+> manageHook defaultConfig
 
-myLayoutHook = avoidStruts $ (tiled ||| (reflectVert . Mirror $ tiled) ||| Full)
-    where
-            tiled = Tall nmaster delta ratio
-            nmaster = 1
-            delta = 3/100
-            ratio = toRational (2/(1+sqrt(5)::Double))
-
-myLogHook :: Handle -> X ()
-myLogHook h = dynamicLogWithPP $ xmobarPP
-    { ppOutput = hPutStrLn h
-    , ppTitle = xmobarColor "#4e9a06" "" . shorten 70
+{------------------------------------------------------------------------------}
+-- Style --
+-- bar
+customPP = xmobarPP
+    { ppTitle = xmobarColor "#4e9a06" "" . shorten 70
     , ppCurrent = xmobarColor "#c4a000" "" . wrap "<" ">"
     , ppVisible = xmobarColor "#3465a4" "" . wrap "(" ")"
     , ppUrgent = xmobarColor "#cc0000" "" . wrap "!" "!"
     , ppSep = xmobarColor "#d3d7cf" "" " | "
     }
 
--- workspaces
-myWorkspaces :: [WorkspaceId]
-myWorkspaces = ["1:web", "2:mail", "3:chat", "4:dev-α", "5:dev-β", "6:pdf", "7:doc", "8:vm", "9"]
+-- borders
+normalBorderColor' = "#222222"
+focusedBorderColor' = "#99ccff"
 
+-- workspaces
+workspaces' :: [WorkspaceId]
+workspaces' = ["1:web", "2:mail", "3:chat", "4:dev-α", "5:dev-β", "6:pdf", "7:doc", "8:vm", "9"]
+
+-- layouts
+layoutHook' = avoidStruts $ (tiled ||| rmTiled ||| full)
+    where
+            rt = ResizableTall nmaster delta ratio []
+            tiled = renamed [Replace "[]="] $ smartBorders rt
+            rmTiled = renamed [Replace "[ü]"] $ smartBorders (reflectVert . Mirror $ rt)
+            full = renamed [Replace "[ ]"] $ noBorders Full
+            nmaster = 1
+            delta = 3/100
+            ratio = toRational (2/(1+sqrt(5)::Double))
+
+{------------------------------------------------------------------------------}
 -- keys
-myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
+toggleStrutsKey :: XConfig Layout -> (KeyMask, KeySym)
+toggleStrutsKey XConfig {XMonad.modMask = modMask} = (modMask, xK_b)
+
+keys' :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     -- launching/killing programs
     [ ((modMask                 , xK_Return ), spawn $ XMonad.terminal conf)
     , ((modMask                 , xK_Up     ), spawn "amixer set Master 3%+")
@@ -104,8 +134,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask   , xK_space  ), sendMessage NextLayout)
     , ((modMask .|. controlMask , xK_space  ), setLayout $ XMonad.layoutHook conf)
     , ((modMask                 , xK_b      ), sendMessage ToggleStruts)
-    , ((modMask .|. controlMask , xK_t      ), sendMessage (IncMasterN 1))
-    , ((modMask .|. controlMask , xK_h      ), sendMessage (IncMasterN (-1)))
+    , ((modMask .|. mod1Mask    , xK_t      ), sendMessage (IncMasterN 1))
+    , ((modMask .|. mod1Mask    , xK_h      ), sendMessage (IncMasterN (-1)))
 
     -- client control
     , ((modMask .|. shiftMask   , xK_s      ), withFocused $ windows . W.sink)
@@ -124,6 +154,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_r      ), refresh) -- Resize viewed windows to the correct size
     , ((modMask .|. controlMask , xK_d      ), sendMessage Shrink)
     , ((modMask .|. controlMask , xK_n      ), sendMessage Expand)
+    , ((modMask .|. controlMask , xK_h      ), sendMessage MirrorShrink)
+    , ((modMask .|. controlMask , xK_t      ), sendMessage MirrorExpand)
 
     ]
     ++
@@ -139,7 +171,8 @@ myKeys conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
         | (key, sc) <- zip [xK_n, xK_d, xK_i] [0..]
         , (f, m) <- [(W.view, 0), (W.shift, shiftMask)]]
 
-myMouseBindings (XConfig {XMonad.modMask = modm}) = M.fromList $
+-- mouse
+mouseBindings' (XConfig {XMonad.modMask = modm}) = M.fromList $
      [ ((modm, button1), (\w -> focus w >> mouseMoveWindow w >> windows W.shiftMaster))
      , ((modm, button2), (\w -> focus w >> windows W.shiftMaster))
      , ((modm, button3), (\w -> focus w >> Flex.mouseResizeWindow w >> windows W.shiftMaster))
