@@ -15,10 +15,6 @@ export GREP_COLOR='1;32'
 export PAGER='vimpager' # annoying for git
 export MANPAGER='/usr/bin/most'
 
-# Set the TERM variable for 256 colors
-#if [[ $COLORTERM == 'rxvt-xpm' ]] then
-	#export TERM='rxvt-unicode' 
-#fi
 fpath=(~/.zsh $fpath)
 
 # A hack for awesome+java
@@ -51,8 +47,8 @@ alias less="vimpager"
 alias tmux="tmux -2"
 alias git="git --no-pager"
 
-alias gd="git diff"
-alias gl="git log"
+alias gd="git diff --color"
+alias gl="git log --color"
 alias gs="git status"
 
 alias a='screen -raAd'
@@ -94,9 +90,6 @@ setopt multios
 # Protect the defenseless files
 unsetopt clobber
 
-# Remove duplicate entries from various paths.
-typeset -U path cdpath manpath fpath
-
 # Make sure to use emacs keybindings
 bindkey -e
 bindkey "\e[7~" beginning-of-line
@@ -132,6 +125,12 @@ case $TERM in
         }
         ;;
 esac
+
+# Deal with Arch's annoying /etc/profile by sourcing zshenv for a second time.
+source $HOME/.zshenv
+
+# Remove duplicate entries from various paths.
+typeset -U path cdpath manpath fpath
 
 ##############################################################################
 # Local changes
