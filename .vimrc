@@ -118,6 +118,7 @@ no N $
 no s :
 no S :
 no j d
+no J D
 no l n
 no L N
 
