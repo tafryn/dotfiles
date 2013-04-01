@@ -1,0 +1,17 @@
+application/pdf; pdftotext -layout '%s' -; copiousoutput; \
+description=PDF Document; nametemplate=%s.pdf
+
+application/vnd.openxmlformats-officedocument.wordprocessingml.document; \
+docx2txt.pl '%s' - | fmt -s; copiousoutput; description=DOCX Document; \
+nametemplate=%s.docx
+
+application/x-pkcs7-signature; \
+openssl pkcs7 -inform DER -in '%s' -noout -print_certs -text; \
+copiousoutput; description=SMIME Signature; nametemplate=%s.p7s
+
+application/pkcs7-signature; \
+openssl pkcs7 -inform DER -in '%s' -noout -print_certs -text; \
+copiousoutput; description=SMIME Signature; nametemplate=%s.p7s
+
+text/calendar; ics-gcal.py -r 15 -R -f %s; needsterminal; nametemplate=%s.ics
+text/calendar; ics-gcal.py -f %s -o; copiousoutput; nametemplate=%s.ics
