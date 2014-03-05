@@ -22,7 +22,7 @@ no L N
 no k t
 no K T
 
-" Make sure IFL is keyed to 'g'
-:set defsearch=g
+" Make sure IFL is keyed to 'gifl'
+:set defsearch=gifl
 
 echo ".vimperatorrc sourced"

@@ -69,12 +69,12 @@ ruleManageHook = composeOne . concat $
     , [className =? c   -?> doShift "9"      | c <- otherApps]
     , [return True      -?> insertPosition End Newer]
     ]
-cfloatApps  = ["Zim", "feh", "MPlayer", "Xmessage", "Xephyr", "Keepassx", "qemu-system-x86_64", "qemu-system-i386"]
+cfloatApps  = ["Zim", "feh", "MPlayer", "Xmessage", "Xephyr", "Keepassx", "qemu-system-x86_64", "qemu-system-i386", "Display"]
 webApps     = ["Uzbl-core", "Firefox"]
 mailApps    = ["Mail", "Thunderbird"]
 chatApps    = ["Pidgin", "Gajim"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
-docApps     = ["OpenOffice.org 3.2", "LibreOffice 3.6"]
+docApps     = ["LibreOffice 4.0", "libreoffice-startcenter"]
 vmApps      = ["Vmplayer", "VirtualBox"]
 otherApps   = ["Gimp", "Inkscape"]
 
@@ -153,6 +153,7 @@ keys' conf@(XConfig {XMonad.modMask = modMask}) = M.fromList $
     , ((modMask                 , xK_s      ), spawn "mpc stop")
     , ((modMask                 , xK_p      ), spawn "dmenu_run")
     , ((modMask                 , xK_m      ), spawn $ XMonad.terminal conf ++ " -e mutt -R")
+    , ((modMask                 , xK_z      ), spawn "zim")
     , ((shiftMask               , xK_Scroll_Lock ), spawn "~/bin/kvm-swap")
     , ((controlMask             , xK_6      ), spawn "xscreensaver-command -lock")
     , ((modMask .|. shiftMask   , xK_c      ), kill)

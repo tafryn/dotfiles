@@ -8,6 +8,7 @@
 
 export LC_COLLATE='C'
 export EDITOR='vim'
+export PYTHONIOENCODING='UTF-8'
 
 export GREP_OPTIONS='--color=auto'
 export GREP_COLOR='1;32'
@@ -57,6 +58,9 @@ alias ag='sudo apt-get'
 alias agi='sudo apt-get install'
 alias p='pacman'
 alias y='yaourt'
+alias poweroff='sudo systemctl poweroff'
+alias restart='sudo systemctl restart'
+
 
 ##############################################################################
 # Misc. Options

@@ -37,16 +37,17 @@ set visualbell
 set autochdir
 set gdefault
 set shiftround
-set smartindent
+"set smartindent
 filetype on
 filetype indent on
 filetype plugin on
 set showmatch
 set incsearch
-set backupdir=~/.vim-tmp,~/tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,~/tmp,/var/tmp,/tmp
+set backupdir=~/.vim-tmp,/var/tmp,/tmp
+set directory=~/.vim-tmp,/var/tmp,/tmp
 set nojoinspaces
 "autocmd FileType c,py,rb set formatoptions=croql
+let g:xml_syntax_folding=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            Environment Setup                            "
@@ -92,6 +93,8 @@ exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 nmap <silent> <leader>w :set nolist!<CR>
 imap    <Insert>    <Nop>
+map     <F7>        :setlocal spell!<CR>
+imap    <F7>        <C-o>:setlocal spell!<CR>
 map     <F8>        <Esc>{j!}fmt -71<CR>}k$
 imap    <F8>        <Esc>{j!}fmt -71<CR>}k$a
 map     <F9>        g<C-g>
@@ -104,6 +107,8 @@ map     <PageDown>  <C-D>
 imap    <PageDown>  <C-O><C-D>
 map     <C-t>       :tabnew<CR>:edit 
 map!    <C-t>       <C-O>:tabnew<CR>:edit 
+map     <C-f>       gqip
+imap    <C-f>       <C-o>gqip
 "" Dvorak Compensators
 no d h
 no h j
@@ -132,4 +137,34 @@ function! <SID>SynStack()
   endif
   echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
 endfunc
+
+function! DoPrettyXML()
+  " save the filetype so we can restore it later
+  let l:origft = &ft
+  set ft=
+  " delete the xml header if it exists. This will
+  " permit us to surround the document with fake tags
+  " without creating invalid xml.
+  1s/<?xml .*?>//e
+  " insert fake tags around the entire document.
+  " This will permit us to pretty-format excerpts of
+  " XML that may contain multiple top-level elements.
+  0put ='<PrettyXML>'
+  $put ='</PrettyXML>'
+  silent %!xmllint --format -
+  " xmllint will insert an <?xml?> header. it's easy enough to delete
+  " if you don't want it.
+  " delete the fake tags
+  2d
+  $d
+  " restore the 'normal' indentation, which is one extra level
+  " too deep due to the extra tags we wrapped around the document.
+  silent %<
+  " back to home
+  1
+  " restore the filetype
+  exe "set ft=" . l:origft
+endfunction
+command! PrettyXML call DoPrettyXML()
+
 " vim: set ft=vim :

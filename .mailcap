@@ -1,3 +1,6 @@
+text/html; links %s; nametemplate=%s.html
+text/html; links -dump %s; nametemplate=%s.html; copiousoutput
+
 application/pdf; pdftotext -layout '%s' -; copiousoutput; \
 description=PDF Document; nametemplate=%s.pdf
 
@@ -15,3 +18,6 @@ copiousoutput; description=SMIME Signature; nametemplate=%s.p7s
 
 text/calendar; ics-gcal.py -r 15 -R -f %s; needsterminal; nametemplate=%s.ics
 text/calendar; ics-gcal.py -f %s -o; copiousoutput; nametemplate=%s.ics
+
+application/vnd.ms-powerpoint; soffice %s
+application/vnd.openxmlformats-officedocument.presentationml.presentation; soffice %s

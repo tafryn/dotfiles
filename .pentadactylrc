@@ -20,7 +20,7 @@ map -modes=n,v l -c -builtin <count>n
 map -modes=n,v n -c -builtin <count>l
 map -modes=n,v t -c -builtin <count>k
 set autocomplete=
-set defsearch=g
+set defsearch=ifl
 set hintkeys=uhetonasid
 set hlfind
 
