@@ -74,7 +74,7 @@ webApps     = ["Uzbl-core", "Firefox"]
 mailApps    = ["Mail", "Thunderbird"]
 chatApps    = ["Pidgin", "Gajim"]
 pdfApps     = ["Xpdf", "Evince", "Okular"]
-docApps     = ["LibreOffice 4.0", "libreoffice-startcenter"]
+docApps     = ["LibreOffice", "libreoffice-startcenter"]
 vmApps      = ["Vmplayer", "VirtualBox"]
 otherApps   = ["Gimp", "Inkscape"]
 
