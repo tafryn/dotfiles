@@ -17,7 +17,16 @@ set viminfo='20,\"50
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                 Plugins                                 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set runtimepath+=~/.vim/UltiSnips-2.2
+set runtimepath+=~/.vim/bundle/ultisnips.vim
+set runtimepath+=~/.vim/bundle/vim-snippits.vim
+set runtimepath+=~/.vim/bundle/tagbar.vim
+set runtimepath+=~/.vim/bundle/ctrlp.vim
+set runtimepath+=~/.vim/bundle/nerdtree.vim
+
+:helptags ~/.vim/bundle/ultisnips.vim/doc
+:helptags ~/.vim/bundle/tagbar.vim/doc
+:helptags ~/.vim/bundle/ctrlp.vim/doc
+:helptags ~/.vim/bundle/nerdtree.vim/doc
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                  Theme                                  "
@@ -48,6 +57,7 @@ set directory=~/.vim-tmp,/var/tmp,/tmp
 set nojoinspaces
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
+set tags+=./.tags;/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            Environment Setup                            "
@@ -92,6 +102,9 @@ let g:UltiSnipsJumpBackwardTrigger="<c-d>"
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 nmap <silent> <leader>w :set nolist!<CR>
+nmap <silent> <leader>b :TagbarToggle<CR>
+nmap <silent> <leader>. :CtrlPTag<CR>
+nmap <silent> <leader>t :NERDTreeToggle<CR>
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
 imap    <F7>        <C-o>:setlocal spell!<CR>
@@ -106,7 +119,7 @@ imap    <PageUp>    <C-O><C-U>
 map     <PageDown>  <C-D>
 imap    <PageDown>  <C-O><C-D>
 map     <C-t>       :tabnew<CR>:edit 
-map!    <C-t>       <C-O>:tabnew<CR>:edit 
+map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
 map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
 "" Dvorak Compensators
