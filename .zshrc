@@ -10,11 +10,8 @@ export LC_COLLATE='C'
 export EDITOR='vim'
 export PYTHONIOENCODING='UTF-8'
 
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS='--color=auto --binary-files=without-match --exclude-dir=.svn'
 export GREP_COLOR='1;32'
-
-export PAGER='vimpager' # annoying for git
-export MANPAGER='/usr/bin/most'
 
 fpath=(~/.zsh $fpath)
 
@@ -27,9 +24,14 @@ export INTEL_BATCH=2
 LS_COLORS='rs=0:di=01;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:su=37;41:sg=30;43:tw=30;42:ow=34;42:st=37;44:ex=01;32:';
 export LS_COLORS
 
-# Old PROMPT settings
-#PROMPT="%n@%{[33m%}%m%{[0m%}$ "
-#RPROMPT=":%{[36m%}%~%{[0m%}"
+if (( $+commands[vimpager] )) ; then
+    export PAGER='vimpager' # annoying for git
+    alias less="vimpager"
+fi
+if (( $+commands[most] )) ; then
+    export MANPAGER='/usr/bin/most'
+fi
+
 
 ##############################################################################
 # Aliases
@@ -44,10 +46,9 @@ alias socks="ssh -f -N -D 8080"
 alias desocks="pkill -f 'ssh -f -N -D 8080'"
 alias xlog="less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
-alias less="vimpager"
 alias tmux="tmux -2"
-alias git="git --no-pager"
 
+alias git="git --no-pager"
 alias gd="git diff --color"
 alias gl="git log --color"
 alias gs="git status"
@@ -98,6 +99,8 @@ unsetopt clobber
 bindkey -e
 bindkey "\e[7~" beginning-of-line
 bindkey "\e[8~" end-of-line
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
 
 # terminal title updates
 case $TERM in
