@@ -24,8 +24,18 @@ prompt_tafryn_setup () {
   local prompt_gfx_tlc prompt_gfx_mlc prompt_gfx_blc
 
   autoload zsh/terminfo
-  autoload -U zgitinit
-  zgitinit
+  source ~/.zsh/gitprompt.sh
+
+  # Colour scheme
+  if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
+      prompt_tafryn_color1=${1:-'yellow'}    # hyphens
+  else
+      prompt_tafryn_color1=${1:-'cyan'}    # hyphens
+  fi
+  prompt_tafryn_color2=${2:-'green'}   # current directory
+  prompt_tafryn_color3=${3:-'white'}   # user
+  prompt_tafryn_color4=${4:-'white'}   # user input
+  prompt_tafryn_color5=${5:-'yellow'}  # host
 
   if [[ $1 == '8bit' ]]; then
     shift
@@ -64,16 +74,6 @@ prompt_tafryn_setup () {
   else
     prompt_single_line='false'
   fi
-  # Colour scheme
-  if [[ -n "$SSH_CLIENT" || -n "$SSH2_CLIENT" ]]; then
-      prompt_tafryn_color1=${1:-'yellow'}    # hyphens
-  else
-      prompt_tafryn_color1=${1:-'cyan'}    # hyphens
-  fi
-  prompt_tafryn_color2=${2:-'green'}   # current directory
-  prompt_tafryn_color3=${3:-'white'}   # user
-  prompt_tafryn_color4=${4:-'white'}   # user input
-  prompt_tafryn_color5=${5:-'yellow'}  # host
 
   local prompt_gfx_bbox 
   prompt_gfx_tbox="$prompt_set_charset%F{$prompt_tafryn_color1}${prompt_gfx_tlc}%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}"
@@ -82,11 +82,11 @@ prompt_tafryn_setup () {
   # This is a cute hack.  Well I like it, anyway.
   prompt_gfx_bbox_to_mbox=$'%{\e[A\r'"%}%B%F{$prompt_tafryn_color1}${prompt_gfx_mlc}%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}%{"$'\e[B%}'
 
-  prompt_l_paren="%B%F{black}("
-  prompt_r_paren="%B%F{black})"
+  prompt_l_paren="%B%F{black}(%b"
+  prompt_r_paren="%B%F{black})%b"
 
   if [[ -n "$SSH_CLIENT" ]]; then
-    prompt_user_host="$prompt_l_paren%b%(!.%F{red}.%F{$prompt_tafryn_color3})%n%F{$prompt_tafryn_color4}@%b%F{$prompt_tafryn_color5}%m$prompt_r_paren"
+    prompt_user_host="$prompt_l_paren%(!.%F{red}.%F{$prompt_tafryn_color3})%n%F{$prompt_tafryn_color4}@%b%F{$prompt_tafryn_color5}%m$prompt_r_paren"
   elif [[ $prompt_single_line == 'true' ]]; then
     prompt_user_host="%b%(!.%F{red}.%F{$prompt_tafryn_color3})%n%F{$prompt_tafryn_color4}@%b%F{$prompt_tafryn_color5}%m"
   else
@@ -95,10 +95,10 @@ prompt_tafryn_setup () {
 
   prompt_last_exit="%(?..%B%F{black}[%B%F{red}%?%B%F{black}])"
 
-  prompt_line_1a="$prompt_gfx_tbox$prompt_l_paren%b%F{$prompt_tafryn_color2}%~$prompt_r_paren%b%F{$prompt_tafryn_color1}"
+  prompt_line_1a="$prompt_gfx_tbox$prompt_l_paren%F{$prompt_tafryn_color2}%~$prompt_r_paren%F{$prompt_tafryn_color1}$prompt_gfx_hyphen"
   prompt_line_1b="$prompt_user_host%b%F{$prompt_tafryn_color1}${prompt_gfx_hyphen}"
 
-  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}\$(prompt_tafryn_git_status)$prompt_last_exit%B%F{white}"
+  prompt_line_2="$prompt_gfx_bbox${prompt_gfx_hyphen}\$prompt_last_exit%B%F{white}"
 
   prompt_char="%(!.#.%%)"
 
@@ -110,6 +110,7 @@ prompt_tafryn_setup () {
 prompt_tafryn_precmd() {
   setopt noxtrace localoptions extendedglob
   local prompt_line_1
+  git_prompt=$(git_super_status)
 
   prompt_tafryn_choose_prompt
 
@@ -126,18 +127,24 @@ prompt_tafryn_precmd() {
 }
 
 prompt_tafryn_choose_prompt () {
-  local prompt_line_1a_width=${#${(S%%)prompt_line_1a//(\%([KF1]|)\{*\}|\%[Bbkf])}}
-  local prompt_line_1b_width=${#${(S%%)prompt_line_1b//(\%([KF1]|)\{*\}|\%[Bbkf])}}
+  local zero='%([BSUbfksu]|([FB]|){*})'
+  local prompt_line_1a_width=${#${(S%%)prompt_line_1a//$~zero/}}
+  local prompt_line_1b_width=${#${(S%%)prompt_line_1b//$~zero/}}
+  local git_prompt_size=${#${(S%%)git_prompt//$~zero/}} 
 
   local prompt_padding_size=$(( COLUMNS
                                   - prompt_line_1a_width
-                                  - prompt_line_1b_width ))
+                                  - prompt_line_1b_width 
+                                  - git_prompt_size + 14 ))
 
   # Try to fit in long path and user@host.
   if (( prompt_padding_size > 0 )); then
     local prompt_padding
     eval "prompt_padding=\${(l:${prompt_padding_size}::${prompt_gfx_hyphen2}:)_empty_zz}"
-    prompt_line_1="$prompt_line_1a$prompt_shift_in$prompt_padding$prompt_shift_out$prompt_line_1b"
+    prompt_line_1="$prompt_line_1a\
+$git_prompt\
+$prompt_shift_in%F{$prompt_tafryn_color1}$prompt_padding%f$prompt_shift_out\
+$prompt_line_1b"
     return
   fi
 
@@ -154,35 +161,6 @@ prompt_tafryn_choose_prompt () {
   # Still didn't fit; truncate 
   local prompt_pwd_size=$(( COLUMNS - 5 ))
   prompt_line_1="$prompt_gfx_tbox$prompt_l_paren%B%F{$prompt_tafryn_color2}%$prompt_pwd_size<...<%~%<<$prompt_r_paren%b%F{$prompt_tafryn_color1}$prompt_gfx_hyphen"
-}
-
-prompt_tafryn_git_status() {
-  zgit_isgit || return
-
-  if zgit_inworktree; then
-    if ! zgit_isindexclean; then
-      echo -n " %F{green}+"
-    fi
-
-    local -a dirty
-    if ! zgit_isworktreeclean; then
-      dirty+='%B%F{red}!'
-    fi
-
-    if zgit_hasunmerged; then
-      dirty+='%B%F{yellow}*'
-    fi
-
-    if zgit_hasuntracked; then
-      dirty+="%b%F{yellow}?"
-    fi
-
-    if [ $#dirty -gt 0 ]; then
-      echo -n " ${(j::)dirty} "
-    fi
-  fi
-
-  echo $pc[reset]
 }
 
 prompt_tafryn_setup "$@"
