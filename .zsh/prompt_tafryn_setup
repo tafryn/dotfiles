@@ -37,6 +37,19 @@ prompt_tafryn_setup () {
   prompt_tafryn_color4=${4:-'white'}   # user input
   prompt_tafryn_color5=${5:-'yellow'}  # host
 
+  # Adjustments to git-prompt.
+  ZSH_THEME_GIT_PROMPT_PREFIX="$fg_bold[black](%b%f"
+  ZSH_THEME_GIT_PROMPT_SUFFIX="$fg_bold[black])%b%f"
+  ZSH_THEME_GIT_PROMPT_SEPARATOR="|"
+  ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[gray]%}"
+  ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[red]%}%{●%G%}"
+  ZSH_THEME_GIT_PROMPT_CONFLICTS="%{$fg[red]%}%{✖%G%}"
+  ZSH_THEME_GIT_PROMPT_CHANGED="%{$fg_bold[blue]%}%{✚%G%}"
+  ZSH_THEME_GIT_PROMPT_BEHIND="%{↓%G%}"
+  ZSH_THEME_GIT_PROMPT_AHEAD="%{↑%G%}"
+  ZSH_THEME_GIT_PROMPT_UNTRACKED="%{…%G%}"
+  ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}%{✔%G%}"
+
   if [[ $1 == '8bit' ]]; then
     shift
     if [[ ${LC_ALL:-${LC_CTYPE:-$LANG}} = *UTF-8* ]]; then
