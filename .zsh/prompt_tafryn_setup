@@ -140,15 +140,25 @@ prompt_tafryn_precmd() {
 }
 
 prompt_tafryn_choose_prompt () {
+  # The should determine the number of printable characters in each subsection
+  # of the prompt. The width of git_prompt_size is not accurate.
   local zero='%([BSUbfksu]|([FB]|){*})'
   local prompt_line_1a_width=${#${(S%%)prompt_line_1a//$~zero/}}
   local prompt_line_1b_width=${#${(S%%)prompt_line_1b//$~zero/}}
-  local git_prompt_size=${#${(S%%)git_prompt//$~zero/}} 
+  local git_prompt_size=${#${(S%%)git_prompt//$~zero/}}
+  local git_prompt_width
 
+  # Compensate for the inaccuracy of git_prompt_size. This leads to an occasional
+  # off-by-one error in the width of the '-' padding.
+  if [[ $git_prompt_size > 0 ]]; then
+      git_prompt_width=$((git_prompt_size - 14))
+  else
+      git_prompt_width=0
+  fi
   local prompt_padding_size=$(( COLUMNS
                                   - prompt_line_1a_width
                                   - prompt_line_1b_width 
-                                  - git_prompt_size + 14 ))
+                                  - git_prompt_width ))
 
   # Try to fit in long path and user@host.
   if (( prompt_padding_size > 0 )); then
