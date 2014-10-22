@@ -1,1 +1,1 @@
-/home/ceatinge/.vim/bundle/ultisnips.vim/ftdetect/snippets.vim
+../bundle/ultisnips.vim/ftdetect/snippets.vim
