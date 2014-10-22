@@ -122,6 +122,12 @@ map     <C-t>       :tabnew<CR>:edit
 map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
 map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
+
+" System clipboard interaction
+noremap <silent> <leader>y "+y
+noremap <silent> <leader>yy "+Y
+noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+
 "" Dvorak Compensators
 no d h
 no h j
