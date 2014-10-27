@@ -36,9 +36,15 @@ fi
 ##############################################################################
 # Aliases
 ##############################################################################
+if (( $+commands[systemctl] )) ; then
+    alias poweroff='sudo systemctl poweroff'
+    alias restart='sudo systemctl restart'
+fi
+
 if [[ `uname` = "Linux" ]]; then
   alias ls="ls --color=auto --group-directories-first"
 fi
+
 alias ll="ls -l"
 alias la="ls -a"
 alias cls="clear;ls"
@@ -59,9 +65,6 @@ alias ag='sudo apt-get'
 alias agi='sudo apt-get install'
 alias p='pacman'
 alias y='yaourt'
-alias poweroff='sudo systemctl poweroff'
-alias restart='sudo systemctl restart'
-
 
 ##############################################################################
 # Misc. Options
