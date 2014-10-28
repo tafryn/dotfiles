@@ -122,6 +122,8 @@ map     <C-t>       :tabnew<CR>:edit
 map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
 map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
+map     <C-_>       :pop<CR>
+imap    <C-_>       <C-o>:pop<CR>
 
 " System clipboard interaction
 noremap <silent> <leader>y "+y
