@@ -39,29 +39,18 @@ hi Folded ctermfg=green ctermbg=darkgray
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                          Probationary Options                           "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set scrolloff=3
-set sidescrolloff=3
-set listchars=tab:>-,trail:.,eol:$
-set visualbell
 set autochdir
-set gdefault
-set shiftround
 "set smartindent
-filetype on
-filetype indent on
-filetype plugin on
-set showmatch
-set incsearch
 set backupdir=~/.vim-tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,/var/tmp,/tmp
-set nojoinspaces
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
-set tags+=./.tags;/
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                            Environment Setup                            "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set listchars=tab:>-,trail:.,eol:$
+set nojoinspaces
 syntax on
 set history=256
 set wildmenu
@@ -73,25 +62,35 @@ set keywordprg=c
 " Cursor behavior
 set backspace=indent,eol,start
 set nostartofline
+set scrolloff=3
+set sidescrolloff=3
 " Interface display modification
 set ruler
 set number
 set showcmd
 set title
+set visualbell
 " Standardized indentation
 set autoindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
 set smarttab
+set shiftround
 " For a better search
 set ignorecase
 set smartcase
 set hlsearch
+set incsearch
+set gdefault
 " File read/write options
 set modeline
 set suffixes=.bak,~,.swp,.o,.hi,.a,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set wildignore+=a.out,*.pyc,*.class,.git,*.o,*.a,*.hi,*.swp,*.jpg,*.png,*.xpm,*.gif
+set tags+=./.tags;/
+filetype on
+filetype indent on
+filetype plugin on
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Keybindings                               "
