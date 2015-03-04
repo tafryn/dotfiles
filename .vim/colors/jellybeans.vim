@@ -41,7 +41,7 @@ hi StatusLine     guifg=#f0f0f0 guibg=#101010 ctermfg=254 ctermbg=233 cterm=ital
 hi StatusLineNC   guifg=#a0a0a0 guibg=#18181c ctermfg=247 ctermbg=234 cterm=italic
 hi VertSplit      guifg=#181818 guibg=#18181c ctermfg=247 ctermbg=234 cterm=italic
 
-hi Folded         guibg=#384048 guifg=#a0a8bc ctermfg=248 ctermbg=238
+hi Folded         guibg=#384048 guifg=#a0a8bc ctermfg=242 ctermbg=236
 hi FoldColumn     guibg=#384048 guifg=#a0a8b0 ctermfg=248 ctermbg=248
 hi SignColumn     guibg=#384048 guifg=#a0a8b0 ctermfg=248 ctermbg=248
 
