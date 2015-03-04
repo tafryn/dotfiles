@@ -10,7 +10,6 @@ export LC_COLLATE='C'
 export EDITOR='vim'
 export PYTHONIOENCODING='UTF-8'
 
-export GREP_OPTIONS='--color=auto --binary-files=without-match --exclude-dir=.svn'
 export GREP_COLOR='1;32'
 
 fpath=($fpath ~/.zsh)
@@ -48,6 +47,7 @@ fi
 alias ll="ls -l"
 alias la="ls -a"
 alias cls="clear;ls"
+alias grep="grep --color=auto --binary-files=without-match --exclude-dir=.svn -n"
 alias socks="ssh -f -N -D 8080"
 alias desocks="pkill -f 'ssh -f -N -D 8080'"
 alias xlog="less /var/log/Xorg.0.log"
