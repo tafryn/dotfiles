@@ -1,0 +1,1 @@
+../bundle/i3-vim-syntax/ftdetect/i3.vim

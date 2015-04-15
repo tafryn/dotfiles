@@ -491,4 +491,4 @@ bind 213 exec $(gsession hibernate)
 
 # >>>
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0:
+# vim: set fdm=marker fmr=<<<,>>> fdl=0 filetype=i3:
