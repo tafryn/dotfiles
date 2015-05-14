@@ -136,6 +136,9 @@ workspace $w02 output DP-5
 workspace $w03 output DP-0
 workspace $w04 output LVDS-0
 
+# Put one of the VM workspaces on a large screen
+workspace $w09 output DP-0
+
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
 # - class       : window class    = 2nd part of WM_CLASS
@@ -234,7 +237,7 @@ bind $mod+65 focus mode_toggle
 bind $mod+Shift+65 floating toggle
 
 # Kill current window                                                  ($mod+w)
-bind $mod+25 kill
+bind $mod+Shift+25 kill
 
 # Focus Window, Vim-style                                         ($mod+[hjkl])
 bind $mod+43 focus left
