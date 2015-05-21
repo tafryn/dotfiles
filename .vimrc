@@ -100,10 +100,10 @@ let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-d>"
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
-nmap <silent> <leader>w :set nolist!<CR>
-nmap <silent> <leader>b :TagbarToggle<CR>
-nmap <silent> <leader>. :CtrlPTag<CR>
-nmap <silent> <leader>t :NERDTreeToggle<CR>
+nmap    <silent>    <leader>w :set nolist!<CR>
+nmap    <silent>    <leader>b :TagbarToggle<CR>
+nmap    <silent>    <leader>. :CtrlPTag<CR>
+nmap    <silent>    <leader>t :NERDTreeToggle<CR>
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
 imap    <F7>        <C-o>:setlocal spell!<CR>
@@ -128,6 +128,9 @@ imap    <C-_>       <C-o>:pop<CR>
 noremap <silent> <leader>y "+y
 noremap <silent> <leader>yy "+Y
 noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+
+vmap    <silent> ,y "xy:wviminfo! ~/.viminfo<CR>
+nmap    <silent> ,p :rviminfo! ~/.viminfo<CR>"xp
 
 "" Dvorak Compensators
 no d h
