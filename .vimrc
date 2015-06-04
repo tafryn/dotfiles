@@ -1,6 +1,5 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                             Auto-generated                              "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Auto-generated                                                      {{{
+"|===========================================================================
 "if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
@@ -13,10 +12,10 @@ set helplang=en
 set printoptions=paper:letter
 " read/write a .viminfo file, don't store more than 50 lines of registers
 set viminfo='20,\"50
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                 Plugins                                 "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Plugins                                                             {{{
+"|===========================================================================
 set runtimepath+=~/.vim/bundle/ultisnips.vim
 set runtimepath+=~/.vim/bundle/vim-snippits.vim
 set runtimepath+=~/.vim/bundle/tagbar.vim
@@ -27,11 +26,10 @@ set runtimepath+=~/.vim/bundle/nerdtree.vim
 :helptags ~/.vim/bundle/tagbar.vim/doc
 :helptags ~/.vim/bundle/ctrlp.vim/doc
 :helptags ~/.vim/bundle/nerdtree.vim/doc
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Theme                                  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"autocmd ColorScheme * highlight RedundantSpaces term=standout ctermbg=red guibg=red
+"|    Theme                                                               {{{
+"|===========================================================================
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '303030', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
             \ 'Comment': { 'guifg': '626262', 'guibg': '', 'ctermfg': 'Grey', 'ctermbg': '', 'attr': 'italic' },
@@ -44,22 +42,21 @@ let g:jellybeans_overrides = {
             "\ 'String': { 'guifg': '5faf5f', 'guibg': '', 'ctermfg': 'Green', 'ctermbg': '', 'attr': '' },
 let g:jellybeans_background_color_256="none"
 colo jellybeans
-"match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
 hi Folded ctermfg=green ctermbg=darkgray
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                          Probationary Options                           "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Probationary Options                                                {{{
+"|===========================================================================
 set autochdir
 "set smartindent
 set backupdir=~/.vim-tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,/var/tmp,/tmp
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                            Environment Setup                            "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Environment Setup                                                   {{{
+"|===========================================================================
 set listchars=tab:>-,trail:.,eol:$
 set nojoinspaces
 syntax on
@@ -102,10 +99,10 @@ set tags+=./.tags;/
 filetype on
 filetype indent on
 filetype plugin on
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Keybindings                               "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Keybindings                                                         {{{
+"|===========================================================================
 " Provisional
 nnoremap <CR> G
 nnoremap <BS> gg
@@ -172,10 +169,10 @@ no L N
 "noremap <silent> <leader>y "+y
 "noremap <silent> <leader>yy "+Y
 "noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+" }}} "
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                Functions                                "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Functions                                                           {{{
+"|===========================================================================
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
@@ -305,5 +302,6 @@ if has("autocmd")
           \ endif
   augroup END
 endif
+" }}} "
 
-" vim: set ft=vim :
+" vim: set ft=vim fdm=marker :

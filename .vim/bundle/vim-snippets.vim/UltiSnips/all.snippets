@@ -121,6 +121,7 @@ snip.rv = box[0]
 box = make_header(len(t[1]), width)
 snip.rv = box[1] + '\n' + box[2]`
 $0
+`!p snip.rv = _get_comment_format()[0]` `!p snip.rv = foldmarker()[1]` `!p snip.rv = _get_comment_format()[2]`
 endsnippet
 
 snippet fold "Insert a vim fold marker" b
