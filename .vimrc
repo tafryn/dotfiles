@@ -21,11 +21,15 @@ set runtimepath+=~/.vim/bundle/vim-snippits.vim
 set runtimepath+=~/.vim/bundle/tagbar.vim
 set runtimepath+=~/.vim/bundle/ctrlp.vim
 set runtimepath+=~/.vim/bundle/nerdtree.vim
+set runtimepath+=~/.vim/bundle/vim-airline.vim
+set runtimepath+=~/.vim/bundle/vim-fugitive.vim
 
 :helptags ~/.vim/bundle/ultisnips.vim/doc
 :helptags ~/.vim/bundle/tagbar.vim/doc
 :helptags ~/.vim/bundle/ctrlp.vim/doc
 :helptags ~/.vim/bundle/nerdtree.vim/doc
+:helptags ~/.vim/bundle/vim-airline.vim/doc
+:helptags ~/.vim/bundle/vim-fugitive.vim/doc
 " }}} "
 
 "|    Theme                                                               {{{
@@ -43,6 +47,10 @@ let g:jellybeans_overrides = {
 let g:jellybeans_background_color_256="none"
 colo jellybeans
 hi Folded ctermfg=green ctermbg=darkgray
+let g:airline_theme='jellybeans'
+let g:airline#extensions#whitespace#enabled = 0
+"let g:airline_powerline_fonts = 1
+set laststatus=2
 " }}} "
 
 "|    Probationary Options                                                {{{
@@ -53,6 +61,7 @@ set backupdir=~/.vim-tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,/var/tmp,/tmp
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
+set noshowmode
 " }}} "
 
 "|    Environment Setup                                                   {{{
