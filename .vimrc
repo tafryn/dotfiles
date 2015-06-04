@@ -106,6 +106,12 @@ filetype plugin on
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                               Keybindings                               "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Provisional
+nnoremap <CR> G
+nnoremap <BS> gg
+map q: :q
+
+" Main
 let mapleader = " "
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-d>"
@@ -115,6 +121,7 @@ nmap    <silent>    <leader>w :set nolist!<CR>
 nmap    <silent>    <leader>b :TagbarToggle<CR>
 nmap    <silent>    <leader>. :CtrlPTag<CR>
 nmap    <silent>    <leader>t :NERDTreeToggle<CR>
+nmap    <silent>    <leader>p :CtrlP<CR>
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
 imap    <F7>        <C-o>:setlocal spell!<CR>
@@ -134,11 +141,6 @@ map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
 map     <C-_>       :pop<CR>
 imap    <C-_>       <C-o>:pop<CR>
-
-" System clipboard interaction
-noremap <silent> <leader>y "+y
-noremap <silent> <leader>yy "+Y
-noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 
 vmap    <silent> ,y "xy:wviminfo! ~/.viminfo<CR>
 nmap    <silent> ,p :rviminfo! ~/.viminfo<CR>"xp
@@ -165,6 +167,11 @@ no j d
 no J D
 no l n
 no L N
+
+" System clipboard interaction
+"noremap <silent> <leader>y "+y
+"noremap <silent> <leader>yy "+Y
+"noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "                                Functions                                "
