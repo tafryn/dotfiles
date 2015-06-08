@@ -23,6 +23,7 @@ set runtimepath+=~/.vim/bundle/ctrlp.vim
 set runtimepath+=~/.vim/bundle/nerdtree.vim
 set runtimepath+=~/.vim/bundle/vim-airline.vim
 set runtimepath+=~/.vim/bundle/vim-fugitive.vim
+set runtimepath+=~/.vim/bundle/vim-gitgutter.vim
 
 :helptags ~/.vim/bundle/ultisnips.vim/doc
 :helptags ~/.vim/bundle/tagbar.vim/doc
@@ -30,6 +31,7 @@ set runtimepath+=~/.vim/bundle/vim-fugitive.vim
 :helptags ~/.vim/bundle/nerdtree.vim/doc
 :helptags ~/.vim/bundle/vim-airline.vim/doc
 :helptags ~/.vim/bundle/vim-fugitive.vim/doc
+:helptags ~/.vim/bundle/vim-gitgutter.vim/doc
 " }}} "
 
 "|    Theme                                                               {{{
@@ -50,6 +52,7 @@ hi Folded ctermfg=green ctermbg=darkgray
 let g:airline_theme='jellybeans'
 let g:airline#extensions#whitespace#enabled = 0
 "let g:airline_powerline_fonts = 1
+"let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 " }}} "
 
