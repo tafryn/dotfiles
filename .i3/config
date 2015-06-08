@@ -132,8 +132,8 @@ set $w12 12
 
 # Assign first n workspaces to first n outputs
 workspace $w01 output VGA-0
-workspace $w02 output DP-5
-workspace $w03 output DP-0
+workspace $w02 output DP-3
+workspace $w03 output DP-5
 workspace $w04 output LVDS-0
 
 # Put one of the VM workspaces on a large screen
