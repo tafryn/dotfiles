@@ -131,6 +131,7 @@ nmap    <silent>    <leader>b :TagbarToggle<CR>
 nmap    <silent>    <leader>. :CtrlPTag<CR>
 nmap    <silent>    <leader>t :NERDTreeToggle<CR>
 nmap    <silent>    <leader>p :CtrlP<CR>
+nmap    gb          :Gblame<CR>
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
 imap    <F7>        <C-o>:setlocal spell!<CR>
