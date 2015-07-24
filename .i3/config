@@ -92,6 +92,8 @@ bar {
 
     # mode hide
     mode dock
+
+    tray_output primary
 }
 
 # Default color theme:
@@ -236,7 +238,7 @@ bind $mod+65 focus mode_toggle
 # Send client to tiling/floating layer                       ($mod+Shift+Space)
 bind $mod+Shift+65 floating toggle
 
-# Kill current window                                                  ($mod+w)
+# Kill current window                                            ($mod+Shift+w)
 bind $mod+Shift+25 kill
 
 # Focus Window, Vim-style                                         ($mod+[hjkl])
