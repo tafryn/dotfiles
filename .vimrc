@@ -116,8 +116,8 @@ filetype plugin on
 "|    Keybindings                                                         {{{
 "|===========================================================================
 " Provisional
-nnoremap <CR> G
-nnoremap <BS> gg
+nnoremap <CR> mmG
+nnoremap <BS> mmgg
 map q: :q
 
 " Main
