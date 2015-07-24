@@ -29,6 +29,9 @@ if (( $+commands[vimpager] )) ; then
     alias less="vimpager"
 elif (( $+commands[most] )) ; then
     export MANPAGER='most'
+    alias less="most"
+else
+    alias less="less -r"
 fi
 
 
