@@ -25,10 +25,10 @@ export INTEL_BATCH=2
 
 if (( $+commands[vimpager] )) ; then
     export PAGER='vimpager' # annoying for git
+    export MANPAGER='vimpager'
     alias less="vimpager"
-fi
-if (( $+commands[most] )) ; then
-    export MANPAGER='/usr/bin/most'
+elif (( $+commands[most] )) ; then
+    export MANPAGER='most'
 fi
 
 
@@ -38,6 +38,9 @@ fi
 if (( $+commands[systemctl] )) ; then
     alias poweroff='sudo systemctl poweroff'
     alias restart='sudo systemctl restart'
+fi
+if (( $+commands[vimcat] )) ; then
+    alias cat='vimcat'
 fi
 
 if [[ `uname` = "Linux" ]]; then
@@ -53,11 +56,13 @@ alias desocks="pkill -f 'ssh -f -N -D 8080'"
 alias xlog="less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
 alias tmux="tmux -2"
+alias build="mkdir -p build && pushd build && cmake ../ && make -j8 && popd"
 
 alias git="git --no-pager"
 alias gd="git diff --color"
 alias gl="git log --color"
 alias gs="git status"
+alias gg="git grep"
 
 alias a='screen -raAd'
 alias t='todo'
@@ -92,7 +97,7 @@ setopt completeinword
 setopt histverify
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-setopt auto_cd
+#setopt auto_cd # interferes with build alias
 setopt multios
 
 # Protect the defenseless files
