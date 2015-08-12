@@ -1,0 +1,12 @@
+priority -50
+
+extends c
+
+# We want to overwrite everything in parent ft.
+priority -49
+
+snippet cout "cout << .. << endl;"
+std::cout << ${1:"${2:value}"} << std::endl;
+endsnippet
+
+# vim:ft=snippets:

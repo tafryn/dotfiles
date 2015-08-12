@@ -1,0 +1,26 @@
+priority -50
+
+snippet if "if .. (if)"
+if (${1:/* condition */}) {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet el "else .. (else)"
+else {
+	${VISUAL}${0}
+}
+endsnippet
+
+snippet ife "if .. else (ife)"
+if (${1:/* condition */})
+{
+	${2}
+}
+else
+{
+	${3:/* else */}
+}
+endsnippet
+
+# vim:ft=snippets:

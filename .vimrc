@@ -16,22 +16,18 @@ set viminfo='20,\"50
 
 "|    Plugins                                                             {{{
 "|===========================================================================
-set runtimepath+=~/.vim/bundle/ultisnips.vim
-set runtimepath+=~/.vim/bundle/vim-snippits.vim
-set runtimepath+=~/.vim/bundle/tagbar.vim
-set runtimepath+=~/.vim/bundle/ctrlp.vim
-set runtimepath+=~/.vim/bundle/nerdtree.vim
-set runtimepath+=~/.vim/bundle/vim-airline.vim
-set runtimepath+=~/.vim/bundle/vim-fugitive.vim
-set runtimepath+=~/.vim/bundle/vim-gitgutter.vim
+call plug#begin('~/.vim/bundle')
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
+Plug 'kien/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'bling/vim-airline'
+Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./plugin/fugitive.vim' }
+Plug 'airblade/vim-gitgutter'
 
-:helptags ~/.vim/bundle/ultisnips.vim/doc
-:helptags ~/.vim/bundle/tagbar.vim/doc
-:helptags ~/.vim/bundle/ctrlp.vim/doc
-:helptags ~/.vim/bundle/nerdtree.vim/doc
-:helptags ~/.vim/bundle/vim-airline.vim/doc
-:helptags ~/.vim/bundle/vim-fugitive.vim/doc
-:helptags ~/.vim/bundle/vim-gitgutter.vim/doc
+Plug 'PotatoesMaster/i3-vim-syntax'
+call plug#end()
 " }}} "
 
 "|    Theme                                                               {{{

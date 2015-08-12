@@ -1,1 +1,0 @@
-../bundle/i3-vim-syntax/syntax/i3.vim
