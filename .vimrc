@@ -27,6 +27,10 @@ Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', '
 Plug 'airblade/vim-gitgutter'
 
 Plug 'PotatoesMaster/i3-vim-syntax'
+Plug 'uarun/vim-protobuf'
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+Plug 'nanotech/jellybeans.vim'
 call plug#end()
 " }}} "
 
