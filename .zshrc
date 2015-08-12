@@ -59,7 +59,7 @@ alias desocks="pkill -f 'ssh -f -N -D 8080'"
 alias xlog="less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
 alias tmux="tmux -2"
-alias build="mkdir -p build && pushd build && cmake ../ && make -j8 && popd"
+alias build="mkdir -p build_dir && pushd build_dir && cmake ../ && make -j8 && popd"
 
 alias git="git --no-pager"
 alias gd="git diff --color"
@@ -100,7 +100,7 @@ setopt completeinword
 setopt histverify
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
-#setopt auto_cd # interferes with build alias
+setopt auto_cd # interferes with build alias
 setopt multios
 
 # Protect the defenseless files
