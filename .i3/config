@@ -410,7 +410,9 @@ bind $mod+09 exec --no-startup-id xscreensaver-command -lock
 # exec $(autostart gtk)
 exec --no-startup-id ~/bin/monitor-config.sh
 exec --no-startup-id xscreensaver -no-splash
+exec --no-startup-id ~/bin/unclutter -noevents -grab
 exec --no-startup-id sleep 5; sh ~/.fehbg
+exec --no-startup-id gajim
 
 
 # >>>
