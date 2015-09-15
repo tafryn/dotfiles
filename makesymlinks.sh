@@ -12,9 +12,10 @@
 
 dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
-files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf vimpagerrc vimrc\
-       vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh"    # list of files/folders to symlink in homedir
-change_counter=0
+change_counter=0                  # count of changes made
+# list of files/folders to symlink in homedir
+files="gdbinit irssi mailcap pentadactylrc screenrc sensible.tmux tmux.conf\
+       vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh"
 
 # }}} #
 
@@ -35,7 +36,7 @@ for file in $files; do
             echo "Moving existing .$file from ~ to $olddir"
             mv ~/.$file $olddir
         fi
-        echo "Creating symlink to $file in home directory."
+        echo "Creating symlink to .$file in home directory."
         ln -s $dir/.$file ~/.$file
         change_counter=$((change_counter+1))
     fi
