@@ -1,14 +1,20 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                                  Theme                                  "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"|    Theme                                                               {{{
+"|===========================================================================
 "autocmd ColorScheme * highlight RedundantSpaces term=standout ctermbg=red guibg=red
 colo jellybeans
 "match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
 hi Folded ctermfg=green ctermbg=darkgray
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"                               Keybindings                               "
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}} "
+
+"|    Settings                                                            {{{
+"|===========================================================================
+let g:vimpager_passthrough = 0
+
+" }}} "
+
+"|    Keybindings                                                         {{{
+"|===========================================================================
 "" Dvorak Compensators
 no d h
 no h <C-e>
@@ -25,5 +31,7 @@ no S :
 no j d
 no l n
 no L N
+
+" }}} "
 
 " vim: set ft=vim :
