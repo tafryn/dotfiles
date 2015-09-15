@@ -29,6 +29,8 @@ Plug 'airblade/vim-gitgutter'
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'uarun/vim-protobuf'
 Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'tmux-plugins/vim-tmux'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
