@@ -14,7 +14,7 @@ dir=~/dotfiles                    # dotfiles directory
 olddir=~/dotfiles_old             # old dotfiles backup directory
 change_counter=0                  # count of changes made
 # list of files/folders to symlink in homedir
-files="gdbinit irssi mailcap pentadactylrc screenrc sensible.tmux tmux.conf tmux\
+files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
        vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh"
 
 # }}} #
