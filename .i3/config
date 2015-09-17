@@ -328,6 +328,14 @@ mode "resize" {
   bindsym space  mode "default"
 }
 
+# Previous/Next Workspace                                         ($mod+Escape)
+mode "passthrough" {
+  # back to normal
+  bind $mod+Shift+9 mode "default"
+}
+#bind $mod+Shift+9 mode "passthrough"; exec sh -c 'sleep 2 && i3-msg mode "default"'
+bind $mod+Shift+9 mode "passthrough"
+
 # Previous/Next Workspace                                           ($mod+[ui])
 bind $mod+30 workspace prev
 bind $mod+31 workspace next
