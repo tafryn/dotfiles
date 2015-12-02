@@ -5,22 +5,6 @@ function __git_is_repo -d "Check if current directory is a repository"
     test -d .git; or command git rev-parse --git-dir >/dev/null ^/dev/null
 end
 
-#function __git_is_stashed -d "Check if repo has stashed contents"
-  #git_is_repo; and begin
-    #command git rev-parse --verify --quiet refs/stash >/dev/null
-  #end
-#end
-
-#function __git_is_dirty -d "Check if there are changes to tracked files"
-  #git_is_repo; and not command git diff --no-ext-diff --quiet --exit-code
-#end
-
-#function __git_is_staged -d "Check if repo has staged changes"
-  #git_is_repo; and begin
-    #not command git diff --cached --no-ext-diff --quiet --exit-code
-  #end
-#end
-
 function __git_branch_name -d "Get the current branch name."
     echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
@@ -48,17 +32,10 @@ function __git_changes -d "Return the number of staged, modified, and untracked 
       {print s\"\n\"m\"\n\"u\"\n\"}"
 end
 
-#function git_is_touched -d "Check if repo has any changes"
-  #git_is_repo; and begin
-    #test -n (echo (command git status --porcelain))
-  #end
-#end
-
-#function git_untracked -d "Print list of untracked files"
-  #git_is_repo; and begin
-    #command git ls-files --other --exclude-standard
-  #end
-#end
+function __git_stashed -d "Return the number of stashes."
+    set -l stashes (command git stash list)
+    test -n stashes
+end
 
 function __git_display
     set -l git_branch (__git_branch_name)
@@ -77,6 +54,10 @@ function __git_display
     if [ $behead[2] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$behead[2]"))
         set upstream_delta "$upstream_delta"(byellow)"↓$behead[2]"(off)
+    end
+    if __git_stashed
+        set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count "."))
+        set upstream_delta "$upstream_delta"(bcyan)"↩"(off)
     end
 
     set -l changes (__git_changes)
