@@ -2,7 +2,7 @@
 #|============================================================================
 
 function __git_is_repo -d "Check if current directory is a repository"
-    test -d .git; or command git rev-parse --git-dir >/dev/null ^/dev/null
+    test -d .git; and set -g __GIT_DIR ".git"; or set -g __GIT_DIR (command git rev-parse --git-dir ^/dev/null)
 end
 
 function __git_branch_name -d "Get the current branch name."
@@ -33,8 +33,7 @@ function __git_changes -d "Return the number of staged, modified, and untracked 
 end
 
 function __git_stashed -d "Return the number of stashes."
-    set -l stashes (command git stash list)
-    test -n stashes
+    test -r $__GIT_DIR/refs/stash
 end
 
 function __git_display
@@ -55,6 +54,7 @@ function __git_display
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$behead[2]"))
         set upstream_delta "$upstream_delta"(byellow)"↓$behead[2]"(off)
     end
+
     if __git_stashed
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count "."))
         set upstream_delta "$upstream_delta"(bcyan)"↩"(off)
