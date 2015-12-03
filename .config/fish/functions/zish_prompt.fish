@@ -117,7 +117,9 @@ function fish_prompt
     set -g TOP_BAR_MINUS    ""
     set -l __total_span     $COLUMNS
     set -l symbol           "λ "
+    set -l bar_color        (cyan)
     set -l __git_display    ""
+    set -l __ssh_display    ""
     set -l st               $status
 
     set -l __pwd (pwd)
@@ -128,24 +130,35 @@ function fish_prompt
         set __git_display (__git_display)
     end
 
+    if test -n "$SSH_CLIENT" -o -n "$SSH2_CLIENT"
+        set bar_color (yellow)
+        set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$HOSTNAME.."))
+        set __ssh_display (bgray)"("(off)"$USER@"(yellow)"$HOSTNAME"(off)(bgray)")"(off)$bar_color"─"(off)
+    end
+
     # Subtract length of static elements from span bar length.
     set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot 5)
 
     #|    First Line of Prompt                                                 {{{
     #|============================================================================
     
-    echo -n (cyan)"┌─"(off)
+    echo -n $bar_color"┌─"(off)
     echo -n (bgray)"("(off)
     echo -n (green)"$__pwd"(off)
     echo -n (bgray)")"(off)
-    echo -n (cyan)"─"(off)
+    echo -n $bar_color"─"(off)
 
     echo -n $__git_display
 
     # Adjust length of horizontal span to account for top line elements.
     set -l tbm (__char_count $TOP_BAR_MINUS)
     set -l __total_span (math "$__total_span - $tbm") 
-    echo (cyan)(__repeat_bar $__total_span)(off)
+
+    # Print spanning bar
+    echo -n $bar_color(__repeat_bar $__total_span)(off)
+
+    # Print username and host information for ssh sessions.
+    echo $__ssh_display
 
     # }}} #
 
@@ -153,7 +166,7 @@ function fish_prompt
     #|============================================================================
     
     # Second Line of Prompt
-    echo -n (cyan)"└─"(off)
+    echo -n $bar_color"└─"(off)
     if [ "$st" = 0 ]
         echo -n (bblue)"$symbol"(off)
     else
