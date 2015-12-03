@@ -15,7 +15,8 @@ olddir=~/dotfiles_old             # old dotfiles backup directory
 change_counter=0                  # count of changes made
 # list of files/folders to symlink in homedir
 files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
-       vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh"
+       vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh\
+       config/fish/functions/zish_greeting.fish config/fish/functions/zish_prompt.fish"
 
 # }}} #
 
@@ -37,6 +38,7 @@ for file in $files; do
             mv ~/.$file $olddir
         fi
         echo "Creating symlink to .$file in home directory."
+        mkdir -p `dirname ~/.$file`
         ln -s $dir/.$file ~/.$file
         change_counter=$((change_counter+1))
     fi
