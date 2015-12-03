@@ -30,7 +30,9 @@ Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'uarun/vim-protobuf'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+"Plug 'tmux-plugins/vim-tmux-focus-events'
+Plug 'pearofducks/ansible-vim'
+Plug 'dag/vim-fish'
 
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
@@ -113,6 +115,7 @@ set tags+=./.tags;/
 filetype on
 filetype indent on
 filetype plugin on
+set shell=/bin/bash
 " }}} "
 
 "|    Keybindings                                                         {{{
