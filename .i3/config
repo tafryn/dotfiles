@@ -398,14 +398,14 @@ bind $mod+56 border toggle
 
 # Start a new terminal                                             ($mod+Enter)
 # bind $mod+36 exec roxterm
-bind $mod+36 exec $(urxvt256c -e tmux)
+bind $mod+36 exec "urxvt256c -e tmux"
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
-# bind $mod+33 exec $(dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
-bind $mod+33 exec --no-startup-id $(dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1')
+# bind $mod+33 exec "dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
+bind $mod+33 exec --no-startup-id "dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file.
@@ -415,13 +415,14 @@ bind $mod+Shift+33 exec --no-startup-id i3-dmenu-desktop
 bind $mod+09 exec --no-startup-id xscreensaver-command -lock
 
 # Autostart (= personal startup script)
-# exec $(autostart gtk)
+# exec "autostart gtk"
 exec --no-startup-id ~/bin/monitor-config.sh
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id ~/bin/unclutter -noevents -grab
 exec --no-startup-id sleep 5; sh ~/.fehbg
 exec --no-startup-id gajim
-
+exec --no-startup-id ssh-agent -t 3600
+exec --no-startup-id sleep 5; ~/bin/screen-lock-do.sh
 
 # >>>
 
@@ -429,45 +430,45 @@ exec --no-startup-id gajim
 #|=============================================================================
 
 # Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
-bind $mod+53 exec $(xdotool getactivewindow key ctrl+x)
-bind $mod+54 exec $(xdotool getactivewindow key ctrl+c)
-bind $mod+55 exec $(xdotool getactivewindow key ctrl+v)
+bind $mod+53 exec "xdotool getactivewindow key ctrl+x"
+bind $mod+54 exec "xdotool getactivewindow key ctrl+c"
+bind $mod+55 exec "xdotool getactivewindow key ctrl+v"
 
 # Word-by-word movements                                            (alt+arrow)
-# bindsym mod1+Left  exec $(xdotool getactivewindow key ctrl+Left)
-# bindsym mod1+Down  exec $(xdotool getactivewindow key ctrl+Down)
-# bindsym mod1+Up    exec $(xdotool getactivewindow key ctrl+Up)
-# bindsym mod1+Right exec $(xdotool getactivewindow key ctrl+Right)
+# bindsym mod1+Left  exec "xdotool getactivewindow key ctrl+Left"
+# bindsym mod1+Down  exec "xdotool getactivewindow key ctrl+Down"
+# bindsym mod1+Up    exec "xdotool getactivewindow key ctrl+Up"
+# bindsym mod1+Right exec "xdotool getactivewindow key ctrl+Right"
 
 #                                                                 (super+arrow)
-bindsym mod4+Left  exec $(xdotool getactivewindow key Home)
-bindsym mod4+Down  exec $(xdotool getactivewindow key Next)
-bindsym mod4+Up    exec $(xdotool getactivewindow key Prior)
-bindsym mod4+Right exec $(xdotool getactivewindow key End)
+bindsym mod4+Left  exec "xdotool getactivewindow key Home"
+bindsym mod4+Down  exec "xdotool getactivewindow key Next"
+bindsym mod4+Up    exec "xdotool getactivewindow key Prior"
+bindsym mod4+Right exec "xdotool getactivewindow key End"
 
 # Word-by-word selection                                      (alt+shift+arrow)
-# bindsym mod1+Shift+Left  exec $(xdotool getactivewindow key ctrl+shift+Left)
-# bindsym mod1+Shift+Down  exec $(xdotool getactivewindow key ctrl+shift+Down)
-# bindsym mod1+Shift+Up    exec $(xdotool getactivewindow key ctrl+shift+Up)
-# bindsym mod1+Shift+Right exec $(xdotool getactivewindow key ctrl+shift+Right)
+# bindsym mod1+Shift+Left  exec "xdotool getactivewindow key ctrl+shift+Left"
+# bindsym mod1+Shift+Down  exec "xdotool getactivewindow key ctrl+shift+Down"
+# bindsym mod1+Shift+Up    exec "xdotool getactivewindow key ctrl+shift+Up"
+# bindsym mod1+Shift+Right exec "xdotool getactivewindow key ctrl+shift+Right"
 
 #                                                           (super+shift+arrow)
-bindsym mod4+Shift+Left  exec $(xdotool getactivewindow key shift+Home)
-bindsym mod4+Shift+Down  exec $(xdotool getactivewindow key shift+Next)
-bindsym mod4+Shift+Up    exec $(xdotool getactivewindow key shift+Prior)
-bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
+bindsym mod4+Shift+Left  exec "xdotool getactivewindow key shift+Home"
+bindsym mod4+Shift+Down  exec "xdotool getactivewindow key shift+Next"
+bindsym mod4+Shift+Up    exec "xdotool getactivewindow key shift+Prior"
+bindsym mod4+Shift+Right exec "xdotool getactivewindow key shift+End"
 
 # Mouse pointer                                                    ($mod+arrow)
-# bindsym $mod+Left  exec $(xdotool mousemove_relative -- -20   0)
-# bindsym $mod+Down  exec $(xdotool mousemove_relative --   0  20)
-# bindsym $mod+Up    exec $(xdotool mousemove_relative --   0 -20)
-# bindsym $mod+Right exec $(xdotool mousemove_relative --  20   0)
+# bindsym $mod+Left  exec "xdotool mousemove_relative -- -20   0"
+# bindsym $mod+Down  exec "xdotool mousemove_relative --   0  20"
+# bindsym $mod+Up    exec "xdotool mousemove_relative --   0 -20"
+# bindsym $mod+Right exec "xdotool mousemove_relative --  20   0"
 
 # Mouse clicks                                               ($mod+shift+arrow)
-# bindsym $mod+Shift+Left  exec $(xdotool click 1)
-# bindsym $mod+Shift+Down  exec $(xdotool click 5)
-# bindsym $mod+Shift+Up    exec $(xdotool click 4)
-# bindsym $mod+Shift+Right exec $(xdotool click 3)
+# bindsym $mod+Shift+Left  exec "xdotool click 1"
+# bindsym $mod+Shift+Down  exec "xdotool click 5"
+# bindsym $mod+Shift+Up    exec "xdotool click 4"
+# bindsym $mod+Shift+Right exec "xdotool click 3"
 
 # >>>
 
@@ -476,33 +477,33 @@ bindsym mod4+Shift+Right exec $(xdotool getactivewindow key shift+End)
 
 # Screenshot                                                           (PrtScr)
 # +shift ⇒ focused window only
-bind 107       exec $(scrot    -e 'mv $f ~/Pictures/Screenshots')
-bind Shift+107 exec $(scrot -u -e 'mv $f ~/Pictures/Screenshots')
+bind 107       exec "scrot    -e 'mv $f ~/Pictures/Screenshots'"
+bind Shift+107 exec "scrot -u -e 'mv $f ~/Pictures/Screenshots'"
 
 # Volume control                                               (mute|vol-|vol+)
 # https://github.com/fabi1cazenave/dotFiles/blob/master/bin/mvolume
-bind 121 exec $(amixer set Master toggle && pkill -USR1 -x i3status)
-bind 122 exec $(amixer set Master 3%- && pkill -USR1 -x i3status)
-bind 123 exec $(amixer set Master 3%+ && pkill -USR1 -x i3status)
+bind 121 exec "amixer set Master toggle && pkill -USR1 -x i3status"
+bind 122 exec "amixer set Master 3%- && pkill -USR1 -x i3status"
+bind 123 exec "amixer set Master 3%+ && pkill -USR1 -x i3status"
 
 # Playlist control (cmus)                                            (Fn+arrow)
-bind 171 exec $(cmus-remote --next)
-bind 172 exec $(cmus-remote --pause)
-bind 173 exec $(cmus-remote --prev)
-bind 174 exec $(cmus-remote --stop)
+bind 171 exec "cmus-remote --next"
+bind 172 exec "cmus-remote --pause"
+bind 173 exec "cmus-remote --prev"
+bind 174 exec "cmus-remote --stop"
 
 # lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
 # https://github.com/fabi1cazenave/dotFiles/blob/master/bin/gsession
-bind 160 exec $(gsession lock)
-#bind 244 exec $()
-bind 150 exec $(gsession suspend)
-bind 213 exec $(gsession hibernate)
+bind 160 exec "gsession lock"
+#bind 244 exec ""
+bind 150 exec "gsession suspend"
+bind 213 exec "gsession hibernate"
 
 # ???                                                        (Fn+[F5|F6|F7|F8])
-#bind 246 exec $()
-#bind 220 exec $()
-#bind 235 exec $()
-#bind 199 exec $()
+#bind 246 exec ""
+#bind 220 exec ""
+#bind 235 exec ""
+#bind 199 exec ""
 
 # >>>
 
