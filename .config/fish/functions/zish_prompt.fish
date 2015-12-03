@@ -114,6 +114,9 @@ end
 # }}} #
 
 function fish_prompt
+    if not set -q __fish_prompt_hostname
+        set -g __fish_prompt_hostname (hostname | cut -d . -f 1)
+    end
     set -g TOP_BAR_MINUS    ""
     set -l __total_span     $COLUMNS
     set -l symbol           "λ "
@@ -132,8 +135,8 @@ function fish_prompt
 
     if test -n "$SSH_CLIENT" -o -n "$SSH2_CLIENT"
         set bar_color (yellow)
-        set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$HOSTNAME.."))
-        set __ssh_display (bgray)"("(off)"$USER@"(yellow)"$HOSTNAME"(off)(bgray)")"(off)$bar_color"─"(off)
+        set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$__fish_prompt_hostname.."))
+        set __ssh_display (bgray)"("(off)"$USER@"(yellow)"$__fish_prompt_hostname"(off)(bgray)")"(off)$bar_color"─"(off)
     end
 
     # Subtract length of static elements from span bar length.
