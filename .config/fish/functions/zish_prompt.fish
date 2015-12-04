@@ -125,7 +125,7 @@ function fish_prompt
     set -l __ssh_display    ""
     set -l st               $status
 
-    set -l __pwd (pwd)
+    set -l __pwd (prompt_pwd)
     # Add cwd length to be removed from span length.
     set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count $__pwd))
 
