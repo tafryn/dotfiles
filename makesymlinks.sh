@@ -16,7 +16,8 @@ change_counter=0                  # count of changes made
 # list of files/folders to symlink in homedir
 files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
        vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh\
-       config/fish/functions/zish_greeting.fish config/fish/functions/zish_prompt.fish"
+       config/fish/functions/zish_greeting.fish config/fish/functions/zish_prompt.fish\
+       config/fish/config.fish"
 
 # }}} #
 
