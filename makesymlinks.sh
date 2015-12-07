@@ -17,7 +17,8 @@ change_counter=0                  # count of changes made
 files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
        vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh\
        config/fish/functions/fish_greeting.fish config/fish/functions/fish_prompt.fish\
-       config/fish/config.fish config/fish/aliases.fish config/fish/functions/ls.fish"
+       config/fish/config.fish config/fish/aliases.fish config/fish/functions/ls.fish
+       config/fish/functions/varclear.fish config/fish/functions/inc.fish"
 
 # }}} #
 
