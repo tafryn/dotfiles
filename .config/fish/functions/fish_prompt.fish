@@ -1,0 +1,1 @@
+zish_prompt.fish
