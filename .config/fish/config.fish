@@ -2,6 +2,7 @@
 
 # Environment Variables
 set -x EDITOR "vim"
+set -gx MANPATH (manpath -g)
 
 # PATH is handled specially by fish so the elements are space separated
 # instead of colon separated.
