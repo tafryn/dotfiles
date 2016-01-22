@@ -63,9 +63,10 @@ set $mod Mod1
 floating_modifier $mod
 
 # Font for window titles and the status bar. Note: ISO 10646 = Unicode.
-font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
+#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # font -*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*
-# font pango:DejaVu Sans 8
+#font pango:DejaVu Sans 10
+font xft:DejaVu Sans Mono, Icons 10
 #font pango:Ubuntu 9
 
 # default mode: workspace_layout <default|stacking|tabbed>
@@ -77,6 +78,7 @@ new_float normal
 
 # Statusline (i3bar)
 bar {
+    i3bar_command i3bar_wrapper.sh
     status_command ~/bin/i3script.sh
     position bottom
     colors {
@@ -133,13 +135,20 @@ set $w11 11
 set $w12 12
 
 # Assign first n workspaces to first n outputs
-workspace $w01 output VGA-0
+workspace $w01 output LVDS-0
 workspace $w02 output DP-3
 workspace $w03 output DP-5
-workspace $w04 output LVDS-0
+workspace $w04 output VGA-0
 
-# Put one of the VM workspaces on a large screen
-workspace $w09 output DP-0
+workspace $w05 output LVDS-0
+workspace $w06 output DP-3
+workspace $w07 output DP-5
+workspace $w08 output VGA-0
+
+workspace $w09 output LVDS-0
+workspace $w10 output DP-3
+workspace $w11 output DP-5
+workspace $w12 output VGA-0
 
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
@@ -148,13 +157,12 @@ workspace $w09 output DP-0
 # - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
 
 # Common apps are sorted by workspace
-assign [class="Firefox"]                                → $w04
-assign [class="^VirtualBox" title="Stbd LCP"]           → $w09
-assign [class="^VirtualBox" title="Port LCP"]           → $w09
-assign [class="^VirtualBox" title="TDC"]                → $w09
-assign [class="^VirtualBox" title="Manager"]            → $w10
-assign [class="^VirtualBox" title="CSA Development"]    → $w11
-assign [class="^VirtualBox" title="Redmine"]            → $w12
+assign [class="Firefox"]                                → $w01
+assign [class="^VirtualBox" title="Stbd LCP"]           → $w12
+assign [class="^VirtualBox" title="Port LCP"]           → $w12
+assign [class="^VirtualBox" title="TDC"]                → $w12
+assign [class="^VirtualBox" title="Manager"]            → $w09
+assign [class="^VirtualBox" title="CSA Development"]    → $w10
 #assign [class="^Thunderbird"]          → $w06
 #assign [class="^Work$"]                → $w08
 #assign [class="^VirtualBox"]           → $w10
@@ -416,7 +424,7 @@ bind $mod+09 exec --no-startup-id xscreensaver-command -lock
 
 # Autostart (= personal startup script)
 # exec "autostart gtk"
-exec --no-startup-id ~/bin/monitor-config.sh
+#exec --no-startup-id ~/bin/monitor-config.sh
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id ~/bin/unclutter -noevents -grab
 exec --no-startup-id sleep 5; sh ~/.fehbg
