@@ -33,6 +33,7 @@ Plug 'tmux-plugins/vim-tmux'
 "Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'pearofducks/ansible-vim'
 Plug 'dag/vim-fish'
+Plug 'rust-lang/rust.vim'
 
 Plug 'nanotech/jellybeans.vim'
 call plug#end()
