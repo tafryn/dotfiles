@@ -57,7 +57,7 @@
 #|=============================================================================
 
 # define your preferred main modifier key: Alt_L (Mod1) or Super_L (Mod4)
-set $mod Mod1
+set $mod Mod4
 
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -163,15 +163,6 @@ assign [class="^VirtualBox" title="Port LCP"]           → $w12
 assign [class="^VirtualBox" title="TDC"]                → $w12
 assign [class="^VirtualBox" title="Manager"]            → $w09
 assign [class="^VirtualBox" title="CSA Development"]    → $w10
-#assign [class="^Thunderbird"]          → $w06
-#assign [class="^Work$"]                → $w08
-#assign [class="^VirtualBox"]           → $w10
-#assign [class="^Pidgin"]               → $w11
-#assign [class="^Skype"]                → $w11
-#assign [class="^Hotot"]                → $w11
-#assign [class="^Vidyo"]                → $w12
-#assign [class="^Vlc"]                  → $w12
-#assign [class="^Totem"]                → $w12
 
 # Firefox can be run with a --class argument: (= "Firefox" by default)
 #   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
@@ -232,28 +223,28 @@ for_window [class="^B2g$"]             floating enable
 #|=============================================================================
 
 # Switch between tAbbed/Stacked/Divided/Fullscreen modes         ($mod+[asdf])
-bind $mod+38 layout tabbed
-bind $mod+39 layout stacked
-bind $mod+40 layout toggle split
-bind $mod+41 fullscreen
+bindsym $mod+a layout tabbed
+bindsym $mod+o layout stacked
+bindsym $mod+e layout toggle split
+bindsym $mod+u fullscreen
 
 # Toggle global fullscreen                                       ($mod+shift+f)
-bind $mod+Shift+41 fullscreen global
+bindsym $mod+Shift+f fullscreen global
 
 # Switch between tiling/floating layers                            ($mod+Space)
-bind $mod+65 focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # Send client to tiling/floating layer                       ($mod+Shift+Space)
-bind $mod+Shift+65 floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # Kill current window                                            ($mod+Shift+w)
-bind $mod+Shift+25 kill
+bindsym $mod+Shift+comma kill
 
 # Focus Window, Vim-style                                         ($mod+[hjkl])
-bind $mod+43 focus left
-bind $mod+44 focus down
-bind $mod+45 focus up
-bind $mod+46 focus right
+bindsym $mod+d focus left
+bindsym $mod+h focus down
+bindsym $mod+t focus up
+bindsym $mod+n focus right
 # Focus Window, using cursor keys                                 ($mod+arrows)
 #bindsym $mod+Left  focus left
 #bindsym $mod+Down  focus down
@@ -261,10 +252,10 @@ bind $mod+46 focus right
 #bindsym $mod+Right focus right
 
 # Move Focused Window, Vim-style                            ($mod+Shift+[hjkl])
-bind $mod+Shift+43 move left
-bind $mod+Shift+44 move down
-bind $mod+Shift+45 move up
-bind $mod+Shift+46 move right
+bindsym $mod+Shift+d move left
+bindsym $mod+Shift+h move down
+bindsym $mod+Shift+t move up
+bindsym $mod+Shift+n move right
 # Move Focused Window, using cursor keys                    ($mod+Shift+arrows)
 #bindsym $mod+Shift+Left  move left
 #bindsym $mod+Shift+Down  move down
@@ -272,32 +263,32 @@ bind $mod+Shift+46 move right
 #bindsym $mod+Shift+Right move right
 
 # Workspaces [1…12]                                       ($mod+[1234567890-=])
-bind $mod+10 workspace $w01
-bind $mod+11 workspace $w02
-bind $mod+12 workspace $w03
-bind $mod+13 workspace $w04
-bind $mod+14 workspace $w05
-bind $mod+15 workspace $w06
-bind $mod+16 workspace $w07
-bind $mod+17 workspace $w08
-bind $mod+18 workspace $w09
-bind $mod+19 workspace $w10
-bind $mod+20 workspace $w11
-bind $mod+21 workspace $w12
+bindsym $mod+1 workspace $w01
+bindsym $mod+2 workspace $w02
+bindsym $mod+3 workspace $w03
+bindsym $mod+4 workspace $w04
+bindsym $mod+5 workspace $w05
+bindsym $mod+6 workspace $w06
+bindsym $mod+7 workspace $w07
+bindsym $mod+8 workspace $w08
+bindsym $mod+9 workspace $w09
+bindsym $mod+0 workspace $w10
+bindsym $mod+minus workspace $w11
+bindsym $mod+equal workspace $w12
 
 # Move to Workspace [1…12]                          ($mod+Shift+[1234567890-=])
-bind $mod+Shift+10 move workspace $w01
-bind $mod+Shift+11 move workspace $w02
-bind $mod+Shift+12 move workspace $w03
-bind $mod+Shift+13 move workspace $w04
-bind $mod+Shift+14 move workspace $w05
-bind $mod+Shift+15 move workspace $w06
-bind $mod+Shift+16 move workspace $w07
-bind $mod+Shift+17 move workspace $w08
-bind $mod+Shift+18 move workspace $w09
-bind $mod+Shift+19 move workspace $w10
-bind $mod+Shift+20 move workspace $w11
-bind $mod+Shift+21 move workspace $w12
+bindsym $mod+Shift+1 move workspace $w01
+bindsym $mod+Shift+2 move workspace $w02
+bindsym $mod+Shift+3 move workspace $w03
+bindsym $mod+Shift+4 move workspace $w04
+bindsym $mod+Shift+5 move workspace $w05
+bindsym $mod+Shift+6 move workspace $w06
+bindsym $mod+Shift+7 move workspace $w07
+bindsym $mod+Shift+8 move workspace $w08
+bindsym $mod+Shift+9 move workspace $w09
+bindsym $mod+Shift+0 move workspace $w10
+bindsym $mod+Shift+minus move workspace $w11
+bindsym $mod+Shift+equal move workspace $w12
 
 # >>>
 
@@ -306,10 +297,10 @@ bind $mod+Shift+21 move workspace $w12
 
 # Resize Containers, Vim-style                            ($mod+Control+[hjkl])
 # see http://bugs.i3wm.org/report/ticket/576
-bind $mod+Control+43 resize shrink width 
-bind $mod+Control+44 resize grow   height
-bind $mod+Control+45 resize shrink height
-bind $mod+Control+46 resize grow   width
+bindsym $mod+Control+d resize shrink width 
+bindsym $mod+Control+h resize grow   height
+bindsym $mod+Control+t resize shrink height
+bindsym $mod+Control+n resize grow   width
 # Resize Containers, using cursor keys                    ($mod+Control+arrows)
 #bindsym $mod+Control+Left  resize shrink right 10 px or 5 ppt
 #bindsym $mod+Control+Down  resize grow   down  10 px or 5 ppt
@@ -317,13 +308,13 @@ bind $mod+Control+46 resize grow   width
 #bindsym $mod+Control+Right resize grow   right 10 px or 5 ppt
 
 # These [hjkl] bindings trigger as soon as you enter the resize mode   ($mod+r)
-bind $mod+27 mode "resize"
+bindsym $mod+r mode "resize"
 mode "resize" {
   # Vim-style
-  bind 43 resize shrink width
-  bind 44 resize grow   height
-  bind 45 resize shrink height
-  bind 46 resize grow   width
+  bindsym d resize shrink width
+  bindsym h resize grow   height
+  bindsym t resize shrink height
+  bindsym n resize grow   width
   # cursor keys
   #bindsym Left  resize shrink right 10 px or 5 ppt
   #bindsym Down  resize grow   down  10 px or 5 ppt
@@ -339,65 +330,65 @@ mode "resize" {
 # Previous/Next Workspace                                         ($mod+Escape)
 mode "passthrough" {
   # back to normal
-  bind $mod+Shift+9 mode "default"
+  bindsym $mod+Shift+Escape mode "default"
 }
 #bind $mod+Shift+9 mode "passthrough"; exec sh -c 'sleep 2 && i3-msg mode "default"'
-bind $mod+Shift+9 mode "passthrough"
+bindsym $mod+Shift+Escape mode "passthrough"
 
 # Previous/Next Workspace                                           ($mod+[ui])
-bind $mod+30 workspace prev
-bind $mod+31 workspace next
+bindsym $mod+g workspace prev
+bindsym $mod+c workspace next
 
 # Move to previous/Next Workspace                             ($mod+Shift+[ui])
-bind $mod+Shift+30 move window to workspace prev
-bind $mod+Shift+31 move window to workspace next
+bindsym $mod+Shift+g move window to workspace prev
+bindsym $mod+Shift+c move window to workspace next
 
 # Back to last workspace                                               ($mod+')
-bind $mod+48 workspace back_and_forth
+bindsym $mod+apostrophe workspace back_and_forth
 workspace_auto_back_and_forth yes
 
 # Select adjacent output (screen)                                 ($mod+[nm,.])
-bind $mod+57 focus output left
-bind $mod+58 focus output down
-bind $mod+59 focus output up
-bind $mod+60 focus output right
+bindsym $mod+b focus output left
+bindsym $mod+m focus output down
+bindsym $mod+w focus output up
+bindsym $mod+v focus output right
 
 # Move workspace to adjacent output (screen)                      ($mod+[nm,.])
-bind $mod+Shift+57 move workspace to output left
-bind $mod+Shift+58 move workspace to output down
-bind $mod+Shift+59 move workspace to output up
-bind $mod+Shift+60 move workspace to output right
+bindsym $mod+Shift+b move workspace to output left
+bindsym $mod+Shift+m move workspace to output down
+bindsym $mod+Shift+w move workspace to output up
+bindsym $mod+Shift+v move workspace to output right
 
 # Move the currently focused window to the scratchpad                  ($mod+/)
-bind $mod+61 scratchpad show
+bindsym $mod+z scratchpad show
 
 # Show/hide the scratchpad window                                ($mod+Shift+/)
 # If there are multiple scratchpad windows, this command cycles through them.
-bind $mod+Shift+61 move scratchpad
+bindsym $mod+Shift+z move scratchpad
 
 # Reload i3 configuration                                        ($mod+Shift+r)
-bind $mod+Shift+27 reload
+bindsym $mod+Shift+r reload
 
 # Restart i3 inplace                                     ($mod+Shift+BackSpace)
-bind $mod+Shift+22 restart
+bindsym $mod+Shift+BackSpace restart
 
 # Exit i3                                                 ($mod+Ctrl+BackSpace)
 #bind $mod+Control+22 exit
-bind $mod+Control+22 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Control+BackSpace exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
 #bind $mod+32       split v
-bind $mod+Shift+32 split h
-bind $mod+32       split v
+bindsym $mod+Shift+y split h
+bindsym $mod+y       split v
 
 # Focus parent/child                                           ($mod[+Shift]+;)
 # note: this key doesn’t work well with Qwerty-Lafayette (dead key)
-bind $mod+47       focus parent
-bind $mod+Shift+47 focus child
+bindsym $mod+semicolon       focus parent
+bindsym $mod+Shift+semicolon focus child
 
 # Cycle through border styles                                          ($mod+b)
 # (note: does not apply to tabbed containers)
-bind $mod+56 border toggle
+bindsym $mod+Control+b border toggle
 
 # >>>
 
@@ -406,21 +397,21 @@ bind $mod+56 border toggle
 
 # Start a new terminal                                             ($mod+Enter)
 # bind $mod+36 exec roxterm
-bind $mod+36 exec "urxvt256c -e tmux"
+bindsym $mod+Return exec "urxvt256c -e tmux"
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 # bind $mod+33 exec "dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
-bind $mod+33 exec --no-startup-id "dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
+bindsym $mod+p exec --no-startup-id "dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file.
-bind $mod+Shift+33 exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Shift+p exec --no-startup-id i3-dmenu-desktop
 
 # Lock screen
-bind $mod+09 exec --no-startup-id xscreensaver-command -lock
+bindsym $mod+Escape exec --no-startup-id xscreensaver-command -lock
 
 # Autostart (= personal startup script)
 # exec "autostart gtk"
@@ -438,9 +429,9 @@ exec --no-startup-id sleep 5; ~/bin/screen-lock-do.sh
 #|=============================================================================
 
 # Dvorak-compliant cut/copy/paste                                  ($mod+[xcv])
-bind $mod+53 exec "xdotool getactivewindow key ctrl+x"
-bind $mod+54 exec "xdotool getactivewindow key ctrl+c"
-bind $mod+55 exec "xdotool getactivewindow key ctrl+v"
+#bindsym $mod+x exec "xdotool getactivewindow key ctrl+x"
+#bindsym $mod+c exec "xdotool getactivewindow key ctrl+c"
+#bindsym $mod+v exec "xdotool getactivewindow key ctrl+v"
 
 # Word-by-word movements                                            (alt+arrow)
 # bindsym mod1+Left  exec "xdotool getactivewindow key ctrl+Left"
