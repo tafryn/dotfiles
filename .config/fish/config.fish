@@ -11,7 +11,7 @@ set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/.cabal/bin
 
 set -U fish_user_paths /usr/local/bin /usr/bin
 
-set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib
+set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sfw/lib
 
 # Local changes for this machine
 . ~/.config/fish/local.fish
