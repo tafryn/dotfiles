@@ -79,7 +79,7 @@ new_float normal
 # Statusline (i3bar)
 bar {
     i3bar_command i3bar_wrapper.sh
-    status_command ~/bin/i3script.sh
+    status_command i3status
     position bottom
     colors {
         background #000000
@@ -273,8 +273,8 @@ bindsym $mod+7 workspace $w07
 bindsym $mod+8 workspace $w08
 bindsym $mod+9 workspace $w09
 bindsym $mod+0 workspace $w10
-bindsym $mod+minus workspace $w11
-bindsym $mod+equal workspace $w12
+bindsym $mod+bracketleft workspace $w11
+bindsym $mod+bracketright workspace $w12
 
 # Move to Workspace [1…12]                          ($mod+Shift+[1234567890-=])
 bindsym $mod+Shift+1 move workspace $w01
@@ -287,8 +287,8 @@ bindsym $mod+Shift+7 move workspace $w07
 bindsym $mod+Shift+8 move workspace $w08
 bindsym $mod+Shift+9 move workspace $w09
 bindsym $mod+Shift+0 move workspace $w10
-bindsym $mod+Shift+minus move workspace $w11
-bindsym $mod+Shift+equal move workspace $w12
+bindsym $mod+Shift+bracketleft move workspace $w11
+bindsym $mod+Shift+bracketright move workspace $w12
 
 # >>>
 
@@ -378,8 +378,8 @@ bindsym $mod+Control+BackSpace exec "i3-nagbar -t warning -m 'You pressed the ex
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
 #bind $mod+32       split v
-bindsym $mod+Shift+y split h
-bindsym $mod+y       split v
+bindsym $mod+Shift+backslash split h
+bindsym $mod+minus split v
 
 # Focus parent/child                                           ($mod[+Shift]+;)
 # note: this key doesn’t work well with Qwerty-Lafayette (dead key)
