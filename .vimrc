@@ -17,6 +17,7 @@ set viminfo='20,\"50
 "|    Plugins                                                             {{{
 "|===========================================================================
 call plug#begin('~/.vim/bundle')
+
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
 Plug 'kien/ctrlp.vim'
@@ -25,7 +26,9 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'bling/vim-airline'
 Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./plugin/fugitive.vim' }
 Plug 'airblade/vim-gitgutter'
+Plug 'easymotion/vim-easymotion'
 
+" Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'uarun/vim-protobuf'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -34,9 +37,21 @@ Plug 'tmux-plugins/vim-tmux'
 Plug 'pearofducks/ansible-vim'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
+Plug 'vim-scripts/tla.vim'
 
+" Colorscheme
 Plug 'nanotech/jellybeans.vim'
+
 call plug#end()
+" }}} "
+
+"|    Plugin Configuration                                                {{{
+"|===========================================================================
+let g:EasyMotion_keys = 'aoeuhtnspyfgcrqvjwkmxbdi'
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+
+let g:gitgutter_map_keys = 0
 " }}} "
 
 "|    Theme                                                               {{{
@@ -70,6 +85,7 @@ set directory=~/.vim-tmp,/var/tmp,/tmp
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
 set noshowmode
+set updatetime=250
 " }}} "
 
 "|    Environment Setup                                                   {{{
@@ -128,16 +144,42 @@ map q: :q
 
 " Main
 let mapleader = " "
+"map <Leader> <Plug>(easymotion-prefix)
+nmap <Leader>d <Plug>(easymotion-linebackward)
+nmap <Leader>h <Plug>(easymotion-j)
+nmap <Leader>t <Plug>(easymotion-k)
+nmap <Leader>n <Plug>(easymotion-lineforward)
+nmap <Leader>w <Plug>(easymotion-w)
+nmap <Leader>W <Plug>(easymotion-W)
+nmap <Leader>e <Plug>(easymotion-e)
+nmap <Leader>E <Plug>(easymotion-E)
+nmap <Leader>b <Plug>(easymotion-b)
+nmap <Leader>B <Plug>(easymotion-B)
+nmap <Leader>n <Plug>(easymotion-n)
+nmap <Leader>N <Plug>(easymotion-N)
+nmap <Leader>s <Plug>(easymotion-s)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+nmap <Leader>F <Plug>(easymotion-F)
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  l <Plug>(easymotion-next)
+map  L <Plug>(easymotion-prev)
+
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-d>"
+
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
-nmap    <silent>    <leader>w :set nolist!<CR>
-nmap    <silent>    <leader>b :TagbarToggle<CR>
 nmap    <silent>    <leader>. :CtrlPTag<CR>
-nmap    <silent>    <leader>t :NERDTreeToggle<CR>
 nmap    <silent>    <leader>p :CtrlP<CR>
+nmap    <silent>    <leader><leader>w :set nolist!<CR>
+nmap    <silent>    <leader><leader>b :TagbarToggle<CR>
+nmap    <silent>    <leader><leader>t :NERDTreeToggle<CR>
 nmap    gb          :Gblame<CR>
+nmap    <silent>    <leader>leader>hs <Plug>GitGutterStageHunk
+nmap    <silent>    <leader>leader>hr <Plug>GitGutterRevertHunk
+nmap    <silent>    <leader>leader>hp <Plug>GitGutterPreviewHunk
+
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
 imap    <F7>        <C-o>:setlocal spell!<CR>
@@ -155,9 +197,12 @@ map     <C-t>       :tabnew<CR>:edit
 map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
 map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
+map     <C-l>       <C-]>
+imap    <C-l>       <C-o><C-]>
 map     <C-_>       :pop<CR>
 imap    <C-_>       <C-o>:pop<CR>
 
+" Global copy/paste
 vmap    <silent> ,y "xy:wviminfo! ~/.viminfo<CR>
 nmap    <silent> ,p :rviminfo! ~/.viminfo<CR>"xp
 
