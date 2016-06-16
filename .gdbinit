@@ -24,6 +24,17 @@ class R():
                 'default': True,
                 'type': bool
             },
+            'syntax_highlighting': {
+                'doc': """Pygments style to use for syntax highlighting.
+Using an empty string (or a name not in the list) disables this feature.
+The list of all the available styles can be obtained with (from GDB itself):
+
+    python from pygments.styles import get_all_styles as styles
+    python for s in styles(): print(s)
+""",
+                'default': 'vim',
+                'type': str
+            },
             # prompt
             'prompt': {
                 'doc': """Command prompt.
@@ -176,6 +187,26 @@ def format_address(address):
     pointer_size = gdb.parse_and_eval('$pc').type.sizeof
     return ('0x{{:0{}x}}').format(pointer_size * 2).format(address)
 
+def highlight(source, filename):
+    if not R.ansi:
+        highlighted = False
+    else:
+        try:
+            import pygments.lexers
+            import pygments.formatters
+            formatter_class = pygments.formatters.Terminal256Formatter
+            formatter = formatter_class(style=R.syntax_highlighting)
+            lexer = pygments.lexers.get_lexer_for_filename(filename)
+            source = pygments.highlight(source, lexer, formatter)
+            highlighted = True
+        except ImportError:
+            # Pygments not available
+            highlighted = False
+        except pygments.util.ClassNotFound:
+            # no lexer for this file or invalid style
+            highlighted = False
+    return highlighted, source.rstrip('\n')
+
 # Dashboard --------------------------------------------------------------------
 
 class Dashboard(gdb.Command):
@@ -185,38 +216,49 @@ class Dashboard(gdb.Command):
         gdb.Command.__init__(self, 'dashboard',
                              gdb.COMMAND_USER, gdb.COMPLETE_NONE, True)
         self.output = None  # main terminal
-        self.enabled = True
         # setup subcommands
         Dashboard.OutputCommand(self)
         Dashboard.EnabledCommand(self)
         Dashboard.LayoutCommand(self)
         # setup style commands
         Dashboard.StyleCommand(self, 'dashboard', R, R.attributes())
-        # setup events
-        gdb.events.cont.connect(lambda _: self.on_continue())
-        gdb.events.stop.connect(lambda _: self.on_stop())
-        gdb.events.exited.connect(lambda _: self.on_exit())
+        # enable by default
+        self.enable()
 
-    def on_continue(self):
+    def on_continue(self, _):
         # try to contain the GDB messages in a specified area unless the
         # dashboard is printed to a separate file
-        if self.enabled and self.is_running() and not self.output:
+        if self.is_running() and not self.output:
             Dashboard.update_term_width()
             gdb.write(Dashboard.clear_screen())
             gdb.write(divider('Output/messages', True))
             gdb.write('\n')
             gdb.flush()
 
-    def on_stop(self):
+    def on_stop(self, _):
         # redisplay the dashboard when the target program stops (the screen is
         # cleared by on_continue when the dashboard is printed to a separate
         # file)
-        if self.enabled and self.is_running():
+        if self.is_running():
             clear = Dashboard.clear_screen() if self.output else ''
             self.display(clear, self.build(), '\n')
 
-    def on_exit(self):
+    def on_exit(self, _):
         pass
+
+    def enable(self):
+        self.enabled = True
+        # setup events
+        gdb.events.cont.connect(self.on_continue)
+        gdb.events.stop.connect(self.on_stop)
+        gdb.events.exited.connect(self.on_exit)
+
+    def disable(self):
+        self.enabled = False
+        # setup events
+        gdb.events.cont.disconnect(self.on_continue)
+        gdb.events.stop.disconnect(self.on_stop)
+        gdb.events.exited.disconnect(self.on_exit)
 
     def load_modules(self, modules):
         self.modules = []
@@ -363,7 +405,8 @@ class Dashboard(gdb.Command):
 
     @staticmethod
     def clear_screen():
-        return '\x1b[H\x1b[2J'
+        # ANSI: move the cursor to top-left corner and clear the screen
+        return '\x1b[H\x1b[J'
 
 # Module descriptor ------------------------------------------------------------
 
@@ -482,10 +525,10 @@ The current status is printed if no argument is present."""
                 status = 'enabled' if self.dashboard.enabled else 'disabled'
                 print('The dashboard is {}'.format(status))
             elif arg == 'on':
-                self.dashboard.enabled = True
+                self.dashboard.enable()
                 self.dashboard.redisplay()
             elif arg == 'off':
-                self.dashboard.enabled = False
+                self.dashboard.disable()
             else:
                 msg = 'Wrong argument "{}"; expecting "on" or "off"'
                 Dashboard.err(msg.format(arg))
@@ -611,6 +654,10 @@ or print (when the value is omitted) individual attributes."""
                 Dashboard.create_command(prefix, invoke, doc, False)
 
         def invoke(self, arg, from_tty):
+            # an argument here means that the provided attribute is invalid
+            if arg:
+                Dashboard.err('Invalid argument "{}"'.format(arg))
+                return
             # print all the pairs
             for name, attribute in self.attributes.items():
                 attr_name = attribute.get('name', name)
@@ -626,25 +673,13 @@ or print (when the value is omitted) individual attributes."""
 # Default modules --------------------------------------------------------------
 
 class Source(Dashboard.Module):
-    """Show the program source code, if available. If the Pygments library is
-installed then it may be used for syntax highlighting."""
+    """Show the program source code, if available."""
 
     def __init__(self):
         self.file_name = None
         self.source_lines = []
         self.ts = None
-        self.ansi = R.ansi  # store the preference to check for changes
-        # try to import Pygments for syntax highlighting
-        try:
-            import pygments
-            import pygments.lexers
-            from pygments.formatters.terminal256 \
-                import Terminal256Formatter as formatter
-            self.pygments = pygments
-            self.get_lexer = pygments.lexers.get_lexer_for_filename
-            self.formatter = formatter
-        except ImportError:
-            self.pygments = None
+        self.highlighted = False
 
     def label(self):
         return 'Source'
@@ -664,32 +699,16 @@ installed then it may be used for syntax highlighting."""
             pass  # delay error check to open()
         if (style_changed or
                 file_name != self.file_name or  # different file name
-                ts and ts > self.ts or  # file modified in the meanwhile
-                R.ansi != self.ansi):  # ansi output preference changed
+                ts and ts > self.ts):  # file modified in the meanwhile
             self.file_name = file_name
             self.ts = ts
-            self.ansi = R.ansi
             try:
                 with open(self.file_name) as source_file:
-                    if self.pygments and self.ansi:
-                        try:
-                            formatter = self.formatter(style=self.colorscheme)
-                            lexer = self.get_lexer(self.file_name)
-                            source = source_file.read()
-                            source = self.pygments.highlight(
-                                source, lexer, formatter)
-                            self.source_lines = source.split('\n')
-                            if self.source_lines[-1] == '':
-                                self.source_lines.pop()
-                            self.can_highlight = True
-                        except self.pygments.util.ClassNotFound:
-                            # no lexer for the current file, fall back
-                            self.source_lines = source_file.readlines()
-                            self.can_highlight = False
-                    else:
-                        self.source_lines = source_file.readlines()
-            except:
-                msg = 'Cannot access "{}"'.format(self.file_name)
+                    self.highlighted, source = highlight(source_file.read(),
+                                                         self.file_name)
+                    self.source_lines = source.split('\n')
+            except Exception as e:
+                msg = 'Cannot display "{}" ({})'.format(self.file_name, e)
                 return [ansi(msg, R.style_error)]
         # compute the line range
         start = max(current_line - 1 - self.context, 0)
@@ -700,8 +719,8 @@ installed then it may be used for syntax highlighting."""
         for number, line in enumerate(self.source_lines[start:end], start + 1):
             if int(number) == current_line:
                 # the current line has a different style without ANSI
-                if self.ansi:
-                    if self.pygments and self.can_highlight:
+                if R.ansi:
+                    if self.highlighted:
                         line_format = ansi(number_format,
                                            R.style_selected_1) + ' {}'
                     else:
@@ -722,11 +741,6 @@ installed then it may be used for syntax highlighting."""
                 'default': 5,
                 'type': int,
                 'check': check_ge_zero
-            },
-            'colorscheme': {
-                'doc': 'Pygments style to use (empty string to disable).',
-                'default': 'vim',
-                'type': str
             }
         }
 
@@ -757,9 +771,10 @@ instructions constituting the current statement are marked, if available."""
             # line_info is not None but line_info.last is None
             line_info = gdb.find_pc_line(frame.pc())
             line_info = line_info if line_info.last else None
-        except gdb.error:
-            # if it is not possible (stripped binary) start from PC and end
-            # after twice the context
+        except (gdb.error, StopIteration):
+            # if it is not possible (stripped binary or the PC is not present in
+            # the output of `disassemble` as per issue #31) start from PC and
+            # end after twice the context
             asm = disassemble(frame.pc(), count=2 * self.context + 1)
         # fetch function start if available
         func_start = None
@@ -769,6 +784,12 @@ instructions constituting the current statement are marked, if available."""
                 func_start = to_unsigned(value)
             except gdb.error:
                 pass  # e.g., @plt
+        # fetch the assembly flavor and the extension used by Pygments
+        # TODO save the lexer and reuse it if performance becomes a problem
+        filename = {
+            'att': '.s',
+            'intel': '.asm'
+        }.get(gdb.parameter('disassembly-flavor'), '.s')
         # return the machine code
         max_length = max(instr['length'] for instr in asm)
         inferior = gdb.selected_inferior()
@@ -796,21 +817,30 @@ instructions constituting the current statement are marked, if available."""
                     func_info = '? '
             else:
                 func_info = ''
-            format_string = '{} {}{}{}'
+            format_string = '{}{}{}{}{}'
+            indicator = ' '
+            highlighted, text = highlight(text, filename)
             if addr == frame.pc():
+                if not R.ansi:
+                    indicator = '>'
                 addr_str = ansi(addr_str, R.style_selected_1)
                 opcodes = ansi(opcodes, R.style_selected_1)
                 func_info = ansi(func_info, R.style_selected_1)
-                text = ansi(text, R.style_selected_1)
+                if not highlighted:
+                    text = ansi(text, R.style_selected_1)
             elif line_info and line_info.pc <= addr < line_info.last:
+                if not R.ansi:
+                    indicator = ':'
                 addr_str = ansi(addr_str, R.style_selected_2)
                 opcodes = ansi(opcodes, R.style_selected_2)
                 func_info = ansi(func_info, R.style_selected_2)
-                text = ansi(text, R.style_selected_2)
+                if not highlighted:
+                    text = ansi(text, R.style_selected_2)
             else:
                 addr_str = ansi(addr_str, R.style_low)
                 func_info = ansi(func_info, R.style_low)
-            out.append(format_string.format(addr_str, opcodes, func_info, text))
+            out.append(format_string.format(addr_str, indicator,
+                                            opcodes, func_info, text))
         return out
 
     def attributes(self):
