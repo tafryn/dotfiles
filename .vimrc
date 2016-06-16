@@ -52,6 +52,12 @@ let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 
 let g:gitgutter_map_keys = 0
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_cpp_compiler_options = ' -std=c++11'
 " }}} "
 
 "|    Theme                                                               {{{
@@ -155,8 +161,8 @@ nmap <Leader>e <Plug>(easymotion-e)
 nmap <Leader>E <Plug>(easymotion-E)
 nmap <Leader>b <Plug>(easymotion-b)
 nmap <Leader>B <Plug>(easymotion-B)
-nmap <Leader>n <Plug>(easymotion-n)
-nmap <Leader>N <Plug>(easymotion-N)
+"nmap <Leader>n <Plug>(easymotion-n)
+"nmap <Leader>N <Plug>(easymotion-N)
 nmap <Leader>s <Plug>(easymotion-s)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
 nmap <Leader>F <Plug>(easymotion-F)
@@ -176,9 +182,9 @@ nmap    <silent>    <leader><leader>w :set nolist!<CR>
 nmap    <silent>    <leader><leader>b :TagbarToggle<CR>
 nmap    <silent>    <leader><leader>t :NERDTreeToggle<CR>
 nmap    gb          :Gblame<CR>
-nmap    <silent>    <leader>leader>hs <Plug>GitGutterStageHunk
-nmap    <silent>    <leader>leader>hr <Plug>GitGutterRevertHunk
-nmap    <silent>    <leader>leader>hp <Plug>GitGutterPreviewHunk
+nmap    <silent>    <leader><leader>hs <Plug>GitGutterStageHunk
+nmap    <silent>    <leader><leader>hr <Plug>GitGutterRevertHunk
+nmap    <silent>    <leader><leader>hp <Plug>GitGutterPreviewHunk
 
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
