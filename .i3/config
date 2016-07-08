@@ -216,6 +216,7 @@ for_window [class="control-center"]    floating enable
 for_window [class="^Pavucontrol"]      floating enable
 for_window [class="^B2G$"]             floating enable
 for_window [class="^B2g$"]             floating enable
+for_window [class="^org-sikuli"]       floating enable
 
 # >>>
 
