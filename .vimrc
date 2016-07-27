@@ -93,6 +93,8 @@ set directory=~/.vim-tmp,/var/tmp,/tmp
 let g:xml_syntax_folding=1
 set noshowmode
 set updatetime=250
+set splitbelow
+set splitright
 " }}} "
 
 "|    Environment Setup                                                   {{{
@@ -105,19 +107,23 @@ set wildmenu
 set foldmethod=syntax
 set mouse=a
 set timeout timeoutlen=1000 ttimeoutlen=100
+
 " Spellcheck current word
 set keywordprg=c
+
 " Cursor behavior
 set backspace=indent,eol,start
 set nostartofline
 set scrolloff=3
 set sidescrolloff=3
+
 " Interface display modification
 set ruler
 set number
 set showcmd
 set title
 set visualbell
+
 " Standardized indentation
 set autoindent
 set tabstop=4
@@ -125,12 +131,14 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set shiftround
+
 " For a better search
 set ignorecase
 set smartcase
 set hlsearch
 set incsearch
 set gdefault
+
 " File read/write options
 set modeline
 set suffixes=.bak,~,.swp,.o,.hi,.a,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
@@ -145,9 +153,13 @@ set shell=/bin/bash
 "|    Keybindings                                                         {{{
 "|===========================================================================
 " Provisional
-nnoremap <CR> mmG
-nnoremap <BS> mmgg
+"nnoremap <CR> mmG
+"nnoremap <BS> mmgg
 map q: :q
+
+" Removing
+"map     <C-t>       :tabnew<CR>:edit 
+"map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
 
 " Main
 let mapleader = " "
@@ -177,15 +189,15 @@ let g:UltiSnipsJumpBackwardTrigger="<c-d>"
 
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
-nmap    <silent>    <leader>. :CtrlPTag<CR>
-nmap    <silent>    <leader>p :CtrlP<CR>
-nmap    <silent>    <leader><leader>w :set nolist!<CR>
-nmap    <silent>    <leader><leader>b :TagbarToggle<CR>
-nmap    <silent>    <leader><leader>t :NERDTreeToggle<CR>
-nmap    gb          :Gblame<CR>
-nmap    <silent>    <leader><leader>hs <Plug>GitGutterStageHunk
-nmap    <silent>    <leader><leader>hr <Plug>GitGutterRevertHunk
-nmap    <silent>    <leader><leader>hp <Plug>GitGutterPreviewHunk
+nmap    <silent>    <leader>.           :CtrlPTag<CR>
+nmap    <silent>    <leader>p           :CtrlP<CR>
+nmap    <silent>    <leader><leader>w   :set nolist!<CR>
+nmap    <silent>    <leader><leader>b   :TagbarToggle<CR>
+nmap    <silent>    <leader><leader>t   :NERDTreeToggle<CR>
+nmap                gb                  :Gblame<CR>
+nmap    <silent>    <leader><leader>hs  <Plug>GitGutterStageHunk
+nmap    <silent>    <leader><leader>hr  <Plug>GitGutterUndoHunk
+nmap    <silent>    <leader><leader>hp  <Plug>GitGutterPreviewHunk
 
 imap    <Insert>    <Nop>
 map     <F7>        :setlocal spell!<CR>
@@ -196,12 +208,10 @@ map     <F9>        g<C-g>
 imap    <F9>        <C-O>g<C-g>
 map     <F5>        <Esc>:w<CR>
 imap    <F5>        <Esc>:w<CR>a
-map     <PageUp>    <C-U>
-imap    <PageUp>    <C-O><C-U>
-map     <PageDown>  <C-D>
-imap    <PageDown>  <C-O><C-D>
-map     <C-t>       :tabnew<CR>:edit 
-map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
+noremap     <PageUp>    <C-U>
+inoremap    <PageUp>    <C-O><C-U>
+noremap     <PageDown>  <C-D>
+inoremap    <PageDown>  <C-O><C-D>
 map     <C-f>       gqip
 imap    <C-f>       <C-o>gqip
 map     <C-l>       <C-]>
@@ -214,11 +224,16 @@ vmap    <silent> ,y "xy:wviminfo! ~/.viminfo<CR>
 nmap    <silent> ,p :rviminfo! ~/.viminfo<CR>"xp
 
 " Hexmode mappings
-nnoremap <C-H> :Hexmode<CR>
-inoremap <C-H> <C-o>:Hexmode<CR>
-vnoremap <C-H> :<C-U>Hexmode<CR>
+nnoremap <C-X> :Hexmode<CR>
+inoremap <C-X> <C-o>:Hexmode<CR>
+vnoremap <C-X> :<C-U>Hexmode<CR>
 
 "" Dvorak Compensators
+nnoremap <C-D> <C-W><C-H>
+nnoremap <C-H> <C-W><C-J>
+nnoremap <C-T> <C-W><C-K>
+nnoremap <C-N> <C-W><C-L>
+
 no d h
 no h j
 no t k
