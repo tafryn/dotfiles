@@ -153,42 +153,42 @@ set shell=/bin/bash
 "|    Keybindings                                                         {{{
 "|===========================================================================
 " Provisional
-"nnoremap <CR> mmG
-"nnoremap <BS> mmgg
+"nnoremap            <CR>                mmG
+"nnoremap            <BS>                mmgg
 map q: :q
 
 " Removing
-"map     <C-t>       :tabnew<CR>:edit 
-"map!    <C-t>       <C-O>:tabnew<CR><C-O>:edit 
+"map                 <C-t>               :tabnew<CR>:edit 
+"map!                <C-t>               <C-O>:tabnew<CR><C-O>:edit 
 
 " Main
 let mapleader = " "
-"map <Leader> <Plug>(easymotion-prefix)
-nmap <Leader>d <Plug>(easymotion-linebackward)
-nmap <Leader>h <Plug>(easymotion-j)
-nmap <Leader>t <Plug>(easymotion-k)
-nmap <Leader>n <Plug>(easymotion-lineforward)
-nmap <Leader>w <Plug>(easymotion-w)
-nmap <Leader>W <Plug>(easymotion-W)
-nmap <Leader>e <Plug>(easymotion-e)
-nmap <Leader>E <Plug>(easymotion-E)
-nmap <Leader>b <Plug>(easymotion-b)
-nmap <Leader>B <Plug>(easymotion-B)
-"nmap <Leader>n <Plug>(easymotion-n)
-"nmap <Leader>N <Plug>(easymotion-N)
-nmap <Leader>s <Plug>(easymotion-s)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-nmap <Leader>F <Plug>(easymotion-F)
-map  / <Plug>(easymotion-sn)
-omap / <Plug>(easymotion-tn)
-map  l <Plug>(easymotion-next)
-map  L <Plug>(easymotion-prev)
-
 let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-d>"
-
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
+
+"map <Leader> <Plug>(easymotion-prefix)
+nmap                <Leader>d           <Plug>(easymotion-linebackward)
+nmap                <Leader>h           <Plug>(easymotion-j)
+nmap                <Leader>t           <Plug>(easymotion-k)
+nmap                <Leader>n           <Plug>(easymotion-lineforward)
+nmap                <Leader>w           <Plug>(easymotion-w)
+nmap                <Leader>W           <Plug>(easymotion-W)
+nmap                <Leader>e           <Plug>(easymotion-e)
+nmap                <Leader>E           <Plug>(easymotion-E)
+nmap                <Leader>b           <Plug>(easymotion-b)
+nmap                <Leader>B           <Plug>(easymotion-B)
+"nmap                <Leader>n           <Plug>(easymotion-n)
+"nmap                <Leader>N           <Plug>(easymotion-N)
+nmap                <Leader>s           <Plug>(easymotion-s)
+nmap                <Leader>f           <Plug>(easymotion-overwin-f)
+nmap                <Leader>F           <Plug>(easymotion-F)
+map                 /                   <Plug>(easymotion-sn)
+omap                /                   <Plug>(easymotion-tn)
+map                 l                   <Plug>(easymotion-next)
+map                 L                   <Plug>(easymotion-prev)
+
 nmap    <silent>    <leader>.           :CtrlPTag<CR>
 nmap    <silent>    <leader>p           :CtrlP<CR>
 nmap    <silent>    <leader><leader>w   :set nolist!<CR>
@@ -199,40 +199,40 @@ nmap    <silent>    <leader><leader>hs  <Plug>GitGutterStageHunk
 nmap    <silent>    <leader><leader>hr  <Plug>GitGutterUndoHunk
 nmap    <silent>    <leader><leader>hp  <Plug>GitGutterPreviewHunk
 
-imap    <Insert>    <Nop>
-map     <F7>        :setlocal spell!<CR>
-imap    <F7>        <C-o>:setlocal spell!<CR>
-map     <F8>        <Esc>{j!}fmt -71<CR>}k$
-imap    <F8>        <Esc>{j!}fmt -71<CR>}k$a
-map     <F9>        g<C-g>
-imap    <F9>        <C-O>g<C-g>
-map     <F5>        <Esc>:w<CR>
-imap    <F5>        <Esc>:w<CR>a
-noremap     <PageUp>    <C-U>
-inoremap    <PageUp>    <C-O><C-U>
-noremap     <PageDown>  <C-D>
-inoremap    <PageDown>  <C-O><C-D>
-map     <C-f>       gqip
-imap    <C-f>       <C-o>gqip
-map     <C-l>       <C-]>
-imap    <C-l>       <C-o><C-]>
-map     <C-_>       :pop<CR>
-imap    <C-_>       <C-o>:pop<CR>
+imap                <Insert>            <Nop>
+map                 <F7>                :setlocal spell!<CR>
+imap                <F7>                <C-o>:setlocal spell!<CR>
+map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
+imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
+map                 <F9>                g<C-g>
+imap                <F9>                <C-O>g<C-g>
+map                 <F5>                <Esc>:w<CR>
+imap                <F5>                <Esc>:w<CR>a
+noremap             <PageUp>            <C-U>
+inoremap            <PageUp>            <C-O><C-U>
+noremap             <PageDown>          <C-D>
+inoremap            <PageDown>          <C-O><C-D>
+map                 <C-f>               gqip
+imap                <C-f>               <C-o>gqip
+map                 <C-l>               <C-]>
+imap                <C-l>               <C-o><C-]>
+map                 <C-_>               :pop<CR>
+imap                <C-_>               <C-o>:pop<CR>
 
 " Global copy/paste
-vmap    <silent> ,y "xy:wviminfo! ~/.viminfo<CR>
-nmap    <silent> ,p :rviminfo! ~/.viminfo<CR>"xp
+vmap    <silent>    ,y                  "xy:wviminfo! ~/.viminfo<CR>
+nmap    <silent>    ,p                  :rviminfo! ~/.viminfo<CR>"xp
 
 " Hexmode mappings
-nnoremap <C-X> :Hexmode<CR>
-inoremap <C-X> <C-o>:Hexmode<CR>
-vnoremap <C-X> :<C-U>Hexmode<CR>
+nnoremap            <C-X>               :Hexmode<CR>
+inoremap            <C-X>               <C-o>:Hexmode<CR>
+vnoremap            <C-X>               :<C-U>Hexmode<CR>
 
 "" Dvorak Compensators
-nnoremap <C-D> <C-W><C-H>
-nnoremap <C-H> <C-W><C-J>
-nnoremap <C-T> <C-W><C-K>
-nnoremap <C-N> <C-W><C-L>
+nnoremap            <C-D>               <C-W><C-H>
+nnoremap            <C-H>               <C-W><C-J>
+nnoremap            <C-T>               <C-W><C-K>
+nnoremap            <C-N>               <C-W><C-L>
 
 no d h
 no h j
