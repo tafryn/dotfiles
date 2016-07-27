@@ -11,7 +11,7 @@ function varclear --description 'Remove duplicates from environment variable'
         end
         set $argv $newvar
         test $count -gt 0
-        and echo Removed $count duplicates from $argv
+        # and echo Removed $count duplicates from $argv
     else
         for a in $argv
             varclear $a
