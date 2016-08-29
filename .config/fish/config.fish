@@ -14,7 +14,7 @@ set -U fish_user_paths /usr/local/bin /usr/bin
 
 set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sfw/lib
 
-set -gx JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk-1.8.0.91-1.b14.el7_2.x86_64/
+set -gx JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk/
 #set -gx JAVA_HOME (which java)
 
 # Local changes for this machine
