@@ -28,6 +28,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./plugin/fugitive.vim' }
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
+Plug 'wesQ3/vim-windowswap'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -51,6 +52,8 @@ call plug#end()
 let g:EasyMotion_keys = 'aoeuhtnspyfgcrqvjwkmxbdi'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
+
+let g:windowswap_map_keys = 0
 
 let g:gitgutter_map_keys = 0
 
@@ -152,14 +155,14 @@ set shell=/bin/bash
 
 "|    Keybindings                                                         {{{
 "|===========================================================================
-" Provisional
-"nnoremap            <CR>                mmG
-"nnoremap            <BS>                mmgg
-map q: :q
 
 " Removing
 "map                 <C-t>               :tabnew<CR>:edit 
 "map!                <C-t>               <C-O>:tabnew<CR><C-O>:edit 
+"nnoremap            <CR>                mmG
+"nnoremap            <BS>                mmgg
+"nnoremap <silent>   <leader>yw          :call WindowSwap#MarkWindowSwap()<CR>
+"nnoremap <silent>   <leader>pw          :call WindowSwap#DoWindowSwap()<CR>
 
 " Main
 let mapleader = " "
@@ -167,6 +170,11 @@ let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-d>"
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
+
+" Provisional
+map q: :q
+nnoremap            <leader>r            gd[[V%:s/<C-R>///c<left><left>
+nnoremap            gr                   [[V%:s/<C-R>///c<left><left>
 
 "map <Leader> <Plug>(easymotion-prefix)
 nmap                <Leader>d           <Plug>(easymotion-linebackward)
@@ -198,6 +206,7 @@ nmap                gb                  :Gblame<CR>
 nmap    <silent>    <leader><leader>hs  <Plug>GitGutterStageHunk
 nmap    <silent>    <leader><leader>hr  <Plug>GitGutterUndoHunk
 nmap    <silent>    <leader><leader>hp  <Plug>GitGutterPreviewHunk
+nnoremap <silent>   <leader><leader>s   :call WindowSwap#EasyWindowSwap()<CR>
 
 imap                <Insert>            <Nop>
 map                 <F7>                :setlocal spell!<CR>
@@ -233,6 +242,10 @@ nnoremap            <C-D>               <C-W><C-H>
 nnoremap            <C-H>               <C-W><C-J>
 nnoremap            <C-T>               <C-W><C-K>
 nnoremap            <C-N>               <C-W><C-L>
+nnoremap <silent>   t                 :exe "resize -5"<CR>
+nnoremap <silent>   h                 :exe "resize +5"<CR>
+nnoremap <silent>   n                 :exe "vertical resize -5"<CR>
+nnoremap <silent>   d                 :exe "vertical resize +5"<CR>
 
 no d h
 no h j
