@@ -60,6 +60,7 @@ alias xlog="less /var/log/Xorg.0.log"
 alias elog="colortail --config=/etc/colortail/conf.messages -f /var/log/everything.log"
 alias tmux="tmux -2"
 alias build="mkdir -p build_dir && pushd build_dir && cmake ../ && make -j8 && popd"
+alias clang_build="CXX=/usr/bin/clang++ cmake -DCMAKE_USER_MAKE_RULES_OVERRIDE=~/csa_mk3_application/ClangOverrides.txt -D_CMAKE_TOOLCHAIN_PREFIX=llvm- ../"
 
 alias git="git --no-pager"
 alias gd="git diff --color"
