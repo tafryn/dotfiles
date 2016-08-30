@@ -29,6 +29,7 @@ Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', '
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'wesQ3/vim-windowswap'
+Plug 'Konfekt/FastFold'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -62,6 +63,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
+
+let g:fastfold_fold_command_suffixes = []
 " }}} "
 
 "|    Theme                                                               {{{
