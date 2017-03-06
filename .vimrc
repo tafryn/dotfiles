@@ -30,6 +30,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'wesQ3/vim-windowswap'
 Plug 'Konfekt/FastFold'
+Plug 'vhdirk/vim-cmake'
+Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'tpope/vim-unimpaired'
+Plug 'CoatiSoftware/vim-coati'
+Plug 'ervandew/supertab'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
