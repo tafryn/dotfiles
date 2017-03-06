@@ -3,6 +3,7 @@
 # Environment Variables
 set -gx LC_COLLATE "C"
 set -gx GCC_COLORS "on"
+set -gx TZ ":/etc/localtime"
 set -x EDITOR "vim"
 set -gx MANPATH (manpath)
 
