@@ -154,11 +154,31 @@ set gdefault
 set modeline
 set suffixes=.bak,~,.swp,.o,.hi,.a,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set wildignore+=a.out,*.pyc,*.class,.git,*.o,*.a,*.hi,*.swp,*.jpg,*.png,*.xpm,*.gif
-set tags+=./.tags;/
+set tags+=./.ctags;/
 filetype on
 filetype indent on
 filetype plugin on
 set shell=/bin/bash
+
+" CScope
+if has('cscope')
+  "set cscopetag
+  set cscopeverbose
+  set cscoperelative
+  set csto=0
+  set cspc=1
+
+  if has('quickfix')
+    set cscopequickfix=s-,c-,d-,i-,t-,e-
+  endif
+
+  let s:cscope_database = findfile(".cscope.out", ".;")
+
+  if s:cscope_database != ""
+      exec "silent cs add " . s:cscope_database
+  endif
+endif
+
 " }}} "
 
 "|    Keybindings                                                         {{{
@@ -359,6 +379,32 @@ function ToggleHex()
   let &readonly=l:oldreadonly
   let &modifiable=l:oldmodifiable
 endfunction
+
+function RegenTagScope()
+  let oldpath = getcwd()
+
+  let s:ctag_database = findfile(".ctags", ".;")
+  let s:ctag_dir = fnamemodify(s:ctag_database, ":p:h")
+  let s:cscope_database = findfile(".cscope.out", ".;")
+  let s:cscope_dir = fnamemodify(s:cscope_database, ":p:h")
+
+  echo s:ctag_database
+  echo s:ctag_dir
+  echo s:cscope_database
+  echo s:cscope_dir
+
+  if s:ctag_database != ""
+      exec "cd " . s:ctag_dir
+      exec "!ctags -R -f " . s:ctag_database
+  endif
+
+  if s:cscope_database != ""
+      exec "!cscope -Rbqf " . s:cscope_database
+      exec "cs reset"
+  endif
+
+  exec "cd " . oldpath
+endfun
 
 " autocmds to automatically enter hex mode and handle file writes properly
 if has("autocmd")
