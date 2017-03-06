@@ -200,9 +200,23 @@ exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 
 " Provisional
+nnoremap <silent>   <leader>ar          :CoatiRefresh<CR>
+nnoremap <silent>   <leader>aa          :CoatiActivateToken<CR>
 map q: :q
-nnoremap            <leader>r            gd[[V%:s/<C-R>///c<left><left>
-nnoremap            gr                   [[V%:s/<C-R>///c<left><left>
+nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
+nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
+nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
+
+" CScope mappings (<C-o> to return s
+nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
+nmap                <leader>sg          :cs find g <C-R>=expand("<cword>")<CR><CR>
+nmap                <leader>sc          :cs find c <C-R>=expand("<cword>")<CR><CR>
+nmap                <leader>st          :cs find t <C-R>=expand("<cword>")<CR><CR>
+nmap                <leader>se          :cs find e <C-R>=expand("<cword>")<CR><CR>
+nmap                <leader>sf          :cs find f <C-R>=expand("<cfile>")<CR><CR>
+nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
+map     <silent>    <F3>                :call RegenTagScope()<CR>
 
 "map <Leader> <Plug>(easymotion-prefix)
 nmap                <Leader>d           <Plug>(easymotion-linebackward)
@@ -217,7 +231,7 @@ nmap                <Leader>b           <Plug>(easymotion-b)
 nmap                <Leader>B           <Plug>(easymotion-B)
 "nmap                <Leader>n           <Plug>(easymotion-n)
 "nmap                <Leader>N           <Plug>(easymotion-N)
-nmap                <Leader>s           <Plug>(easymotion-s)
+"nmap                <Leader>s           <Plug>(easymotion-s)
 nmap                <Leader>f           <Plug>(easymotion-overwin-f)
 nmap                <Leader>F           <Plug>(easymotion-F)
 map                 /                   <Plug>(easymotion-sn)
@@ -230,11 +244,14 @@ nmap    <silent>    <leader>p           :CtrlP<CR>
 nmap    <silent>    <leader><leader>w   :set nolist!<CR>
 nmap    <silent>    <leader><leader>b   :TagbarToggle<CR>
 nmap    <silent>    <leader><leader>t   :NERDTreeToggle<CR>
-nmap                gb                  :Gblame<CR>
-nmap    <silent>    <leader><leader>hs  <Plug>GitGutterStageHunk
-nmap    <silent>    <leader><leader>hr  <Plug>GitGutterUndoHunk
-nmap    <silent>    <leader><leader>hp  <Plug>GitGutterPreviewHunk
-nnoremap <silent>   <leader><leader>s   :call WindowSwap#EasyWindowSwap()<CR>
+nmap                <leader>gb          :Gblame<CR>
+nmap    <silent>    <leader>gS          <Plug>GitGutterStageHunk
+nmap    <silent>    <leader>gr          <Plug>GitGutterUndoHunk
+nmap    <silent>    <leader>go          <Plug>GitGutterPreviewHunk
+nmap    <silent>    <leader>gn          <Plug>GitGutterNextHunk
+nmap    <silent>    <leader>gp          <Plug>GitGutterPrevHunk
+nmap    <silent>    <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
+nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
 
 imap                <Insert>            <Nop>
 map                 <F7>                :setlocal spell!<CR>
@@ -243,8 +260,8 @@ map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
 imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
 map                 <F9>                g<C-g>
 imap                <F9>                <C-O>g<C-g>
-map                 <F5>                <Esc>:w<CR>
-imap                <F5>                <Esc>:w<CR>a
+map     <silent>    <F5>                :silent CMake<CR>:make -j8<CR>
+map     <silent>    <F5>                <Esc>:silent CMake<CR>:make -j8<CR>
 noremap             <PageUp>            <C-U>
 inoremap            <PageUp>            <C-O><C-U>
 noremap             <PageDown>          <C-D>
