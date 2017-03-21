@@ -35,6 +35,7 @@ Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'CoatiSoftware/vim-coati'
 Plug 'ervandew/supertab'
+Plug 'sjl/gundo.vim'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -106,6 +107,7 @@ set noshowmode
 set updatetime=250
 set splitbelow
 set splitright
+set foldnestmax=5
 " }}} "
 
 "|    Environment Setup                                                   {{{
@@ -206,6 +208,9 @@ map q: :q
 nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
+nnoremap <silent>   <leader>m           :nohlsearch<CR>
+nnoremap <silent>   <leader>v           `[v`]
+nnoremap <silent>   <leader>u           :GundoToggle<CR>
 
 " CScope mappings (<C-o> to return s
 nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
@@ -317,6 +322,19 @@ no L N
 
 "|    Functions                                                           {{{
 "|===========================================================================
+
+" strips trailing whitespace at the end of files. this
+" is called on buffer write in the autogroup above.
+function! <SID>StripTrailingWhitespaces()
+    " save last search & cursor position
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    %s/\s\+$//e
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
 nmap <C-S-P> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
@@ -423,9 +441,20 @@ function RegenTagScope()
   exec "cd " . oldpath
 endfun
 
-" autocmds to automatically enter hex mode and handle file writes properly
+" }}} "
+
+"|    Auto Commands                                                       {{{
+"|===========================================================================
+
 if has("autocmd")
+  augroup configgroup
+    autocmd!
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.cc,*.h,*.cpp
+                \ :call <SID>StripTrailingWhitespaces()
+  augroup END
+
   " vim -b : edit binary using xxd-format!
+  " autocmds to automatically enter hex mode and handle file writes properly
   augroup Binary
     au!
 
