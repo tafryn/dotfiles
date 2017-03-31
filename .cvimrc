@@ -1,0 +1,57 @@
+set noautofocus
+set smoothscroll
+set sortlinkhints
+
+let hintcharacters = "asonetuh"
+
+let barposition = "bottom"
+
+let searchengine gifl = "http://www.google.com/search?hl=en&btnI=I%27m+Feeling+Lucky&q="
+
+let completionengines = ["gifl", "google", "wikipedia"]
+
+let searchalias g = "google"
+
+let searchalias wp = "wikipedia"
+
+let defaultengine = "gifl"
+
+unmap d
+unmap h
+unmap t
+unmap n
+unmap D
+unmap H
+unmap T
+unmap N
+unmap k
+unmap <C-6>
+unmap j
+unmap l
+unmap Lk
+
+map d scrollLeft
+map h scrollDown
+map t scrollUp
+map n scrollRight
+
+map D goBack
+map H scrollPageDown
+map T scrollPageUp
+map N goForward
+
+map <C-d> previousTab
+map <C-n> nextTab
+map j closeTab
+map u lastClosedTab
+
+map l nextSearchResult
+map L previousSearchResult
+
+map k :tabnew<Space>
+map o :open<Space>
+map K :tabnew @%
+map O :tabnew @%
+
+map <C-w> deleteWord
+map <C-a> beginningOfLine
