@@ -398,7 +398,7 @@ bindsym $mod+Control+b border toggle
 
 # Start a new terminal                                             ($mod+Enter)
 # bind $mod+36 exec roxterm
-bindsym $mod+Return exec "urxvt256c -e tmux"
+bindsym $mod+Return exec "turxvt -e tmux"
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:

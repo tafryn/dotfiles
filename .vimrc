@@ -33,7 +33,7 @@ Plug 'Konfekt/FastFold'
 Plug 'vhdirk/vim-cmake'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'CoatiSoftware/vim-coati'
+Plug 'CoatiSoftware/vim-sourcetrail'
 Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 
@@ -90,7 +90,7 @@ colo jellybeans
 hi Folded ctermfg=green ctermbg=darkgray
 let g:airline_theme='jellybeans'
 let g:airline#extensions#whitespace#enabled = 0
-"let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 1
 "let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
 " }}} "
