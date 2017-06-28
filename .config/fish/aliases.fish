@@ -33,7 +33,4 @@ alias gl "git log --color"
 alias gs "git status"
 alias gg "git grep"
 
-alias ag 'sudo apt-get'
-alias agi 'sudo apt-get install'
-alias p 'pacman'
 alias y 'yaourt'
