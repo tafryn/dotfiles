@@ -20,7 +20,7 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
-Plug 'kien/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
@@ -322,6 +322,16 @@ no L N
 
 "|    Functions                                                           {{{
 "|===========================================================================
+
+" FZF file searching function
+function! FzfOmniFiles()
+    let is_git = system('git status')
+    if v:shell_error
+        :Files
+    else
+        :GFiles
+    endif
+endfunction
 
 " strips trailing whitespace at the end of files. this
 " is called on buffer write in the autogroup above.
