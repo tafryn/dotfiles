@@ -33,18 +33,17 @@ Plug 'Konfekt/FastFold'
 Plug 'vhdirk/vim-cmake'
 Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-unimpaired'
-Plug 'CoatiSoftware/vim-sourcetrail'
 Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'junegunn/limelight.vim'
+"Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
 Plug 'uarun/vim-protobuf'
 Plug 'octol/vim-cpp-enhanced-highlight'
 Plug 'tmux-plugins/vim-tmux'
-"Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'pearofducks/ansible-vim'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
@@ -197,6 +196,10 @@ endif
 "nnoremap            <BS>                mmgg
 "nnoremap <silent>   <leader>yw          :call WindowSwap#MarkWindowSwap()<CR>
 "nnoremap <silent>   <leader>pw          :call WindowSwap#DoWindowSwap()<CR>
+"nmap                <Leader>n           <Plug>(easymotion-n)
+"nmap                <Leader>N           <Plug>(easymotion-N)
+"nmap                <Leader>s           <Plug>(easymotion-s)
+"map <Leader> <Plug>(easymotion-prefix)
 
 " Main
 let mapleader = " "
@@ -209,25 +212,37 @@ exec "set <PageDown>=\<Esc>[6;*~"
 nnoremap <silent>   <leader>ar          :CoatiRefresh<CR>
 nnoremap <silent>   <leader>aa          :CoatiActivateToken<CR>
 map q: :q
-nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
+  "   Replace name in current block
 nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
+nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
+"   Fold all comments
 nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
+"   Toggle off current search highlights
 nnoremap <silent>   <leader>m           :nohlsearch<CR>
+"   Select pasted text
 nnoremap <silent>   <leader>v           `[v`]
-nnoremap <silent>   <leader>u           :GundoToggle<CR>
 
 " CScope mappings (<C-o> to return s
+  " Find all references to Symbol under cursor
 nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
+  " Find Global definition of token under cursor
 nmap                <leader>sg          :cs find g <C-R>=expand("<cword>")<CR><CR>
+  " Find all Calls to function under cursor
 nmap                <leader>sc          :cs find c <C-R>=expand("<cword>")<CR><CR>
+  " Find all instances of Text under cursor
 nmap                <leader>st          :cs find t <C-R>=expand("<cword>")<CR><CR>
+  " Egrep word under cursor
 nmap                <leader>se          :cs find e <C-R>=expand("<cword>")<CR><CR>
+  " Open filename under cursor
 nmap                <leader>sf          :cs find f <C-R>=expand("<cfile>")<CR><CR>
+  " Find files that include filename under cursor
 nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+  " Find functions called by function under cursor
 nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
-map     <silent>    <F3>                :call RegenTagScope()<CR>
+  " Regenerate ctags and cscope files
+map      <silent>    <F3>                :call RegenTagScope()<CR>
 
-"map <Leader> <Plug>(easymotion-prefix)
+" EasyMotion mappings
 nmap                <Leader>d           <Plug>(easymotion-linebackward)
 nmap                <Leader>h           <Plug>(easymotion-j)
 nmap                <Leader>t           <Plug>(easymotion-k)
@@ -238,9 +253,6 @@ nmap                <Leader>e           <Plug>(easymotion-e)
 nmap                <Leader>E           <Plug>(easymotion-E)
 nmap                <Leader>b           <Plug>(easymotion-b)
 nmap                <Leader>B           <Plug>(easymotion-B)
-"nmap                <Leader>n           <Plug>(easymotion-n)
-"nmap                <Leader>N           <Plug>(easymotion-N)
-"nmap                <Leader>s           <Plug>(easymotion-s)
 nmap                <Leader>f           <Plug>(easymotion-overwin-f)
 nmap                <Leader>F           <Plug>(easymotion-F)
 map                 /                   <Plug>(easymotion-sn)
@@ -248,48 +260,65 @@ omap                /                   <Plug>(easymotion-tn)
 map                 l                   <Plug>(easymotion-next)
 map                 L                   <Plug>(easymotion-prev)
 
-nmap    <silent>    <leader>.           :CtrlPTag<CR>
-nmap    <silent>    <leader>p           :CtrlP<CR>
-nmap    <silent>    <leader><leader>w   :set nolist!<CR>
-nmap    <silent>    <leader><leader>b   :TagbarToggle<CR>
-nmap    <silent>    <leader><leader>t   :NERDTreeToggle<CR>
-nmap                <leader>gb          :Gblame<CR>
-nmap    <silent>    <leader>gS          <Plug>GitGutterStageHunk
-nmap    <silent>    <leader>gr          <Plug>GitGutterUndoHunk
-nmap    <silent>    <leader>go          <Plug>GitGutterPreviewHunk
-nmap    <silent>    <leader>gn          <Plug>GitGutterNextHunk
-nmap    <silent>    <leader>gp          <Plug>GitGutterPrevHunk
-nmap    <silent>    <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
+" Misc plugin commands
+nmap     <silent>   <leader>.           :Tags<CR>
+nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
+nnoremap            <C-P>               :call FzfOmniFiles()<CR>
+nnoremap            <C-B>               :Buffers<CR>
+nnoremap            <C-L>               :Locate 
+nnoremap <silent>   <leader>u           :GundoToggle<CR>
+nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
+nmap     <silent>   <leader><leader>t   :NERDTreeToggle<CR>
 nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
-
-imap                <Insert>            <Nop>
-map                 <F7>                :setlocal spell!<CR>
-imap                <F7>                <C-o>:setlocal spell!<CR>
-map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
-imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
-map                 <F9>                g<C-g>
-imap                <F9>                <C-O>g<C-g>
-map     <silent>    <F5>                :silent CMake<CR>:make -j8<CR>
-map     <silent>    <F5>                <Esc>:silent CMake<CR>:make -j8<CR>
-noremap             <PageUp>            <C-U>
-inoremap            <PageUp>            <C-O><C-U>
-noremap             <PageDown>          <C-D>
-inoremap            <PageDown>          <C-O><C-D>
-map                 <C-f>               gqip
-imap                <C-f>               <C-o>gqip
-map                 <C-l>               <C-]>
-imap                <C-l>               <C-o><C-]>
-map                 <C-_>               :pop<CR>
-imap                <C-_>               <C-o>:pop<CR>
-
-" Global copy/paste
-vmap    <silent>    ,y                  "xy:wviminfo! ~/.viminfo<CR>
-nmap    <silent>    ,p                  :rviminfo! ~/.viminfo<CR>"xp
+nmap                <leader>l           :Limelight!!<CR>
 
 " Hexmode mappings
 nnoremap            <C-X>               :Hexmode<CR>
 inoremap            <C-X>               <C-o>:Hexmode<CR>
 vnoremap            <C-X>               :<C-U>Hexmode<CR>
+
+" Git related bindings
+nmap                <leader>gb          :Gblame<CR>
+nmap     <silent>   <leader>gS          <Plug>GitGutterStageHunk
+nmap     <silent>   <leader>gr          <Plug>GitGutterUndoHunk
+nmap     <silent>   <leader>go          <Plug>GitGutterPreviewHunk
+nmap     <silent>   <leader>gn          <Plug>GitGutterNextHunk
+nmap     <silent>   <leader>gp          <Plug>GitGutterPrevHunk
+nmap     <silent>   <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
+nmap     <silent>   <leader>gh          :BCommit<CR>
+
+" Code editing
+map      <silent>   <F5>                :silent CMake<CR>:make -j8<CR>
+map      <silent>   <F5>                <Esc>:silent CMake<CR>:make -j8<CR>
+map                 <C-_>               :pop<CR>
+imap                <C-_>               <C-o>:pop<CR>
+nmap                <C-PageUp>          :copen<CR>
+nmap                <C-PageDown>        :cclose<CR>
+  " Highlight extraneous whitespace
+nmap     <silent>   <leader><leader>w   :set nolist!<CR>
+
+" Text editing
+map                 <F7>                :setlocal spell!<CR>
+imap                <F7>                <C-o>:setlocal spell!<CR>
+map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
+imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
+  " Format paragraphs
+map                 <C-f>               gqip
+imap                <C-f>               <C-o>gqip
+  " Count words
+map                 <F9>                g<C-g>
+imap                <F9>                <C-O>g<C-g>
+
+" Global copy/paste
+vmap     <silent>   ,y                  "xy:wviminfo! ~/.viminfo<CR>
+nmap     <silent>   ,p                  :rviminfo! ~/.viminfo<CR>"xp
+
+" Navigation cluster mods
+imap                <Insert>            <Nop>
+noremap             <PageUp>            <C-U>
+inoremap            <PageUp>            <C-O><C-U>
+noremap             <PageDown>          <C-D>
+inoremap            <PageDown>          <C-O><C-D>
 
 "" Dvorak Compensators
 nnoremap            <C-D>               <C-W><C-H>
@@ -301,22 +330,22 @@ nnoremap <silent>   h                 :exe "resize +5"<CR>
 nnoremap <silent>   n                 :exe "vertical resize -5"<CR>
 nnoremap <silent>   d                 :exe "vertical resize +5"<CR>
 
-no d h
-no h j
-no t k
-no n l
+noremap             d                   h
+noremap             h                   j
+noremap             t                   k
+noremap             n                   l
 
-no D ^
-no H J
-no T K
-no N $
+noremap             D                   ^
+noremap             H                   J
+noremap             T                   K
+noremap             N                   $
 
-no s :
-no S :
-no j d
-no J D
-no l n
-no L N
+noremap             s                   :
+noremap             S                   :
+noremap             j                   d
+noremap             J                   D
+noremap             l                   n
+noremap             L                   N
 
 " System clipboard interaction
 "noremap <silent> <leader>y "+y
@@ -349,7 +378,7 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-nmap <C-S-P> :call <SID>SynStack()<CR>
+nmap <leader><C-S> :call <SID>SynStack()<CR>
 function! <SID>SynStack()
   if !exists("*synstack")
     return
