@@ -37,6 +37,7 @@ Plug 'CoatiSoftware/vim-sourcetrail'
 Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
+Plug 'junegunn/limelight.vim'
 
 " Syntax highlighting plugins
 Plug 'PotatoesMaster/i3-vim-syntax'
@@ -72,6 +73,8 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_cpp_compiler_options = ' -std=c++11'
 
 let g:fastfold_fold_command_suffixes = []
+
+let g:limelight_conceal_ctermfg = 'darkgray'
 " }}} "
 
 "|    Theme                                                               {{{
