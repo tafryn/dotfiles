@@ -37,6 +37,7 @@ Plug 'ervandew/supertab'
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'junegunn/limelight.vim'
+Plug 'ludovicchabant/vim-gutentags'
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
@@ -241,6 +242,7 @@ nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$
 nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
   " Regenerate ctags and cscope files
 map      <silent>    <F3>                :call RegenTagScope()<CR>
+nnoremap            <C-]>               g<C-]>
 
 " EasyMotion mappings
 nmap                <Leader>d           <Plug>(easymotion-linebackward)
