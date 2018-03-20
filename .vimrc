@@ -38,6 +38,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'junegunn/limelight.vim'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-surround'
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
@@ -268,6 +269,7 @@ nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
 nnoremap            <C-P>               :call FzfOmniFiles()<CR>
 nnoremap            <C-B>               :Buffers<CR>
 nnoremap            <C-L>               :Locate 
+nnoremap            <C-G>               :Rg 
 nnoremap <silent>   <leader>u           :GundoToggle<CR>
 nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
 nmap     <silent>   <leader><leader>t   :NERDTreeToggle<CR>
@@ -338,8 +340,8 @@ noremap             t                   k
 noremap             n                   l
 
 noremap             D                   ^
-noremap             H                   J
-noremap             T                   K
+noremap             H                   <C-D>
+noremap             T                   <C-U>
 noremap             N                   $
 
 noremap             s                   :
@@ -348,6 +350,9 @@ noremap             j                   d
 noremap             J                   D
 noremap             l                   n
 noremap             L                   N
+
+nnoremap            k                   t
+nnoremap            K                   T
 
 " System clipboard interaction
 "noremap <silent> <leader>y "+y
@@ -456,6 +461,14 @@ if has("autocmd")
   augroup END
 
 endif
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
 " }}} "
 
 " vim: set ft=vim fdm=marker :
