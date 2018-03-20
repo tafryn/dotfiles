@@ -20,7 +20,8 @@ files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
        config/fish/config.fish config/fish/aliases.fish config/fish/functions/ls.fish\
        config/fish/functions/varclear.fish config/fish/functions/inc.fish\
        config/fish/functions/fzf_key_bindings.fish\
-       config/fish/functions/fish_user_key_bindings.fish"
+       config/fish/functions/fish_user_key_bindings.fish\
+       config/i3/config"
 
 # }}} #
 
