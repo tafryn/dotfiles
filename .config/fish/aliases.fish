@@ -30,8 +30,10 @@ alias tags "ctags -R -f .ctags --file-scope=yes --sort=yes --fields=+iaS --extra
 
 #alias git "git --no-pager"
 alias gd "git diff --color -w"
+alias gds "git diff --color -w --staged"
 alias gl "git log --color"
 alias gs "git status"
 alias gg "git grep"
 
 alias y 'yaourt'
+alias o 'xdg-open (fzf)'
