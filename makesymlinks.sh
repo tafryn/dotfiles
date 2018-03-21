@@ -15,13 +15,13 @@ olddir=~/dotfiles_old             # old dotfiles backup directory
 change_counter=0                  # count of changes made
 # list of files/folders to symlink in homedir
 files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
-       vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc xmonad zshenv zshrc zsh\
+       vimpagerrc vimrc vim Xdefaults xinitrc xmobarrc zshenv zshrc zsh\
        config/fish/functions/fish_greeting.fish config/fish/functions/fish_prompt.fish\
        config/fish/config.fish config/fish/aliases.fish config/fish/functions/ls.fish\
        config/fish/functions/varclear.fish config/fish/functions/inc.fish\
        config/fish/functions/fzf_key_bindings.fish\
        config/fish/functions/fish_user_key_bindings.fish\
-       config/i3/config"
+       config/i3/config config/xmonad/xmonad.hs"
 
 # }}} #
 
