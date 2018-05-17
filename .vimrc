@@ -20,6 +20,7 @@ call plug#begin('~/.vim/bundle')
 
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -289,7 +290,8 @@ nmap     <silent>   <leader>go          <Plug>GitGutterPreviewHunk
 nmap     <silent>   <leader>gn          <Plug>GitGutterNextHunk
 nmap     <silent>   <leader>gp          <Plug>GitGutterPrevHunk
 nmap     <silent>   <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
-nmap     <silent>   <leader>gh          :BCommit<CR>
+nmap     <silent>   <leader>gh          :BCommits<CR>
+nmap     <silent>   <leader>gc          :Commits<CR>
 
 " Code editing
 map      <silent>   <F5>                :silent CMake<CR>:make -j8<CR>
