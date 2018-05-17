@@ -38,7 +38,7 @@ Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'junegunn/limelight.vim'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
