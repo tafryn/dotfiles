@@ -12,7 +12,7 @@ set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/sfw/bin $HOME/.cabal/bin $HOM
 
 set -U fish_user_paths /usr/local/bin /usr/bin
 
-set MANPATH ":$HOME/sfw/man/"
+set MANPATH ":$HOME/sfw/man/:$HOME/sfw/share/man"
 
 set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sfw/lib
 
