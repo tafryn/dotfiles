@@ -15,7 +15,7 @@ if command --search "systemctl" >/dev/null
 end
 
 if command --search "vimcat" >/dev/null
-    alias cat "vimcat"
+    alias cat "vimcat -u ~/.vimpagerrc"
 end
 
 alias cls "clear; ls"
