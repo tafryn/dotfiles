@@ -1,0 +1,113 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# background
+# border
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/home/eatingerc/sfw//libexec/i3blocks/$BLOCK_NAME
+separator_block_width=10
+#markup=none
+border_top=0
+border_left=0
+border_right=0
+border_bottom=0
+
+# Volume indicator
+#
+# The first parameter sets the step (and units to display)
+# The second parameter overrides the mixer selection
+# See the script for details.
+[volume]
+label=
+instance=Master
+interval=once
+signal=10
+border=#ff0000
+
+# Disk usage
+#
+# The directory defaults to $HOME if the instance is not specified.
+# The script may be called with a optional argument to set the alert
+# (defaults to 10 for 10%).
+[disk]
+label=
+instance=/
+interval=30
+separator=false
+
+[disk]
+label=
+interval=30
+
+# Network interface monitoring
+#
+# If the instance is not specified, use the interface used for default route.
+# The address can be forced to IPv4 or IPv6 with -4 or -6 switches.
+[iface]
+label=
+color=#87af5f
+interval=10
+separator=false
+
+[wifi]
+label=
+#instance=wlp3s0
+interval=10
+separator=false
+
+[bandwidth]
+command=~/sfw/libexec/i3blocks/bandwidth -i " " -o " "
+#instance=eth0
+interval=4
+
+# CPU usage
+#
+# The script may be called with -w and -c switches to specify thresholds,
+# see the script for details.
+[cpu_usage]
+label=
+interval=4
+#min_width= 100.00%
+separator=false
+
+[temperature]
+instance=coretemp-isa-0000
+interval=4
+
+# Battery indicator
+#
+# The battery instance defaults to 0.
+[battery]
+label=
+command=upower -i /org/freedesktop/UPower/devices/battery_BAT0 | rg percentage | /usr/bin/grep -o '[[:digit:]]\+%$'
+#instance=1
+interval=30
+
+# Date Time
+#
+[time]
+label=
+command=date '+%Y-%m-%d %H:%M'
+interval=60

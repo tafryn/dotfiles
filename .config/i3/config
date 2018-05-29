@@ -76,11 +76,19 @@ workspace_layout default
 new_window 1pixel
 new_float normal
 
+# gaps config
+smart_gaps on
+gaps inner 8
+smart_borders on
+
 # Statusline (i3bar)
 bar {
     i3bar_command i3bar_wrapper.sh
-    status_command i3status
+    status_command i3blocks
+    font xft:FontAwesome 11
+    separator_symbol ""
     position bottom
+    height 30
     colors {
         background #000000
         statusline #00A5FF #that neon blue
