@@ -300,7 +300,10 @@ map                 <C-_>               :pop<CR>
 imap                <C-_>               <C-o>:pop<CR>
 nmap                <C-PageUp>          :copen<CR>
 nmap                <C-PageDown>        :cclose<CR>
-  " Highlight extraneous whitespace
+nmap                <F9>                :cp<CR>
+nmap                <F10>               :cn<CR>
+
+" Highlight extraneous whitespace
 nmap     <silent>   <leader><leader>w   :set nolist!<CR>
 
 " Text editing
@@ -308,12 +311,10 @@ map                 <F7>                :setlocal spell!<CR>
 imap                <F7>                <C-o>:setlocal spell!<CR>
 map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
 imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
-  " Format paragraphs
+
+" Format paragraphs
 map                 <C-f>               gqip
 imap                <C-f>               <C-o>gqip
-  " Count words
-map                 <F9>                g<C-g>
-imap                <F9>                <C-O>g<C-g>
 
 " Global copy/paste
 vmap     <silent>   ,y                  "xy:wviminfo! ~/.viminfo<CR>
