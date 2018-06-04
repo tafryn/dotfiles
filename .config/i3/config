@@ -62,6 +62,27 @@ set $mod Mod4
 # use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
+# Set colors from resources
+set_from_resource   $black        color0    #222222
+set_from_resource   $darkgray     color8    #555555
+set_from_resource   $darkred      color1    #880000
+set_from_resource   $red          color9    #ff0000
+set_from_resource   $darkgreen    color2    #008800
+set_from_resource   $green        color10   #00ff00
+set_from_resource   $darkyellow   color3    #888800
+set_from_resource   $yellow       color11   #ffff00
+set_from_resource   $darkblue     color4    #000088
+set_from_resource   $blue         color12   #0000ff
+set_from_resource   $darkmagenta  color5    #880088
+set_from_resource   $magenta      color13   #ff00ff
+set_from_resource   $darkcyan     color6    #008888
+set_from_resource   $cyan         color14   #00ffff
+set_from_resource   $darkwhite    color7    #888888
+set_from_resource   $white        color15   #ffffff
+
+set $darkblack      #0e0e0e
+set $transparent    #000000A0
+
 # Font for window titles and the status bar. Note: ISO 10646 = Unicode.
 #font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
 # font -*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*
@@ -88,16 +109,19 @@ bar {
     font xft:FontAwesome 11
     separator_symbol ""
     position bottom
-    height 30
+    bindsym button4 nop
+    bindsym button5 nop
+    #height 26
     colors {
-        background #000000
-        statusline #00A5FF #that neon blue
-        separator #666666
+        background $transparent
+        statusline $blue
+        separator  $darkgray
 
-        focused_workspace  #4c7899 #285577 #ffffff
-        active_workspace   #333333 #5f676a #ffffff
-        inactive_workspace #333333 #222222 #888888
-        urgent_workspace   #2f343a #900000 #ffffff
+        # class            border  backgr.   text
+        focused_workspace  $blue   $darkblue $white
+        active_workspace   $black  $darkgray $white
+        inactive_workspace $black  $black    $darkwhite
+        urgent_workspace   $black  $darkred  $white
     }   
 
     # mode hide
@@ -106,20 +130,13 @@ bar {
     tray_output primary
 }
 
-# Default color theme:
-#   class                 border  backgr. text
-# client.focused          #4c7899 #285577 #ffffff
-# client.focused_inactive #333333 #5f676a #ffffff
-# client.unfocused        #333333 #222222 #888888
-# client.urgent           #2f343a #900000 #ffffff
-
-# Custom color theme:
-#   class                 border  backgr. text
-# client.focused          #2f343a #904040 #ffffff
-# client.focused          #2f343a #602020 #ffffff
-# client.focused          #2f343a #501010 #ffffff
-# client.focused          #2f343a #900000 #ffffff
-client.focused_inactive   #333333 #444444 #ffffff
+# class                   border     backgr.   text       indicator  child_border
+client.focused            $blue      $darkblue $white     $cyan      $darkcyan
+client.focused_inactive   $black     $darkgray $white     $darkwhite $darkgray
+client.unfocused          $darkblack $black    $darkgray  $darkwhite $black
+client.urgent             $red       $darkred  $white     $red       $darkred
+client.placeholder        #000000    $darkgray $darkwhite #000000    $darkmagenta
+client.background         $transparent
 
 # >>>
 
