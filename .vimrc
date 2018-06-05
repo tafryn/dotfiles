@@ -451,6 +451,14 @@ function RegenTagScope()
   exec "cd " . oldpath
 endfun
 
+function! InitFoldOpen()
+    if !exists("b:iforun")
+        norm zv
+        let b:iforun = 1
+        autocmd! CursorHold <buffer>
+    endif
+endfunction
+
 " }}} "
 
 "|    Auto Commands                                                       {{{
@@ -463,6 +471,10 @@ if has("autocmd")
                 \ :call <SID>StripTrailingWhitespaces()
   augroup END
 
+  augroup init_fold_open
+    autocmd!
+    autocmd BufEnter * autocmd CursorHold <buffer> call InitFoldOpen()
+  augroup END
 endif
 
 command! -bang -nargs=* Rg
