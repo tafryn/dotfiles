@@ -5,6 +5,7 @@ set -gx LC_COLLATE "C"
 set -gx GCC_COLORS "on"
 set -gx TZ ":/etc/localtime"
 set -x EDITOR "vim"
+set -x TERMINAL "alacritty"
 
 # PATH is handled specially by fish so the elements are space separated
 # instead of colon separated.
