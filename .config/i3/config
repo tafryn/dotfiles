@@ -160,20 +160,20 @@ set $w11 11
 set $w12 12
 
 # Assign first n workspaces to first n outputs
-workspace $w01 output LVDS-0
-workspace $w02 output DP-3
-workspace $w03 output DP-5
-workspace $w04 output VGA-0
+workspace $w01 output DP-2
+workspace $w02 output DP-0.2
+workspace $w03 output DP-0.1
+workspace $w04 output DP-0.3
 
-workspace $w05 output LVDS-0
-workspace $w06 output DP-3
-workspace $w07 output DP-5
-workspace $w08 output VGA-0
+workspace $w05 output DP-2
+workspace $w06 output DP-0.2
+workspace $w07 output DP-0.1
+workspace $w08 output DP-0.3
 
-workspace $w09 output LVDS-0
-workspace $w10 output DP-3
-workspace $w11 output DP-5
-workspace $w12 output VGA-0
+workspace $w09 output DP-2
+workspace $w10 output DP-0.2
+workspace $w11 output DP-0.1
+workspace $w12 output DP-0.3
 
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
