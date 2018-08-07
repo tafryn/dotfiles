@@ -1,21 +1,29 @@
 !!! Global Colors based on the Tango Desktop Project palette
 *background: 		    rgb:00/00/03
-*foreground: 		    ivory3
+*foreground: 		    #cdcdc1
+! Black & DarkGrey
 *color0:			    #2e3436
-*color1:			    #cc0000
-*color2:			    #4e9a06
-*color3:			    #c4a000
-*color4:			    #3465a4
-*color5:			    #75507b
-*color6:			    #06989a
-*color7:			    #d3d7cf
 *color8:			    #555753
+! DarkRed & Red
+*color1:			    #cc0000
 *color9:			    #ef2929
+! DarkGreen & Green
+*color2:			    #4e9a06
 *color10:			    #8ae234
+! DarkYellow & Yellow
+*color3:			    #c4a000
 *color11:			    #fce94f
+! DarkBlue & Blue
+*color4:			    #3465a4
 *color12:			    #729fcf
+! DarkMagenta & Magenta
+*color5:			    #75507b
 *color13:			    #ad7fa8
+! DarkCyan & Cyan
+*color6:			    #06989a
 *color14:			    #34e2e2
+! LightGrey & White
+*color7:			    #d3d7cf
 *color15:			    #eeeeec
 
 !!! Xaw Scrollbars
