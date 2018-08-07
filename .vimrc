@@ -51,6 +51,7 @@ Plug 'pearofducks/ansible-vim'
 Plug 'dag/vim-fish'
 Plug 'rust-lang/rust.vim'
 Plug 'vim-scripts/tla.vim'
+Plug 'peterhoeg/vim-qml'
 
 " Colorscheme
 Plug 'nanotech/jellybeans.vim'
