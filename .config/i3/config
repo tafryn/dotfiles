@@ -84,7 +84,7 @@ set $darkblack      #0e0e0e
 set $transparent    #000000CC
 
 # Font for window titles and the status bar. Note: ISO 10646 = Unicode.
-font xft:Hack Nerd Font 10
+font xft:Hack Nerd Font 16
 
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout default
