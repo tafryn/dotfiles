@@ -200,6 +200,8 @@ for_window [instance="^gcalctool"]                      floating enable
 for_window [instance="^galculator"]                     floating enable
 for_window [instance="^gnome-keyring"]                  floating enable
 for_window [instance="^file_progress"]                  floating enable
+for_window [instance="^display"]                        floating enable
+for_window [instance="^sddm-greeter"]                   floating enable
 for_window [title="^Compress"]                          floating enable
 for_window [title="^Compression"]                       floating enable
 for_window [title="^screenkey"]                         floating enable
@@ -409,12 +411,14 @@ bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # Lock screen                                                          ($mod+l)
-bindsym $mod+l exec --no-startup-id xscreensaver-command -lock
+bindsym $mod+grave exec --no-startup-id "echo -ne '\x2' | socat - UNIX-CONNECT:/tmp/xidlehook.sock"
 
 # Autostart applications
 #exec --no-startup-id ~/bin/monitor-config.sh
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec --no-startup-id xscreensaver -no-splash
+exec --no-startup-id ~/bin/lock-timer.sh '~/bin/i3lock_script.sh'
+exec --no-startup-id ~/bin/unclutter -noevents -grab
+exec --no-startup-id sh ~/.fehbg
 exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id sleep 5; sh ~/.fehbg
