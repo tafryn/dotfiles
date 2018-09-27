@@ -6,6 +6,6 @@
 
 #feh --bg-scale ~/.wallpaper
 
-syndaemon -d
+#syndaemon -d
 #xscreensaver -nosplash &
 exec i3

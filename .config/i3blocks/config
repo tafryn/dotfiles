@@ -57,9 +57,9 @@ instance=/
 interval=30
 separator=false
 
-[disk]
-label=
-interval=30
+#[disk]
+#label=
+#interval=30
 
 # Network interface monitoring
 #
