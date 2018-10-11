@@ -26,7 +26,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./plugin/fugitive.vim' }
+Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
 Plug 'airblade/vim-gitgutter'
 Plug 'easymotion/vim-easymotion'
 Plug 'wesQ3/vim-windowswap'
@@ -40,6 +40,17 @@ Plug 'tafryn/hexmode'
 Plug 'junegunn/limelight.vim'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
+if has('nvim')
+    Plug 'Shougo/deoplete.nvim', { 'do':  ':UpdateRemotePlugins' }
+else
+    Plug 'Shougo/deoplete.nvim'
+    Plug 'roxma/nvim-yarp'
+    Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
@@ -78,6 +89,16 @@ let g:syntastic_cpp_compiler_options = ' -std=c++11'
 let g:fastfold_fold_command_suffixes = []
 
 let g:limelight_conceal_ctermfg = 'darkgray'
+
+let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+
+let g:deoplete#enable_at_startup = 1
+call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
+let g:python3_host_prog = "python3.6"
+
+let g:LanguageClient_serverCommands = { 'cpp': ['clangd'], 'rust': ['rls'], 'python': ['pyls'], }
+"let g:LanguageClient_rootMarkers = ['.gitignore']
+let g:LanguageClient_autoStart = 1
 " }}} "
 
 "|    Theme                                                               {{{
@@ -207,8 +228,12 @@ endif
 
 " Main
 let mapleader = " "
-let g:UltiSnipsJumpForwardTrigger="<c-n>"
-let g:UltiSnipsJumpBackwardTrigger="<c-d>"
+let g:UltiSnipsExpandTrigger="<c-u>"
+let g:UltiSnipsJumpForwardTrigger="<c-m>"
+let g:UltiSnipsJumpBackwardTrigger="<c-w>"
+
+imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
+
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 
@@ -216,7 +241,7 @@ exec "set <PageDown>=\<Esc>[6;*~"
 nnoremap <silent>   <leader>ar          :CoatiRefresh<CR>
 nnoremap <silent>   <leader>aa          :CoatiActivateToken<CR>
 map q: :q
-  "   Replace name in current block
+"   Replace name in current block
 nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
 "   Fold all comments
@@ -225,6 +250,12 @@ nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
 nnoremap <silent>   <leader>m           :nohlsearch<CR>
 "   Select pasted text
 nnoremap <silent>   <leader>v           `[v`]
+
+" LanguageClient mappings
+noremap  <silent>   <leader>lh          :call LanguageClient#textDocument_hover()<CR>
+noremap  <silent>   <leader>ld          :call LanguageClient#textDocument_definition()<CR>
+noremap  <silent>   <F2>                :call LanguageClient#textDocument_rename()<CR>
+noremap  <silent>   <F12>               :call LanguageClient#textDocument_formatting()<CR>
 
 " CScope mappings (<C-o> to return s
   " Find all references to Symbol under cursor
@@ -276,7 +307,7 @@ nnoremap <silent>   <leader>u           :GundoToggle<CR>
 nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
 nmap     <silent>   <leader><leader>t   :NERDTreeToggle<CR>
 nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
-nmap                <leader>l           :Limelight!!<CR>
+nmap                <leader>L           :Limelight!!<CR>
 
 " Hexmode mappings
 nnoremap            <C-X>               :Hexmode<CR>
@@ -476,6 +507,10 @@ if has("autocmd")
     autocmd!
     autocmd BufEnter * autocmd CursorHold <buffer> call InitFoldOpen()
   augroup END
+
+  autocmd FileType cpp set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+  "autocmd! CursorHold * call LanguageClient#textDocument_hover()
+  autocmd FileType gitcommit setlocal nofoldenable
 endif
 
 command! -bang -nargs=* Rg
