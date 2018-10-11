@@ -114,6 +114,7 @@ let g:jellybeans_overrides = {
             "\ 'Statement': { 'guifg': '5f87d7', 'guibg': '', 'ctermfg': 'DarkBlue', 'ctermbg': '', 'attr': '' },
             "\ 'String': { 'guifg': '5faf5f', 'guibg': '', 'ctermfg': 'Green', 'ctermbg': '', 'attr': '' },
 let g:jellybeans_background_color_256="none"
+let g:jellybeans_background_color="none"
 colo jellybeans
 hi Folded ctermfg=green ctermbg=darkgray
 let g:airline_theme='jellybeans'
@@ -125,6 +126,7 @@ set laststatus=2
 
 "|    Probationary Options                                                {{{
 "|===========================================================================
+"set termguicolors
 set autochdir
 "set smartindent
 set backupdir=~/.vim-tmp,/var/tmp,/tmp
