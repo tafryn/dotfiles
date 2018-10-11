@@ -10,7 +10,7 @@ let g:jellybeans_background_color_256="none"
 
 "|    Settings                                                            {{{
 "|===========================================================================
-let g:vimpager_passthrough = 0
+"let g:vimpager_passthrough = 0
 
 " }}} "
 

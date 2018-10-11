@@ -1,7 +1,7 @@
 if command --search "vimpager" >/dev/null
-    set -x PAGER "vimpager-wrapper.sh"
+    set -x PAGER "vimpager"
     set -x MANPAGER "vimpager"
-    alias less "vimpager-wrapper.sh"
+    alias less "vimpager"
 else if command --search "most" >/dev/null
     set -x MANPAGER 'most'
     alias less "most"
@@ -15,7 +15,7 @@ if command --search "systemctl" >/dev/null
 end
 
 if command --search "vimcat" >/dev/null
-    alias cat "vimcat -u ~/.vimpagerrc"
+    alias cat "vimpager"
 end
 
 alias cls "clear; ls"
