@@ -20,6 +20,9 @@ set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sf
 set -gx JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk/
 #set -gx JAVA_HOME (which java)
 
+# Tweak fish colors
+set -e fish_color_valid_path
+
 # Local changes for this machine
 . ~/.config/fish/local.fish
 
