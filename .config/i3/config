@@ -84,11 +84,7 @@ set $darkblack      #0e0e0e
 set $transparent    #000000CC
 
 # Font for window titles and the status bar. Note: ISO 10646 = Unicode.
-#font -misc-fixed-medium-r-normal--13-120-75-75-C-70-iso10646-1
-# font -*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*
-#font pango:DejaVu Sans 10
-font xft:DejaVu Sans Mono, Icons 10
-#font pango:Ubuntu 9
+font xft:Hack Nerd Font 10
 
 # default mode: workspace_layout <default|stacking|tabbed>
 workspace_layout default
@@ -106,7 +102,7 @@ smart_borders on
 bar {
     i3bar_command i3bar_wrapper.sh
     status_command i3blocks
-    font xft:FontAwesome 11
+    font xft:Hack Nerd Font 11
     separator_symbol "│"
     position bottom
     bindsym button4 nop
