@@ -1,7 +1,7 @@
 if command --search "vimpager" >/dev/null
     set -x PAGER "vimpager-wrapper.sh"
     set -x MANPAGER "vimpager"
-    alias less "vimpager"
+    alias less "vimpager-wrapper.sh"
 else if command --search "most" >/dev/null
     set -x MANPAGER 'most'
     alias less "most"

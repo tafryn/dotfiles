@@ -4,6 +4,7 @@
 colo jellybeans
 "match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
 hi Folded ctermfg=green ctermbg=darkgray
+let g:jellybeans_background_color_256="none"
 
 " }}} "
 
