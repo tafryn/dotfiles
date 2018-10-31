@@ -96,7 +96,10 @@ let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
 let g:python3_host_prog = "python3.6"
 
-let g:LanguageClient_serverCommands = { 'cpp': ['clangd'], 'rust': ['rls'], 'python': ['pyls'], }
+let g:LanguageClient_serverCommands = {
+            \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery-cache/"}'],
+            \ 'rust': ['rls'],
+            \ 'python': ['pyls'], }
 "let g:LanguageClient_rootMarkers = ['.gitignore']
 let g:LanguageClient_autoStart = 1
 " }}} "
@@ -256,6 +259,8 @@ nnoremap <silent>   <leader>v           `[v`]
 " LanguageClient mappings
 noremap  <silent>   <leader>lh          :call LanguageClient#textDocument_hover()<CR>
 noremap  <silent>   <leader>ld          :call LanguageClient#textDocument_definition()<CR>
+noremap  <silent>   <leader>li          :call LanguageClient#textDocument_implementation()<CR>
+noremap  <silent>   <leader>lr          :call LanguageClient#textDocument_references()<CR>
 noremap  <silent>   <F2>                :call LanguageClient#textDocument_rename()<CR>
 noremap  <silent>   <F12>               :call LanguageClient#textDocument_formatting()<CR>
 
@@ -304,7 +309,7 @@ nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
 nnoremap            <C-P>               :call FzfOmniFiles()<CR>
 nnoremap            <C-B>               :Buffers<CR>
 nnoremap            <C-L>               :Locate 
-nnoremap            <C-G>               :Rg 
+nnoremap            <C-G>               :Rg<CR>
 nnoremap <silent>   <leader>u           :GundoToggle<CR>
 nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
 nmap     <silent>   <leader><leader>t   :NERDTreeToggle<CR>
@@ -514,13 +519,6 @@ if has("autocmd")
   "autocmd! CursorHold * call LanguageClient#textDocument_hover()
   autocmd FileType gitcommit setlocal nofoldenable
 endif
-
-command! -bang -nargs=* Rg
-  \ call fzf#vim#grep(
-  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
-  \   <bang>0)
 
 " }}} "
 
