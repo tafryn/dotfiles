@@ -441,7 +441,7 @@ bindsym $mod+grave exec --no-startup-id xscreensaver-command -lock
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id compton -b
 exec --no-startup-id sleep 5; sh ~/.fehbg
-exec --no-startup-id ~/bin/mattermost-desktop
+exec --no-startup-id mattermost-desktop
 exec --no-startup-id ssh-agent -t 3600
 exec --no-startup-id sleep 5; ~/bin/screen-lock-do.sh
 
