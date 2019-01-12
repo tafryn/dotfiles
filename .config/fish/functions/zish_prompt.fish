@@ -96,7 +96,7 @@ function __char_count
 end
 
 function __repeat_bar
-    if math "$argv>0" > /dev/null
+    if [ "$argv" -gt "0" ]
         for i in (seq $argv)
             echo -n "─"
         end
@@ -104,7 +104,7 @@ function __repeat_bar
 end
 
 function __repeat_dot
-    if math "$argv>0" > /dev/null
+    if [ "$argv" -gt "0" ]
         for i in (seq $argv)
             echo -n "."
         end
