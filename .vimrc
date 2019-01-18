@@ -102,6 +102,8 @@ let g:LanguageClient_serverCommands = {
             \ 'python': ['pyls'], }
 "let g:LanguageClient_rootMarkers = ['.gitignore']
 let g:LanguageClient_autoStart = 1
+
+let g:ansible_unindent_after_newline = 1
 " }}} "
 
 "|    Theme                                                               {{{
