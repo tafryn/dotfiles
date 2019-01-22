@@ -40,7 +40,7 @@ cd $dir
 # directory specified in $files
 for file in $files; do
     if ! diff -rq ~/.$file $dir/.$file; then
-        if [ -e ~/.$file ]; then
+        if [ \( -e ~/.$file \) -a \( ! -L ~/.$file \) ]; then
             echo "Moving existing .$file from ~ to $olddir"
             mv ~/.$file $olddir
         fi
