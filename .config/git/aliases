@@ -1,0 +1,16 @@
+[alias]
+    l = "!f() { git log --color --graph --abbrev-commit --date=relative --author-date-order --pretty=format:'%x00%h%x00%s%x00%an%x00%cd%x00%d' $@\
+        | gawk -F '\\0' '{ printf \"%s\\033[30m%s\\033[0m %-80s \\033[32m%14s\\033[0m \\033[30;1m%s\\033[0m\\033[33m%s\\n\", $1, $2, gensub(/(.{79}).{2,}/, \"\\\\1…\",\"g\",$3), $4, $5, $6 }' \
+        | less -R -S; }; f"
+    wc = "!f() { git whatchanged ${1:-HEAD}^..$1 -p; }; f"
+    new = "!f() { git log $1@{1}..$1@{0} \"$@\"; }; f"
+    amend = "!f() { git rebase --interactive ${1:-HEAD}^; }; f"
+    tag-dates = "log --tags --simplify-by-decoration --pretty=\"format:%ai %d\""
+    praise = "blame"
+    recent = "for-each-ref --count=8 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
+    my-week = "!f() { git log --all --author=\"$(git config user.name)\" --since=\"last sunday\" --shortstat; }; f"
+    team-week = "log --all --since='last sunday' --oneline --no-merges"
+    commit-count = "shortlog -sn --since='last year' --all"
+    authors = "log --all --format='%cN <%cE>'" # | sort -u
+    branch-sync = "!f() { git fetch --prune; git branch -vv | rg \"gone]\" | awk '{print $1}' | xargs git branch -d; }; f"
+
