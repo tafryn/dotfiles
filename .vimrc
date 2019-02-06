@@ -51,6 +51,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'christoomey/vim-tmux-navigator'
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
@@ -369,10 +370,6 @@ noremap             <PageDown>          <C-D>
 inoremap            <PageDown>          <C-O><C-D>
 
 "" Dvorak Compensators
-nnoremap            <C-D>               <C-W><C-H>
-nnoremap            <C-H>               <C-W><C-J>
-nnoremap            <C-T>               <C-W><C-K>
-nnoremap            <C-N>               <C-W><C-L>
 nnoremap <silent>   t                 :exe "resize -5"<CR>
 nnoremap <silent>   h                 :exe "resize +5"<CR>
 nnoremap <silent>   n                 :exe "vertical resize -5"<CR>
