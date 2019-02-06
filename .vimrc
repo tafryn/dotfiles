@@ -51,6 +51,8 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'vim-syntastic/syntastic'
+Plug 'junegunn/goyo.vim'
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
@@ -85,7 +87,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_compiler_options = ' -std=c++11'
+let g:syntastic_cpp_checkers = ['cppcheck']
+let g:syntastic_cppcheck_config_file = '~/.config/cppcheck_options'
 
 let g:fastfold_fold_command_suffixes = []
 
@@ -109,6 +112,10 @@ let g:ansible_unindent_after_newline = 1
 
 "|    Theme                                                               {{{
 "|===========================================================================
+highlight GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
+highlight GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
+highlight GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
+
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '202020', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
             \ 'Comment': { 'guifg': '626262', 'guibg': '', 'ctermfg': 'Grey', 'ctermbg': '', 'attr': 'italic' },
@@ -266,6 +273,7 @@ noremap  <silent>   <leader>li          :call LanguageClient#textDocument_implem
 noremap  <silent>   <leader>lr          :call LanguageClient#textDocument_references()<CR>
 noremap  <silent>   <F2>                :call LanguageClient#textDocument_rename()<CR>
 noremap  <silent>   <F12>               :call LanguageClient#textDocument_formatting()<CR>
+inoremap <silent>   <F12>               <C-o>:call LanguageClient#textDocument_formatting()<CR>
 
 " CScope mappings (<C-o> to return s
   " Find all references to Symbol under cursor
