@@ -1,7 +1,8 @@
-if command --search "vimpager" >/dev/null
-    set -x PAGER "vimpager"
-    set -x MANPAGER "vimpager"
-    alias less "vimpager"
+if command --search "nvimpager" >/dev/null
+    set -x PAGER "nvimpager"
+    set -x MANPAGER "nvimpager"
+    alias less "nvimpager"
+    alias cat "nvimpager"
 else if command --search "most" >/dev/null
     set -x MANPAGER 'most'
     alias less "most"
@@ -12,10 +13,6 @@ end
 if command --search "systemctl" >/dev/null
     alias poweroff "sudo systemctl poweroff"
     alias restart "sudo systemctl restart"
-end
-
-if command --search "vimcat" >/dev/null
-    alias cat "vimpager"
 end
 
 alias cls "clear; ls"
