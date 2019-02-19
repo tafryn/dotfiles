@@ -23,7 +23,7 @@ files="gdbinit irssi mailcap pentadactylrc screenrc tmux.conf tmux\
        config/fish/functions/fish_user_key_bindings.fish\
        config/i3/config config/xmonad/xmonad.hs\
        config/i3blocks/config config/compton.conf config/alacritty/alacritty.yml\
-       config/git/aliases"
+       config/git/aliases config/cppcheck_options"
 
 # }}} #
 
