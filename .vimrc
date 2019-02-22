@@ -18,27 +18,22 @@ set viminfo='20,\"50
 "|===========================================================================
 call plug#begin('~/.vim/bundle')
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
-Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
+" Additional Capabilities
+Plug 'Konfekt/FastFold'
+Plug 'vhdirk/vim-cmake'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
-Plug 'airblade/vim-gitgutter'
-Plug 'easymotion/vim-easymotion'
-Plug 'wesQ3/vim-windowswap'
-Plug 'Konfekt/FastFold'
-Plug 'vhdirk/vim-cmake'
-Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'tpope/vim-unimpaired'
-Plug 'ervandew/supertab'
+Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
-Plug 'junegunn/limelight.vim'
-Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
+Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
+Plug 'stefandtw/quickfix-reflector.vim'
+
+" Linting & Completions
+Plug 'ervandew/supertab'
 if has('nvim')
     Plug 'Shougo/deoplete.nvim', { 'do':  ':UpdateRemotePlugins' }
 else
@@ -51,20 +46,29 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'do': 'bash install.sh',
     \ }
 Plug 'vim-syntastic/syntastic'
+
+" Interface Customization
+Plug 'airblade/vim-gitgutter'
+Plug 'junegunn/limelight.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'wesQ3/vim-windowswap'
 Plug 'junegunn/goyo.vim'
-Plug 'christoomey/vim-tmux-navigator'
+
+" Text Manipulation & Navigation
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
+Plug 'tpope/vim-commentary'
 Plug 'tommcdo/vim-lion'
 Plug 'wellle/targets.vim'
-Plug 'chaoren/vim-wordmotion'
+Plug 'tpope/vim-unimpaired'
 Plug 'michaeljsmith/vim-indent-object'
-Plug 'tpope/vim-commentary'
-"Plug 'CoatiSoftware/vim-sourcetrail'
+Plug 'easymotion/vim-easymotion'
+Plug 'chaoren/vim-wordmotion'
 
-" Syntax highlighting plugins
+" Color-schemes & Syntax Highlighting
 Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/tla.vim'
-
-" Colorscheme
+Plug 'vim-airline/vim-airline-themes'
 Plug 'nanotech/jellybeans.vim'
 
 call plug#end()
