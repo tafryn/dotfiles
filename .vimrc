@@ -23,7 +23,6 @@ Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'scrooloose/nerdcommenter'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
@@ -54,18 +53,16 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'vim-syntastic/syntastic'
 Plug 'junegunn/goyo.vim'
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tommcdo/vim-lion'
+Plug 'wellle/targets.vim'
+Plug 'chaoren/vim-wordmotion'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'tpope/vim-commentary'
 "Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Syntax highlighting plugins
-Plug 'PotatoesMaster/i3-vim-syntax'
-Plug 'uarun/vim-protobuf'
-Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'pearofducks/ansible-vim'
-Plug 'dag/vim-fish'
-Plug 'rust-lang/rust.vim'
+Plug 'sheerun/vim-polyglot'
 Plug 'vim-scripts/tla.vim'
-Plug 'peterhoeg/vim-qml'
 
 " Colorscheme
 Plug 'nanotech/jellybeans.vim'
@@ -148,9 +145,8 @@ set directory=~/.vim-tmp,/var/tmp,/tmp
 let g:xml_syntax_folding=1
 set noshowmode
 set updatetime=250
-set splitbelow
-set splitright
 set foldnestmax=5
+set relativenumber
 " }}} "
 
 "|    Environment Setup                                                   {{{
@@ -163,6 +159,8 @@ set wildmenu
 set foldmethod=syntax
 set mouse=a
 set timeout timeoutlen=1000 ttimeoutlen=100
+set splitbelow
+set splitright
 
 " Spellcheck current word
 set keywordprg=c
@@ -361,10 +359,6 @@ map                 <F7>                :setlocal spell!<CR>
 imap                <F7>                <C-o>:setlocal spell!<CR>
 map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
 imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
-
-" Format paragraphs
-map                 <C-f>               gqip
-imap                <C-f>               <C-o>gqip
 
 " Global copy/paste
 vmap     <silent>   ,y                  "xy:wviminfo! ~/.viminfo<CR>
