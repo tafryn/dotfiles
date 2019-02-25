@@ -133,7 +133,7 @@ function fish_prompt
         set __git_display (__git_display)
     end
 
-    if test -n "$SSH_CLIENT" -o -n "$SSH2_CLIENT"
+    if test -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT"
         set bar_color (yellow)
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$__fish_prompt_hostname.."))
         set __ssh_display (bgray)"("(off)"$USER@"(yellow)"$__fish_prompt_hostname"(off)(bgray)")"(off)$bar_color"─"(off)
