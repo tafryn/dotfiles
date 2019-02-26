@@ -99,7 +99,6 @@ let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 
 let g:deoplete#enable_at_startup = 1
 call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
-let g:python3_host_prog = "python3.6"
 
 let g:LanguageClient_serverCommands = {
             \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery-cache/"}'],
@@ -109,6 +108,9 @@ let g:LanguageClient_serverCommands = {
 let g:LanguageClient_autoStart = 1
 
 let g:ansible_unindent_after_newline = 1
+
+let g:airline_section_y = ''
+let g:airline_skip_empty_sections = 1
 " }}} "
 
 "|    Theme                                                               {{{
