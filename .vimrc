@@ -25,12 +25,13 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'scrooloose/nerdtree'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
-Plug 'stefandtw/quickfix-reflector.vim'
+Plug 'junegunn/gv.vim'
+Plug 'justinmk/vim-dirvish'
+Plug 'tpope/vim-repeat'
 
 " Linting & Completions
 Plug 'ervandew/supertab'
@@ -45,7 +46,9 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
+Plug 'wellle/tmux-complete.vim'
 
 " Interface Customization
 Plug 'airblade/vim-gitgutter'
@@ -53,9 +56,12 @@ Plug 'junegunn/limelight.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'wesQ3/vim-windowswap'
 Plug 'junegunn/goyo.vim'
+Plug 'machakann/vim-highlightedyank'
+Plug 'chrisbra/Colorizer', { 'on': ['ColorHighlight'] }
 
 " Text Manipulation & Navigation
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'stefandtw/quickfix-reflector.vim'
 Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
 Plug 'tpope/vim-commentary'
 Plug 'tommcdo/vim-lion'
@@ -64,6 +70,9 @@ Plug 'tpope/vim-unimpaired'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
 Plug 'chaoren/vim-wordmotion'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'sbdchd/neoformat'
+Plug 'tpope/vim-rsi'
 
 " Color-schemes & Syntax Highlighting
 Plug 'sheerun/vim-polyglot'
@@ -76,20 +85,22 @@ call plug#end()
 
 "|    Plugin Configuration                                                {{{
 "|===========================================================================
-let g:EasyMotion_keys = 'aoeuhtnspyfgcrqvjwkmxbdi'
+let g:EasyMotion_keys = 'aoeuhtnspgcrvqjwkm'
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
+let g:EasyMotion_enter_jump_first = 1
+let g:EasyMotion_space_jump_first = 1
+" let g:EasyMotion_disable_two_key_combo = 1
 
 let g:windowswap_map_keys = 0
 
 let g:gitgutter_map_keys = 0
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_cpp_checkers = ['cppcheck']
-let g:syntastic_cppcheck_config_file = '~/.config/cppcheck_options'
+let g:ale_cpp_cppcheck_options = '--std=c++14 --inline-suppr --enable=all --suppress=toomanyconfigs -I./include -I../include'
+let g:ale_cpp_cquery_cache_directory = '/tmp/cquery-cache'
+let g:ale_linters = {
+\    'cpp': ['clangtidy', 'clangcheck'],
+\}
 
 let g:fastfold_fold_command_suffixes = []
 
@@ -111,6 +122,15 @@ let g:ansible_unindent_after_newline = 1
 
 let g:airline_section_y = ''
 let g:airline_skip_empty_sections = 1
+
+let g:tmuxcomplete#trigger = ''
+
+let g:highlightedyank_highlight_duration = 750
+
+" let g:sneak#use_ic_scs = 1
+" let g:sneak#s_next = 1
+" let g:sneak#label = 1
+" let g:sneak#target_labels = "aoeuiqjkmw,.pg"
 " }}} "
 
 "|    Theme                                                               {{{
@@ -118,6 +138,11 @@ let g:airline_skip_empty_sections = 1
 highlight GitGutterAdd    guifg=#009900 guibg=NONE ctermfg=2 ctermbg=NONE
 highlight GitGutterChange guifg=#bbbb00 guibg=NONE ctermfg=3 ctermbg=NONE
 highlight GitGutterDelete guifg=#ff2222 guibg=NONE ctermfg=1 ctermbg=NONE
+
+autocmd ColorScheme * hi! link Sneak DiffChange
+autocmd ColorScheme * hi! link SneakScope DiffText
+autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77
+autocmd ColorScheme * hi SneakLabelMask ctermfg=24 ctermbg=24 guifg=#2B5B77 guibg=#2B5B77
 
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '202020', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
@@ -143,7 +168,7 @@ set laststatus=2
 "|    Probationary Options                                                {{{
 "|===========================================================================
 "set termguicolors
-set autochdir
+" set autochdir
 "set smartindent
 set backupdir=~/.vim-tmp,/var/tmp,/tmp
 set directory=~/.vim-tmp,/var/tmp,/tmp
@@ -276,8 +301,6 @@ noremap  <silent>   <leader>ld          :call LanguageClient#textDocument_defini
 noremap  <silent>   <leader>li          :call LanguageClient#textDocument_implementation()<CR>
 noremap  <silent>   <leader>lr          :call LanguageClient#textDocument_references()<CR>
 noremap  <silent>   <F2>                :call LanguageClient#textDocument_rename()<CR>
-noremap  <silent>   <F12>               :call LanguageClient#textDocument_formatting()<CR>
-inoremap <silent>   <F12>               <C-o>:call LanguageClient#textDocument_formatting()<CR>
 
 " CScope mappings (<C-o> to return s
   " Find all references to Symbol under cursor
@@ -297,26 +320,18 @@ nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$
   " Find functions called by function under cursor
 nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
   " Regenerate ctags and cscope files
-map      <silent>    <F3>                :call RegenTagScope()<CR>
+map      <silent>   <F3>                :call RegenTagScope()<CR>
 nnoremap            <C-]>               g<C-]>
 
-" EasyMotion mappings
-nmap                <Leader>d           <Plug>(easymotion-linebackward)
+" Motion mappings
 nmap                <Leader>h           <Plug>(easymotion-j)
 nmap                <Leader>t           <Plug>(easymotion-k)
-nmap                <Leader>n           <Plug>(easymotion-lineforward)
-nmap                <Leader>w           <Plug>(easymotion-w)
-nmap                <Leader>W           <Plug>(easymotion-W)
-nmap                <Leader>e           <Plug>(easymotion-e)
-nmap                <Leader>E           <Plug>(easymotion-E)
-nmap                <Leader>b           <Plug>(easymotion-b)
-nmap                <Leader>B           <Plug>(easymotion-B)
-nmap                <Leader>f           <Plug>(easymotion-overwin-f)
-nmap                <Leader>F           <Plug>(easymotion-F)
 map                 /                   <Plug>(easymotion-sn)
 omap                /                   <Plug>(easymotion-tn)
 map                 l                   <Plug>(easymotion-next)
 map                 L                   <Plug>(easymotion-prev)
+nmap     <silent>   s                   <Plug>(easymotion-s2)
+nmap     <silent>   S                   <Plug>(easymotion-S2)
 
 " Misc plugin commands
 nmap     <silent>   <leader>.           :Tags<CR>
@@ -327,9 +342,9 @@ nnoremap            <C-L>               :Locate
 nnoremap            <C-G>               :Rg<CR>
 nnoremap <silent>   <leader>u           :GundoToggle<CR>
 nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
-nmap     <silent>   <leader><leader>t   :NERDTreeToggle<CR>
 nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
 nmap                <leader>L           :Limelight!!<CR>
+nmap     <silent>   <leader>d           <Plug>(dirvish_up)
 
 " Hexmode mappings
 nnoremap            <C-X>               :Hexmode<CR>
@@ -346,8 +361,11 @@ nmap     <silent>   <leader>gp          <Plug>GitGutterPrevHunk
 nmap     <silent>   <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
 nmap     <silent>   <leader>gh          :BCommits<CR>
 nmap     <silent>   <leader>gc          :Commits<CR>
+nmap     <silent>   <leader>gv          :GV<CR>
 
 " Code editing
+noremap  <silent>   <F12>               :Neoformat<CR>
+inoremap <silent>   <F12>               <C-o>:Neoformat<CR>
 map      <silent>   <F5>                :silent CMake<CR>:make -j8<CR>
 map      <silent>   <F5>                <Esc>:silent CMake<CR>:make -j8<CR>
 map                 <C-_>               :pop<CR>
@@ -377,6 +395,16 @@ inoremap            <PageUp>            <C-O><C-U>
 noremap             <PageDown>          <C-D>
 inoremap            <PageDown>          <C-O><C-D>
 
+" Semi-colon/colon swap
+nnoremap            ;                   :
+vnoremap            ;                   :
+
+nnoremap            ;;                  ;
+vnoremap            ;;                  ;
+
+nnoremap            ,,                  ,
+vnoremap            ,,                  ,
+
 "" Dvorak Compensators
 nnoremap <silent>   t                 :exe "resize -5"<CR>
 nnoremap <silent>   h                 :exe "resize +5"<CR>
@@ -393,8 +421,6 @@ noremap             H                   <C-D>
 noremap             T                   <C-U>
 noremap             N                   $
 
-noremap             s                   :
-noremap             S                   :
 noremap             j                   d
 noremap             J                   D
 noremap             l                   n
