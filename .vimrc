@@ -73,6 +73,7 @@ Plug 'chaoren/vim-wordmotion'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-rsi'
+Plug 'tommcdo/vim-exchange'
 
 " Color-schemes & Syntax Highlighting
 Plug 'sheerun/vim-polyglot'
@@ -353,12 +354,12 @@ vnoremap            <C-X>               :<C-U>Hexmode<CR>
 
 " Git related bindings
 nmap                <leader>gb          :Gblame<CR>
-nmap     <silent>   <leader>gS          <Plug>GitGutterStageHunk
+nmap     <silent>   <leader>gS          :Ggrep <C-R>=expand("<cword>")<CR><CR>
 nmap     <silent>   <leader>gr          <Plug>GitGutterUndoHunk
 nmap     <silent>   <leader>go          <Plug>GitGutterPreviewHunk
 nmap     <silent>   <leader>gn          <Plug>GitGutterNextHunk
 nmap     <silent>   <leader>gp          <Plug>GitGutterPrevHunk
-nmap     <silent>   <leader>gs          :Ggrep <C-R>=expand("<cword>")<CR><CR>
+nmap     <silent>   <leader>gs          :Gstatus<CR>
 nmap     <silent>   <leader>gh          :BCommits<CR>
 nmap     <silent>   <leader>gc          :Commits<CR>
 nmap     <silent>   <leader>gv          :GV<CR>
