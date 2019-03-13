@@ -8,8 +8,8 @@
     tag-dates = "log --tags --simplify-by-decoration --pretty=\"format:%ai %d\""
     praise = "blame"
     recent = "for-each-ref --count=8 --sort=-committerdate refs/heads/ --format=\"%(refname:short)\""
-    my-week = "!f() { git log --all --author=\"$(git config user.name)\" --since=\"last sunday\" --shortstat; }; f"
-    team-week = "log --all --since='last sunday' --oneline --no-merges"
+    my-week = "!f() { git log --all --author=\"$(git config user.name)\" --since=\"last wednesday\" --shortstat; }; f"
+    team-week = "log --all --since='last wednesday' --oneline --no-merges"
     commit-count = "shortlog -sn --since='last year' --all"
     authors = "log --all --format='%cN <%cE>'" # | sort -u
     branch-sync = "!f() { git fetch --prune; git branch -vv | rg \"gone]\" | awk '{print $1}' | xargs git branch -d; }; f"
