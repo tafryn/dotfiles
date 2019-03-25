@@ -426,7 +426,8 @@ bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 # bind $mod+33 exec "dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
-bindsym $mod+p exec --no-startup-id "dmenu_run -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
+bindsym $mod+p exec --no-startup-id "rofi -show run"
+bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file.
@@ -528,4 +529,4 @@ bind 213 exec "gsession hibernate"
 
 # >>>
 
-# vim: set fdm=marker fmr=<<<,>>> fdl=0 filetype=i3:
+# vim: set fdm=marker fmr=<<<,>>> fdl=0 filetype=i3config:
