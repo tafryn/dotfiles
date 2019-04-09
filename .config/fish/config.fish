@@ -10,9 +10,9 @@ set -x BROWSER "vivaldi"
 
 # PATH is handled specially by fish so the elements are space separated
 # instead of colon separated.
-set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/sfw/bin $HOME/.cabal/bin $HOME/.cargo/bin $HOME/.local/bin
+set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/.cabal/bin $HOME/.cargo/bin $HOME/.local/bin
 
-set -U fish_user_paths /usr/local/bin /usr/bin
+set -U fish_user_paths $HOME/sfw/bin /usr/local/bin
 
 set MANPATH ":$HOME/sfw/man/:$HOME/sfw/share/man"
 
