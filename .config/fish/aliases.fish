@@ -24,6 +24,7 @@ alias elog "colortail --config=/etc/colortail/conf.messages -f /var/log/everythi
 alias tmux "tmux -2"
 alias build "mkdir -p build_dir; and pushd build_dir; and cmake ../; and make -j8; and popd"
 alias tags "ctags -R -f .ctags --file-scope=yes --sort=yes --fields=+iaS --extras=+q"
+alias dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 #alias git "git --no-pager"
 alias gd "git diff --color -w"
