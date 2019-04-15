@@ -22,7 +22,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'Konfekt/FastFold'
 Plug 'vhdirk/vim-cmake'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'christoomey/vim-tmux-navigator'
+Plug 'tafryn/vim-tmux-navigator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
@@ -127,6 +127,8 @@ let g:airline_skip_empty_sections = 1
 let g:tmuxcomplete#trigger = ''
 
 let g:highlightedyank_highlight_duration = 750
+
+let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
 " let g:sneak#use_ic_scs = 1
 " let g:sneak#s_next = 1

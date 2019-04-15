@@ -263,15 +263,16 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+Shift+comma kill
 
 # Focus Window, Vim-style                                         ($mod+[hjkl])
-bindsym $mod+d focus left
-bindsym $mod+h focus down
-bindsym $mod+t focus up
-bindsym $mod+n focus right
+bindsym $mod+d exec "nested_navigate.sh L"
+bindsym $mod+h exec "nested_navigate.sh D"
+bindsym $mod+t exec "nested_navigate.sh U"
+bindsym $mod+n exec "nested_navigate.sh R"
+
 # Focus Window, using cursor keys                                 ($mod+arrows)
-#bindsym $mod+Left  focus left
-#bindsym $mod+Down  focus down
-#bindsym $mod+Up    focus up
-#bindsym $mod+Right focus right
+bindsym $mod+Left  focus left
+bindsym $mod+Down  focus down
+bindsym $mod+Up    focus up
+bindsym $mod+Right focus right
 
 # Move Focused Window, Vim-style                            ($mod+Shift+[hjkl])
 bindsym $mod+Shift+d move left
