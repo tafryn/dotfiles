@@ -29,7 +29,7 @@ Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/
 Plug 'sjl/gundo.vim'
 Plug 'tafryn/hexmode'
 Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
-Plug 'junegunn/gv.vim'
+Plug 'tafryn/gv.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
 
@@ -58,6 +58,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorHighlight'] }
+Plug 'RRethy/vim-hexokinase'
 
 " Text Manipulation & Navigation
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -127,6 +128,8 @@ let g:airline_skip_empty_sections = 1
 let g:tmuxcomplete#trigger = ''
 
 let g:highlightedyank_highlight_duration = 750
+
+let g:gv_horizontal = 1
 
 let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
@@ -554,6 +557,7 @@ if has("autocmd")
   autocmd FileType cpp set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
   "autocmd! CursorHold * call LanguageClient#textDocument_hover()
   autocmd FileType gitcommit setlocal nofoldenable
+  autocmd FileType git setlocal nofoldenable
 endif
 
 " }}} "
