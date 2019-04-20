@@ -423,6 +423,7 @@ exec --no-startup-id compton -b
 exec --no-startup-id dunst
 exec --no-startup-id sleep 5; sh ~/.fehbg
 exec --no-startup-id mattermost-desktop
+exec --no-startup-id screenrotator
 exec --no-startup-id ssh-agent -t 3600
 exec --no-startup-id sleep 5; ~/bin/screen-lock-do.sh
 
