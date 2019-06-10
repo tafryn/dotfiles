@@ -22,7 +22,7 @@ call plug#begin('~/.vim/bundle')
 Plug 'Konfekt/FastFold'
 Plug 'vhdirk/vim-cmake'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'tafryn/vim-tmux-navigator'
+Plug 'tafryn/vim-tmux-navigator', { 'branch': 'forward-script' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
@@ -34,21 +34,9 @@ Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
 
 " Linting & Completions
-Plug 'ervandew/supertab'
-if has('nvim')
-    Plug 'Shougo/deoplete.nvim', { 'do':  ':UpdateRemotePlugins' }
-else
-    Plug 'Shougo/deoplete.nvim'
-    Plug 'roxma/nvim-yarp'
-    Plug 'roxma/vim-hug-neovim-rpc'
-endif
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
-" Plug 'vim-syntastic/syntastic'
 Plug 'w0rp/ale'
 Plug 'wellle/tmux-complete.vim'
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
 " Interface Customization
 Plug 'airblade/vim-gitgutter'
@@ -107,18 +95,7 @@ let g:ale_linters = {
 let g:fastfold_fold_command_suffixes = []
 
 let g:limelight_conceal_ctermfg = 'darkgray'
-
-let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
-
-let g:deoplete#enable_at_startup = 1
-call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
-
-let g:LanguageClient_serverCommands = {
-            \ 'cpp': ['cquery', '--log-file=/tmp/cquery.log', '--init={"cacheDirectory":"/tmp/cquery-cache/"}'],
-            \ 'rust': ['rls'],
-            \ 'python': ['pyls'], }
-"let g:LanguageClient_rootMarkers = ['.gitignore']
-let g:LanguageClient_autoStart = 1
+let g:limelight_conceal_guifg = 'darkslategray'
 
 let g:ansible_unindent_after_newline = 1
 
@@ -133,10 +110,6 @@ let g:gv_horizontal = 1
 
 let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
-" let g:sneak#use_ic_scs = 1
-" let g:sneak#s_next = 1
-" let g:sneak#label = 1
-" let g:sneak#target_labels = "aoeuiqjkmw,.pg"
 " }}} "
 
 "|    Theme                                                               {{{
@@ -158,8 +131,6 @@ let g:jellybeans_overrides = {
             \ 'Search': { 'guifg': 'ff87ff', 'guibg': '302028', 'ctermfg': 'Magenta', 'ctermbg': '', 'attr': 'underline' },
             \ 'SpecialKey': { 'guifg': '808080', 'guibg': 'af0000', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
             \}
-            "\ 'Statement': { 'guifg': '5f87d7', 'guibg': '', 'ctermfg': 'DarkBlue', 'ctermbg': '', 'attr': '' },
-            "\ 'String': { 'guifg': '5faf5f', 'guibg': '', 'ctermfg': 'Green', 'ctermbg': '', 'attr': '' },
 let g:jellybeans_background_color_256="none"
 let g:jellybeans_background_color="none"
 colo jellybeans
@@ -183,7 +154,7 @@ let g:xml_syntax_folding=1
 set noshowmode
 set updatetime=250
 set foldnestmax=5
-set relativenumber
+" set relativenumber
 " }}} "
 
 "|    Environment Setup                                                   {{{
@@ -265,16 +236,33 @@ endif
 "|===========================================================================
 
 " Removing
-"map                 <C-t>               :tabnew<CR>:edit 
-"map!                <C-t>               <C-O>:tabnew<CR><C-O>:edit 
-"nnoremap            <CR>                mmG
-"nnoremap            <BS>                mmgg
 "nnoremap <silent>   <leader>yw          :call WindowSwap#MarkWindowSwap()<CR>
 "nnoremap <silent>   <leader>pw          :call WindowSwap#DoWindowSwap()<CR>
-"nmap                <Leader>n           <Plug>(easymotion-n)
-"nmap                <Leader>N           <Plug>(easymotion-N)
-"nmap                <Leader>s           <Plug>(easymotion-s)
-"map <Leader> <Plug>(easymotion-prefix)
+" map q: :q
+" " CScope mappings (<C-o> to return s
+"   " Find all references to Symbol under cursor
+" nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
+"   " Find Global definition of token under cursor
+" nmap                <leader>sg          :cs find g <C-R>=expand("<cword>")<CR><CR>
+"   " Find all Calls to function under cursor
+" nmap                <leader>sc          :cs find c <C-R>=expand("<cword>")<CR><CR>
+"   " Find all instances of Text under cursor
+" nmap                <leader>st          :cs find t <C-R>=expand("<cword>")<CR><CR>
+"   " Egrep word under cursor
+" nmap                <leader>se          :cs find e <C-R>=expand("<cword>")<CR><CR>
+"   " Open filename under cursor
+" nmap                <leader>sf          :cs find f <C-R>=expand("<cfile>")<CR><CR>
+"   " Find files that include filename under cursor
+" nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
+"   " Find functions called by function under cursor
+" nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
+"   " Regenerate ctags and cscope files
+" map      <silent>   <F3>                :call RegenTagScope()<CR>
+" nnoremap            <C-]>               g<C-]>
+" System clipboard interaction
+"noremap <silent> <leader>y "+y
+"noremap <silent> <leader>yy "+Y
+"noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 
 " Main
 let mapleader = " "
@@ -282,52 +270,42 @@ let g:UltiSnipsExpandTrigger="<c-u>"
 let g:UltiSnipsJumpForwardTrigger="<c-m>"
 let g:UltiSnipsJumpBackwardTrigger="<c-w>"
 
-imap <expr><silent><CR> pumvisible() ? deoplete#mappings#close_popup() : "\<CR>"
-
 exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 
 " Provisional
 nnoremap <silent>   <leader>ar          :CoatiRefresh<CR>
 nnoremap <silent>   <leader>aa          :CoatiActivateToken<CR>
-map q: :q
 "   Replace name in current block
 nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
 "   Fold all comments
 nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
-"   Toggle off current search highlights
-nnoremap <silent>   <leader>m           :nohlsearch<CR>
 "   Select pasted text
 nnoremap <silent>   <leader>v           `[v`]
 
-" LanguageClient mappings
-noremap  <silent>   <leader>lh          :call LanguageClient#textDocument_hover()<CR>
-noremap  <silent>   <leader>ld          :call LanguageClient#textDocument_definition()<CR>
-noremap  <silent>   <leader>li          :call LanguageClient#textDocument_implementation()<CR>
-noremap  <silent>   <leader>lr          :call LanguageClient#textDocument_references()<CR>
-noremap  <silent>   <F2>                :call LanguageClient#textDocument_rename()<CR>
+" LSP mappings
+nnoremap   <silent>  <leader>ld          :<C-u>call CocActionAsync('jumpDefinition')<CR>
+nnoremap   <silent>  <leader>lt          :<C-u>call CocActionAsync('jumpTypeDefinition')<CR>
+nnoremap   <silent>  <leader>lD          :<C-u>call CocActionAsync('jumpDeclaration')<CR>
+nnoremap   <silent>  <leader>li          :<C-u>call CocActionAsync('jumpImplementation')<CR>
+nnoremap   <silent>  <leader>lr          :<C-u>call CocActionAsync('jumpReferences')<CR>
+nnoremap   <silent>  <leader>lR          :<C-u>call CocActionAsync('rename')<CR>
+nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
+nnoremap   <silent>  <leader>lh          :<C-u>call <SID>show_documentation()<CR>
+nnoremap   <silent>  <leader>lf          :<C-u>call CocActionAsync('format')<CR>
+nnoremap   <silent>  <leader>lF          :<C-u>call CocActionAsync('formatSelected', visualmode())<CR>
 
-" CScope mappings (<C-o> to return s
-  " Find all references to Symbol under cursor
-nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
-  " Find Global definition of token under cursor
-nmap                <leader>sg          :cs find g <C-R>=expand("<cword>")<CR><CR>
-  " Find all Calls to function under cursor
-nmap                <leader>sc          :cs find c <C-R>=expand("<cword>")<CR><CR>
-  " Find all instances of Text under cursor
-nmap                <leader>st          :cs find t <C-R>=expand("<cword>")<CR><CR>
-  " Egrep word under cursor
-nmap                <leader>se          :cs find e <C-R>=expand("<cword>")<CR><CR>
-  " Open filename under cursor
-nmap                <leader>sf          :cs find f <C-R>=expand("<cfile>")<CR><CR>
-  " Find files that include filename under cursor
-nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-  " Find functions called by function under cursor
-nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
-  " Regenerate ctags and cscope files
-map      <silent>   <F3>                :call RegenTagScope()<CR>
-nnoremap            <C-]>               g<C-]>
+" Completion mappings
+"   use <tab> for trigger completion and navigate to the next complete item
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Motion mappings
 nmap                <Leader>h           <Plug>(easymotion-j)
@@ -357,7 +335,7 @@ nnoremap            <C-X>               :Hexmode<CR>
 inoremap            <C-X>               <C-o>:Hexmode<CR>
 vnoremap            <C-X>               :<C-U>Hexmode<CR>
 
-" Git related bindings
+" Git related mappings
 nmap                <leader>gb          :Gblame<CR>
 nmap     <silent>   <leader>gS          :Ggrep <C-R>=expand("<cword>")<CR><CR>
 nmap     <silent>   <leader>gr          <Plug>GitGutterUndoHunk
@@ -381,10 +359,15 @@ nmap                <C-PageDown>        :cclose<CR>
 nmap                <F9>                :cp<CR>
 nmap                <F10>               :cn<CR>
 
-" Highlight extraneous whitespace
+" Highlight mappings
+"   Highlight extraneous whitespace
 nmap     <silent>   <leader><leader>w   :set nolist!<CR>
+"   Toggle off current search highlights
+nnoremap <silent>   <leader>m           :nohlsearch<CR>
 
 " Text editing
+noremap  <silent>   <F6>                {gq}
+inoremap <silent>   <F6>                <C-o>{<C-o>gq}
 map                 <F7>                :setlocal spell!<CR>
 imap                <F7>                <C-o>:setlocal spell!<CR>
 map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
@@ -435,14 +418,24 @@ noremap             L                   N
 nnoremap            k                   t
 nnoremap            K                   T
 
-" System clipboard interaction
-"noremap <silent> <leader>y "+y
-"noremap <silent> <leader>yy "+Y
-"noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 " }}} "
 
 "|    Functions                                                           {{{
 "|===========================================================================
+
+" coc helper functions
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
 
 " FZF file searching function
 function! FzfOmniFiles()
@@ -503,31 +496,31 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
-function RegenTagScope()
-  let oldpath = getcwd()
+" function RegenTagScope()
+"   let oldpath = getcwd()
 
-  let s:ctag_database = findfile(".ctags", ".;")
-  let s:ctag_dir = fnamemodify(s:ctag_database, ":p:h")
-  let s:cscope_database = findfile(".cscope.out", ".;")
-  let s:cscope_dir = fnamemodify(s:cscope_database, ":p:h")
+"   let s:ctag_database = findfile(".ctags", ".;")
+"   let s:ctag_dir = fnamemodify(s:ctag_database, ":p:h")
+"   let s:cscope_database = findfile(".cscope.out", ".;")
+"   let s:cscope_dir = fnamemodify(s:cscope_database, ":p:h")
 
-  echo s:ctag_database
-  echo s:ctag_dir
-  echo s:cscope_database
-  echo s:cscope_dir
+"   echo s:ctag_database
+"   echo s:ctag_dir
+"   echo s:cscope_database
+"   echo s:cscope_dir
 
-  if s:ctag_database != ""
-      exec "cd " . s:ctag_dir
-      exec "!ctags -R -f " . s:ctag_database
-  endif
+"   if s:ctag_database != ""
+"       exec "cd " . s:ctag_dir
+"       exec "!ctags -R -f " . s:ctag_database
+"   endif
 
-  if s:cscope_database != ""
-      exec "!cscope -Rbqf " . s:cscope_database
-      exec "cs reset"
-  endif
+"   if s:cscope_database != ""
+"       exec "!cscope -Rbqf " . s:cscope_database
+"       exec "cs reset"
+"   endif
 
-  exec "cd " . oldpath
-endfun
+"   exec "cd " . oldpath
+" endfun
 
 function! InitFoldOpen()
     if !exists("b:iforun")
@@ -554,8 +547,6 @@ if has("autocmd")
     autocmd BufEnter * autocmd CursorHold <buffer> call InitFoldOpen()
   augroup END
 
-  autocmd FileType cpp set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-  "autocmd! CursorHold * call LanguageClient#textDocument_hover()
   autocmd FileType gitcommit setlocal nofoldenable
   autocmd FileType git setlocal nofoldenable
 endif
