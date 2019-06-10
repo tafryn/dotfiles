@@ -28,4 +28,4 @@ set -e fish_color_valid_path
 . ~/.config/fish/local.fish
 
 # Remove duplicates from paths
-varclear PATH MANPATH INFOPATH
+varclear PATH MANPATH INFOPATH LD_LIBRARY_PATH
