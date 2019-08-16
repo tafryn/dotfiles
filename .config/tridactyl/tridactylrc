@@ -1,0 +1,25 @@
+sanitise tridactyllocal tridactylsync
+bind k fillcmdline tabopen
+bind j tabclose
+
+bind h scrollline 8
+bind t scrollline -8
+bind d scrollpx -50
+bind n scrollpx 50
+
+bind D back
+bind H scrollpage 0.5
+bind T scrollpage -0.5
+bind N forward
+
+unbind ZZ
+
+set smoothscroll true
+set allowautofocus false
+set searchengine googlelucky
+set updatenag false
+set searchurls.wp https://en.wikipedia.org/w/index.php?search=%s
+
+set editorcmd i3-sensible-terminal -t Firefox-NVIM -e nvim
+
+colorscheme dark
