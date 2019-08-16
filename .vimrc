@@ -32,11 +32,12 @@ Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', '
 Plug 'tafryn/gv.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
+Plug 'Asheq/close-buffers.vim'
 
 " Linting & Completions
 Plug 'w0rp/ale'
 Plug 'wellle/tmux-complete.vim'
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', { 'branch': 'release' }
 
 " Interface Customization
 Plug 'airblade/vim-gitgutter'
@@ -87,7 +88,6 @@ let g:windowswap_map_keys = 0
 let g:gitgutter_map_keys = 0
 
 let g:ale_cpp_cppcheck_options = '--std=c++14 --inline-suppr --enable=all --suppress=toomanyconfigs -I./include -I../include'
-let g:ale_cpp_cquery_cache_directory = '/tmp/cquery-cache'
 let g:ale_linters = {
 \    'cpp': ['clangtidy', 'clangcheck'],
 \}
@@ -101,6 +101,7 @@ let g:ansible_unindent_after_newline = 1
 
 let g:airline_section_y = ''
 let g:airline_skip_empty_sections = 1
+let g:airline#extensions#hunks#enabled = 0
 
 let g:tmuxcomplete#trigger = ''
 
@@ -144,6 +145,7 @@ set laststatus=2
 
 "|    Probationary Options                                                {{{
 "|===========================================================================
+set nocursorline
 set termguicolors
 " set autochdir
 "set smartindent
@@ -239,26 +241,6 @@ endif
 "nnoremap <silent>   <leader>yw          :call WindowSwap#MarkWindowSwap()<CR>
 "nnoremap <silent>   <leader>pw          :call WindowSwap#DoWindowSwap()<CR>
 " map q: :q
-" " CScope mappings (<C-o> to return s
-"   " Find all references to Symbol under cursor
-" nmap                <leader>ss          :cs find s <C-R>=expand("<cword>")<CR><CR>
-"   " Find Global definition of token under cursor
-" nmap                <leader>sg          :cs find g <C-R>=expand("<cword>")<CR><CR>
-"   " Find all Calls to function under cursor
-" nmap                <leader>sc          :cs find c <C-R>=expand("<cword>")<CR><CR>
-"   " Find all instances of Text under cursor
-" nmap                <leader>st          :cs find t <C-R>=expand("<cword>")<CR><CR>
-"   " Egrep word under cursor
-" nmap                <leader>se          :cs find e <C-R>=expand("<cword>")<CR><CR>
-"   " Open filename under cursor
-" nmap                <leader>sf          :cs find f <C-R>=expand("<cfile>")<CR><CR>
-"   " Find files that include filename under cursor
-" nmap                <leader>si          :cs find i ^<C-R>=expand("<cfile>")<CR>$<CR>
-"   " Find functions called by function under cursor
-" nmap                <leader>sd          :cs find d <C-R>=expand("<cword>")<CR><CR>
-"   " Regenerate ctags and cscope files
-" map      <silent>   <F3>                :call RegenTagScope()<CR>
-" nnoremap            <C-]>               g<C-]>
 " System clipboard interaction
 "noremap <silent> <leader>y "+y
 "noremap <silent> <leader>yy "+Y
@@ -283,6 +265,8 @@ nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
 "   Select pasted text
 nnoremap <silent>   <leader>v           `[v`]
+nnoremap <silent>   <leader>b           :CloseHiddenBuffers<CR>
+nnoremap <silent>   <leader>w           :only<CR>
 
 " LSP mappings
 nnoremap   <silent>  <leader>ld          :<C-u>call CocActionAsync('jumpDefinition')<CR>
@@ -295,6 +279,8 @@ nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
 nnoremap   <silent>  <leader>lh          :<C-u>call <SID>show_documentation()<CR>
 nnoremap   <silent>  <leader>lf          :<C-u>call CocActionAsync('format')<CR>
 nnoremap   <silent>  <leader>lF          :<C-u>call CocActionAsync('formatSelected', visualmode())<CR>
+nnoremap   <silent>  ]c                  :<C-u>call CocActionAsync('diagnosticNext')<CR>
+nnoremap   <silent>  [c                  :<C-u>call CocActionAsync('diagnosticPrevious')<CR>
 
 " Completion mappings
 "   use <tab> for trigger completion and navigate to the next complete item
@@ -316,6 +302,7 @@ map                 l                   <Plug>(easymotion-next)
 map                 L                   <Plug>(easymotion-prev)
 nmap     <silent>   s                   <Plug>(easymotion-s2)
 nmap     <silent>   S                   <Plug>(easymotion-S2)
+nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
 
 " Misc plugin commands
 nmap     <silent>   <leader>.           :Tags<CR>
@@ -325,7 +312,7 @@ nnoremap            <C-B>               :Buffers<CR>
 nnoremap            <C-L>               :Locate 
 nnoremap            <C-G>               :Rg<CR>
 nnoremap <silent>   <leader>u           :GundoToggle<CR>
-nmap     <silent>   <leader><leader>b   :TagbarToggle<CR>
+nmap     <silent>   <leader><leader>t   :TagbarToggle<CR>
 nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
 nmap                <leader>L           :Limelight!!<CR>
 nmap     <silent>   <leader>d           <Plug>(dirvish_up)
@@ -496,38 +483,19 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
-" function RegenTagScope()
-"   let oldpath = getcwd()
-
-"   let s:ctag_database = findfile(".ctags", ".;")
-"   let s:ctag_dir = fnamemodify(s:ctag_database, ":p:h")
-"   let s:cscope_database = findfile(".cscope.out", ".;")
-"   let s:cscope_dir = fnamemodify(s:cscope_database, ":p:h")
-
-"   echo s:ctag_database
-"   echo s:ctag_dir
-"   echo s:cscope_database
-"   echo s:cscope_dir
-
-"   if s:ctag_database != ""
-"       exec "cd " . s:ctag_dir
-"       exec "!ctags -R -f " . s:ctag_database
-"   endif
-
-"   if s:cscope_database != ""
-"       exec "!cscope -Rbqf " . s:cscope_database
-"       exec "cs reset"
-"   endif
-
-"   exec "cd " . oldpath
-" endfun
-
 function! InitFoldOpen()
     if !exists("b:iforun")
         norm zv
         let b:iforun = 1
         autocmd! CursorHold <buffer>
     endif
+endfunction
+
+function! s:QuarterFocus()
+    let l:save_pos = getpos(".")
+    execute "normal! 22gk"
+    execute "normal! " . line(".") . "zt"
+    call setpos(".", l:save_pos)
 endfunction
 
 " }}} "
