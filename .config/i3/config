@@ -178,12 +178,10 @@ workspace $w12 output DP-0.3
 # - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
 
 # Common apps are sorted by workspace
-assign [class="Firefox"]                                → $w01
-assign [class="^VirtualBox" title="Stbd LCP"]           → $w12
-assign [class="^VirtualBox" title="Port LCP"]           → $w12
-assign [class="^VirtualBox" title="TDC"]                → $w12
+assign [class="^VirtualBox" title="System Processor"]   → $w12
+assign [class="^VirtualBox" title="Display Processor"]  → $w12
 assign [class="^VirtualBox" title="Manager"]            → $w09
-assign [class="^VirtualBox" title="CSA Development"]    → $w10
+assign [class="^VirtualBox" title="Development VM"]     → $w10
 
 # Firefox can be run with a --class argument: (= "Firefox" by default)
 #   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
@@ -220,6 +218,7 @@ for_window [title="Org-mode"]          floating enable
 # This works for Firefox, Thunderbird, and probably a lot of apps
 for_window [window_role="About"]       floating enable
 for_window [window_role="Preferences"] floating enable
+for_window [title="^Firefox-NVIM$"]    floating enable
 
 # These windows require a specific rule to be displayed in floating mode:
 #for_window [window_role="^Manager"]    floating enable
@@ -426,13 +425,12 @@ bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 # beware of gnome-settings-daemon:
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
-# bind $mod+33 exec "dmenu_path | sort -u | dmenu -fn '-*-fixed-*-r-normal-*-*-120-*-*-*-*-iso8859-*' -nb '#000000' -nf '#FFFFFF' -sb '#1793d1'"
 bindsym $mod+p exec --no-startup-id "rofi -show run"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file.
-bindsym $mod+Shift+p exec --no-startup-id i3-dmenu-desktop
+bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 
 # Lock screen
 bindsym $mod+grave exec --no-startup-id xscreensaver-command -lock
@@ -464,10 +462,10 @@ exec --no-startup-id sleep 5; ~/bin/screen-lock-do.sh
 # bindsym mod1+Right exec "xdotool getactivewindow key ctrl+Right"
 
 #                                                                 (super+arrow)
-bindsym mod4+Left  exec "xdotool getactivewindow key Home"
-bindsym mod4+Down  exec "xdotool getactivewindow key Next"
-bindsym mod4+Up    exec "xdotool getactivewindow key Prior"
-bindsym mod4+Right exec "xdotool getactivewindow key End"
+# bindsym mod4+Left  exec "xdotool getactivewindow key Home"
+# bindsym mod4+Down  exec "xdotool getactivewindow key Next"
+# bindsym mod4+Up    exec "xdotool getactivewindow key Prior"
+# bindsym mod4+Right exec "xdotool getactivewindow key End"
 
 # Word-by-word selection                                      (alt+shift+arrow)
 # bindsym mod1+Shift+Left  exec "xdotool getactivewindow key ctrl+shift+Left"
@@ -476,10 +474,10 @@ bindsym mod4+Right exec "xdotool getactivewindow key End"
 # bindsym mod1+Shift+Right exec "xdotool getactivewindow key ctrl+shift+Right"
 
 #                                                           (super+shift+arrow)
-bindsym mod4+Shift+Left  exec "xdotool getactivewindow key shift+Home"
-bindsym mod4+Shift+Down  exec "xdotool getactivewindow key shift+Next"
-bindsym mod4+Shift+Up    exec "xdotool getactivewindow key shift+Prior"
-bindsym mod4+Shift+Right exec "xdotool getactivewindow key shift+End"
+# bindsym mod4+Shift+Left  exec "xdotool getactivewindow key shift+Home"
+# bindsym mod4+Shift+Down  exec "xdotool getactivewindow key shift+Next"
+# bindsym mod4+Shift+Up    exec "xdotool getactivewindow key shift+Prior"
+# bindsym mod4+Shift+Right exec "xdotool getactivewindow key shift+End"
 
 # Mouse pointer                                                    ($mod+arrow)
 # bindsym $mod+Left  exec "xdotool mousemove_relative -- -20   0"
@@ -500,27 +498,27 @@ bindsym mod4+Shift+Right exec "xdotool getactivewindow key shift+End"
 
 # Screenshot                                                           (PrtScr)
 # +shift ⇒ focused window only
-bind 107       exec "scrot    -e 'mv $f ~/Pictures/Screenshots'"
-bind Shift+107 exec "scrot -u -e 'mv $f ~/Pictures/Screenshots'"
+# bind 107       exec "scrot    -e 'mv $f ~/Pictures/Screenshots'"
+# bind Shift+107 exec "scrot -u -e 'mv $f ~/Pictures/Screenshots'"
 
 # Volume control                                               (mute|vol-|vol+)
 # https://github.com/fabi1cazenave/dotFiles/blob/master/bin/mvolume
-bind 121 exec "amixer set Master toggle && pkill -USR1 -x i3status"
-bind 122 exec "amixer set Master 3%- && pkill -USR1 -x i3status"
-bind 123 exec "amixer set Master 3%+ && pkill -USR1 -x i3status"
+# bind 121 exec "amixer set Master toggle && pkill -USR1 -x i3status"
+# bind 122 exec "amixer set Master 3%- && pkill -USR1 -x i3status"
+# bind 123 exec "amixer set Master 3%+ && pkill -USR1 -x i3status"
 
 # Playlist control (cmus)                                            (Fn+arrow)
-bind 171 exec "cmus-remote --next"
-bind 172 exec "cmus-remote --pause"
-bind 173 exec "cmus-remote --prev"
-bind 174 exec "cmus-remote --stop"
+# bind 171 exec "cmus-remote --next"
+# bind 172 exec "cmus-remote --pause"
+# bind 173 exec "cmus-remote --prev"
+# bind 174 exec "cmus-remote --stop"
 
 # lock, battery, sleep, hibernate                           (Fn+[F2|F3|F4|F12])
 # https://github.com/fabi1cazenave/dotFiles/blob/master/bin/gsession
-bind 160 exec "gsession lock"
+# bind 160 exec "gsession lock"
 #bind 244 exec ""
-bind 150 exec "gsession suspend"
-bind 213 exec "gsession hibernate"
+# bind 150 exec "gsession suspend"
+# bind 213 exec "gsession hibernate"
 
 # ???                                                        (Fn+[F5|F6|F7|F8])
 #bind 246 exec ""
