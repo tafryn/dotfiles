@@ -323,7 +323,7 @@ mouse:
     #   - (Linux) xdg-open
     #   - (Windows) explorer
     launcher:
-      program: vivaldi
+      program: firefox
     #  args: []
 
     # URL modifiers

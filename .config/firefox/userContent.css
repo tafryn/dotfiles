@@ -1,0 +1,10 @@
+@-moz-document url-prefix(about:blank), url-prefix(about:newtab) {*{background-color:#000000;}}
+
+@-moz-document url-prefix("moz-extension://6cfd78e5-1096-4b64-847b-957a1bec152f/static/newtab.html"),
+url-prefix(about:blank) {
+  body {
+    color: var(--tone-2)!important;
+    background-color: var(--tone-8)!important
+  }
+}
+
