@@ -148,19 +148,25 @@ set laststatus=2
 set nocursorline
 set termguicolors
 " set autochdir
-"set smartindent
-set backupdir=~/.vim-tmp,/var/tmp,/tmp
-set directory=~/.vim-tmp,/var/tmp,/tmp
+set smartindent
 "autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
-set noshowmode
 set updatetime=250
 set foldnestmax=5
 " set relativenumber
+set showmatch
+set nowrapscan
+set linebreak
+set wildignorecase
+set nodigraph
+
 " }}} "
 
 "|    Environment Setup                                                   {{{
 "|===========================================================================
+set undodir=~/.vim/tmp//,/var/tmp//,/tmp//
+set backupdir=~/.vim/tmp//,/var/tmp//,/tmp//
+set directory=~/.vim/tmp//,/var/tmp//,/tmp//
 set listchars=tab:>-,trail:.,eol:$
 set nojoinspaces
 syntax on
@@ -187,6 +193,7 @@ set number
 set showcmd
 set title
 set visualbell
+set noshowmode
 
 " Standardized indentation
 set autoindent
@@ -212,25 +219,6 @@ filetype on
 filetype indent on
 filetype plugin on
 set shell=/bin/bash
-
-" CScope
-if has('cscope')
-  "set cscopetag
-  set cscopeverbose
-  set cscoperelative
-  set csto=0
-  set cspc=1
-
-  if has('quickfix')
-    set cscopequickfix=s-,c-,d-,i-,t-,e-
-  endif
-
-  let s:cscope_database = findfile(".cscope.out", ".;")
-
-  if s:cscope_database != ""
-      exec "silent cs add " . s:cscope_database
-  endif
-endif
 
 " }}} "
 
