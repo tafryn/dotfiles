@@ -10,6 +10,18 @@ else
     alias less "less -r"
 end
 
+if command --search "exa" >/dev/null
+    alias ls "exa --group-directories-first"
+    alias ll "exa -l --group-directories-first"
+    alias la "exa -a --group-directories-first"
+    alias tree "exa --tree"
+else if command --search "lsd" >/dev/null
+    alias ls "lsd"
+    alias ll "lsd -l"
+    alias la "lsd -a"
+    alias tree "lsd --tree"
+end
+
 if command --search "systemctl" >/dev/null
     alias poweroff "sudo systemctl poweroff"
     alias restart "sudo systemctl restart"
