@@ -48,6 +48,7 @@ Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorHighlight'] }
 Plug 'RRethy/vim-hexokinase'
+Plug 'liuchengxu/vim-which-key'
 
 " Text Manipulation & Navigation
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -226,16 +227,34 @@ set shell=/bin/bash
 "|===========================================================================
 
 " Removing
-"nnoremap <silent>   <leader>yw          :call WindowSwap#MarkWindowSwap()<CR>
-"nnoremap <silent>   <leader>pw          :call WindowSwap#DoWindowSwap()<CR>
 " map q: :q
 " System clipboard interaction
 "noremap <silent> <leader>y "+y
 "noremap <silent> <leader>yy "+Y
 "noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+" nnoremap            <C-L>               :Locate 
+" nnoremap <silent>   <leader>x           :x<CR>
+
+" WhichKey menu for rarely used commands
+let g:which_key_menu = {}
+let g:which_key_menu = {
+            \ 'name' : 'Quick Menu',
+            \ 'b' : ['CloseHiddenBuffers',          'close-hidden-buffers'],
+            \ 'c' : [':g/^\s*\/\*/foldc',           'fold-comments'],
+            \ 'd' : ['<Plug>(dirvish_up)',          'directory-view'],
+            \ 'g' : ['Rg',                          'grep-repo'],
+            \ 'h' : ['Hexmode',                     'hexmode'],
+            \ 'l' : [':Limelight!!',                'toggle-limelight'],
+            \ 's' : ['`[v`]',                       'select-pasted'],
+            \ 't' : ['TagbarToggle',                'tagbar'],
+            \ 'u' : ['GundoToggle',                 'undo-history'],
+            \ 'w' : [':set nolist!',                'highlight-whitespace'],
+            \ 'W' : ['WindowSwap#EasyWindowSwap()', 'swap-window'],
+            \ }
 
 " Main
 let mapleader = " "
+let g:mapleader = "\<Space>"
 let g:UltiSnipsExpandTrigger="<c-u>"
 let g:UltiSnipsJumpForwardTrigger="<c-m>"
 let g:UltiSnipsJumpBackwardTrigger="<c-w>"
@@ -244,17 +263,16 @@ exec "set <PageUp>=\<Esc>[5;*~"
 exec "set <PageDown>=\<Esc>[6;*~"
 
 " Provisional
-nnoremap <silent>   <leader>ar          :CoatiRefresh<CR>
-nnoremap <silent>   <leader>aa          :CoatiActivateToken<CR>
+nnoremap <silent>   <leader>            :<C-u>WhichKey '<Space>'<CR>
+nnoremap <silent>   <leader>m           :<C-u>WhichKey! g:which_key_menu<CR>
+nnoremap <silent>   <leader>w           :w<CR>
+nnoremap <silent>   <leader>q           :q<CR>
+nnoremap <silent>   <leader>o           :only<CR>
 "   Replace name in current block
 nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
-"   Fold all comments
-nnoremap            <leader>cf          :g/^\s*\/\*/foldc<CR><C-o>
 "   Select pasted text
-nnoremap <silent>   <leader>v           `[v`]
-nnoremap <silent>   <leader>b           :CloseHiddenBuffers<CR>
-nnoremap <silent>   <leader>w           :only<CR>
+nmap                gp                  `[v`]
 
 " LSP mappings
 nnoremap   <silent>  <leader>ld          :<C-u>call CocActionAsync('jumpDefinition')<CR>
@@ -296,19 +314,7 @@ nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
 nmap     <silent>   <leader>.           :Tags<CR>
 nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
 nnoremap            <C-P>               :call FzfOmniFiles()<CR>
-nnoremap            <C-B>               :Buffers<CR>
-nnoremap            <C-L>               :Locate 
-nnoremap            <C-G>               :Rg<CR>
-nnoremap <silent>   <leader>u           :GundoToggle<CR>
-nmap     <silent>   <leader><leader>t   :TagbarToggle<CR>
-nnoremap <silent>   <leader><leader>sw  :call WindowSwap#EasyWindowSwap()<CR>
-nmap                <leader>L           :Limelight!!<CR>
-nmap     <silent>   <leader>d           <Plug>(dirvish_up)
-
-" Hexmode mappings
-nnoremap            <C-X>               :Hexmode<CR>
-inoremap            <C-X>               <C-o>:Hexmode<CR>
-vnoremap            <C-X>               :<C-U>Hexmode<CR>
+nnoremap            <leader>b           :Buffers<CR>
 
 " Git related mappings
 nmap                <leader>gb          :Gblame<CR>
@@ -321,6 +327,7 @@ nmap     <silent>   <leader>gs          :Gstatus<CR>
 nmap     <silent>   <leader>gh          :BCommits<CR>
 nmap     <silent>   <leader>gc          :Commits<CR>
 nmap     <silent>   <leader>gv          :GV<CR>
+nmap     <silent>   <leader>gH          :Glog -- %<CR>
 
 " Code editing
 noremap  <silent>   <F12>               :Neoformat<CR>
@@ -335,16 +342,15 @@ nmap                <F9>                :cp<CR>
 nmap                <F10>               :cn<CR>
 
 " Highlight mappings
-"   Highlight extraneous whitespace
-nmap     <silent>   <leader><leader>w   :set nolist!<CR>
 "   Toggle off current search highlights
-nnoremap <silent>   <leader>m           :nohlsearch<CR>
+nnoremap <silent>   <leader>s           :nohlsearch<CR>
 
 " Text editing
 noremap  <silent>   <F6>                {gq}
 inoremap <silent>   <F6>                <C-o>{<C-o>gq}
 map                 <F7>                :setlocal spell!<CR>
 imap                <F7>                <C-o>:setlocal spell!<CR>
+nnoremap <silent>   <S-F7>              z=
 map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
 imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
 
