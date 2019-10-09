@@ -228,9 +228,6 @@ set shell=/bin/bash
 
 " Removing
 " map q: :q
-" System clipboard interaction
-"noremap <silent> <leader>y "+y
-"noremap <silent> <leader>yy "+Y
 "noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 " nnoremap            <C-L>               :Locate 
 " nnoremap <silent>   <leader>x           :x<CR>
@@ -245,11 +242,14 @@ let g:which_key_menu = {
             \ 'g' : ['Rg',                          'grep-repo'],
             \ 'h' : ['Hexmode',                     'hexmode'],
             \ 'l' : [':Limelight!!',                'toggle-limelight'],
+            \ 'p' : ['GlobalPaste()',               'global-paste'],
+            \ 'q' : ['',                            'cancel'],
             \ 's' : ['`[v`]',                       'select-pasted'],
             \ 't' : ['TagbarToggle',                'tagbar'],
             \ 'u' : ['GundoToggle',                 'undo-history'],
             \ 'w' : [':set nolist!',                'highlight-whitespace'],
             \ 'W' : ['WindowSwap#EasyWindowSwap()', 'swap-window'],
+            \ 'y' : ['GlobalYank()',                'global-yank'],
             \ }
 
 " Main
@@ -265,6 +265,7 @@ exec "set <PageDown>=\<Esc>[6;*~"
 " Provisional
 nnoremap <silent>   <leader>            :<C-u>WhichKey '<Space>'<CR>
 nnoremap <silent>   <leader>m           :<C-u>WhichKey! g:which_key_menu<CR>
+vnoremap <silent>   <leader>m           :<C-u>WhichKeyVisual! g:which_key_menu<CR>
 nnoremap <silent>   <leader>w           :w<CR>
 nnoremap <silent>   <leader>q           :q<CR>
 nnoremap <silent>   <leader>o           :only<CR>
@@ -353,10 +354,6 @@ imap                <F7>                <C-o>:setlocal spell!<CR>
 nnoremap <silent>   <S-F7>              z=
 map                 <F8>                <Esc>{j!}fmt -71<CR>}k$
 imap                <F8>                <Esc>{j!}fmt -71<CR>}k$a
-
-" Global copy/paste
-vmap     <silent>   ,y                  "xy:wviminfo! ~/.viminfo<CR>
-nmap     <silent>   ,p                  :rviminfo! ~/.viminfo<CR>"xp
 
 " Navigation cluster mods
 imap                <Insert>            <Nop>
@@ -490,6 +487,16 @@ function! s:QuarterFocus()
     execute "normal! 22gk"
     execute "normal! " . line(".") . "zt"
     call setpos(".", l:save_pos)
+endfunction
+
+function! GlobalYank()
+    normal! "xy
+    wviminfo! ~/.viminfo
+endfunction
+
+function! GlobalPaste()
+    rviminfo! ~/.viminfo
+    normal! "xp
 endfunction
 
 " }}} "
