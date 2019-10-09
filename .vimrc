@@ -31,7 +31,7 @@ Plug 'wesQ3/vim-windowswap'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorHighlight'] }
-Plug 'RRethy/vim-hexokinase'
+Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'liuchengxu/vim-which-key'
 
 " Text Manipulation & Navigation
@@ -214,7 +214,7 @@ set wildignorecase
 
 " Removing
 " map q: :q
-"noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+" noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 " nnoremap            <C-L>               :Locate 
 " nnoremap <silent>   <leader>x           :x<CR>
 
@@ -226,7 +226,8 @@ let g:which_key_menu = {
             \ 'c' : [':g/^\s*\/\*/foldc',           'fold-comments'],
             \ 'd' : ['<Plug>(dirvish_up)',          'directory-view'],
             \ 'g' : ['Rg',                          'grep-repo'],
-            \ 'h' : ['Hexmode',                     'hexmode'],
+            \ 'h' : ['HexokinaseToggle',            'toggle-color-preview'],
+            \ 'H' : ['Hexmode',                     'hexmode'],
             \ 'l' : [':Limelight!!',                'toggle-limelight'],
             \ 'p' : ['GlobalPaste()',               'global-paste'],
             \ 'q' : ['',                            'cancel'],
@@ -239,7 +240,6 @@ let g:which_key_menu = {
             \ }
 
 " Main
-let mapleader = " "
 let g:mapleader = "\<Space>"
 let g:UltiSnipsExpandTrigger="<c-u>"
 let g:UltiSnipsJumpForwardTrigger="<c-m>"
@@ -287,8 +287,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Motion mappings
-nmap                <Leader>h           <Plug>(easymotion-j)
-nmap                <Leader>t           <Plug>(easymotion-k)
+nmap                <leader>h           <Plug>(easymotion-j)
+nmap                <leader>t           <Plug>(easymotion-k)
 map                 /                   <Plug>(easymotion-sn)
 omap                /                   <Plug>(easymotion-tn)
 map                 l                   <Plug>(easymotion-next)
@@ -304,7 +304,7 @@ nnoremap            <C-P>               :call FzfOmniFiles()<CR>
 nnoremap            <leader>b           :Buffers<CR>
 
 " Git related mappings
-nmap                <leader>gb          :Gblame<CR>
+nmap                <leader>gb          :Gblame -w<CR>
 nmap     <silent>   <leader>gS          :Ggrep <C-R>=expand("<cword>")<CR><CR>
 nmap     <silent>   <leader>gr          <Plug>GitGutterUndoHunk
 nmap     <silent>   <leader>go          <Plug>GitGutterPreviewHunk
