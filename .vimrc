@@ -1,19 +1,3 @@
-"|    Auto-generated                                                      {{{
-"|===========================================================================
-"if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-nmap gx <Plug>NetrwBrowseX
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetBrowseX(expand("<cWORD>"),0)
-let &cpo=s:cpo_save
-unlet s:cpo_save
-"set fileencodings=ucs-bom,utf-8,default,latin1
-set helplang=en
-set printoptions=paper:letter
-" read/write a .viminfo file, don't store more than 50 lines of registers
-set viminfo='20,\"50
-" }}} "
-
 "|    Plugins                                                             {{{
 "|===========================================================================
 call plug#begin('~/.vim/bundle')
@@ -146,20 +130,12 @@ set laststatus=2
 
 "|    Probationary Options                                                {{{
 "|===========================================================================
-set nocursorline
-set termguicolors
-" set autochdir
-set smartindent
-"autocmd FileType c,py,rb set formatoptions=croql
 let g:xml_syntax_folding=1
-set updatetime=250
-set foldnestmax=5
-" set relativenumber
-set showmatch
 set nowrapscan
-set linebreak
-set wildignorecase
 set nodigraph
+set clipboard=unnamedplus
+let g:netrw_browsex_viewer = "xdg-open"
+set viminfo='16,<256,h,r/tmp
 
 " }}} "
 
@@ -178,6 +154,11 @@ set mouse=a
 set timeout timeoutlen=1000 ttimeoutlen=100
 set splitbelow
 set splitright
+set updatetime=250
+set foldnestmax=4
+set linebreak
+set helplang=en
+set printoptions=paper:letter
 
 " Spellcheck current word
 set keywordprg=c
@@ -187,6 +168,7 @@ set backspace=indent,eol,start
 set nostartofline
 set scrolloff=3
 set sidescrolloff=3
+set showmatch
 
 " Interface display modification
 set ruler
@@ -195,6 +177,8 @@ set showcmd
 set title
 set visualbell
 set noshowmode
+set nocursorline
+set termguicolors
 
 " Standardized indentation
 set autoindent
@@ -203,6 +187,7 @@ set shiftwidth=4
 set expandtab
 set smarttab
 set shiftround
+set smartindent
 
 " For a better search
 set ignorecase
@@ -220,6 +205,7 @@ filetype on
 filetype indent on
 filetype plugin on
 set shell=/bin/bash
+set wildignorecase
 
 " }}} "
 
