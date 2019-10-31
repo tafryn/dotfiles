@@ -28,7 +28,7 @@ if command --search "systemctl" >/dev/null
 end
 
 alias cls "clear; ls"
-alias grep "grep --color=auto --binary-files=without-match --exclude-dir=.svn -n"
+alias grep "grep --color=auto --binary-files=without-match --exclude-dir=.svn"
 alias socks "ssh -f -N -D 8080"
 alias desocks "pkill -f 'ssh -f -N -D 8080'"
 alias xlog "less /var/log/Xorg.0.log"
