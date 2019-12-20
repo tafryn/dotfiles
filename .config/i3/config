@@ -178,15 +178,6 @@ assign [class="^VirtualBox" title="Development VM"]     → $w10
 for_window [window_role="pop-up"]      floating enable
 for_window [window_role="task_dialog"] floating enable
 
-# ROXTerm can be run with a --role argument, e.g.:
-#   roxterm --role=WeeChat -e weechat-curses
-assign [window_role="WeeChat"]         → $w11
-for_window [window_role="OrgMode"]     floating enable
-
-# ROXTerm and URxvt can be run with a -T or --title argument, e.g.:
-#   urxvt -T Org-mode -e vim ~/.notes.org
-for_window [title="Org-mode"]          floating enable
-
 # This works for Firefox, Thunderbird, and probably a lot of apps
 for_window [window_role="About"]       floating enable
 for_window [window_role="Preferences"] floating enable
