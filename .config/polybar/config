@@ -207,7 +207,7 @@ card = intel_backlight
 type = internal/cpu
 interval = 2
 format = <ramp-load>
-format-prefix = "閭 "
+format-prefix = "礪 "
 format-prefix-foreground = ${colors.foreground-alt}
 label = %percentage:2%%
 
@@ -232,7 +232,7 @@ ramp-load-7-foreground = #ff5555
 type = internal/memory
 interval = 2
 format = <ramp-used>
-format-prefix = " "
+format-prefix = "塞 "
 format-prefix-foreground = ${colors.foreground-alt}
 label = %percentage_used%%
 ramp-used-0 = ▁
@@ -260,7 +260,7 @@ interval = 3.0
 format-connected = <ramp-signal> <label-connected>
 format-connected-prefix = "直 "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = "%essid% %downspeed% %upspeed%"
+label-connected = "%essid% %upspeed% %downspeed%"
 label-connected-foreground = ${colors.foreground}
 
 format-disconnected =
@@ -293,7 +293,7 @@ interval = 3.0
 format-connected = <label-connected>
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip% %downspeed% %upspeed%
+label-connected = %local_ip% %upspeed% %downspeed%
 label-connected-foreground = ${colors.foreground}
 
 format-disconnected =
@@ -387,9 +387,8 @@ ramp-capacity-3-foreground = ${colors.secondary}
 ramp-capacity-4 = 
 ramp-capacity-foreground = ${colors.foreground}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = ⚡
+animation-charging-1 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
 
