@@ -11,8 +11,8 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
 Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
 Plug 'sjl/gundo.vim'
-Plug 'tafryn/hexmode'
-Plug 'tpope/vim-fugitive', { 'do': 'sed -i -e \"s/show-number''/show-number'', ''-w''/\" ./autoload/fugitive.vim' }
+Plug 'fidian/hexmode'
+Plug 'tpope/vim-fugitive'
 Plug 'tafryn/gv.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
@@ -95,6 +95,8 @@ let g:highlightedyank_highlight_duration = 750
 let g:gv_horizontal = 1
 
 let g:tmux_navigator_forward_script = "nested_navigate.sh"
+
+let g:gutentags_ctags_exclude = ["build*", "os*", "compile_commands.json"]
 
 " }}} "
 
@@ -306,14 +308,15 @@ nnoremap            <leader>b           :Buffers<CR>
 " Git related mappings
 nmap                <leader>gb          :Gblame -w<CR>
 nmap     <silent>   <leader>gS          :Ggrep <C-R>=expand("<cword>")<CR><CR>
-nmap     <silent>   <leader>gr          <Plug>GitGutterUndoHunk
-nmap     <silent>   <leader>go          <Plug>GitGutterPreviewHunk
-nmap     <silent>   <leader>gn          <Plug>GitGutterNextHunk
-nmap     <silent>   <leader>gp          <Plug>GitGutterPrevHunk
+nmap     <silent>   <leader>gr          <Plug>(GitGutterUndoHunk)
+nmap     <silent>   <leader>go          <Plug>(GitGutterPreviewHunk)
+nmap     <silent>   <leader>gn          <Plug>(GitGutterNextHunk)
+nmap     <silent>   <leader>gp          <Plug>(GitGutterPrevHunk)
 nmap     <silent>   <leader>gs          :Gstatus<CR>
 nmap     <silent>   <leader>gh          :BCommits<CR>
 nmap     <silent>   <leader>gc          :Commits<CR>
 nmap     <silent>   <leader>gv          :GV<CR>
+nmap     <silent>   <leader>gV          :GV!<CR>
 nmap     <silent>   <leader>gH          :Glog -- %<CR>
 
 " Code editing
