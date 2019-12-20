@@ -23,15 +23,8 @@ foreground       = ${xrdb:color7:#ddd}
 foreground-alt   = ${xrdb:color15:#eee}
 primary          = ${xrdb:color4:#00f}
 secondary        = ${xrdb:color2:#0f0}
-alert            = ${xrdb:color1:#f00}
-; background     = #222
-; background-alt = #444
-; foreground     = #dfdfdf
-; foreground-alt = #555
-; primary        = #ffb52a
-; secondary      = #e60053
-; alert          = #bd2c40
 warning          = ${xrdb:color3:#ff0}
+alert            = ${xrdb:color1:#f00}
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -51,7 +44,7 @@ line-size = 3
 line-color = #f00
 
 border-size = 0
-border-top = 0
+border-top = 2
 border-color = ${colors.primary}
 
 padding-left = 0
@@ -88,7 +81,7 @@ cursor-scroll = ns-resize
 
 [module/xwindow]
 type = internal/xwindow
-label = %title:0:30:...%
+label = %title:0:64:...%
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -136,27 +129,6 @@ ramp-capacity-8 =  8
 ramp-capacity-8-foreground = #ff5555
 ramp-capacity-9 =  9
 ramp-capacity-9-foreground = #ff5555
-
-[module/bspwm]
-type = internal/bspwm
-
-label-focused = %index%
-label-focused-background = ${colors.background-alt}
-label-focused-padding = 2
-
-label-occupied = %index%
-label-occupied-padding = 2
-
-label-urgent = %index%!
-label-urgent-background = ${colors.alert}
-label-urgent-padding = 2
-
-label-empty = %index%
-label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
-
-; Separator in between workspaces
-; label-separator = |
 
 [module/i3]
 type = internal/i3
@@ -288,7 +260,7 @@ interval = 3.0
 format-connected = <ramp-signal> <label-connected>
 format-connected-prefix = "直 "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = "%essid% %upspeed% %downspeed%"
+label-connected = "%essid% %downspeed% %upspeed%"
 label-connected-foreground = ${colors.foreground}
 
 format-disconnected =
@@ -321,7 +293,7 @@ interval = 3.0
 format-connected = <label-connected>
 format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = %local_ip% %upspeed% %downspeed%
+label-connected = %local_ip% %downspeed% %upspeed%
 label-connected-foreground = ${colors.foreground}
 
 format-disconnected =
@@ -429,9 +401,10 @@ animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
-base-temperature = 50
-warn-temperature = 65
+; thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+base-temperature = 55
+warn-temperature = 70
 
 format = <ramp>
 format-warn = <ramp> <label-warn>
@@ -440,10 +413,10 @@ label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.alert}
 
-ramp-0 = 
+ramp-0 = 
 ramp-0-foreground = ${colors.foreground-alt}
 ramp-1 = 
-ramp-1-foreground = ${colors.secondary}
+ramp-1-foreground = ${colors.warning}
 ramp-2 = 
 ramp-2-foreground = ${colors.alert}
 ramp-foreground = ${colors.foreground-alt}

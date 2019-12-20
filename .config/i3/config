@@ -98,34 +98,6 @@ smart_gaps on
 gaps inner 8
 smart_borders on
 
-# Statusline (i3bar)
-bar {
-    i3bar_command i3bar_wrapper.sh
-    status_command i3blocks
-    font xft:Hack Nerd Font 11
-    separator_symbol "│"
-    position bottom
-    bindsym button4 nop
-    bindsym button5 nop
-    #height 26
-    colors {
-        background $transparent
-        statusline $blue
-        separator  $darkgray
-
-        # class            border  backgr.   text
-        focused_workspace  $blue   $darkblue $white
-        active_workspace   $black  $darkgray $white
-        inactive_workspace $black  $black    $darkwhite
-        urgent_workspace   $black  $darkred  $white
-    }   
-
-    # mode hide
-    mode dock
-
-    tray_output primary
-}
-
 # class                   border     backgr.   text       indicator  child_border
 client.focused            $blue      $darkblue $white     $cyan      $darkcyan
 client.focused_inactive   $black     $darkgray $white     $darkwhite $darkgray
@@ -399,7 +371,6 @@ bindsym $mod+Shift+BackSpace restart
 bindsym $mod+Control+BackSpace exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 # Split (horizontal/vertical)                                  ($mod[+Shift]+o)
-#bind $mod+32       split v
 bindsym $mod+Shift+backslash split h
 bindsym $mod+minus split v
 
@@ -418,7 +389,6 @@ bindsym $mod+Control+b border toggle
 #|=============================================================================
 
 # Start a new terminal                                             ($mod+Enter)
-# bind $mod+36 exec roxterm
 bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 
 # Application launcher                                                 ($mod+p)
@@ -435,9 +405,9 @@ bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 # Lock screen
 bindsym $mod+grave exec --no-startup-id xscreensaver-command -lock
 
-# Autostart (= personal startup script)
-# exec "autostart gtk"
+# Autostart applications
 #exec --no-startup-id ~/bin/monitor-config.sh
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id compton -b
 exec --no-startup-id sleep 5; sh ~/.fehbg
