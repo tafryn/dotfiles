@@ -411,7 +411,7 @@ bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
 # Lock screen                                                          ($mod+l)
-bindsym $mod+grave exec --no-startup-id "echo -ne '\x2' | socat - UNIX-CONNECT:/tmp/xidlehook.sock"
+bindsym $mod+grave exec --no-startup-id "xidlehook-client --socket /tmp/xidlehook.sock control --action trigger --timer 1"
 
 # Autostart applications
 #exec --no-startup-id ~/bin/monitor-config.sh
