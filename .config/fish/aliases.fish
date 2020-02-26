@@ -29,6 +29,10 @@ else
     alias la "ls -a"
 end
 
+if not command --search "vim" >/dev/null
+    alias vim "nvim"
+end
+
 if command --search "systemctl" >/dev/null
     alias poweroff "sudo systemctl poweroff"
     alias restart "sudo systemctl restart"

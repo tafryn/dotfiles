@@ -69,6 +69,15 @@ cursor-scroll = ns-resize
 screenchange-reload = true
 
 
+[module/filesystem]
+type = internal/fs
+interval = 25
+format-mounted= "<label-mounted>"
+format-mounted-foreground = ${colors.foreground-alt}
+
+mount-0 = /
+
+
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
@@ -141,7 +150,7 @@ label-indicator-background = ${colors.secondary}
 
 [module/wireless-network]
 type = internal/network
-interface = wlp4s0
+interface = wlp2s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
