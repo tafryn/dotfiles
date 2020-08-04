@@ -175,31 +175,32 @@ assign [class="^VirtualBox" title="Development VM"]     → $w10
 
 # Correct handling of floating dialogs
 # https://wiki.archlinux.org/index.php/i3#Correct_handling_of_floating_dialogs
-for_window [window_role="pop-up"]      floating enable
-for_window [window_role="task_dialog"] floating enable
+for_window [window_role="pop-up"]                       floating enable
+for_window [window_role="task_dialog"]                  floating enable
+for_window [title="^Microsoft Teams Notification$"]     floating enable
 
 # This works for Firefox, Thunderbird, and probably a lot of apps
-for_window [window_role="About"]       floating enable
-for_window [window_role="Preferences"] floating enable
-for_window [title="^Firefox-NVIM$"]    floating enable
+for_window [window_role="About"]                        floating enable
+for_window [window_role="Preferences"]                  floating enable
+for_window [title="^Firefox-NVIM$"]                     floating enable
 
 # These windows require a specific rule to be displayed in floating mode:
-#for_window [window_role="^Manager"]    floating enable
-#for_window [instance="^Download"]      floating enable
-for_window [instance="^Update"]        floating enable
-for_window [instance="^gcalctool"]     floating enable
-for_window [instance="^galculator"]    floating enable
-for_window [instance="^gnome-keyring"] floating enable
-for_window [instance="^file_progress"] floating enable
-for_window [title="^Compress"]         floating enable
-for_window [title="^Compression"]      floating enable
-for_window [title="^screenkey"]        floating enable
-for_window [title="^Debconf"]          floating enable
-for_window [class="control-center"]    floating enable
-for_window [class="^Pavucontrol"]      floating enable
-for_window [class="^B2G$"]             floating enable
-for_window [class="^B2g$"]             floating enable
-for_window [class="^org-sikuli"]       floating enable
+#for_window [window_role="^Manager"]                     floating enable
+#for_window [instance="^Download"]                       floating enable
+for_window [instance="^Update"]                         floating enable
+for_window [instance="^gcalctool"]                      floating enable
+for_window [instance="^galculator"]                     floating enable
+for_window [instance="^gnome-keyring"]                  floating enable
+for_window [instance="^file_progress"]                  floating enable
+for_window [title="^Compress"]                          floating enable
+for_window [title="^Compression"]                       floating enable
+for_window [title="^screenkey"]                         floating enable
+for_window [title="^Debconf"]                           floating enable
+for_window [class="control-center"]                     floating enable
+for_window [class="^Pavucontrol"]                       floating enable
+for_window [class="^B2G$"]                              floating enable
+for_window [class="^B2g$"]                              floating enable
+for_window [class="^org-sikuli"]                        floating enable
 
 # >>>
 
@@ -387,14 +388,16 @@ bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 # http://askubuntu.com/questions/68463/how-to-disable-global-super-p-shortcut
 # http://askubuntu.com/questions/20113/how-to-stop-mod4-p-from-switching-the-display
 bindsym $mod+p exec --no-startup-id "rofi -show run"
-bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
-# There also is the (new) i3-dmenu-desktop which only displays applications
-# shipping a .desktop file.
+# There also is the (new) i3-dmenu-desktop which only displays   ($mod+Shift+p)
+# applications shipping a .desktop file.
 bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 
-# Lock screen
-bindsym $mod+grave exec --no-startup-id xscreensaver-command -lock
+# Window switcher                                                    ($mod+Tab)
+bindsym $mod+Tab exec --no-startup-id "rofi -show window"
+
+# Lock screen                                                          ($mod+l)
+bindsym $mod+l exec --no-startup-id xscreensaver-command -lock
 
 # Autostart applications
 #exec --no-startup-id ~/bin/monitor-config.sh
