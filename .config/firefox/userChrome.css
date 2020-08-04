@@ -1,7 +1,9 @@
-.browserContainer>statuspanel {
-    right: 0px !important;
-    transition-duration: 0s !important;
-    transition-delay: 0s !important;
+statuspanel,
+#statuspanel {
+  right: 0 !important;
+  display: inline !important;
+  transition-duration: 0s !important;
+  transition-delay: 0s !important;
 }
 
 toolbarbutton#alltabs-button {
