@@ -50,6 +50,7 @@ Plug 'nelstrom/vim-visual-star-search'
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-rsi'
 Plug 'tommcdo/vim-exchange'
+Plug 'tafryn/clever-f.vim'
 
 " Color-schemes & Syntax Highlighting
 Plug 'sheerun/vim-polyglot'
@@ -98,6 +99,13 @@ let g:gv_horizontal = 1
 let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
 let g:gutentags_ctags_exclude = ["build*", "os*", "compile_commands.json"]
+
+let g:clever_f_not_overwrites_standard_mappings = 1
+let g:clever_f_smart_case = 1
+let g:clever_f_mark_cursor_color = "DiffText"
+let g:clever_f_mark_char_color = "WarningMsg"
+let g:clever_f_fix_key_direction = 1
+" let g:clever_f_timeout_ms = 1000
 
 " }}} "
 
@@ -286,6 +294,11 @@ map                 l                   <Plug>(easymotion-next)
 map                 L                   <Plug>(easymotion-prev)
 nmap     <silent>   s                   <Plug>(easymotion-s2)
 nmap     <silent>   S                   <Plug>(easymotion-S2)
+map                 f                   <Plug>(clever-f-f)
+map                 F                   <Plug>(clever-f-F)
+map                 k                   <Plug>(clever-f-t)
+map                 K                   <Plug>(clever-f-T)
+map                 ,                   <Plug>(clever-f-repeat-back)
 nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
 
 " Misc plugin commands
@@ -347,8 +360,8 @@ vnoremap            ;                   :
 nnoremap            ;;                  ;
 vnoremap            ;;                  ;
 
-nnoremap            ,,                  ,
-vnoremap            ,,                  ,
+" nnoremap            ,,                  ,
+" vnoremap            ,,                  ,
 
 "" Dvorak Compensators
 nnoremap <silent>   t                 :exe "resize -5"<CR>
@@ -371,8 +384,8 @@ noremap             J                   D
 noremap             l                   n
 noremap             L                   N
 
-nnoremap            k                   t
-nnoremap            K                   T
+" nnoremap            k                   t
+" nnoremap            K                   T
 
 " }}} "
 
