@@ -28,7 +28,7 @@ alert            = ${xrdb:color1:#f00}
 
 
 [bar/main]
-; monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:DP-2}
 ; monitor-fallback = 
 width = 100%
 height = 28
