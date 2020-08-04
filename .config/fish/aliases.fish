@@ -44,6 +44,8 @@ alias gds "git diff --color -w --staged"
 alias gl "git log --color"
 alias gs "git status"
 alias gg "git grep"
+alias gpc "git log -p -1"
 
 alias y 'yaourt'
 alias o 'xdg-open (fzf)'
+alias ccze 'ccze -o nolookups'

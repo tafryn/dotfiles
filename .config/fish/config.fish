@@ -3,7 +3,7 @@
 # Environment Variables
 set -gx LC_COLLATE "C"
 set -gx GCC_COLORS "on"
-set -gx TZ ":/etc/localtime"
+set -gx TZ "America/Los_Angeles"
 set -x EDITOR "nvim"
 set -x TERMINAL "alacritty"
 set -x BROWSER "firefox"
@@ -11,7 +11,7 @@ set -x EXA_COLORS "sn=;32:sb=;37:uu=;36:un=;37:gu=;36:gn=;37:ur=;36:uw=;36:ue=;3
 
 # PATH is handled specially by fish so the elements are space separated
 # instead of colon separated.
-set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/.cabal/bin $HOME/.cargo/bin $HOME/.local/bin
+set -gx PATH $PATH /sbin /usr/sbin $HOME/bin $HOME/.cabal/bin $HOME/.cargo/bin $HOME/.local/bin $HOME/go/bin
 
 set -U fish_user_paths $HOME/sfw/bin /usr/local/bin
 
