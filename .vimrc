@@ -17,6 +17,7 @@ Plug 'tafryn/gv.vim'
 Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
 Plug 'Asheq/close-buffers.vim'
+Plug 'tpope/vim-sensible'
 
 " Linting & Completions
 Plug 'w0rp/ale'
@@ -147,14 +148,10 @@ set viminfo='16,<256,h,r/tmp
 set undodir=~/.vim/tmp//,/var/tmp//,/tmp//
 set backupdir=~/.vim/tmp//,/var/tmp//,/tmp//
 set directory=~/.vim/tmp//,/var/tmp//,/tmp//
-set listchars=tab:>-,trail:.,eol:$
 set nojoinspaces
-syntax on
-set history=256
 set wildmenu
 set foldmethod=syntax
 set mouse=a
-set timeout timeoutlen=1000 ttimeoutlen=100
 set splitbelow
 set splitright
 set updatetime=250
@@ -167,14 +164,10 @@ set printoptions=paper:letter
 set keywordprg=c
 
 " Cursor behavior
-set backspace=indent,eol,start
 set nostartofline
-set scrolloff=3
-set sidescrolloff=3
 set showmatch
 
 " Interface display modification
-set ruler
 set number
 set showcmd
 set title
@@ -184,11 +177,9 @@ set nocursorline
 set termguicolors
 
 " Standardized indentation
-set autoindent
 set tabstop=4
 set shiftwidth=4
 set expandtab
-set smarttab
 set shiftround
 set smartindent
 
@@ -196,18 +187,15 @@ set smartindent
 set ignorecase
 set smartcase
 set hlsearch
-set incsearch
 set gdefault
 
 " File read/write options
 set modeline
 set suffixes=.bak,~,.swp,.o,.hi,.a,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc
 set wildignore+=a.out,*.pyc,*.class,.git,*.o,*.a,*.hi,*.swp,*.jpg,*.png,*.xpm,*.gif
-set tags+=./.ctags;/
 filetype on
 filetype indent on
 filetype plugin on
-set shell=/bin/bash
 set wildignorecase
 
 " }}} "
