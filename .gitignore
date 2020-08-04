@@ -2,3 +2,7 @@
 .vim/.netrwhist
 .tmux/*
 tags
+.clangd
+.ccls-cache
+/*build*
+*bdf
