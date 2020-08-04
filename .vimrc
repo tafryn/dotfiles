@@ -38,7 +38,7 @@ Plug 'liuchengxu/vim-which-key'
 " Text Manipulation & Navigation
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 Plug 'stefandtw/quickfix-reflector.vim'
-Plug 'tpope/vim-surround', { 'do': 'sed -i -e \"s/ ds / js /\" ./plugin/surround.vim' }
+Plug 'tpope/vim-surround'
 Plug 'tpope/vim-commentary'
 Plug 'tommcdo/vim-lion'
 Plug 'wellle/targets.vim'
@@ -100,6 +100,8 @@ let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
 let g:gutentags_ctags_exclude = ["build*", "os*", "compile_commands.json"]
 
+let g:goyo_width = 100
+
 let g:clever_f_not_overwrites_standard_mappings = 1
 let g:clever_f_smart_case = 1
 let g:clever_f_mark_cursor_color = "DiffText"
@@ -127,6 +129,7 @@ let g:jellybeans_overrides = {
             \ 'Function': { 'guifg': 'ffd75f', 'guibg': '', 'ctermfg': 'Yellow', 'ctermbg': '', 'attr': '' },
             \ 'Search': { 'guifg': 'ff87ff', 'guibg': '302028', 'ctermfg': 'Magenta', 'ctermbg': '', 'attr': 'underline' },
             \ 'SpecialKey': { 'guifg': '808080', 'guibg': 'af0000', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
+            \ 'Whitespace': { 'guifg': '808080', 'guibg': 'af0000', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
             \ 'Pmenu': { 'guifg': '668799', 'guibg': '1f1f1f', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
             \}
 let g:jellybeans_background_color_256="none"
@@ -212,28 +215,26 @@ set wildignorecase
 "|===========================================================================
 
 " Removing
-" map q: :q
 " noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
-" nnoremap            <C-L>               :Locate 
-" nnoremap <silent>   <leader>x           :x<CR>
 
 " WhichKey menu for rarely used commands
 let g:which_key_menu = {}
 let g:which_key_menu = {
             \ 'name' : 'Quick Menu',
-            \ 'b' : ['CloseHiddenBuffers',          'close-hidden-buffers'],
+            \ 'b' : [':Bdelete hidden',             'close-hidden-buffers'],
             \ 'c' : [':g/^\s*\/\*/foldc',           'fold-comments'],
             \ 'd' : ['<Plug>(dirvish_up)',          'directory-view'],
             \ 'g' : ['Rg',                          'grep-repo'],
             \ 'h' : ['HexokinaseToggle',            'toggle-color-preview'],
             \ 'H' : ['Hexmode',                     'hexmode'],
+            \ 'i' : ['IdentifyHighlightGroup()',    'identify-highlight'],
             \ 'l' : [':Limelight!!',                'toggle-limelight'],
             \ 'p' : ['GlobalPaste()',               'global-paste'],
             \ 'q' : ['',                            'cancel'],
             \ 's' : ['`[v`]',                       'select-pasted'],
             \ 't' : ['TagbarToggle',                'tagbar'],
             \ 'u' : ['GundoToggle',                 'undo-history'],
-            \ 'w' : [':set nolist!',                'highlight-whitespace'],
+            \ 'w' : [':set list!',                  'highlight-whitespace'],
             \ 'W' : ['WindowSwap#EasyWindowSwap()', 'swap-window'],
             \ 'y' : ['GlobalYank()',                'global-yank'],
             \ }
@@ -271,6 +272,7 @@ nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
 nnoremap   <silent>  <leader>lh          :<C-u>call <SID>show_documentation()<CR>
 nnoremap   <silent>  <leader>lf          :<C-u>call CocActionAsync('format')<CR>
 nnoremap   <silent>  <leader>lF          :<C-u>call CocActionAsync('formatSelected', visualmode())<CR>
+nnoremap   <silent>  <leader>la          :<C-u>call CocActionAsync('codeAction')<CR>
 nnoremap   <silent>  ]c                  :<C-u>call CocActionAsync('diagnosticNext')<CR>
 nnoremap   <silent>  [c                  :<C-u>call CocActionAsync('diagnosticPrevious')<CR>
 
@@ -408,7 +410,7 @@ endfunction
 
 " FZF file searching function
 function! FzfOmniFiles()
-    let is_git = system('git status')
+    silent! !git rev-parse --is-inside-work-tree
     if v:shell_error
         :Files
     else
@@ -488,6 +490,12 @@ endfunction
 function! GlobalPaste()
     rviminfo! ~/.viminfo
     normal! "xp
+endfunction
+
+function! IdentifyHighlightGroup()
+    echo 'hi<' . synIDattr(synID(line("."),col("."),1),"name") . '> '
+                \. 'trans<' . synIDattr(synID(line("."),col("."),0),"name") . '> '
+                \. 'lo<' . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . '>'
 endfunction
 
 " }}} "
