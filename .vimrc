@@ -340,8 +340,8 @@ nmap                <F10>               :cn<CR>
 nnoremap <silent>   <leader>s           :nohlsearch<CR>
 
 " Text editing
-noremap  <silent>   <F6>                {gq}
-inoremap <silent>   <F6>                <C-o>{<C-o>gq}
+noremap  <silent>   <F6>                gwap
+inoremap <silent>   <F6>                <C-o>gwap
 map                 <F7>                :setlocal spell!<CR>
 imap                <F7>                <C-o>:setlocal spell!<CR>
 nnoremap <silent>   <S-F7>              z=
