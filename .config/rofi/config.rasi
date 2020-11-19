@@ -1,0 +1,5 @@
+configuration {
+	modi: "run,drun,window";
+	font: "Hack Nerd Font 12";
+	theme: "~/.local/share/rofi/themes/mod_blue.rasi";
+}

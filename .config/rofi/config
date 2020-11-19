@@ -1,5 +1,0 @@
-rofi.modi:                          run,drun,window
-rofi.font:                          Hack Nerd Font 12
-rofi.theme:                         ~/.local/share/rofi/themes/mod_blue.rasi
-
-! vim: ft=xdefaults
