@@ -9,7 +9,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tafryn/vim-tmux-navigator', { 'branch': 'forward-script' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
 Plug 'junegunn/fzf.vim'
-Plug 'majutsushi/tagbar', { 'do': 'sed -i -e \"s/SpecialKey/Keyword/\" ./syntax/tagbar.vim' }
+Plug 'liuchengxu/vista.vim'
 Plug 'sjl/gundo.vim'
 Plug 'fidian/hexmode'
 Plug 'tpope/vim-fugitive'
@@ -119,6 +119,8 @@ let g:floaterm_autoclose = 1
 let g:floaterm_title = 0
 let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
+
+let g:vista_sidebar_width = 32
 
 " }}} "
 
@@ -307,7 +309,7 @@ let g:which_key_map.t = {
             \ }
 
 " Whichkey (g)it mappings
-let g:which_key_map.g = { 
+let g:which_key_map.g = {
             \ 'name' : '+git' ,
             \ 'b' : [':Gblame -w'                   , 'blame'],
             \ 'c' : [':Commits'                     , 'commits'],
@@ -323,7 +325,40 @@ let g:which_key_map.g = {
             \ 's' : [':Gstatus'                     , 'status'],
             \ 'v' : [':GV'                          , 'view commits'],
             \ 'V' : [':GV!'                         , 'view buffer commits'],
-            \ }                                 
+            \ }
+
+" Whichkey (l)anguage server mappings
+nnoremap <silent>   <leader>lh          :<C-u>call <SID>show_documentation()<CR>
+let g:which_key_map.l = {
+            \ 'name' : '+git' ,
+            \ '.' : ['<Plug>(coc-command-repeat)'                   , 'repeat command'],
+            \ ']' : ['CocNext'                                      , 'coc next'],
+            \ '[' : ['CocPrev'                                      , 'coc prev'],
+            \ 'a' : ['<Plug>(coc-codeaction'                        , 'action'] ,
+            \ 'A' : ['<Plug>(coc-codelens-action'                   , 'codelens action'] ,
+            \ 'd' : ['<Plug>(coc-definition)'                       , 'definition'],
+            \ 'D' : ['<Plug>(coc-declaration)'                      , 'declaration'],
+            \ 'f' : ['<Plug>(coc-format)'                           , 'format'],
+            \ 'F' : ['<Plug>(coc-format-selected)'                  , 'format selected'],
+            \ 'h' : [''                                             , 'documentation'],
+            \ 'i' : ['<Plug>(coc-implementation)'                   , 'implementation'],
+            \ 'j' : ['<Plug>(coc-float-jump)'                       , 'float jump'],
+            \ 'J' : ['<Plug>(coc-float-hide)'                       , 'float hide'],
+            \ 'l' : [':CocList -I symbols'                          , 'search symbols'],
+            \ 'L' : [':CocListResume'                               , 'resume list'],
+            \ 'n' : ['<Plug>(coc-diagnostic-next)'                  , 'next diagnostic'],
+            \ 'N' : ['<Plug>(coc-diagnostic-next-error)'            , 'next error'],
+            \ 'o' : ['<Plug>(coc-diagnostic-next-error)'            , 'next error'],
+            \ 'p' : ['<Plug>(coc-diagnostic-prev)'                  , 'previous diagnostic'],
+            \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'            , 'previous error'],
+            \ 'q' : ['<Plug>(coc-fix-current)'                      , 'quickfix'],
+            \ 'r' : ['<Plug>(coc-references)'                       , 'references'],
+            \ 'R' : ['<Plug>(coc-rename)'                           , 'rename'],
+            \ 't' : [':Vista finder coc'                            , 'jump to tag'],
+            \ 'T' : [':Vista!!'                                     , 'show tags'],
+            \ 'u' : ['<Plug>(coc-references-used)'                  , 'used references'],
+            \ 'z' : ['<Plug>(coc-refactor)'                         , 'refactor'],
+            \ }
 
 call which_key#register('<Space>', "g:which_key_map")
 
@@ -338,20 +373,6 @@ nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
 nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
 "   Select pasted text
 nmap                gp                  `[v`]
-
-" LSP mappings
-nnoremap   <silent>  <leader>ld          :<C-u>call CocActionAsync('jumpDefinition')<CR>
-nnoremap   <silent>  <leader>lt          :<C-u>call CocActionAsync('jumpTypeDefinition')<CR>
-nnoremap   <silent>  <leader>lD          :<C-u>call CocActionAsync('jumpDeclaration')<CR>
-nnoremap   <silent>  <leader>li          :<C-u>call CocActionAsync('jumpImplementation')<CR>
-nnoremap   <silent>  <leader>lr          :<C-u>call CocActionAsync('jumpUsed')<CR>
-nnoremap   <silent>  <leader>lR          :<C-u>call CocActionAsync('rename')<CR>
-nnoremap   <silent>  <leader>lh          :<C-u>call <SID>show_documentation()<CR>
-nnoremap   <silent>  <leader>lf          :<C-u>call CocActionAsync('format')<CR>
-nnoremap   <silent>  <leader>lF          :<C-u>call CocActionAsync('formatSelected', visualmode())<CR>
-nnoremap   <silent>  <leader>la          :<C-u>call CocActionAsync('codeAction')<CR>
-nnoremap   <silent>  ]c                  :<C-u>call CocActionAsync('diagnosticNext')<CR>
-nnoremap   <silent>  [c                  :<C-u>call CocActionAsync('diagnosticPrevious')<CR>
 
 " Completion mappings
 "   use <tab> for trigger completion and navigate to the next complete item
@@ -598,10 +619,16 @@ if has("autocmd")
   autocmd FileType gitcommit setlocal nofoldenable
   autocmd FileType git setlocal nofoldenable
 
+  " Automatically enter insert mode when focusing terminal buffers
   if exists(":tnoremap")
       autocmd TermOpen *:$SHELL setlocal nonu
       autocmd BufWinEnter,WinEnter term://* startinsert
   endif
+
+  " Hide status line while displaying which_key menu
+  autocmd! FileType which_key
+  autocmd FileType which_key set laststatus=0 noshowmode noruler
+              \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
 endif
 
 " }}} "
