@@ -47,7 +47,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'easymotion/vim-easymotion'
 Plug 'chaoren/vim-wordmotion'
-Plug 'nelstrom/vim-visual-star-search'
 Plug 'sbdchd/neoformat'
 Plug 'tpope/vim-rsi'
 Plug 'tommcdo/vim-exchange'
@@ -111,10 +110,10 @@ let g:clever_f_mark_char_color = "WarningMsg"
 let g:clever_f_fix_key_direction = 1
 " let g:clever_f_timeout_ms = 1000
 
-let g:floaterm_keymap_toggle = '<F1>'
-let g:floaterm_keymap_prev = '<F2>'
-let g:floaterm_keymap_next = '<F3>'
-let g:floaterm_keymap_new = '<F4>'
+let g:which_key_timeout = 250
+let g:which_key_use_floating_win = 0
+let g:which_key_max_size = 0
+
 let g:floaterm_autoinsert = 1
 let g:floaterm_autoclose = 1
 let g:floaterm_title = 0
@@ -256,9 +255,23 @@ set wildignorecase
 " noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
 " nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
 
-" WhichKey menu for rarely used commands
-let g:which_key_menu = {}
-let g:which_key_menu = {
+" Main
+let g:mapleader = "\<Space>"
+let g:UltiSnipsExpandTrigger="<c-u>"
+let g:UltiSnipsJumpForwardTrigger="<c-m>"
+let g:UltiSnipsJumpBackwardTrigger="<c-w>"
+
+exec "set <PageUp>=\<Esc>[5;*~"
+exec "set <PageDown>=\<Esc>[6;*~"
+
+let g:which_key_map = {}
+
+nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
+vnoremap <leader>? y:CocSearch <C-R>"<CR><CR>
+let g:which_key_map['?'] = 'search word'
+
+" WhichKey (m)enu for rarely used commands
+let g:which_key_map.m = {
             \ 'name' : 'Quick Menu',
             \ 'b' : [':Bdelete hidden'              , 'close-hidden-buffers'],
             \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold-comments'],
@@ -278,7 +291,8 @@ let g:which_key_menu = {
             \ 'y' : ['GlobalYank()'                 , 'global-yank'],
             \ }
 
-let g:which_key_menu.t = {
+" Whichkey (t)erminal mappings
+let g:which_key_map.t = {
             \ 'name' : '+terminal' ,
             \ ';' : [':15split term://$SHELL'       , 'terminal'],
             \ 'f' : [':FloatermNew fzf'             , 'fzf'],
@@ -293,19 +307,30 @@ let g:which_key_menu.t = {
             \ 's' : [':FloatermNew ncdu'            , 'ncdu'],
             \ }
 
-" Main
-let g:mapleader = "\<Space>"
-let g:UltiSnipsExpandTrigger="<c-u>"
-let g:UltiSnipsJumpForwardTrigger="<c-m>"
-let g:UltiSnipsJumpBackwardTrigger="<c-w>"
+" Whichkey (g)it mappings
+let g:which_key_map.g = { 
+            \ 'name' : '+git' ,
+            \ 'b' : [':Gblame -w'                   , 'blame'],
+            \ 'c' : [':Commits'                     , 'commits'],
+            \ 'C' : [':BCommits'                    , 'buffer commits'],
+            \ 'd' : [':Git diff'                    , 'diff'],
+            \ 'D' : [':Gdiffsplit'                  , 'split diff'],
+            \ 'l' : [':Glog'                        , 'log'],
+            \ 'L' : [':Glog -- %'                   , 'buffer log'],
+            \ 'n' : ['<Plug>(GitGutterNextHunk)'    , 'next hunk'],
+            \ 'o' : ['<Plug>(GitGutterPreviewHunk)' , 'view original'],
+            \ 'p' : ['<Plug>(GitGutterPrevHunk)'    , 'previous hunk'],
+            \ 'r' : ['<Plug>(GitGutterUndoHunk)'    , 'revert'],
+            \ 's' : [':Gstatus'                     , 'status'],
+            \ 'v' : [':GV'                          , 'view commits'],
+            \ 'V' : [':GV!'                         , 'view buffer commits'],
+            \ }                                 
 
-exec "set <PageUp>=\<Esc>[5;*~"
-exec "set <PageDown>=\<Esc>[6;*~"
+call which_key#register('<Space>', "g:which_key_map")
 
 " Provisional
 nnoremap <silent>   <leader>            :<C-u>WhichKey '<Space>'<CR>
-nnoremap <silent>   <leader>m           :<C-u>WhichKey! g:which_key_menu<CR>
-vnoremap <silent>   <leader>m           :<C-u>WhichKeyVisual! g:which_key_menu<CR>
+vnoremap <silent>   <leader>            :<C-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent>   <leader>w           :w<CR>
 nnoremap <silent>   <leader>q           :q<CR>
 nnoremap <silent>   <leader>o           :only<CR>
@@ -342,7 +367,7 @@ inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Motion mappings
 nmap                <leader>h           <Plug>(easymotion-j)
-nmap                <leader>t           <Plug>(easymotion-k)
+" nmap                <leader>t           <Plug>(easymotion-k)
 map                 /                   <Plug>(easymotion-sn)
 omap                /                   <Plug>(easymotion-tn)
 map                 l                   <Plug>(easymotion-next)
@@ -361,20 +386,6 @@ nmap     <silent>   <leader>.           :Tags<CR>
 nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
 nnoremap            <C-P>               :call FzfOmniFiles()<CR>
 nnoremap            <leader>b           :Buffers<CR>
-
-" Git related mappings
-nmap                <leader>gb          :Gblame -w<CR>
-nmap     <silent>   <leader>gS          :Ggrep <C-R>=expand("<cword>")<CR><CR>
-nmap     <silent>   <leader>gr          <Plug>(GitGutterUndoHunk)
-nmap     <silent>   <leader>go          <Plug>(GitGutterPreviewHunk)
-nmap     <silent>   <leader>gn          <Plug>(GitGutterNextHunk)
-nmap     <silent>   <leader>gp          <Plug>(GitGutterPrevHunk)
-nmap     <silent>   <leader>gs          :Gstatus<CR>
-nmap     <silent>   <leader>gh          :BCommits<CR>
-nmap     <silent>   <leader>gc          :Commits<CR>
-nmap     <silent>   <leader>gv          :GV<CR>
-nmap     <silent>   <leader>gV          :GV!<CR>
-nmap     <silent>   <leader>gH          :Glog -- %<CR>
 
 " Code editing
 noremap  <silent>   <F12>               :Neoformat<CR>
@@ -438,15 +449,24 @@ noremap             j                   d
 noremap             J                   D
 noremap             l                   n
 noremap             L                   N
-
-if exists(":tnoremap")
-    tnoremap <C-h> <c-\><c-n><c-w>h
-    tnoremap <C-j> <c-\><c-n><c-w>j
-    tnoremap <C-k> <c-\><c-n><c-w>k
-    tnoremap <C-l> <c-\><c-n><c-w>l
-endif
 " nnoremap            k                   t
 " nnoremap            K                   T
+
+if exists(":tnoremap")
+    nnoremap  <silent>  <F1>                :FloatermToggle<CR>
+    inoremap  <silent>  <F1>                <C-o>:FloatermToggle<CR>
+    tnoremap  <silent>  <F1>                <C-\><C-n>:FloatermToggle<CR>
+    nnoremap  <silent>  <F2>                :FloatermPrev<CR>
+    tnoremap  <silent>  <F2>                <C-\><C-n>:FloatermPrev<CR>
+    nnoremap  <silent>  <F3>                :FloatermNext<CR>
+    tnoremap  <silent>  <F3>                <C-\><C-n>:FloatermNext<CR>
+    nnoremap  <silent>  <F4>                :FloatermNew<CR>
+    tnoremap  <silent>  <F4>                <C-\><C-n>:FloatermNew<CR>
+    tnoremap            <C-h>               <c-\><c-n><c-w>h
+    tnoremap            <C-j>               <c-\><c-n><c-w>j
+    tnoremap            <C-k>               <c-\><c-n><c-w>k
+    tnoremap            <C-l>               <c-\><c-n><c-w>l
+endif
 
 " }}} "
 
