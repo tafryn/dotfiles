@@ -271,25 +271,27 @@ nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
 vnoremap <leader>? y:CocSearch <C-R>"<CR><CR>
 let g:which_key_map['?'] = 'search word'
 
-" WhichKey (m)enu for rarely used commands
+" Whichkey (m)isc mappings
+nnoremap <silent>   <leader>ms           :nohlsearch<CR>
 let g:which_key_map.m = {
             \ 'name' : 'Quick Menu',
-            \ 'b' : [':Bdelete hidden'              , 'close-hidden-buffers'],
-            \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold-comments'],
-            \ 'd' : ['<Plug>(dirvish_up)'           , 'directory-view'],
-            \ 'g' : ['Rg'                           , 'grep-repo'],
-            \ 'h' : ['HexokinaseToggle'             , 'toggle-color-preview'],
+            \ 'b' : [':Bdelete hidden'              , 'close hidden buffers'],
+            \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold comments'],
+            \ 'd' : ['<Plug>(dirvish_up)'           , 'directory view'],
+            \ 'g' : ['Rg'                           , 'grep repo'],
+            \ 'h' : ['HexokinaseToggle'             , 'toggle color preview'],
             \ 'H' : ['Hexmode'                      , 'hexmode'],
-            \ 'i' : ['IdentifyHighlightGroup()'     , 'identify-highlight'],
-            \ 'l' : [':Limelight!!'                 , 'toggle-limelight'],
-            \ 'p' : ['GlobalPaste()'                , 'global-paste'],
+            \ 'i' : ['IdentifyHighlightGroup()'     , 'identify highlight'],
+            \ 'l' : [':Limelight!!'                 , 'toggle limelight'],
+            \ 'p' : ['GlobalPaste()'                , 'global paste'],
             \ 'q' : [''                             , 'cancel'],
-            \ 's' : ['`[v`]'                        , 'select-pasted'],
+            \ 's' : [''                             , 'toggle search highlights'],
+            \ 'S' : ['`[v`]'                        , 'select pasted'],
             \ 'T' : ['TagbarToggle'                 , 'tagbar'],
-            \ 'u' : ['GundoToggle'                  , 'undo-history'],
-            \ 'w' : [':set list!'                   , 'highlight-whitespace'],
-            \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap-window'],
-            \ 'y' : ['GlobalYank()'                 , 'global-yank'],
+            \ 'u' : ['GundoToggle'                  , 'undo history'],
+            \ 'w' : [':set list!'                   , 'highlight whitespace'],
+            \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap window'],
+            \ 'y' : ['GlobalYank()'                 , 'global yank'],
             \ }
 
 " Whichkey (t)erminal mappings
@@ -348,7 +350,7 @@ let g:which_key_map.l = {
             \ 'L' : [':CocListResume'                       , 'resume list'],
             \ 'n' : ['<Plug>(coc-diagnostic-next)'          , 'next diagnostic'],
             \ 'N' : ['<Plug>(coc-diagnostic-next-error)'    , 'next error'],
-            \ 'o' : ['<Plug>(coc-diagnostic-next-error)'    , 'next error'],
+            \ 'o' : [':CocList outline'                     , 'search outline'],
             \ 'p' : ['<Plug>(coc-diagnostic-prev)'          , 'previous diagnostic'],
             \ 'P' : ['<Plug>(coc-diagnostic-prev-error)'    , 'previous error'],
             \ 'q' : ['<Plug>(coc-fix-current)'              , 'quickfix'],
