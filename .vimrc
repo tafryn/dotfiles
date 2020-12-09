@@ -218,6 +218,7 @@ set showmatch
 
 " Interface display modification
 set number
+set relativenumber
 set showcmd
 set title
 set visualbell
@@ -253,8 +254,10 @@ set wildignorecase
 "|===========================================================================
 
 " Removing
-" noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
-" nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
+
+" Provisional
+"   Select pasted text
+nmap                gp                  `[v`]
 
 " Main
 let g:mapleader = "\<Space>"
@@ -271,6 +274,17 @@ nnoremap <leader>? :CocSearch <C-R>=expand("<cword>")<CR><CR>
 vnoremap <leader>? y:CocSearch <C-R>"<CR><CR>
 let g:which_key_map['?'] = 'search word'
 
+" Whichkey single mappings
+nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
+nnoremap <silent>   <leader>h           :nohlsearch<CR>
+let g:which_key_map['b'] = [':Buffers'              , 'buffers']
+let g:which_key_map['h'] = [''                      , 'toggle search highlight']
+let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
+let g:which_key_map['p'] = [':GFiles'               , 'search project files']
+let g:which_key_map['q'] = [':q'                    , 'quit']
+let g:which_key_map['w'] = [':w'                    , 'write']
+let g:which_key_map['z'] = [''                      , 'zoom focus']
+
 " Whichkey (m)isc mappings
 nnoremap <silent>   <leader>ms           :nohlsearch<CR>
 let g:which_key_map.m = {
@@ -284,7 +298,6 @@ let g:which_key_map.m = {
             \ 'i' : ['IdentifyHighlightGroup()'     , 'identify highlight'],
             \ 'l' : [':Limelight!!'                 , 'toggle limelight'],
             \ 'p' : ['GlobalPaste()'                , 'global paste'],
-            \ 'q' : [''                             , 'cancel'],
             \ 's' : [''                             , 'toggle search highlights'],
             \ 'S' : ['`[v`]'                        , 'select pasted'],
             \ 'T' : ['TagbarToggle'                 , 'tagbar'],
@@ -381,19 +394,10 @@ let g:which_key_map.s = {
             \ 'T' : [':Tags'                        , 'project tags'],
             \ }
 
-" Provisional
 " Setup primary whichkey mapping
 call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent>   <leader>            :<C-u>WhichKey '<Space>'<CR>
 vnoremap <silent>   <leader>            :<C-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent>   <leader>w           :w<CR>
-nnoremap <silent>   <leader>q           :q<CR>
-nnoremap <silent>   <leader>o           :only<CR>
-"   Replace name in current block
-nnoremap            <leader>rn           [[V%:s/<C-R>///c<left><left>
-nnoremap            <leader>rw           gd[[V%:s/<C-R>///c<left><left>
-"   Select pasted text
-nmap                gp                  `[v`]
 
 " Completion mappings
 "   use <tab> for trigger completion and navigate to the next complete item
@@ -407,7 +411,7 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Motion mappings
-nmap                <leader>h           <Plug>(easymotion-j)
+" nmap                <leader>h           <Plug>(easymotion-j)
 " nmap                <leader>t           <Plug>(easymotion-k)
 map                 /                   <Plug>(easymotion-sn)
 omap                /                   <Plug>(easymotion-tn)
@@ -420,13 +424,9 @@ map                 F                   <Plug>(clever-f-F)
 map                 k                   <Plug>(clever-f-t)
 map                 K                   <Plug>(clever-f-T)
 map                 ,                   <Plug>(clever-f-repeat-back)
-nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
 
 " Misc plugin commands
-nmap     <silent>   <leader>.           :Tags<CR>
-nmap     <silent>   <leader>p           :call FzfOmniFiles()<CR>
 nnoremap            <C-P>               :call FzfOmniFiles()<CR>
-nnoremap            <leader>b           :Buffers<CR>
 
 " Code editing
 noremap  <silent>   <F12>               :Neoformat<CR>
@@ -439,10 +439,6 @@ nmap                <C-PageUp>          :copen<CR>
 nmap                <C-PageDown>        :cclose<CR>
 nmap                <F9>                :cp<CR>
 nmap                <F10>               :cn<CR>
-
-" Highlight mappings
-"   Toggle off current search highlights
-nnoremap <silent>   <leader>s           :nohlsearch<CR>
 
 " Text editing
 noremap  <silent>   <F6>                gwap
