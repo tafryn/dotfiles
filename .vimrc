@@ -34,6 +34,7 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'chrisbra/Colorizer', { 'on': ['ColorHighlight'] }
 Plug 'RRethy/vim-hexokinase', { 'do': 'make hexokinase' }
 Plug 'liuchengxu/vim-which-key'
+Plug 'voldikss/vim-floaterm'
 
 " Text Manipulation & Navigation
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
@@ -109,10 +110,39 @@ let g:clever_f_mark_char_color = "WarningMsg"
 let g:clever_f_fix_key_direction = 1
 " let g:clever_f_timeout_ms = 1000
 
+let g:floaterm_keymap_toggle = '<F1>'
+let g:floaterm_keymap_prev = '<F2>'
+let g:floaterm_keymap_next = '<F3>'
+let g:floaterm_keymap_new = '<F4>'
+let g:floaterm_autoinsert = 1
+let g:floaterm_autoclose = 1
+let g:floaterm_title = 0
+let g:floaterm_width = 0.8
+let g:floaterm_height = 0.8
+
 " }}} "
 
 "|    Theme                                                               {{{
 "|===========================================================================
+" Set terminal colors from xrdb
+let xrdb = systemlist('xrdb -query | grep -o "[[:digit:]]\+:.*#.*" | sort -n | grep -o "#.*"')
+let g:terminal_color_0 = xrdb[0]
+let g:terminal_color_1 = xrdb[1]
+let g:terminal_color_2 = xrdb[2]
+let g:terminal_color_3 = xrdb[3]
+let g:terminal_color_4 = xrdb[4]
+let g:terminal_color_5 = xrdb[5]
+let g:terminal_color_6 = xrdb[6]
+let g:terminal_color_7 = xrdb[7]
+let g:terminal_color_8 = xrdb[8]
+let g:terminal_color_9 = xrdb[9]
+let g:terminal_color_10 = xrdb[10]
+let g:terminal_color_11 = xrdb[11]
+let g:terminal_color_12 = xrdb[12]
+let g:terminal_color_13 = xrdb[13]
+let g:terminal_color_14 = xrdb[14]
+let g:terminal_color_15 = xrdb[15]
+
 autocmd ColorScheme * hi! link GitGutterAdd Question
 autocmd ColorScheme * hi! link GitGutterChange Function
 autocmd ColorScheme * hi! link GitGutterChangeDelete Number
@@ -126,6 +156,7 @@ autocmd ColorScheme * hi! link Sneak DiffChange
 autocmd ColorScheme * hi! link SneakScope DiffText
 autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77
 autocmd ColorScheme * hi SneakLabelMask ctermfg=24 ctermbg=24 guifg=#2B5B77 guibg=#2B5B77
+autocmd ColorScheme * hi FloatermBorder guifg=#06989a
 
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '202020', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
@@ -242,6 +273,21 @@ let g:which_key_menu = {
             \ 'w' : [':set list!',                  'highlight-whitespace'],
             \ 'W' : ['WindowSwap#EasyWindowSwap()', 'swap-window'],
             \ 'y' : ['GlobalYank()',                'global-yank'],
+            \ }
+
+let g:which_key_menu.t = {
+            \ 'name' : '+terminal' ,
+            \ ';' : [':15split term://$SHELL'       , 'terminal'],
+            \ 'f' : [':FloatermNew fzf'             , 'fzf'],
+            \ 'g' : [':FloatermNew lazygit'         , 'git'],
+            \ 'd' : [':FloatermNew lazydocker'      , 'docker'],
+            \ 'h' : [':FloatermNew htop'            , 'htop'],
+            \ 'N' : [':FloatermNew node'            , 'node'],
+            \ 'n' : [':FloatermNew nnn'             , 'nnn'],
+            \ 'p' : [':FloatermNew python'          , 'python'],
+            \ 'r' : [':FloatermNew ranger'          , 'ranger'],
+            \ 't' : [':FloatermToggle'              , 'toggle'],
+            \ 's' : [':FloatermNew ncdu'            , 'ncdu'],
             \ }
 
 " Main
@@ -391,6 +437,12 @@ noremap             J                   D
 noremap             l                   n
 noremap             L                   N
 
+if exists(":tnoremap")
+    tnoremap <C-h> <c-\><c-n><c-w>h
+    tnoremap <C-j> <c-\><c-n><c-w>j
+    tnoremap <C-k> <c-\><c-n><c-w>k
+    tnoremap <C-l> <c-\><c-n><c-w>l
+endif
 " nnoremap            k                   t
 " nnoremap            K                   T
 
@@ -522,6 +574,11 @@ if has("autocmd")
 
   autocmd FileType gitcommit setlocal nofoldenable
   autocmd FileType git setlocal nofoldenable
+
+  if exists(":tnoremap")
+      autocmd TermOpen *:$SHELL setlocal nonu
+      autocmd BufWinEnter,WinEnter term://* startinsert
+  endif
 endif
 
 " }}} "
