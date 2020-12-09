@@ -7,3 +7,5 @@ tags
 /*build*
 *bdf
 .gdb_history
+.cache
+.project
