@@ -74,6 +74,7 @@ let g:EasyMotion_space_jump_first = 1
 let g:windowswap_map_keys = 0
 
 let g:gitgutter_map_keys = 0
+let g:gitgutter_highlight_linenrs = 1
 
 let g:ale_cpp_cppcheck_options = '--std=c++14 --inline-suppr --enable=all --suppress=toomanyconfigs -I./include -I../include'
 let g:ale_linters = {
@@ -177,6 +178,7 @@ let g:airline#extensions#whitespace#enabled = 0
 let g:airline_powerline_fonts = 1
 "let g:airline#extensions#tabline#enabled = 1
 set laststatus=2
+
 " }}} "
 
 "|    Probationary Options                                                {{{
@@ -252,27 +254,28 @@ set wildignorecase
 
 " Removing
 " noremap <silent> <leader>p :set paste<CR>:put +<CR>:set nopaste<CR>
+" nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
 
 " WhichKey menu for rarely used commands
 let g:which_key_menu = {}
 let g:which_key_menu = {
             \ 'name' : 'Quick Menu',
-            \ 'b' : [':Bdelete hidden',             'close-hidden-buffers'],
-            \ 'c' : [':g/^\s*\/\*/foldc',           'fold-comments'],
-            \ 'd' : ['<Plug>(dirvish_up)',          'directory-view'],
-            \ 'g' : ['Rg',                          'grep-repo'],
-            \ 'h' : ['HexokinaseToggle',            'toggle-color-preview'],
-            \ 'H' : ['Hexmode',                     'hexmode'],
-            \ 'i' : ['IdentifyHighlightGroup()',    'identify-highlight'],
-            \ 'l' : [':Limelight!!',                'toggle-limelight'],
-            \ 'p' : ['GlobalPaste()',               'global-paste'],
-            \ 'q' : ['',                            'cancel'],
-            \ 's' : ['`[v`]',                       'select-pasted'],
-            \ 't' : ['TagbarToggle',                'tagbar'],
-            \ 'u' : ['GundoToggle',                 'undo-history'],
-            \ 'w' : [':set list!',                  'highlight-whitespace'],
-            \ 'W' : ['WindowSwap#EasyWindowSwap()', 'swap-window'],
-            \ 'y' : ['GlobalYank()',                'global-yank'],
+            \ 'b' : [':Bdelete hidden'              , 'close-hidden-buffers'],
+            \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold-comments'],
+            \ 'd' : ['<Plug>(dirvish_up)'           , 'directory-view'],
+            \ 'g' : ['Rg'                           , 'grep-repo'],
+            \ 'h' : ['HexokinaseToggle'             , 'toggle-color-preview'],
+            \ 'H' : ['Hexmode'                      , 'hexmode'],
+            \ 'i' : ['IdentifyHighlightGroup()'     , 'identify-highlight'],
+            \ 'l' : [':Limelight!!'                 , 'toggle-limelight'],
+            \ 'p' : ['GlobalPaste()'                , 'global-paste'],
+            \ 'q' : [''                             , 'cancel'],
+            \ 's' : ['`[v`]'                        , 'select-pasted'],
+            \ 'T' : ['TagbarToggle'                 , 'tagbar'],
+            \ 'u' : ['GundoToggle'                  , 'undo-history'],
+            \ 'w' : [':set list!'                   , 'highlight-whitespace'],
+            \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap-window'],
+            \ 'y' : ['GlobalYank()'                 , 'global-yank'],
             \ }
 
 let g:which_key_menu.t = {
@@ -317,9 +320,8 @@ nnoremap   <silent>  <leader>ld          :<C-u>call CocActionAsync('jumpDefiniti
 nnoremap   <silent>  <leader>lt          :<C-u>call CocActionAsync('jumpTypeDefinition')<CR>
 nnoremap   <silent>  <leader>lD          :<C-u>call CocActionAsync('jumpDeclaration')<CR>
 nnoremap   <silent>  <leader>li          :<C-u>call CocActionAsync('jumpImplementation')<CR>
-nnoremap   <silent>  <leader>lr          :<C-u>call CocActionAsync('jumpReferences')<CR>
+nnoremap   <silent>  <leader>lr          :<C-u>call CocActionAsync('jumpUsed')<CR>
 nnoremap   <silent>  <leader>lR          :<C-u>call CocActionAsync('rename')<CR>
-nnoremap   <silent>  <F2>                :<C-u>call CocActionAsync('rename')<CR>
 nnoremap   <silent>  <leader>lh          :<C-u>call <SID>show_documentation()<CR>
 nnoremap   <silent>  <leader>lf          :<C-u>call CocActionAsync('format')<CR>
 nnoremap   <silent>  <leader>lF          :<C-u>call CocActionAsync('formatSelected', visualmode())<CR>
