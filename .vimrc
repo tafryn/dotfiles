@@ -113,10 +113,15 @@ let g:clever_f_fix_key_direction = 1
 
 "|    Theme                                                               {{{
 "|===========================================================================
-highlight link GitGutterAdd Question
-highlight link GitGutterChange Function
-highlight link GitGutterDelete WarningMsg
-
+autocmd ColorScheme * hi! link GitGutterAdd Question
+autocmd ColorScheme * hi! link GitGutterChange Function
+autocmd ColorScheme * hi! link GitGutterChangeDelete Number
+autocmd ColorScheme * hi! link GitGutterDelete WarningMsg
+autocmd ColorScheme * hi! link GitGutterAddLineNr Question
+autocmd ColorScheme * hi! link GitGutterChangeLineNr Function
+autocmd ColorScheme * hi! link GitGutterChangeDeleteLineNr Number
+autocmd ColorScheme * hi! link GitGutterDeleteLineNr WarningMsg
+autocmd ColorScheme * hi! link SignColumn LineNr
 autocmd ColorScheme * hi! link Sneak DiffChange
 autocmd ColorScheme * hi! link SneakScope DiffText
 autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77
