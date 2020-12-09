@@ -198,7 +198,6 @@ set backupdir=~/.vim/tmp//,/var/tmp//,/tmp//
 set directory=~/.vim/tmp//,/var/tmp//,/tmp//
 set nojoinspaces
 set wildmenu
-set foldmethod=syntax
 set mouse=a
 set splitbelow
 set splitright
@@ -585,8 +584,10 @@ endfunction
 if has("autocmd")
   augroup configgroup
     autocmd!
-    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.cc,*.h,*.cpp
+    autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.cc,*.h,*.cpp,*.rs
                 \ :call <SID>StripTrailingWhitespaces()
+    autocmd BufWinEnter *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.cc,*.h,*.cpp,*.rs
+                \ setlocal foldmethod=syntax
   augroup END
 
   augroup init_fold_open
