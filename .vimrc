@@ -360,9 +360,28 @@ let g:which_key_map.l = {
             \ 'z' : ['<Plug>(coc-refactor)'                 , 'refactor'],
             \ }
 
-call which_key#register('<Space>', "g:which_key_map")
+" Whichkey (s)earch mappings
+let g:which_key_map.s = {
+            \ 'name' : '+search' ,
+            \ '/' : [':History/'                    , 'search history'],
+            \ 'b' : [':Buffers'                     , 'buffers'],
+            \ 'c' : [':BCommits'                    , 'buffer commits'],
+            \ 'C' : [':Commits'                     , 'commits'],
+            \ 'f' : [':GFiles'                      , 'project files'],
+            \ 'F' : [':Files'                       , 'files'],
+            \ 'h' : [':Helptags'                    , 'help tags'],
+            \ 'H' : [':History:'                    , 'command history'],
+            \ 'l' : [':Lines'                       , 'buffer lines'],
+            \ 'L' : [':Rg'                          , 'project lines'],
+            \ 'M' : [':Maps:'                       , 'maps'],
+            \ 'S' : [':Snippets'                    , 'snippets'],
+            \ 't' : [':BTags'                       , 'buffer tags'],
+            \ 'T' : [':Tags'                        , 'project tags'],
+            \ }
 
 " Provisional
+" Setup primary whichkey mapping
+call which_key#register('<Space>', "g:which_key_map")
 nnoremap <silent>   <leader>            :<C-u>WhichKey '<Space>'<CR>
 vnoremap <silent>   <leader>            :<C-u>WhichKeyVisual '<Space>'<CR>
 nnoremap <silent>   <leader>w           :w<CR>
