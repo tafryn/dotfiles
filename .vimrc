@@ -159,6 +159,7 @@ autocmd ColorScheme * hi! link SneakScope DiffText
 autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77
 autocmd ColorScheme * hi SneakLabelMask ctermfg=24 ctermbg=24 guifg=#2B5B77 guibg=#2B5B77
 autocmd ColorScheme * hi FloatermBorder guifg=#06989a
+autocmd ColorScheme * hi! link VistaColon VistaLineNr
 
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '202020', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
@@ -275,20 +276,20 @@ vnoremap <leader>? y:CocSearch <C-R>"<CR><CR>
 let g:which_key_map['?'] = 'search word'
 
 " Whichkey single mappings
-nnoremap <silent>   <leader>z           :<C-u>call <SID>QuarterFocus()<CR>
 nnoremap <silent>   <leader>h           :nohlsearch<CR>
 let g:which_key_map['b'] = [':Buffers'              , 'buffers']
 let g:which_key_map['h'] = [''                      , 'toggle search highlight']
+let g:which_key_map['H'] = [':nohlsearch'           , 'toggle search highlight']
 let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
 let g:which_key_map['p'] = [':GFiles'               , 'search project files']
 let g:which_key_map['q'] = [':q'                    , 'quit']
 let g:which_key_map['w'] = [':w'                    , 'write']
-let g:which_key_map['z'] = [''                      , 'zoom focus']
+let g:which_key_map['z'] = [':call QuarterFocus()'  , 'zoom focus']
 
 " Whichkey (m)isc mappings
 nnoremap <silent>   <leader>ms           :nohlsearch<CR>
 let g:which_key_map.m = {
-            \ 'name' : 'Quick Menu',
+            \ 'name' : '+misc',
             \ 'b' : [':Bdelete hidden'              , 'close hidden buffers'],
             \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold comments'],
             \ 'd' : ['<Plug>(dirvish_up)'           , 'directory view'],
@@ -305,6 +306,19 @@ let g:which_key_map.m = {
             \ 'w' : [':set list!'                   , 'highlight whitespace'],
             \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap window'],
             \ 'y' : ['GlobalYank()'                 , 'global yank'],
+            \ }
+
+let g:which_key_map.n = {
+            \ 'name' : '+navigate',
+            \ ',' : ['<Plug>(clever-f-repeat-back)' , 'clever ,'],
+            \ 'f' : ['<Plug>(clever-f-f)'           , 'clever f'],
+            \ 'F' : ['<Plug>(clever-f-F)'           , 'clever F'],
+            \ 'k' : ['<Plug>(clever-f-t)'           , 'clever t'],
+            \ 'K' : ['<Plug>(clever-f-T)'           , 'clever T'],
+            \ 'h' : ['<Plug>(easymotion-j)'         , 'em down'],
+            \ 't' : ['<Plug>(easymotion-k)'         , 'em up'],
+            \ 's' : ['<Plug>(easymotion-s2)'        , 'em search 2'],
+            \ 'S' : ['<Plug>(easymotion-s)'         , 'em search 1'],
             \ }
 
 " Whichkey (t)erminal mappings
@@ -591,7 +605,7 @@ function! InitFoldOpen()
     endif
 endfunction
 
-function! s:QuarterFocus()
+function! QuarterFocus()
     let l:save_pos = getpos(".")
     execute "normal! 22gk"
     execute "normal! " . line(".") . "zt"
@@ -612,6 +626,19 @@ function! IdentifyHighlightGroup()
     echo 'hi<' . synIDattr(synID(line("."),col("."),1),"name") . '> '
                 \. 'trans<' . synIDattr(synID(line("."),col("."),0),"name") . '> '
                 \. 'lo<' . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . '>'
+endfunction
+
+let g:easymotion#is_active = 0
+function! EasyMotionCoc() abort
+    if EasyMotion#is_active()
+        let g:easymotion#is_active = 1
+        CocDisable
+    else
+        if g:easymotion#is_active == 1
+            let g:easymotion#is_active = 0
+            CocEnable
+        endif
+    endif
 endfunction
 
 " }}} "
@@ -646,6 +673,10 @@ if has("autocmd")
   autocmd! FileType which_key
   autocmd FileType which_key set laststatus=0 noshowmode noruler
               \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+  " Disable linter when displaying easymotion hints
+  autocmd TextChanged,CursorMoved * call EasyMotionCoc()
+
 endif
 
 " }}} "
