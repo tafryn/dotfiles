@@ -276,65 +276,33 @@ vnoremap <leader>? y:CocSearch <C-R>"<CR><CR>
 let g:which_key_map['?'] = 'search word'
 
 " Whichkey single mappings
-nnoremap <silent>   <leader>h           :nohlsearch<CR>
+let g:which_key_map['='] = ['<C-w>='                , 'balance windows']
 let g:which_key_map['b'] = [':Buffers'              , 'buffers']
-let g:which_key_map['h'] = [''                      , 'toggle search highlight']
-let g:which_key_map['H'] = [':nohlsearch'           , 'toggle search highlight']
+let g:which_key_map['h'] = [':let @/ = ""'          , 'toggle search highlight']
 let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
 let g:which_key_map['p'] = [':GFiles'               , 'search project files']
 let g:which_key_map['q'] = [':q'                    , 'quit']
 let g:which_key_map['w'] = [':w'                    , 'write']
 let g:which_key_map['z'] = [':call QuarterFocus()'  , 'zoom focus']
 
-" Whichkey (m)isc mappings
-nnoremap <silent>   <leader>ms           :nohlsearch<CR>
-let g:which_key_map.m = {
-            \ 'name' : '+misc',
+" Whichkey (a)ction mappings
+let g:which_key_map.a = {
+            \ 'name' : '+actions',
             \ 'b' : [':Bdelete hidden'              , 'close hidden buffers'],
+            \ 'B' : [':make -j8'                    , 'build'],
             \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold comments'],
-            \ 'd' : ['<Plug>(dirvish_up)'           , 'directory view'],
-            \ 'g' : ['Rg'                           , 'grep repo'],
-            \ 'h' : ['HexokinaseToggle'             , 'toggle color preview'],
-            \ 'H' : ['Hexmode'                      , 'hexmode'],
+            \ 'C' : [':CMake'                       , 'configure cmake'],
+            \ 'f' : [':Neoformat'                   , 'format buffer'],
+            \ 'h' : ['<C-w>s'                       , 'split horizontal'],
             \ 'i' : ['IdentifyHighlightGroup()'     , 'identify highlight'],
-            \ 'l' : [':Limelight!!'                 , 'toggle limelight'],
+            \ 'n' : [':set nonumber!'               , 'toggle line numbers'],
             \ 'p' : ['GlobalPaste()'                , 'global paste'],
-            \ 's' : [''                             , 'toggle search highlights'],
-            \ 'S' : ['`[v`]'                        , 'select pasted'],
-            \ 'T' : ['TagbarToggle'                 , 'tagbar'],
-            \ 'u' : ['GundoToggle'                  , 'undo history'],
-            \ 'w' : [':set list!'                   , 'highlight whitespace'],
-            \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap window'],
+            \ 'r' : [':set norelativenumber!'       , 'toggle relative line numbers'],
+            \ 's' : [':setlocal spell!'             , 'toggle spellcheck'],
+            \ 'S' : ['z='                           , 'suggest correction'],
+            \ 'v' : ['<C-w>v'                       , 'split vertical'],
+            \ 'w' : [':set list!'                   , 'toggle whitespace highlight'],
             \ 'y' : ['GlobalYank()'                 , 'global yank'],
-            \ }
-
-let g:which_key_map.n = {
-            \ 'name' : '+navigate',
-            \ ',' : ['<Plug>(clever-f-repeat-back)' , 'clever ,'],
-            \ 'f' : ['<Plug>(clever-f-f)'           , 'clever f'],
-            \ 'F' : ['<Plug>(clever-f-F)'           , 'clever F'],
-            \ 'k' : ['<Plug>(clever-f-t)'           , 'clever t'],
-            \ 'K' : ['<Plug>(clever-f-T)'           , 'clever T'],
-            \ 'h' : ['<Plug>(easymotion-j)'         , 'em down'],
-            \ 't' : ['<Plug>(easymotion-k)'         , 'em up'],
-            \ 's' : ['<Plug>(easymotion-s2)'        , 'em search 2'],
-            \ 'S' : ['<Plug>(easymotion-s)'         , 'em search 1'],
-            \ }
-
-" Whichkey (t)erminal mappings
-let g:which_key_map.t = {
-            \ 'name' : '+terminal' ,
-            \ ';' : [':15split term://$SHELL'       , 'terminal'],
-            \ 'f' : [':FloatermNew fzf'             , 'fzf'],
-            \ 'g' : [':FloatermNew lazygit'         , 'git'],
-            \ 'd' : [':FloatermNew lazydocker'      , 'docker'],
-            \ 'h' : [':FloatermNew htop'            , 'htop'],
-            \ 'N' : [':FloatermNew node'            , 'node'],
-            \ 'n' : [':FloatermNew nnn'             , 'nnn'],
-            \ 'p' : [':FloatermNew python'          , 'python'],
-            \ 'r' : [':FloatermNew ranger'          , 'ranger'],
-            \ 't' : [':FloatermToggle'              , 'toggle'],
-            \ 's' : [':FloatermNew ncdu'            , 'ncdu'],
             \ }
 
 " Whichkey (g)it mappings
@@ -389,6 +357,32 @@ let g:which_key_map.l = {
             \ 'z' : ['<Plug>(coc-refactor)'                 , 'refactor'],
             \ }
 
+" Whichkey (m)isc mappings
+let g:which_key_map.m = {
+            \ 'name' : '+misc',
+            \ 'd' : ['<Plug>(dirvish_up)'           , 'directory view'],
+            \ 'h' : [':HexokinaseToggle'            , 'toggle color preview'],
+            \ 'H' : [':Hexmode'                     , 'hexmode'],
+            \ 'g' : [':Goyo'                        , 'goyo'],
+            \ 'l' : [':Limelight!!'                 , 'toggle limelight'],
+            \ 'p' : ['`[v`]'                        , 'select pasted'],
+            \ 'u' : [':GundoToggle'                 , 'undo history'],
+            \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap window'],
+            \ }
+
+let g:which_key_map.n = {
+            \ 'name' : '+navigate',
+            \ ',' : ['<Plug>(clever-f-repeat-back)' , 'clever ,'],
+            \ 'f' : ['<Plug>(clever-f-f)'           , 'clever f'],
+            \ 'F' : ['<Plug>(clever-f-F)'           , 'clever F'],
+            \ 'k' : ['<Plug>(clever-f-t)'           , 'clever t'],
+            \ 'K' : ['<Plug>(clever-f-T)'           , 'clever T'],
+            \ 'h' : ['<Plug>(easymotion-j)'         , 'em down'],
+            \ 't' : ['<Plug>(easymotion-k)'         , 'em up'],
+            \ 's' : ['<Plug>(easymotion-s2)'        , 'em search 2'],
+            \ 'S' : ['<Plug>(easymotion-s)'         , 'em search 1'],
+            \ }
+
 " Whichkey (s)earch mappings
 let g:which_key_map.s = {
             \ 'name' : '+search' ,
@@ -402,10 +396,27 @@ let g:which_key_map.s = {
             \ 'H' : [':History:'                    , 'command history'],
             \ 'l' : [':Lines'                       , 'buffer lines'],
             \ 'L' : [':Rg'                          , 'project lines'],
+            \ 'm' : [':Marks'                       , 'marks'],
             \ 'M' : [':Maps:'                       , 'maps'],
             \ 'S' : [':Snippets'                    , 'snippets'],
             \ 't' : [':BTags'                       , 'buffer tags'],
             \ 'T' : [':Tags'                        , 'project tags'],
+            \ }
+
+" Whichkey (t)erminal mappings
+let g:which_key_map.t = {
+            \ 'name' : '+terminal' ,
+            \ ';' : [':15split term://$SHELL'       , 'terminal'],
+            \ 'f' : [':FloatermNew fzf'             , 'fzf'],
+            \ 'g' : [':FloatermNew lazygit'         , 'git'],
+            \ 'd' : [':FloatermNew lazydocker'      , 'docker'],
+            \ 'h' : [':FloatermNew htop'            , 'htop'],
+            \ 'N' : [':FloatermNew node'            , 'node'],
+            \ 'n' : [':FloatermNew nnn'             , 'nnn'],
+            \ 'p' : [':FloatermNew python'          , 'python'],
+            \ 'r' : [':FloatermNew ranger'          , 'ranger'],
+            \ 't' : [':FloatermToggle'              , 'toggle'],
+            \ 's' : [':FloatermNew ncdu'            , 'ncdu'],
             \ }
 
 " Setup primary whichkey mapping
@@ -425,8 +436,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Motion mappings
-" nmap                <leader>h           <Plug>(easymotion-j)
-" nmap                <leader>t           <Plug>(easymotion-k)
 map                 /                   <Plug>(easymotion-sn)
 omap                /                   <Plug>(easymotion-tn)
 map                 l                   <Plug>(easymotion-next)
@@ -559,14 +568,6 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
-
-nmap <leader><C-S> :call <SID>SynStack()<CR>
-function! <SID>SynStack()
-  if !exists("*synstack")
-    return
-  endif
-  echo map(synstack(line('.'), col('.')), 'synIDattr(v:val, "name")')
-endfunc
 
 function! DoPrettyXML()
   " save the filetype so we can restore it later
