@@ -383,8 +383,9 @@ bindsym $mod+Control+b border toggle
 # Start a new terminal                                             ($mod+Enter)
 bindsym $mod+Return exec "i3-sensible-terminal -e tmux"
 
-# Start a new terminal                                                 ($mod+i)
+# Enable scrollwheel emulation                                         ($mod+i)
 bindsym $mod+i exec "toggle-scrollwheel-emulation.sh $MOUSE"
+bindsym --whole-window button9 exec "toggle-scrollwheel-emulation.sh $MOUSE"
 
 # Application launcher                                                 ($mod+p)
 # beware of gnome-settings-daemon:
