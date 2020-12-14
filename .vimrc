@@ -23,6 +23,7 @@ Plug 'tpope/vim-sensible'
 Plug 'w0rp/ale'
 Plug 'wellle/tmux-complete.vim'
 Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'CoatiSoftware/vim-sourcetrail'
 
 " Interface Customization
 Plug 'airblade/vim-gitgutter'
@@ -100,6 +101,7 @@ let g:gv_horizontal = 1
 let g:tmux_navigator_forward_script = "nested_navigate.sh"
 
 let g:gutentags_ctags_exclude = ["build*", "os*", "compile_commands.json"]
+let g:gutentags_ctags_executable = 'uctags'
 
 let g:goyo_width = 100
 
@@ -160,6 +162,7 @@ autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77
 autocmd ColorScheme * hi SneakLabelMask ctermfg=24 ctermbg=24 guifg=#2B5B77 guibg=#2B5B77
 autocmd ColorScheme * hi FloatermBorder guifg=#06989a
 autocmd ColorScheme * hi! link VistaColon VistaLineNr
+autocmd ColorScheme * hi! link CursorLine Visual
 
 let g:jellybeans_overrides = {
             \ 'Folded': { 'guifg': '6c6c6c', 'guibg': '202020', 'ctermfg': '', 'ctermbg': '', 'attr': 'italic' },
@@ -191,6 +194,7 @@ set nodigraph
 set clipboard=unnamedplus
 let g:netrw_browsex_viewer = "xdg-open"
 set viminfo='16,<256,h,r/tmp
+set foldopen+=jump
 
 " }}} "
 
@@ -279,6 +283,7 @@ let g:which_key_map['?'] = 'search word'
 let g:which_key_map['='] = ['<C-w>='                , 'balance windows']
 let g:which_key_map['b'] = [':Buffers'              , 'buffers']
 let g:which_key_map['h'] = [':let @/ = ""'          , 'toggle search highlight']
+let g:which_key_map['f'] = [':Neoformat'            , 'format']
 let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
 let g:which_key_map['p'] = [':GFiles'               , 'search project files']
 let g:which_key_map['q'] = [':q'                    , 'quit']
@@ -295,6 +300,7 @@ let g:which_key_map.a = {
             \ 'f' : [':Neoformat'                   , 'format buffer'],
             \ 'h' : ['<C-w>s'                       , 'split horizontal'],
             \ 'i' : ['IdentifyHighlightGroup()'     , 'identify highlight'],
+            \ 'l' : [':set nocursorline!'           , 'toggle cursor line'],
             \ 'n' : [':set nonumber!'               , 'toggle line numbers'],
             \ 'p' : ['GlobalPaste()'                , 'global paste'],
             \ 'r' : [':set norelativenumber!'       , 'toggle relative line numbers'],
@@ -309,19 +315,19 @@ let g:which_key_map.a = {
 let g:which_key_map.g = {
             \ 'name' : '+git' ,
             \ 'b' : [':Gblame -w'                   , 'blame'],
-            \ 'c' : [':Commits'                     , 'commits'],
-            \ 'C' : [':BCommits'                    , 'buffer commits'],
+            \ 'c' : [':BCommits'                    , 'buffer commits'],
+            \ 'C' : [':Commits'                     , 'commits'],
             \ 'd' : [':Git diff'                    , 'diff'],
             \ 'D' : [':Gdiffsplit'                  , 'split diff'],
-            \ 'l' : [':Glog'                        , 'log'],
-            \ 'L' : [':Glog -- %'                   , 'buffer log'],
+            \ 'l' : [':Glog -- %'                   , 'buffer log'],
+            \ 'L' : [':Glog'                        , 'log'],
             \ 'n' : ['<Plug>(GitGutterNextHunk)'    , 'next hunk'],
             \ 'o' : ['<Plug>(GitGutterPreviewHunk)' , 'view original'],
             \ 'p' : ['<Plug>(GitGutterPrevHunk)'    , 'previous hunk'],
             \ 'r' : ['<Plug>(GitGutterUndoHunk)'    , 'revert'],
             \ 's' : [':Gstatus'                     , 'status'],
-            \ 'v' : [':GV'                          , 'view commits'],
-            \ 'V' : [':GV!'                         , 'view buffer commits'],
+            \ 'v' : [':GV!'                         , 'view buffer commits'],
+            \ 'V' : [':GV'                          , 'view commits'],
             \ }
 
 " Whichkey (l)anguage server mappings
@@ -366,6 +372,7 @@ let g:which_key_map.m = {
             \ 'g' : [':Goyo'                        , 'goyo'],
             \ 'l' : [':Limelight!!'                 , 'toggle limelight'],
             \ 'p' : ['`[v`]'                        , 'select pasted'],
+            \ 'S' : [':SourcetrailActivateToken'    , 'sourcetrail'],
             \ 'u' : [':GundoToggle'                 , 'undo history'],
             \ 'W' : ['WindowSwap#EasyWindowSwap()'  , 'swap window'],
             \ }
@@ -522,10 +529,10 @@ if exists(":tnoremap")
     tnoremap  <silent>  <F3>                <C-\><C-n>:FloatermNext<CR>
     nnoremap  <silent>  <F4>                :FloatermNew<CR>
     tnoremap  <silent>  <F4>                <C-\><C-n>:FloatermNew<CR>
-    tnoremap            <C-h>               <c-\><c-n><c-w>h
-    tnoremap            <C-j>               <c-\><c-n><c-w>j
-    tnoremap            <C-k>               <c-\><c-n><c-w>k
-    tnoremap            <C-l>               <c-\><c-n><c-w>l
+    " tnoremap            <C-h>               <c-\><c-n><c-w>h
+    " tnoremap            <C-j>               <c-\><c-n><c-w>j
+    " tnoremap            <C-k>               <c-\><c-n><c-w>k
+    " tnoremap            <C-l>               <c-\><c-n><c-w>l
 endif
 
 " }}} "
