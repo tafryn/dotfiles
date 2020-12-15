@@ -1,3 +1,7 @@
+if command --search "bat" >/dev/null
+    set -x BAT_PAGER "less"
+end
+
 if command --search "nvimpager" >/dev/null
     set -x PAGER "nvimpager"
     set -x MANPAGER "nvimpager"
@@ -20,6 +24,9 @@ else if command --search "lsd" >/dev/null
     alias ll "lsd -l"
     alias la "lsd -a"
     alias tree "lsd --tree"
+else
+    alias ll "ls -l"
+    alias la "ls -a"
 end
 
 if command --search "systemctl" >/dev/null
@@ -38,6 +45,7 @@ alias build "mkdir -p build_dir; and pushd build_dir; and cmake ../; and make -j
 alias tags "ctags -R -f .ctags --file-scope=yes --sort=yes --fields=+iaS --extras=+q"
 if command --search "lazygit" >/dev/null
     alias dotfiles "lazygit -g .dotfiles/ -w ~/"
+    alias git-dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 else
     alias dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 end
