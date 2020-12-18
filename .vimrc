@@ -18,6 +18,7 @@ Plug 'justinmk/vim-dirvish'
 Plug 'tpope/vim-repeat'
 Plug 'Asheq/close-buffers.vim'
 Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-dispatch'
 
 " Linting & Completions
 Plug 'w0rp/ale'
@@ -282,6 +283,7 @@ let g:which_key_map['?'] = 'search word'
 " Whichkey single mappings
 let g:which_key_map['='] = ['<C-w>='                , 'balance windows']
 let g:which_key_map['b'] = [':Buffers'              , 'buffers']
+let g:which_key_map['c'] = [':call ProjectBuild()'  , 'compile project']
 let g:which_key_map['h'] = [':let @/ = ""'          , 'toggle search highlight']
 let g:which_key_map['f'] = ['<Plug>(coc-format)'    , 'format']
 let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
@@ -653,6 +655,15 @@ function! EasyMotionCoc() abort
             CocEnable
         endif
     endif
+endfunction
+
+" Locate nearest build directory and run a build in it
+function! ProjectBuild()
+    if !exists("g:pbrun")
+        let g:pbrun = 1
+        CMake
+    endif
+    Dispatch
 endfunction
 
 " }}} "
