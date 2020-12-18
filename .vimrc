@@ -283,10 +283,11 @@ let g:which_key_map['?'] = 'search word'
 let g:which_key_map['='] = ['<C-w>='                , 'balance windows']
 let g:which_key_map['b'] = [':Buffers'              , 'buffers']
 let g:which_key_map['h'] = [':let @/ = ""'          , 'toggle search highlight']
-let g:which_key_map['f'] = [':Neoformat'            , 'format']
+let g:which_key_map['f'] = ['<Plug>(coc-format)'    , 'format']
 let g:which_key_map['o'] = [':only'                 , 'fullscreen buffer']
 let g:which_key_map['p'] = [':GFiles'               , 'search project files']
 let g:which_key_map['q'] = [':q'                    , 'quit']
+let g:which_key_map['r'] = [':Rg'                   , 'search project']
 let g:which_key_map['w'] = [':w'                    , 'write']
 let g:which_key_map['z'] = [':call QuarterFocus()'  , 'zoom focus']
 
@@ -333,7 +334,7 @@ let g:which_key_map.g = {
 " Whichkey (l)anguage server mappings
 nnoremap <silent>   <leader>lh          :<C-u>call <SID>show_documentation()<CR>
 let g:which_key_map.l = {
-            \ 'name' : '+git' ,
+            \ 'name' : '+language server' ,
             \ '.' : ['<Plug>(coc-command-repeat)'           , 'repeat command'],
             \ ']' : ['CocNext'                              , 'coc next'],
             \ '[' : ['CocPrev'                              , 'coc prev'],
@@ -546,6 +547,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~ '\s'
 endfunction
 
+" Display information about the symbol under the cursor
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
@@ -564,8 +566,7 @@ function! FzfOmniFiles()
     endif
 endfunction
 
-" strips trailing whitespace at the end of files. this
-" is called on buffer write in the autogroup above.
+" Strip trailing whitespace
 function! <SID>StripTrailingWhitespaces()
     " save last search & cursor position
     let _s=@/
@@ -605,6 +606,7 @@ function! DoPrettyXML()
 endfunction
 command! PrettyXML call DoPrettyXML()
 
+" Open the fold under the cursor after opening a file
 function! InitFoldOpen()
     if !exists("b:iforun")
         norm zv
@@ -613,6 +615,7 @@ function! InitFoldOpen()
     endif
 endfunction
 
+" Redraw current line 22 lines from the top of the window
 function! QuarterFocus()
     let l:save_pos = getpos(".")
     execute "normal! 22gk"
@@ -620,16 +623,19 @@ function! QuarterFocus()
     call setpos(".", l:save_pos)
 endfunction
 
+" Copy current selection and provide to other instances
 function! GlobalYank()
     normal! "xy
     wviminfo! ~/.viminfo
 endfunction
 
+" Paste from inter-instance buffer
 function! GlobalPaste()
     rviminfo! ~/.viminfo
     normal! "xp
 endfunction
 
+" Show the highlight groups for the current cursor location
 function! IdentifyHighlightGroup()
     echo 'hi<' . synIDattr(synID(line("."),col("."),1),"name") . '> '
                 \. 'trans<' . synIDattr(synID(line("."),col("."),0),"name") . '> '
@@ -685,6 +691,8 @@ if has("autocmd")
   " Disable linter when displaying easymotion hints
   autocmd TextChanged,CursorMoved * call EasyMotionCoc()
 
+  " Set C++ commentstring to single-line comments
+  autocmd FileType cpp setlocal commentstring=//%s
 endif
 
 " }}} "
