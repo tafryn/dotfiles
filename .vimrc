@@ -129,23 +129,25 @@ let g:vista_sidebar_width = 32
 "|    Theme                                                               {{{
 "|===========================================================================
 " Set terminal colors from xrdb
-let xrdb = systemlist('xrdb -query | grep -o "[[:digit:]]\+:.*#.*" | sort -n | grep -o "#.*"')
-let g:terminal_color_0 = xrdb[0]
-let g:terminal_color_1 = xrdb[1]
-let g:terminal_color_2 = xrdb[2]
-let g:terminal_color_3 = xrdb[3]
-let g:terminal_color_4 = xrdb[4]
-let g:terminal_color_5 = xrdb[5]
-let g:terminal_color_6 = xrdb[6]
-let g:terminal_color_7 = xrdb[7]
-let g:terminal_color_8 = xrdb[8]
-let g:terminal_color_9 = xrdb[9]
-let g:terminal_color_10 = xrdb[10]
-let g:terminal_color_11 = xrdb[11]
-let g:terminal_color_12 = xrdb[12]
-let g:terminal_color_13 = xrdb[13]
-let g:terminal_color_14 = xrdb[14]
-let g:terminal_color_15 = xrdb[15]
+if executable('xrdb')
+  let xrdb = systemlist('xrdb -query | grep -o "[[:digit:]]\+:.*#.*" | sort -n | grep -o "#.*"')
+  let g:terminal_color_0 = xrdb[0]
+  let g:terminal_color_1 = xrdb[1]
+  let g:terminal_color_2 = xrdb[2]
+  let g:terminal_color_3 = xrdb[3]
+  let g:terminal_color_4 = xrdb[4]
+  let g:terminal_color_5 = xrdb[5]
+  let g:terminal_color_6 = xrdb[6]
+  let g:terminal_color_7 = xrdb[7]
+  let g:terminal_color_8 = xrdb[8]
+  let g:terminal_color_9 = xrdb[9]
+  let g:terminal_color_10 = xrdb[10]
+  let g:terminal_color_11 = xrdb[11]
+  let g:terminal_color_12 = xrdb[12]
+  let g:terminal_color_13 = xrdb[13]
+  let g:terminal_color_14 = xrdb[14]
+  let g:terminal_color_15 = xrdb[15]
+endif
 
 autocmd ColorScheme * hi! link GitGutterAdd Question
 autocmd ColorScheme * hi! link GitGutterChange Function
