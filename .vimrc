@@ -19,6 +19,7 @@ Plug 'tpope/vim-repeat'
 Plug 'Asheq/close-buffers.vim'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-projectionist'
 
 " Linting & Completions
 Plug 'w0rp/ale'
@@ -124,6 +125,8 @@ let g:floaterm_width = 0.8
 let g:floaterm_height = 0.8
 
 let g:vista_sidebar_width = 32
+
+let g:cmake_use_smp = 0
 
 " }}} "
 
@@ -298,6 +301,8 @@ let g:which_key_map['z'] = [':call QuarterFocus()'  , 'zoom focus']
 " Whichkey (a)ction mappings
 let g:which_key_map.a = {
             \ 'name' : '+actions',
+            \ 'a' : [':AV'                          , 'vsplit open alternate'],
+            \ 'A' : [':AS'                          , 'hsplit open alternate'],
             \ 'b' : [':Bdelete hidden'              , 'close hidden buffers'],
             \ 'B' : [':make -j8'                    , 'build'],
             \ 'c' : [':g/^\s*\/\*/foldc'            , 'fold comments'],

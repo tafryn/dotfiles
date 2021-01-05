@@ -9,3 +9,4 @@ tags
 .gdb_history
 .cache
 .project
+*.projections.json
