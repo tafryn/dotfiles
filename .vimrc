@@ -78,7 +78,9 @@ let g:windowswap_map_keys = 0
 let g:gitgutter_map_keys = 0
 let g:gitgutter_highlight_linenrs = 1
 
-let g:ale_cpp_cppcheck_options = '--std=c++14 --inline-suppr --enable=all --suppress=toomanyconfigs -I./include -I../include'
+let g:ale_cpp_cppcheck_options = '--std=c++17 --inline-suppr --enable=all --suppress=toomanyconfigs -I./include -I../include'
+let g:ale_cpp_clangtidy_extra_options = '-extra-arg=-std=c++17'
+let g:ale_cpp_clangcheck_options = '-extra-arg=-std=c++17'
 let g:ale_linters = {
 \    'cpp': ['clangtidy', 'clangcheck'],
 \}
@@ -128,12 +130,14 @@ let g:vista_sidebar_width = 32
 
 let g:cmake_use_smp = 0
 
+let g:dirvish_relative_paths = 1
+
 " }}} "
 
 "|    Theme                                                               {{{
 "|===========================================================================
 " Set terminal colors from xrdb
-if executable('xrdb')
+if executable('xrdb') && !empty($DISPLAY)
   let xrdb = systemlist('xrdb -query | grep -o "[[:digit:]]\+:.*#.*" | sort -n | grep -o "#.*"')
   let g:terminal_color_0 = xrdb[0]
   let g:terminal_color_1 = xrdb[1]
@@ -324,7 +328,7 @@ let g:which_key_map.a = {
 " Whichkey (g)it mappings
 let g:which_key_map.g = {
             \ 'name' : '+git' ,
-            \ 'b' : [':Gblame -w'                   , 'blame'],
+            \ 'b' : [':Git blame -w'                , 'blame'],
             \ 'c' : [':BCommits'                    , 'buffer commits'],
             \ 'C' : [':Commits'                     , 'commits'],
             \ 'd' : [':Git diff'                    , 'diff'],
@@ -692,7 +696,7 @@ if has("autocmd")
     autocmd BufEnter * autocmd CursorHold <buffer> call InitFoldOpen()
   augroup END
 
-  autocmd FileType gitcommit setlocal nofoldenable
+  autocmd FileType gitcommit setlocal nofoldenable spell
   autocmd FileType git setlocal nofoldenable
 
   " Automatically enter insert mode when focusing terminal buffers
@@ -711,6 +715,9 @@ if has("autocmd")
 
   " Set C++ commentstring to single-line comments
   autocmd FileType cpp setlocal commentstring=//%s
+
+  " Set filetype for iwyu mapping files
+  autocmd BufNewFile,BufRead *.imp set filetype=json
 endif
 
 " }}} "
