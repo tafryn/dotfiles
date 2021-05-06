@@ -11,7 +11,7 @@ vim.cmd('set whichwrap+=<,>,[,],h,l') -- move to next line with theses keys
 vim.cmd('syntax on') -- syntax highlighting
 vim.o.pumheight = 10 -- Makes popup menu smaller
 vim.o.fileencoding = "utf-8" -- The encoding written to file
-vim.o.cmdheight = 2 -- More space for displaying messages
+-- vim.o.cmdheight = 2 -- More space for displaying messages
 vim.cmd('set colorcolumn=99999') -- fix indentline for now
 vim.o.mouse = "a" -- Enable your mouse
 vim.o.splitbelow = true -- Horizontal splits will automatically be below
@@ -32,7 +32,7 @@ vim.o.backup = false -- This is recommended by coc
 vim.o.writebackup = false -- This is recommended by coc
 vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 vim.o.updatetime = 300 -- Faster completion
-vim.o.timeoutlen = 500 -- By default timeoutlen is 1000 ms
+vim.o.timeoutlen = O.timeoutlen -- By default timeoutlen is 1000 ms
 vim.o.clipboard = "unnamedplus" -- Copy paste between vim and everything else
 -- vim.o.guifont = "JetBrainsMono\\ Nerd\\ Font\\ Mono:h18"
 -- vim.o.guifont = "Hack\\ Nerd\\ Font\\ Mono"
@@ -52,3 +52,5 @@ vim.o.wildignorecase = true
 vim.o.foldopen = vim.o.foldopen .. ",jump"
 vim.o.wrapscan = false
 vim.wo.linebreak = true
+-- TODO setting foldmethod to "expr" disables treesitter and lsp by default
+-- vim.wo.foldmethod = "expr"

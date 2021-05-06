@@ -6,16 +6,14 @@ end
 
 vim.g.mapleader = ' '
 
--- Test
-vim.api.nvim_set_keymap('n', '<leader>t', ':help t<CR>', {silent = true})
-
 -- Select pasted text
 map('n', 'gp', '`[v`]', {silent = true})
 
 -- Completion menu navigation
-map('i', '<Tab>'  , 'pumvisible() ? "\\<C-n>" : "\\<Tab>"'       , {expr = true})
-map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"'     , {expr = true})
-map('i', '<CR>'   , 'pumvisible() ? "\\<C-y>" : "\\<C-g>u\\<CR>"', {expr = true})
+-- map('i', '<Tab>'  , 'pumvisible() ? "\\<C-n>" : "\\<Tab>"'       , {expr = true})
+-- map('i', '<S-Tab>', 'pumvisible() ? "\\<C-p>" : "\\<S-Tab>"'     , {expr = true})
+-- map('i', '<CR>'   , 'pumvisible() ? "\\<C-y>" : "\\<C-g>u\\<CR>"', {expr = true})
+map('i', '<CR>', 'compe#confirm(\'<CR>\')', {expr = true, silent = true})
 
 -- Better indenting
 map('v', '<', '<gv', {silent = true})
