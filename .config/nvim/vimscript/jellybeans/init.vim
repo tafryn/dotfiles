@@ -7,6 +7,5 @@ let g:jellybeans_overrides = {
             \ 'SpecialKey': { 'guifg': '808080', 'guibg': 'af0000', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
             \ 'Whitespace': { 'guifg': '808080', 'guibg': 'af0000', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
             \ 'Pmenu': { 'guifg': '668799', 'guibg': '1f1f1f', 'ctermfg': 'Dark Red', 'ctermbg': '', 'attr': '' },
+            \ 'background': { 'guibg': 'none', 'ctermbg': 'none', '256ctermbg': 'none' },
             \}
-let g:jellybeans_background_color_256="none"
-let g:jellybeans_background_color="none"
