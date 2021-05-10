@@ -52,5 +52,6 @@ vim.o.wildignorecase = true
 vim.o.foldopen = vim.o.foldopen .. ",jump"
 vim.o.wrapscan = false
 vim.wo.linebreak = true
+vim.cmd('set path+=./include,include;')
 -- TODO setting foldmethod to "expr" disables treesitter and lsp by default
 -- vim.wo.foldmethod = "expr"

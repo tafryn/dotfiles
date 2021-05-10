@@ -25,11 +25,21 @@ map('n', '<C-Down>' , ':resize +2<CR>'         , {silent = true })
 map('n', '<C-Left>' , ':vertical resize -2<CR>', {silent = true })
 map('n', '<C-Right>', ':vertical resize +2<CR>', {silent = true })
 
--- TODO spellcheck toggle and suggestions options
--- TODO quick access to copen cclose
--- TODO quick access to cp cn
--- TODO formatting of file, block, and selection
--- TODO Half-page PageUp & PageDown instead of full
+-- Quickfix shortcuts
+map('n', '<C-q>', ':cclose<CR>', {silent = true})
+map('n', '<F9>', ':cp<CR>', {})
+map('n', '<F10>', ':cn<CR>', {})
+map('n', '<C-t>', ':lp<CR>', {})
+map('n', '<C-h>', ':lne<CR>', {})
+
+map('n', '<PageUp>', '<C-u>', {})
+map('i', '<PageUp>', '<C-o><C-u>', {})
+map('n', '<PageDown>', '<C-d>', {})
+map('i', '<PageDown>', '<C-o><C-d>', {})
+
+map('n', '<F7>', ':setlocal spell!<CR>', {})
+map('i', '<F7>', '<C-o>:setlocal spell!<CR>', {})
+map('n', '<S-F7>', 'z=', {silent = true})
 
 -- Semi-colon/colon swap
 map('n', ';', ':')

@@ -23,15 +23,15 @@ if executable('xrdb') && !empty($DISPLAY)
 endif
 ]=])
 
+vim.cmd('autocmd ColorScheme * hi! link SignColumn LineNr')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterAdd Question')
-vim.cmd('autocmd ColorScheme * hi! link GitGutterChange Function')
+vim.cmd('autocmd ColorScheme * hi! link GitGutterChange Type')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterChangeDelete Number')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterDelete WarningMsg')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterAddLineNr Question')
-vim.cmd('autocmd ColorScheme * hi! link GitGutterChangeLineNr Function')
+vim.cmd('autocmd ColorScheme * hi! link GitGutterChangeLineNr Type')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterChangeDeleteLineNr Number')
 vim.cmd('autocmd ColorScheme * hi! link GitGutterDeleteLineNr WarningMsg')
-vim.cmd('autocmd ColorScheme * hi! link SignColumn LineNr')
 -- vim.cmd('autocmd ColorScheme * hi! link Sneak DiffChange')
 -- vim.cmd('autocmd ColorScheme * hi! link SneakScope DiffText')
 -- vim.cmd('autocmd ColorScheme * hi SneakLabel cterm=bold ctermbg=24 guibg=#2B5B77')
@@ -41,8 +41,23 @@ vim.cmd('autocmd ColorScheme * hi! link VistaColon VistaLineNr')
 vim.cmd('autocmd ColorScheme * hi! link CursorLine Visual')
 
 vim.cmd("hi Folded ctermfg=green ctermbg=darkgray")
--- let g:airline_theme='jellybeans'
--- let g:airline#extensions#whitespace#enabled = 0
--- let g:airline_powerline_fonts = 1
+
+vim.cmd('autocmd ColorScheme * hi! link BufferCurrent ModeMsg')
+vim.cmd('autocmd ColorScheme * hi! link BufferCurrentMod Type')
+vim.cmd('autocmd ColorScheme * hi! link BufferCurrentSign Conceal')
+vim.cmd('autocmd ColorScheme * hi! link BufferCurrentTarget WarningMsg')
+
+vim.cmd('autocmd ColorScheme * hi! link BufferVisible CursorLineNr')
+vim.cmd('autocmd ColorScheme * hi! link BufferVisibleMod StorageClass')
+vim.cmd('autocmd ColorScheme * hi! link BufferVisibleSign Comment')
+vim.cmd('autocmd ColorScheme * hi! link BufferVisibleTarget WarningMsg')
+
+vim.cmd('autocmd ColorScheme * hi! link BufferInactive Comment')
+vim.cmd('autocmd ColorScheme * hi! link BufferInactiveMod StorageClass')
+vim.cmd('autocmd ColorScheme * hi! link BufferInactiveSign Comment')
+vim.cmd('autocmd ColorScheme * hi! link BufferInactiveTarget WarningMsg')
+
+vim.cmd('autocmd ColorScheme * hi! link BufferTabpages TabLine')
+vim.cmd('autocmd ColorScheme * hi! link BufferTabpageFill TabLineFill')
 
 vim.cmd('colorscheme ' .. O.colorscheme)

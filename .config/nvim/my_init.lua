@@ -6,7 +6,7 @@ require('settings')
 vim.cmd('luafile ~/.config/nvim/lv-settings.lua')
 require('mappings')
 
--- require('lv-nvimtree') -- Causing slow startup
+require('lv-nvimtree') -- Causing slow startup
 vim.cmd('source ~/.config/nvim/vimscript/jellybeans/init.vim')
 require('colorscheme')
 
@@ -16,6 +16,11 @@ require('lv-compe')
 require('lv-treesitter')
 require('lv-gitsigns')
 require('lv-telescope')
+require('lv-barbar')
+require('lv-autopairs')
+require('lv-bqf')
+require('lv-which-key')
+require('lv-dashboard')
 
 vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
 

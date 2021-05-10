@@ -131,6 +131,8 @@ gls.right[5] = {
     }
 }
 
+-- TODO Add treesitter indicator
+
 gls.right[6] = {
     LineInfo = {
         provider = 'LineColumn',
@@ -180,6 +182,8 @@ gls.right[10] = {
         highlight = {colors.grey, colors.bg}
     }
 }
+
+-- TODO Add mode bar on far right
 
 gls.right[11] = {
     Space = {

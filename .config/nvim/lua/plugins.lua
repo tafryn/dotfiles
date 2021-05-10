@@ -66,11 +66,11 @@ return require("packer").startup(
         -- -- use {'lukas-reineke/indent-blankline.nvim', opt=true, branch = 'lua'}
         use {"lewis6991/gitsigns.nvim", opt = true}
         -- -- use {"liuchengxu/vim-which-key", opt = true}
-        -- use {"folke/which-key.nvim", opt = true}
-        -- use {"ChristianChiarulli/dashboard-nvim", opt = true}
-        -- use {"windwp/nvim-autopairs", opt = true}
+        use {"folke/which-key.nvim", opt = true}
+        use {"glepnir/dashboard-nvim", opt = true}
+        use {"windwp/nvim-autopairs", opt = true}
         use {"terrortylor/nvim-comment", opt = true}
-        -- use {"kevinhwang91/nvim-bqf", opt = true}
+        use {"kevinhwang91/nvim-bqf", opt = true}
 
         -- Color
         -- use {"christianchiarulli/nvcode-color-schemes.vim", opt = true}
@@ -81,7 +81,7 @@ return require("packer").startup(
 
         -- Status Line and Bufferline
         use {"glepnir/galaxyline.nvim", opt = true}
-        -- use {"romgrk/barbar.nvim", opt = true}
+        use {"romgrk/barbar.nvim", opt = true}
 
         require_plugin("nvim-lspconfig")
         require_plugin("lspsaga.nvim")
@@ -95,16 +95,16 @@ return require("packer").startup(
         require_plugin("vim-vsnip")
         require_plugin("nvim-treesitter")
         require_plugin("nvim-ts-autotag")
-        -- require_plugin("nvim-tree.lua")
+        require_plugin("nvim-tree.lua")
         require_plugin("gitsigns.nvim")
-        -- require_plugin("which-key.nvim")
-        -- require_plugin("dashboard-nvim")
-        -- require_plugin("nvim-autopairs")
+        require_plugin("which-key.nvim")
+        require_plugin("dashboard-nvim")
+        require_plugin("nvim-autopairs")
         require_plugin("nvim-comment")
-        -- require_plugin("nvim-bqf")
+        require_plugin("nvim-bqf")
         -- require_plugin("nvcode-color-schemes.vim")
         require_plugin("nvim-web-devicons")
         require_plugin("galaxyline.nvim")
-        -- require_plugin("barbar.nvim")
+        require_plugin("barbar.nvim")
     end
 )
