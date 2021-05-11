@@ -52,7 +52,7 @@ gls.left[1] = {
                 t = colors.blue
             }
             vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
-            return '▊ '
+            return '▊'
         end,
         highlight = {colors.red, colors.bg}
     }
@@ -61,6 +61,17 @@ print(vim.fn.getbufvar(0, 'ts'))
 vim.fn.getbufvar(0, 'ts')
 
 gls.left[2] = {
+    Space = {
+        provider = function()
+            return ' '
+        end,
+        separator = '',
+        separator_highlight = {'NONE', colors.bg},
+        highlight = {colors.orange, colors.bg}
+    }
+}
+
+gls.left[3] = {
     GitIcon = {
         provider = function()
             return ' '
@@ -72,7 +83,7 @@ gls.left[2] = {
     }
 }
 
-gls.left[3] = {
+gls.left[4] = {
     GitBranch = {
         provider = 'GitBranch',
         condition = condition.check_git_workspace,
@@ -82,7 +93,7 @@ gls.left[3] = {
     }
 }
 
-gls.left[4] = {
+gls.left[5] = {
     DiffAdd = {
         provider = 'DiffAdd',
         condition = condition.hide_in_width,
@@ -90,7 +101,7 @@ gls.left[4] = {
         highlight = {colors.green, colors.bg}
     }
 }
-gls.left[5] = {
+gls.left[6] = {
     DiffModified = {
         provider = 'DiffModified',
         condition = condition.hide_in_width,
@@ -98,7 +109,7 @@ gls.left[5] = {
         highlight = {colors.blue, colors.bg}
     }
 }
-gls.left[6] = {
+gls.left[7] = {
     DiffRemove = {
         provider = 'DiffRemove',
         condition = condition.hide_in_width,
@@ -119,6 +130,18 @@ gls.right[3] = {
 gls.right[4] = {DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}}}
 
 gls.right[5] = {
+    TreesitterIcon = {
+        provider = function()
+            if next(vim.treesitter.highlighter.active) ~= nil then return ' ' end
+            return ''
+        end,
+        separator = ' ',
+        separator_highlight = {'NONE', colors.bg},
+        highlight = {colors.green, colors.bg}
+    }
+}
+
+gls.right[6] = {
     ShowLspClient = {
         provider = 'GetLspClient',
         condition = function()
@@ -131,18 +154,16 @@ gls.right[5] = {
     }
 }
 
--- TODO Add treesitter indicator
-
-gls.right[6] = {
+gls.right[7] = {
     LineInfo = {
         provider = 'LineColumn',
-        separator = '  ',
+        separator = ' ',
         separator_highlight = {'NONE', colors.bg},
         highlight = {colors.grey, colors.bg}
     }
 }
 
-gls.right[7] = {
+gls.right[8] = {
     PerCent = {
         provider = 'LinePercent',
         separator = ' ',
@@ -151,19 +172,7 @@ gls.right[7] = {
     }
 }
 
--- gls.right[8] = {
---     Tabstop = {
---         provider = function()
---             return "Spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth") .. " "
---         end,
---         condition = condition.hide_in_width,
---         separator = ' ',
---         separator_highlight = {'NONE', colors.bg},
---         highlight = {colors.grey, colors.bg}
---     }
--- }
-
-gls.right[9] = {
+gls.right[10] = {
     BufferType = {
         provider = 'FileTypeName',
         condition = condition.hide_in_width,
@@ -173,7 +182,7 @@ gls.right[9] = {
     }
 }
 
-gls.right[10] = {
+gls.right[11] = {
     FileEncode = {
         provider = 'FileEncode',
         condition = condition.hide_in_width,
@@ -183,16 +192,47 @@ gls.right[10] = {
     }
 }
 
--- TODO Add mode bar on far right
-
-gls.right[11] = {
+gls.right[12] = {
     Space = {
         provider = function()
             return ' '
         end,
-        separator = ' ',
+        separator = '',
         separator_highlight = {'NONE', colors.bg},
         highlight = {colors.orange, colors.bg}
+    }
+}
+
+gls.right[13] = {
+    ViMode = {
+        provider = function()
+            -- auto change color according the vim mode
+            local mode_color = {
+                n = colors.blue,
+                i = colors.green,
+                v = colors.purple,
+                [''] = colors.purple,
+                V = colors.purple,
+                c = colors.magenta,
+                no = colors.blue,
+                s = colors.orange,
+                S = colors.orange,
+                [''] = colors.orange,
+                ic = colors.yellow,
+                R = colors.red,
+                Rv = colors.red,
+                cv = colors.blue,
+                ce = colors.blue,
+                r = colors.cyan,
+                rm = colors.cyan,
+                ['r?'] = colors.cyan,
+                ['!'] = colors.blue,
+                t = colors.blue
+            }
+            vim.api.nvim_command('hi GalaxyViMode guifg=' .. mode_color[vim.fn.mode()])
+            return '▊'
+        end,
+        highlight = {colors.red, colors.bg}
     }
 }
 
