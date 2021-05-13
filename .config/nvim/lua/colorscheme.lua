@@ -21,7 +21,7 @@ vim.cmd("hi Folded ctermfg=green ctermbg=darkgray")
 
 vim.cmd('autocmd ColorScheme * hi! link BufferCurrent ModeMsg')
 vim.cmd('autocmd ColorScheme * hi! link BufferCurrentMod Type')
-vim.cmd('autocmd ColorScheme * hi! link BufferCurrentSign Conceal')
+vim.cmd('autocmd ColorScheme * hi! link BufferCurrentSign Operator')
 vim.cmd('autocmd ColorScheme * hi! link BufferCurrentTarget WarningMsg')
 
 vim.cmd('autocmd ColorScheme * hi! link BufferVisible CursorLineNr')
