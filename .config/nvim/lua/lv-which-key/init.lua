@@ -72,12 +72,20 @@ vim.api.nvim_set_keymap("n", "<leader>b", ":Telescope buffers<CR>", {noremap = t
 -- telescope git
 vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope git_files<CR>", {noremap = true, silent = true})
 
+-- undotree
+vim.api.nvim_set_keymap("n", "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", {noremap = true, silent = true})
+
 -- zoom
 vim.api.nvim_set_keymap("n", "<leader>z", ":call QuarterFocus()<CR>", {noremap = true, silent = true})
+
+-- project search
+vim.api.nvim_set_keymap("n", "<leader>?", ":CtrlSF <C-R>=expand(\"<cword>\")<CR><CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("v", "<leader>?", "y:CtrlSF <C-R>\"<CR><CR>", {noremap = true, silent = true})
 
 -- TODO create entire treesitter section
 
 local mappings = {
+    ["?"] = "Project Search",
     ["/"] = "Comment",
     ["b"] = "Switch Buffer",
     ["c"] = "Close Buffer",
@@ -85,6 +93,7 @@ local mappings = {
     ["f"] = "Find File",
     ["h"] = "No Highlight",
     ["p"] = "Find Git File",
+    ["u"] = "Undotree",
     ["z"] = "Focus Line",
     d = {
         name = "+Debug",
@@ -117,6 +126,7 @@ local mappings = {
         d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
         D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
         f = {"<cmd>LspFormatting<cr>", "Format"},
+        h = {"<cmd>Lspsaga hover_doc<cr>", "Hover Doc"},
         i = {"<cmd>LspInfo<cr>", "Info"},
         l = {"<cmd>Lspsaga lsp_finder<cr>", "LSP Finder"},
         L = {"<cmd>Lspsaga show_line_diagnostics<cr>", "Line Diagnostics"},
@@ -141,6 +151,20 @@ local mappings = {
         r = {"<cmd>Telescope oldfiles<cr>", "Open Recent File"},
         R = {"<cmd>Telescope registers<cr>", "Registers"},
         t = {"<cmd>Telescope live_grep<cr>", "Text"}
+    },
+    t = {
+        name = "+Terminal",
+        T = {":15split term://$SHELL<CR>", "terminal"},
+        f = {":FloatermNew fzf<CR>", "fzf"},
+        g = {":FloatermNew lazygit<CR>", "git"},
+        d = {":FloatermNew lazydocker<CR>", "docker"},
+        h = {":FloatermNew htop<CR>", "htop"},
+        N = {":FloatermNew node<CR>", "node"},
+        n = {":FloatermNew nnn<CR>", "nnn"},
+        p = {":FloatermNew python<CR>", "python"},
+        r = {":FloatermNew ranger<CR>", "ranger"},
+        t = {":FloatermToggle<CR>", "toggle"},
+        s = {":FloatermNew ncdu<CR>", "ncdu"},
     },
     S = {name = "+Session", s = {"<cmd>SessionSave<cr>", "Save Session"}, l = {"<cmd>SessionLoad<cr>", "Load Session"}}
 }

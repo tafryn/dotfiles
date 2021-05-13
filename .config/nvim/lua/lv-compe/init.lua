@@ -28,8 +28,9 @@ require'compe'.setup {
         -- snippets_nvim = {kind = "  "},
         -- ultisnips = {kind = "  "},
         -- treesitter = {kind = "  "},
-        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}}
+        emoji = {kind = " ﲃ  (Emoji)", filetypes={"markdown", "text"}},
         -- for emoji press : (idk if that in compe tho)
+        tmux = {kind = "   (Tmux)"}
     }
 }
 

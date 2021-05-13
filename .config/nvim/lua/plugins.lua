@@ -53,6 +53,7 @@ return require("packer").startup(
         use {"hrsh7th/nvim-compe", opt = true}
         use {"hrsh7th/vim-vsnip", opt = true}
         use {"rafamadriz/friendly-snippets", opt = true}
+        use {"wellle/tmux-complete.vim", opt = true}
 
         -- Treesitter
         use {"nvim-treesitter/nvim-treesitter", run = ":TSUpdate"}
@@ -63,17 +64,16 @@ return require("packer").startup(
         -- TODO remove when open on dir is supported by nvimtree
         -- use "kevinhwang91/rnvimr"
 
-        -- -- use {'lukas-reineke/indent-blankline.nvim', opt=true, branch = 'lua'}
+        -- use {'lukas-reineke/indent-blankline.nvim', opt=true, branch = 'lua'}
         use {"lewis6991/gitsigns.nvim", opt = true}
-        -- -- use {"liuchengxu/vim-which-key", opt = true}
+        -- use {"liuchengxu/vim-which-key", opt = true}
         use {"folke/which-key.nvim", opt = true}
         use {"glepnir/dashboard-nvim", opt = true}
-        use {"windwp/nvim-autopairs", opt = true}
+        -- use {"windwp/nvim-autopairs", opt = true}
         use {"terrortylor/nvim-comment", opt = true}
         use {"kevinhwang91/nvim-bqf", opt = true}
 
         -- Color
-        -- use {"christianchiarulli/nvcode-color-schemes.vim", opt = true}
         use {"nanotech/jellybeans.vim", opt = true}
 
         -- Icons
@@ -82,6 +82,27 @@ return require("packer").startup(
         -- Status Line and Bufferline
         use {"glepnir/galaxyline.nvim", opt = true}
         use {"romgrk/barbar.nvim", opt = true}
+
+        -- Undo
+        use {"mbbill/undotree", opt = true}
+
+        -- Tpope-ify
+        use {"tpope/vim-repeat", opt = true}
+        use {"tpope/vim-surround", opt = true}
+        use {"tpope/vim-unimpaired", opt = true}
+        use {"tpope/vim-rsi", opt = true}
+
+        -- Additional targets
+        use {"wellle/targets.vim", opt = true}
+        use {"michaeljsmith/vim-indent-object", opt = true}
+        use {"chaoren/vim-wordmotion", opt = true}
+
+        use {"tommcdo/vim-exchange", opt = true}
+        use {"tommcdo/vim-lion", opt = true}
+        use {"dyng/ctrlsf.vim", opt = true}
+        use {"justinmk/vim-sneak", opt = true}
+        use {"voldikss/vim-floaterm", opt = true}
+        use {"tafryn/vim-tmux-navigator", branch = 'forward-script', opt = true}
 
         require_plugin("nvim-lspconfig")
         require_plugin("lspsaga.nvim")
@@ -99,12 +120,27 @@ return require("packer").startup(
         require_plugin("gitsigns.nvim")
         require_plugin("which-key.nvim")
         require_plugin("dashboard-nvim")
-        require_plugin("nvim-autopairs")
+        -- require_plugin("nvim-autopairs")
         require_plugin("nvim-comment")
         require_plugin("nvim-bqf")
-        -- require_plugin("nvcode-color-schemes.vim")
         require_plugin("nvim-web-devicons")
         require_plugin("galaxyline.nvim")
         require_plugin("barbar.nvim")
+
+        require_plugin("tmux-complete.vim")
+        require_plugin("undotree")
+        require_plugin("vim-repeat")
+        require_plugin("vim-surround")
+        require_plugin("vim-unimpaired")
+        require_plugin("vim-rsi")
+        require_plugin("targets.vim")
+        require_plugin("vim-indent-object")
+        require_plugin("vim-wordmotion")
+        require_plugin("vim-exchange")
+        require_plugin("vim-lion")
+        require_plugin("ctrlsf.vim")
+        require_plugin("vim-sneak")
+        require_plugin("vim-floaterm")
+        require_plugin("vim-tmux-navigator")
     end
 )
