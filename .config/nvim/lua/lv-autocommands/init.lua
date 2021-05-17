@@ -33,6 +33,7 @@ utils.define_augroups({
         {'BufNewFile', '*', 'setlocal formatoptions-=c formatoptions-=r formatoptions-=o'},
         {'VimLeavePre', '*', 'set title set titleold='},
         {'BufWrite,BufEnter,InsertLeave', '*', 'lua vim.lsp.diagnostic.set_loclist({open_loclist = false})'},
+        {'FileType', 'qf', 'set nobuflisted'},
 
         -- {'User', 'GoyoLeave', 'lua require(\'galaxyline\').disable_galaxyline()'},
         -- {'User', 'GoyoEnter', 'lua require(\'galaxyline\').galaxyline_augroup()'},
