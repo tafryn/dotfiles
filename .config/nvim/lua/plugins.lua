@@ -75,6 +75,7 @@ return require("packer").startup(
 
         -- Color
         use {"nanotech/jellybeans.vim", opt = true}
+        use {"norcalli/nvim-colorizer.lua", opt = true}
 
         -- Icons
         use {"kyazdani42/nvim-web-devicons", opt = true}
@@ -91,6 +92,7 @@ return require("packer").startup(
         use {"tpope/vim-surround", opt = true}
         use {"tpope/vim-unimpaired", opt = true}
         use {"tpope/vim-rsi", opt = true}
+        use {"tpope/vim-projectionist", opt = true}
 
         -- Additional targets
         use {"wellle/targets.vim", opt = true}
@@ -103,6 +105,7 @@ return require("packer").startup(
         use {"justinmk/vim-sneak", opt = true}
         use {"voldikss/vim-floaterm", opt = true}
         use {"tafryn/vim-tmux-navigator", branch = 'forward-script', opt = true}
+        use {"cdelledonne/vim-cmake", opt = true}
 
         require_plugin("nvim-lspconfig")
         require_plugin("lspsaga.nvim")
@@ -133,6 +136,7 @@ return require("packer").startup(
         require_plugin("vim-surround")
         require_plugin("vim-unimpaired")
         require_plugin("vim-rsi")
+        require_plugin("vim-projectionist")
         require_plugin("targets.vim")
         require_plugin("vim-indent-object")
         require_plugin("vim-wordmotion")
@@ -142,5 +146,7 @@ return require("packer").startup(
         require_plugin("vim-sneak")
         require_plugin("vim-floaterm")
         require_plugin("vim-tmux-navigator")
+        require_plugin("nvim-colorizer.lua")
+        require_plugin("vim-cmake")
     end
 )

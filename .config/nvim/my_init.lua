@@ -29,6 +29,7 @@ vim.cmd('source ~/.config/nvim/vimscript/lv-surround/init.vim')
 vim.cmd('source ~/.config/nvim/vimscript/lv-ctrlsf/init.vim')
 vim.cmd('source ~/.config/nvim/vimscript/lv-vim-floaterm/init.vim')
 vim.cmd('source ~/.config/nvim/vimscript/lv-vim-tmux-navigator/init.vim')
+vim.cmd('source ~/.config/nvim/vimscript/lv-vim-cmake/init.vim')
 
 -- LSP
 require('lsp')

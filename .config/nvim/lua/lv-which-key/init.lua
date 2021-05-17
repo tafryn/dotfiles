@@ -48,6 +48,9 @@ vim.api.nvim_set_keymap('n', '<Space>', '<NOP>', {noremap = true, silent = true}
 vim.g.mapleader = ' '
 
 -- no hl
+vim.api.nvim_set_keymap('n', '<Leader>a', ':A<CR>', {noremap = true, silent = true})
+
+-- no hl
 vim.api.nvim_set_keymap('n', '<Leader>h', ':let @/ = ""<CR>', {noremap = true, silent = true})
 
 -- explorer
@@ -82,16 +85,22 @@ vim.api.nvim_set_keymap("n", "<leader>z", ":call QuarterFocus()<CR>", {noremap =
 vim.api.nvim_set_keymap("n", "<leader>?", ":CtrlSF <C-R>=expand(\"<cword>\")<CR><CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>?", "y:CtrlSF <C-R>\"<CR><CR>", {noremap = true, silent = true})
 
+-- close buffer
+vim.api.nvim_set_keymap("n", "<leader>C", ":ColorizerToggle<CR>", {noremap = true, silent = true})
+
 -- TODO create entire treesitter section
 
 local mappings = {
+    [";"] = "Dashboard",
     ["?"] = "Project Search",
     ["/"] = "Comment",
+    ["a"] = "Alternate",
     ["b"] = "Switch Buffer",
     ["c"] = "Close Buffer",
+    ["C"] = "Colorizer",
     ["e"] = "Explorer",
     ["f"] = "Find File",
-    ["h"] = "No Highlight",
+    ["h"] = "Clear Highlight",
     ["p"] = "Find Git File",
     ["u"] = "Undotree",
     ["z"] = "Focus Line",
