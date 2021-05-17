@@ -26,7 +26,7 @@ map('n', '<C-Left>' , ':vertical resize -2<CR>', {silent = true })
 map('n', '<C-Right>', ':vertical resize +2<CR>', {silent = true })
 
 -- Quickfix shortcuts
-map('n', '<C-q>', ':cclose<CR>', {silent = true})
+map('n', '<C-q>', ':call QuickFixToggle()<CR>', {silent = true})
 map('n', '<F9>', ':cp<CR>', {})
 map('n', '<F10>', ':cn<CR>', {})
 map('n', '<C-u>', ':lp<CR>', {})
