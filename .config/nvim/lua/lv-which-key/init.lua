@@ -85,6 +85,9 @@ vim.api.nvim_set_keymap("n", "<leader>z", ":call QuarterFocus()<CR>", {noremap =
 vim.api.nvim_set_keymap("n", "<leader>?", ":CtrlSF <C-R>=expand(\"<cword>\")<CR><CR>", {noremap = true, silent = true})
 vim.api.nvim_set_keymap("v", "<leader>?", "y:CtrlSF <C-R>\"<CR><CR>", {noremap = true, silent = true})
 
+-- switch buffer
+vim.api.nvim_set_keymap("n", "<leader>m", ":CMakeBuild -j8<CR>", {noremap = true, silent = true})
+
 -- close buffer
 vim.api.nvim_set_keymap("n", "<leader>C", ":ColorizerToggle<CR>", {noremap = true, silent = true})
 
@@ -101,6 +104,7 @@ local mappings = {
     ["e"] = "Explorer",
     ["f"] = "Find File",
     ["h"] = "Clear Highlight",
+    ["m"] = "CMake Build",
     ["p"] = "Find Git File",
     ["u"] = "Undotree",
     ["z"] = "Focus Line",
