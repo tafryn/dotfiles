@@ -75,3 +75,6 @@ O.json.autoformat = true
 -- ruby
 O.ruby.autoformat = true
 -- create custom autocommand field (This would be easy with lua)
+
+-- Turn off relative_numbers
+-- O.relative_number = false

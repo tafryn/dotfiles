@@ -1,11 +1,11 @@
 -- Sneak requires options set prior to plugin init
 vim.cmd('source ~/.config/nvim/vimscript/lv-vim-sneak/init.vim') 
 require('lv-globals')
+vim.cmd('luafile ~/.config/nvim/lv-settings.lua')
 require('settings')
 require('plugins')
 require('lv-utils')
 require('lv-autocommands')
-vim.cmd('luafile ~/.config/nvim/lv-settings.lua')
 require('mappings')
 
 require('lv-nvimtree') -- Causing slow startup
@@ -59,3 +59,5 @@ require('lsp.terraform-ls')
 require('lsp.vim-ls')
 require('lsp.vue-ls')
 require('lsp.yaml-ls')
+require('lsp.elixir-ls')
+
