@@ -58,6 +58,6 @@ alias gs "git status"
 alias gg "git grep"
 alias gpc "git log -p -1"
 
-alias y 'yaourt'
+alias y 'pikaur'
 alias o 'xdg-open (fzf)'
 alias ccze 'ccze -o nolookups'
