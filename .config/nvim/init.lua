@@ -1,15 +1,15 @@
--- Sneak requires options set prior to plugin init
-vim.cmd('source ~/.config/nvim/vimscript/lv-vim-sneak/init.vim') 
 require('lv-globals')
-vim.cmd('luafile ~/.config/nvim/lv-settings.lua')
+vim.cmd('luafile '..CONFIG_PATH..'/lv-settings.lua')
 require('settings')
+-- Sneak requires options set prior to plugin init
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-sneak/init.vim') 
 require('plugins')
 require('lv-utils')
 require('lv-autocommands')
 require('mappings')
 
 require('lv-nvimtree') -- Causing slow startup
-vim.cmd('source ~/.config/nvim/vimscript/jellybeans/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim')
 require('colorscheme')
 
 require('lv-which-key')
@@ -23,12 +23,12 @@ require('lv-gitsigns')
 require('lv-treesitter')
 require('lv-bqf')
 
-vim.cmd('source ~/.config/nvim/vimscript/functions.vim')
-vim.cmd('source ~/.config/nvim/vimscript/lv-surround/init.vim')
-vim.cmd('source ~/.config/nvim/vimscript/lv-ctrlsf/init.vim')
-vim.cmd('source ~/.config/nvim/vimscript/lv-vim-floaterm/init.vim')
-vim.cmd('source ~/.config/nvim/vimscript/lv-vim-tmux-navigator/init.vim')
-vim.cmd('source ~/.config/nvim/vimscript/lv-vim-cmake/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/functions.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-surround/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-ctrlsf/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-floaterm/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-tmux-navigator/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-cmake/init.vim')
 
 -- LSP
 require('lsp')
