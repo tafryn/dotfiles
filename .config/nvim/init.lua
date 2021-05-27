@@ -8,9 +8,9 @@ require('lv-utils')
 require('lv-autocommands')
 require('mappings')
 
-require('lv-nvimtree') -- Causing slow startup
+require('lv-nvimtree') -- This plugin must be required somewhere before colorscheme.  Placing it after will break navigation keymappings
 vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim')
-require('colorscheme')
+require('colorscheme') -- This plugin must be required somewhere after nvimtree. Placing it before will break navigation keymappings
 
 require('lv-which-key')
 require('lv-galaxyline')
@@ -23,6 +23,7 @@ require('lv-gitsigns')
 require('lv-treesitter')
 require('lv-bqf')
 
+-- TODO is there a way to do this without vimscript
 vim.cmd('source '..CONFIG_PATH..'/vimscript/functions.vim')
 vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-surround/init.vim')
 vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-ctrlsf/init.vim')
