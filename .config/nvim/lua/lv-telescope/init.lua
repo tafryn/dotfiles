@@ -1,4 +1,5 @@
 local actions = require('telescope.actions')
+local trouble = require("trouble.providers.telescope")
 -- Global remapping
 ------------------------------
 -- '--color=never',
@@ -37,8 +38,10 @@ require('telescope').setup {
         buffer_previewer_maker = require'telescope.previewers'.buffer_previewer_maker,
         mappings = {
             i = {
+                ["<C-c>"] = actions.close,
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
+                ["<c-t>"] = trouble.open_with_trouble,
                 ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
                 -- To disable a keymap, put [map] = false
                 -- So, to not map "<C-n>", just put
@@ -57,15 +60,13 @@ require('telescope').setup {
             n = {
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
-                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist,
+                ["<c-t>"] = trouble.open_with_trouble,
+                ["<C-q>"] = actions.smart_send_to_qflist + actions.open_qflist
                 -- ["<C-i>"] = my_cool_custom_action,
             }
         }
     },
-    extensions = {
-        fzy_native = {
-            override_generic_sorter = false,
-            override_file_sorter = true,
-        }
-    }
+    extensions = {fzy_native = {override_generic_sorter = false, override_file_sorter = true}}
 }
+
+require'telescope'.load_extension('project')

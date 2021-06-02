@@ -5,9 +5,9 @@ require("which-key").setup {
         -- the presets plugin, adds help for a bunch of default keybindings in Neovim
         -- No actual key bindings are created
         presets = {
-            operators = true, -- adds help for operators like d, y, ...
-            motions = true, -- adds help for motions
-            text_objects = true, -- help for text objects triggered after entering an operator
+            operators = false, -- adds help for operators like d, y, ...
+            motions = false, -- adds help for motions
+            text_objects = false, -- help for text objects triggered after entering an operator
             windows = true, -- default bindings on <c-w>
             nav = true, -- misc bindings to work with windows
             z = true, -- bindings for folds, spelling and others prefixed with z
@@ -69,11 +69,15 @@ vim.api.nvim_set_keymap("v", "<leader>/", ":CommentToggle<CR>", {noremap = true,
 -- close buffer
 vim.api.nvim_set_keymap("n", "<leader>c", ":BufferClose<CR>", {noremap = true, silent = true})
 
+-- open projects
+vim.api.nvim_set_keymap('n', '<leader>p', ":lua require'telescope'.extensions.project.project{}<CR>",
+                        {noremap = true, silent = true})
+
 -- switch buffer
 vim.api.nvim_set_keymap("n", "<leader>b", ":Telescope buffers<CR>", {noremap = true, silent = true})
 
 -- telescope git
-vim.api.nvim_set_keymap("n", "<leader>p", ":Telescope git_files<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<leader>P", ":Telescope git_files<CR>", {noremap = true, silent = true})
 
 -- undotree
 vim.api.nvim_set_keymap("n", "<leader>u", ":UndotreeToggle<CR>:UndotreeFocus<CR>", {noremap = true, silent = true})
@@ -88,7 +92,7 @@ vim.api.nvim_set_keymap("v", "<leader>?", "y:CtrlSF <C-R>\"<CR><CR>", {noremap =
 -- switch buffer
 vim.api.nvim_set_keymap("n", "<leader>m", ":CMakeBuild -j8<CR>", {noremap = true, silent = true})
 
--- close buffer
+-- toggle colorizer
 vim.api.nvim_set_keymap("n", "<leader>C", ":ColorizerToggle<CR>", {noremap = true, silent = true})
 
 -- TODO create entire treesitter section
@@ -104,11 +108,21 @@ local mappings = {
     ["e"] = "Explorer",
     ["f"] = "Find File",
     ["h"] = "Clear Highlight",
+    ["p"] = "Projects",
     ["m"] = "CMake Build",
-    ["p"] = "Find Git File",
+    ["P"] = "Find Git File",
     ["u"] = "Undotree",
     ["z"] = "Focus Line",
     d = {
+        name = "+Diagnostics",
+        t = {"<cmd>TroubleToggle<cr>", "trouble"},
+        w = {"<cmd>TroubleToggle lsp_workspace_diagnostics<cr>", "workspace"},
+        d = {"<cmd>TroubleToggle lsp_document_diagnostics<cr>", "document"},
+        q = {"<cmd>TroubleToggle quickfix<cr>", "quickfix"},
+        l = {"<cmd>TroubleToggle loclist<cr>", "loclist"},
+        r = {"<cmd>TroubleToggle lsp_references<cr>", "references"},
+    },
+    D = {
         name = "+Debug",
         b = {"<cmd>DebugToggleBreakpoint<cr>", "Toggle Breakpoint"},
         c = {"<cmd>DebugContinue<cr>", "Continue"},
@@ -122,7 +136,7 @@ local mappings = {
         n = {"<cmd>NextHunk<cr>", "Next Hunk"},
         p = {"<cmd>PrevHunk<cr>", "Prev Hunk"},
         P = {"<cmd>PreviewHunk<cr>", "Preview Hunk"},
-        B = {"<cmd>BlameLine<cr>", "Blame Line"},
+        B = {"<cmd>GitBlameToggle<cr>", "Blame Line"},
         r = {"<cmd>ResetHunk<cr>", "Reset Hunk"},
         R = {"<cmd>ResetBuffer<cr>", "Reset Buffer"},
         s = {"<cmd>StageHunk<cr>", "Stage Hunk"},
@@ -151,7 +165,6 @@ local mappings = {
         s = {"<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols"},
         S = {"<cmd>Telescope lsp_workspace_symbols<cr>", "Workspace Symbols"}
     },
-
     s = {
         name = "+Search",
         b = {"<cmd>Telescope git_branches<cr>", "Checkout branch"},
@@ -159,12 +172,14 @@ local mappings = {
         d = {"<cmd>Telescope lsp_document_diagnostics<cr>", "Document Diagnostics"},
         D = {"<cmd>Telescope lsp_workspace_diagnostics<cr>", "Workspace Diagnostics"},
         f = {"<cmd>Telescope find_files<cr>", "Find File"},
+        h = {"<cmd>Telescope help_tags<cr>", "Find Help"},
         m = {"<cmd>Telescope marks<cr>", "Marks"},
         M = {"<cmd>Telescope man_pages<cr>", "Man Pages"},
         r = {"<cmd>Telescope oldfiles<cr>", "Open Recent File"},
         R = {"<cmd>Telescope registers<cr>", "Registers"},
         t = {"<cmd>Telescope live_grep<cr>", "Text"}
     },
+    S = {name = "+Session", s = {"<cmd>SessionSave<cr>", "Save Session"}, l = {"<cmd>SessionLoad<cr>", "Load Session"}},
     t = {
         name = "+Terminal",
         T = {":15split term://$SHELL<CR>", "terminal"},
@@ -179,7 +194,14 @@ local mappings = {
         t = {":FloatermToggle<CR>", "toggle"},
         s = {":FloatermNew ncdu<CR>", "ncdu"},
     },
-    S = {name = "+Session", s = {"<cmd>SessionSave<cr>", "Save Session"}, l = {"<cmd>SessionLoad<cr>", "Load Session"}}
+
+    -- extras
+    Z = {
+        name = "+Zen",
+        s = {"<cmd>TZBottom<cr>", "toggle status line"},
+        t = {"<cmd>TZTop<cr>", "toggle tab bar"},
+        z = {"<cmd>TZAtaraxis<cr>", "toggle zen"},
+    }
 }
 
 local wk = require("which-key")

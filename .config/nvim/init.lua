@@ -3,16 +3,14 @@ vim.cmd('luafile '..CONFIG_PATH..'/lv-settings.lua')
 require('settings')
 -- Sneak requires options set prior to plugin init
 vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-sneak/init.vim') 
+require('lv-gitblame')
 require('plugins')
 require('lv-utils')
 require('lv-autocommands')
 require('mappings')
-
 require('lv-nvimtree') -- This plugin must be required somewhere before colorscheme.  Placing it after will break navigation keymappings
-vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim')
+vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim') -- Must be included before colorscheme is set
 require('colorscheme') -- This plugin must be required somewhere after nvimtree. Placing it before will break navigation keymappings
-
-require('lv-which-key')
 require('lv-galaxyline')
 require('lv-comment')
 require('lv-compe')
@@ -21,7 +19,23 @@ require('lv-dashboard')
 require('lv-telescope')
 require('lv-gitsigns')
 require('lv-treesitter')
+require('lv-matchup')
+-- require('lv-autopairs')
+require('lv-rnvimr')
+require('lv-which-key')
+require('lv-lsp-rooter')
+require('lv-zen')
 require('lv-bqf')
+
+-- extras
+if O.extras then
+    require('lv-numb')
+    require('lv-dial')
+    require('lv-hop')
+    require('lv-colorizer')
+end
+
+
 
 -- TODO is there a way to do this without vimscript
 vim.cmd('source '..CONFIG_PATH..'/vimscript/functions.vim')
@@ -61,4 +75,3 @@ require('lsp.vim-ls')
 require('lsp.vue-ls')
 require('lsp.yaml-ls')
 require('lsp.elixir-ls')
-

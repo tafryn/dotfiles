@@ -14,6 +14,8 @@ O.auto_close_tree = 0
 O.wrap_lines = false
 O.timeoutlen = 200
 O.document_highlight = false
+O.extras = true
+O.personal_plugins = true
 
 -- dashboard
 O.dashboard.custom_header = {
