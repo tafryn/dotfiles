@@ -33,6 +33,7 @@ if O.extras then
     require('lv-dial')
     require('lv-hop')
     require('lv-colorizer')
+    require('lv-symbols-outline')
 end
 
 
