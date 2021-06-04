@@ -1,8 +1,6 @@
 require('lv-globals')
 vim.cmd('luafile '..CONFIG_PATH..'/lv-settings.lua')
 require('settings')
--- Sneak requires options set prior to plugin init
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-sneak/init.vim') 
 require('lv-gitblame')
 require('plugins')
 require('lv-utils')
@@ -40,11 +38,13 @@ end
 
 -- TODO is there a way to do this without vimscript
 vim.cmd('source '..CONFIG_PATH..'/vimscript/functions.vim')
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-surround/init.vim')
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-ctrlsf/init.vim')
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-floaterm/init.vim')
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-tmux-navigator/init.vim')
-vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-cmake/init.vim')
+if O.personal_plugins then
+    vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-surround/init.vim')
+    vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-ctrlsf/init.vim')
+    vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-floaterm/init.vim')
+    vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-tmux-navigator/init.vim')
+    vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-cmake/init.vim')
+end
 
 -- LSP
 require('lsp')

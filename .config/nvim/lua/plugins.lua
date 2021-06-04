@@ -174,8 +174,8 @@ return require("packer").startup(function(use)
         use {"tpope/vim-repeat", opt = true}
         require_plugin("vim-repeat")
         use {"tpope/vim-surround", opt = true}
-        require_plugin("vim-surround")
-        use {"tpope/vim-unimpaired", opt = true}
+        -- require_plugin("vim-surround")
+        -- use {"tpope/vim-unimpaired", opt = true}
         require_plugin("vim-unimpaired")
         use {"tpope/vim-rsi", opt = true}
         require_plugin("vim-rsi")
@@ -196,8 +196,6 @@ return require("packer").startup(function(use)
         require_plugin("vim-lion")
         use {"dyng/ctrlsf.vim", opt = true}
         require_plugin("ctrlsf.vim")
-        use {"justinmk/vim-sneak", opt = true}
-        require_plugin("vim-sneak")
         use {"voldikss/vim-floaterm", opt = true}
         require_plugin("vim-floaterm")
         use {"tafryn/vim-tmux-navigator", branch = 'forward-script', opt = true}
