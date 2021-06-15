@@ -29,7 +29,7 @@ require('lv-bqf')
 if O.extras then
     require('lv-numb')
     require('lv-dial')
-    require('lv-hop')
+    -- require('lv-hop')
     require('lv-colorizer')
     require('lv-symbols-outline')
 end
@@ -44,6 +44,7 @@ if O.personal_plugins then
     vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-floaterm/init.vim')
     vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-tmux-navigator/init.vim')
     vim.cmd('source '..CONFIG_PATH..'/vimscript/lv-vim-cmake/init.vim')
+    require('lv-lightspeed')
 end
 
 -- LSP

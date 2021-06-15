@@ -134,8 +134,8 @@ return require("packer").startup(function(use)
         require_plugin('numb.nvim')
         use {'turbio/bracey.vim', run = 'npm install --prefix server', opt = true}
         require_plugin('bracey.vim')
-        use {'phaazon/hop.nvim', opt = true}
-        require_plugin('hop.nvim')
+        -- use {'phaazon/hop.nvim', opt = true}
+        -- require_plugin('hop.nvim')
         use {'norcalli/nvim-colorizer.lua', opt = true}
         require_plugin('nvim-colorizer.lua')
         use {'windwp/nvim-spectre', opt = true}
@@ -175,7 +175,7 @@ return require("packer").startup(function(use)
         require_plugin("vim-repeat")
         use {"tpope/vim-surround", opt = true}
         -- require_plugin("vim-surround")
-        -- use {"tpope/vim-unimpaired", opt = true}
+        use {"tpope/vim-unimpaired", opt = true}
         require_plugin("vim-unimpaired")
         use {"tpope/vim-rsi", opt = true}
         require_plugin("vim-rsi")
@@ -202,6 +202,9 @@ return require("packer").startup(function(use)
         require_plugin("vim-tmux-navigator")
         use {"cdelledonne/vim-cmake", opt = true}
         require_plugin("vim-cmake")
+
+        use {"ggandor/lightspeed.nvim", opt = true}
+        require_plugin("lightspeed.nvim")
     end
 
 end)
