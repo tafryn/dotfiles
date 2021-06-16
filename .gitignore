@@ -5,6 +5,8 @@ tags
 .clangd
 .ccls-cache
 /*build*
+/*Debug*
+/*Release*
 *bdf
 .gdb_history
 .cache
