@@ -1,0 +1,16 @@
+[include]
+    path = ~/.config/git/aliases
+    path = ~/.config/git/user
+
+[color]
+    ui = auto
+
+[push]
+    default = tracking
+
+[core]
+    excludesfile = ~/.gitignore
+    editor = nvim
+
+[diff]
+    renameLimit = 549
