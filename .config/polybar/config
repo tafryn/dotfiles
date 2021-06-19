@@ -69,15 +69,6 @@ cursor-scroll = ns-resize
 screenchange-reload = true
 
 
-[module/filesystem]
-type = internal/fs
-interval = 25
-format-mounted= "<label-mounted>"
-format-mounted-foreground = ${colors.foreground-alt}
-
-mount-0 = /
-
-
 [module/i3]
 type = internal/i3
 format = <label-state> <label-mode>
