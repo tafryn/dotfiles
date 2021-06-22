@@ -48,9 +48,6 @@ vim.api.nvim_set_keymap('x', 'J', ':move \'>+1<CR>gv-gv', {noremap = true, silen
 vim.cmd('inoremap <expr> <c-j> (\"\\<C-n>\")')
 vim.cmd('inoremap <expr> <c-k> (\"\\<C-p>\")')
 
--- fix to get netrw's gx command to work correctly
-vim.api.nvim_set_keymap('n', 'gx', ":call netrw#BrowseX(expand((exists('g:netrw_gx')? g:netrw_gx : '<cfile>')),netrw#CheckIfRemote())<cr>", {noremap = true, silent = true})
-
 vim.cmd('vnoremap p "0p')
 vim.cmd('vnoremap P "0P')
 -- vim.api.nvim_set_keymap('v', 'p', '"0p', {silent = true})
@@ -70,3 +67,12 @@ vim.cmd('vnoremap P "0P')
 
 -- Toggle the QuickFix window
 vim.api.nvim_set_keymap('', '<C-q>', ':call QuickFixToggle()<CR>', {noremap = true, silent = true})
+
+
+
+-- nvim-compe key map
+vim.cmd('inoremap <silent><expr> <C-Space> compe#complete()')
+vim.cmd("inoremap <silent><expr> <CR>      compe#confirm('<CR>')")
+vim.cmd("inoremap <silent><expr> <C-e>     compe#close('<C-e>')")
+vim.cmd("inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })")
+vim.cmd("inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })")
