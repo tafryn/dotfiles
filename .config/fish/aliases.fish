@@ -45,10 +45,10 @@ alias build "mkdir -p build_dir; and pushd build_dir; and cmake ../; and make -j
 alias tags "ctags -R -f .ctags --file-scope=yes --sort=yes --fields=+iaS --extras=+q"
 if command --search "lazygit" >/dev/null
     alias dotfiles "lazygit -g .dotfiles/ -w ~/"
-    alias git-dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 else
     alias dotfiles "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 end
+alias dotfiles-git "git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME"
 
 #alias git "git --no-pager"
 alias gd "git diff --color -w"
