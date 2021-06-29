@@ -22,19 +22,23 @@ vim.o.conceallevel = 0 -- So that I can see `` in markdown files
 vim.cmd('set ts=4') -- Insert 2 spaces for a tab
 vim.cmd('set sw=4') -- Change the number of space characters inserted for indentation
 vim.cmd('set expandtab') -- Converts tabs to spaces
+vim.o.completeopt = "menuone,noselect"
 vim.bo.smartindent = true -- Makes indenting smart
 vim.wo.number = O.number -- set numbered lines
 vim.wo.relativenumber = O.relative_number -- set relative number
--- vim.wo.cursorline = true -- Enable highlighting of the current line
+vim.wo.cursorline = O.cursorline -- set highlighting of the current line
 vim.o.showtabline = 2 -- Always show tabs
 vim.o.showmode = false -- We don't need to see things like -- INSERT -- anymore
 vim.o.backup = false -- This is recommended by coc
 vim.o.writebackup = false -- This is recommended by coc
+vim.o.swapfile = false -- Do not write any swp files
+vim.o.undodir = CACHE_PATH .. '/undo' -- Set undo directory
+vim.o.undofile = true -- Enable persistent undo
 vim.wo.signcolumn = "yes" -- Always show the signcolumn, otherwise it would shift the text each time
 vim.o.updatetime = 300 -- Faster completion
 vim.o.timeoutlen = O.timeoutlen -- By default timeoutlen is 1000 ms
 vim.o.clipboard = "unnamedplus" -- Copy paste between vim and everything else
-vim.g.nvim_tree_disable_netrw = O.nvim_tree_disable_netrw -- enable netrw for remote gx gf support (must be set before plugin's packadd)
+-- vim.g.nvim_tree_disable_netrw = O.nvim_tree_disable_netrw -- enable netrw for remote gx gf support (must be set before plugin's packadd)
 vim.cmd('filetype plugin on') -- filetype detection
 -- vim.o.guifont = "JetBrainsMono\\ Nerd\\ Font\\ Mono:h18"
 -- vim.o.guifont = "Hack\\ Nerd\\ Font\\ Mono"
@@ -42,13 +46,13 @@ vim.cmd('filetype plugin on') -- filetype detection
 vim.o.guifont = "FiraCode Nerd Font:h17"
 
 -- vim.o.guifont = "JetBrains\\ Mono\\ Regular\\ Nerd\\ Font\\ Complete"
+vim.o.ignorecase = O.ignore_case
+vim.o.smartcase = O.smart_case
 
 vim.o.showmatch = true
 vim.o.visualbell = true
 vim.o.shiftround = true
 vim.o.smartindent = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
 vim.o.gdefault = true
 vim.o.wildignorecase = true
 vim.o.foldopen = vim.o.foldopen .. ",jump"

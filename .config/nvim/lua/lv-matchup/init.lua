@@ -1,3 +1,8 @@
-vim.g.matchup_matchparen_offscreen = {method = 'popup'}
-vim.g.matchup_motion_enabled = 0
+local M = {}
+
+M.config = function()
+    vim.g.matchup_matchparen_offscreen = {method = 'popup'}
+end
+
+return M
 
