@@ -1,7 +1,2 @@
-local M = {}
-
-M.config = function()
-    vim.g.gitblame_enabled = 0
-end
-
-return M
+vim.cmd('highlight default link gitblame SpecialComment')
+vim.g.gitblame_enabled = 0

@@ -9,6 +9,23 @@ if fn.empty(fn.glob(install_path)) > 0 then
     execute "packadd packer.nvim"
 end
 
+local packer_ok, packer = pcall(require, "packer")
+if not packer_ok then
+  return
+end
+
+packer.init {
+  -- compile_path = vim.fn.stdpath('data')..'/site/pack/loader/start/packer.nvim/plugin/packer_compiled.vim',
+  git = {
+    clone_timeout = 300
+  },
+  display = {
+    open_fn = function()
+      return require("packer.util").float { border = "single" }
+    end,
+  },
+}
+
 vim.cmd "autocmd BufWritePost plugins.lua PackerCompile" -- Auto compile when there are changes in plugins.lua
 
 return require("packer").startup(function(use)
@@ -22,12 +39,14 @@ return require("packer").startup(function(use)
     -- Telescope
     use {"nvim-lua/popup.nvim"}
     use {"nvim-lua/plenary.nvim"}
-    use {"nvim-telescope/telescope.nvim"}
-
+    use {
+        "nvim-telescope/telescope.nvim",
+        config = [[require('lv-telescope')]],
+        -- cmd = "Telescope"
+    }
     -- Autocomplete
     use {
         "hrsh7th/nvim-compe",
-        event = "InsertEnter",
         config = function()
             require("lv-compe").config()
         end
@@ -60,12 +79,15 @@ return require("packer").startup(function(use)
     use {"folke/which-key.nvim"}
 
     -- Autopairs
-    use {"windwp/nvim-autopairs"}
+    use {"windwp/nvim-autopairs",
+        config = function() require'lv-autopairs' end
+    }
 
     -- Comments
     use {
         "terrortylor/nvim-comment",
-        event = "BufRead",
+        -- event = "BufRead",
+        -- cmd = "CommentToggle",
         config = function()
             require('nvim_comment').setup({
                 comment_empty = false,
@@ -92,10 +114,6 @@ return require("packer").startup(function(use)
                                     {noremap = true, silent = true})
             vim.api.nvim_set_keymap('n', '<S-x>', ':BufferClose<CR>',
                                     {noremap = true, silent = true})
-            vim.api.nvim_set_keymap('n', '<C-PageDown>', ':BufferNext<CR>',
-                                    { noremap = true, silent = true })
-            vim.api.nvim_set_keymap('n', '<C-PageUp>', ':BufferPrevious<CR>',
-                                    { noremap = true, silent = true })
         end,
         event = "BufRead"
 
@@ -125,7 +143,7 @@ return require("packer").startup(function(use)
     }
     -- Dashboard
     use {
-        "ChristianChiarulli/dashboard-nvim",
+        "glepnir/dashboard-nvim",
         event = 'BufWinEnter',
         cmd = {"Dashboard", "DashboardNewFile", "DashboardJumpMarks"},
         config = function()
@@ -144,6 +162,16 @@ return require("packer").startup(function(use)
         end,
         disable = not O.plugin.zen.active
     }
+    -- Ranger
+    use {
+        "kevinhwang91/rnvimr",
+        cmd = "Rnvimr",
+        config = function()
+            require('lv-rnvimr').config()
+        end,
+        disable = not O.plugin.ranger.active
+    }
+
     -- matchup
     use {
         'andymass/vim-matchup',
@@ -192,9 +220,8 @@ return require("packer").startup(function(use)
             vim.g.indentLine_enabled = 1
             vim.g.indent_blankline_char = "▏"
 
-            vim.g.indent_blankline_filetype_exclude = {
-                "help", "terminal", "dashboard"
-            }
+            vim.g.indent_blankline_filetype_exclude =
+                {"help", "terminal", "dashboard"}
             vim.g.indent_blankline_buftype_exclude = {"terminal"}
 
             vim.g.indent_blankline_show_trailing_blankline_indent = false
@@ -294,6 +321,7 @@ return require("packer").startup(function(use)
     use {
         "nvim-telescope/telescope-project.nvim",
         event = "BufRead",
+        after = "telescope.nvim",
         disable = not O.plugin.telescope_project.active
     }
     -- Sane gx for netrw_gx bug
@@ -317,7 +345,8 @@ return require("packer").startup(function(use)
     -- Git Blame
     use {
         "f-person/git-blame.nvim",
-        cmd = {"GitBlameDisable", "GitBlameEnable", "GitBlameToggle"},
+        event = "BufRead",
+        -- cmd = {"GitBlameDisable", "GitBlameEnable", "GitBlameToggle"},
         disable = not O.plugin.git_blame.active
     }
     use {
@@ -368,6 +397,12 @@ return require("packer").startup(function(use)
         disable = not O.plugin.gist.active,
         requires = 'mattn/webapi-vim'
     }
+    -- Lush Create Color Schemes
+    use {
+        "rktjmp/lush.nvim",
+        cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
+        disable = not O.plugin.lush.active,
+    }
     -- HTML preview
     use {
         'turbio/bracey.vim',
@@ -379,42 +414,51 @@ return require("packer").startup(function(use)
     -- LANGUAGE SPECIFIC GOES HERE
 
     -- Latex TODO what filetypes should this be active for?
-    use {
-        "lervag/vimtex",
-        ft = "latex",
-        disable = not O.lang.latex.active
-    }
-    -- Personal Plugins
-    use {"wellle/tmux-complete.vim"}
-    use {"nanotech/jellybeans.vim"}
-    use {"tafryn/vim-tmux-navigator", branch = 'forward-script'}
-    use {
-        "ggandor/lightspeed.nvim",
-        event = "BufRead",
-        config = function()
-            require("lv-lightspeed").config()
-        end
+    use {"lervag/vimtex", ft = "latex", disable = not O.lang.latex.active}
+
+    -- Rust tools
+    -- TODO: use lazy loading maybe?
+    use {"simrat39/rust-tools.nvim", disable = not O.lang.rust.active}
+
+    -- Elixir
+    use {"elixir-editors/vim-elixir",
+        ft = {"elixir", "eelixir"},
+        disable = not O.lang.elixir.active
     }
 
-    -- Undo
-    use {"mbbill/undotree"}
+    if O.personal_plugins then
+        -- Personal Plugins
+        use {"wellle/tmux-complete.vim"}
+        use {"nanotech/jellybeans.vim"}
+        use {"tafryn/vim-tmux-navigator", branch = 'forward-script'}
+        use {
+            "ggandor/lightspeed.nvim",
+            event = "BufRead",
+            config = function()
+                require("lv-lightspeed").config()
+            end
+        }
 
-    -- Tpope-ify
-    use {"tpope/vim-repeat"}
-    use {"tpope/vim-surround"}
-    use {"tpope/vim-unimpaired"}
-    use {"tpope/vim-rsi"}
-    use {"tpope/vim-projectionist"}
+        -- Undo
+        use {"mbbill/undotree"}
 
-    -- Additional targets
-    use {"wellle/targets.vim"}
-    use {"michaeljsmith/vim-indent-object"}
-    use {"chaoren/vim-wordmotion"}
+        -- Tpope-ify
+        use {"tpope/vim-repeat"}
+        use {"tpope/vim-surround"}
+        use {"tpope/vim-unimpaired"}
+        use {"tpope/vim-rsi"}
+        use {"tpope/vim-projectionist"}
 
-    use {"tommcdo/vim-exchange"}
-    use {"tommcdo/vim-lion"}
-    use {"dyng/ctrlsf.vim"}
-    use {"voldikss/vim-floaterm"}
-    use {"cdelledonne/vim-cmake"}
+        -- Additional targets
+        use {"wellle/targets.vim"}
+        use {"michaeljsmith/vim-indent-object"}
+        use {"chaoren/vim-wordmotion"}
+
+        use {"tommcdo/vim-exchange"}
+        use {"tommcdo/vim-lion"}
+        use {"dyng/ctrlsf.vim"}
+        use {"voldikss/vim-floaterm"}
+        use {"cdelledonne/vim-cmake"}
+    end
 
 end)

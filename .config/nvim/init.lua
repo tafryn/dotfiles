@@ -9,9 +9,8 @@ vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim') -- Must be inc
 require('highlights') -- Must be included before colorscheme is set
 require('colorscheme') -- This plugin must be required somewhere after nvimtree. Placing it before will break navigation keymappings
 require('lv-galaxyline')
-require('lv-telescope')
+-- require('lv-telescope')
 require('lv-treesitter')
-require('lv-autopairs')
 require('lv-which-key')
 
 -- TODO is there a way to do this without vimscript
@@ -54,7 +53,7 @@ if O.lang.terraform.active then require('lsp.terraform-ls') end
 if O.lang.tailwindcss.active then require('lsp.tailwindcss-ls') end
 if O.lang.vim.active then require('lsp.vim-ls') end
 if O.lang.yaml.active then require('lsp.yaml-ls') end
-if O.lang.elixer.active then require('lsp.elixer-ls') end
+if O.lang.elixir.active then require('lsp.elixir-ls') end
 if O.lang.tsserver.active then
     require('lsp.js-ts-ls')
     require('lsp.angular-ls')
