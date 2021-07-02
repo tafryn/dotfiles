@@ -1,7 +1,7 @@
 "|    Settings                                                            {{{
 "|===========================================================================
 "let g:vimpager_passthrough = 0
-set runtimepath^=~/.vim/bundle/jellybeans.vim
+set runtimepath^=~/.local/share/nvim/site/pack/packer/start/jellybeans.vim
 set nomodeline
 
 " }}} "
