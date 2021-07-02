@@ -45,3 +45,9 @@ augroup config
     autocmd BufWritePre *.php,*.py,*.js,*.txt,*.hs,*.java,*.md,*.cc,*.h,*.cpp,*.rs
                 \ :call <SID>StripTrailingWhitespaces()
 augroup END
+
+" TODO: move to vim-cmake plugin configuration when neovim has better support for autocmds
+augroup vim-cmake-group
+    autocmd User CMakeBuildFailed :cfirst
+    autocmd! User CMakeBuildSucceeded CMakeClose
+augroup END

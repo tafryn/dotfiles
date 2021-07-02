@@ -34,11 +34,12 @@ return require("packer").startup(function(use)
 
     -- TODO refactor all of this (for now it works, but yes I know it could be wrapped in a simpler function)
     use {"neovim/nvim-lspconfig"}
-    use {"glepnir/lspsaga.nvim", event = "BufRead"}
-    use {"kabouzeid/nvim-lspinstall", event = "BufRead"}
+    use {"glepnir/lspsaga.nvim"}
+    use {"kabouzeid/nvim-lspinstall"}
     -- Telescope
     use {"nvim-lua/popup.nvim"}
     use {"nvim-lua/plenary.nvim"}
+    use {"tjdevries/astronauta.nvim"}
     use {
         "nvim-telescope/telescope.nvim",
         config = [[require('lv-telescope')]],
@@ -89,9 +90,7 @@ return require("packer").startup(function(use)
         -- event = "BufRead",
         -- cmd = "CommentToggle",
         config = function()
-            require('nvim_comment').setup({
-                comment_empty = false,
-            })
+            require('nvim_comment').setup({comment_empty = false})
         end
     }
 
@@ -260,11 +259,7 @@ return require("packer").startup(function(use)
         "kevinhwang91/nvim-bqf",
         event = "BufRead",
         config = function()
-            require('bqf').setup({
-                func_map = {
-                    tab = '',
-                },
-            })
+            require('bqf').setup({func_map = {tab = ''}})
         end,
         disable = not O.plugin.bqf.active
     }
@@ -345,8 +340,8 @@ return require("packer").startup(function(use)
     -- Git Blame
     use {
         "f-person/git-blame.nvim",
-        event = "BufRead",
-        -- cmd = {"GitBlameDisable", "GitBlameEnable", "GitBlameToggle"},
+        -- event = "BufRead",
+        cmd = {"GitBlameDisable", "GitBlameEnable", "GitBlameToggle"},
         disable = not O.plugin.git_blame.active
     }
     use {
@@ -410,6 +405,12 @@ return require("packer").startup(function(use)
         run = 'npm install --prefix server',
         disable = not O.plugin.bracey.active
     }
+    -- Debugger management
+    use {
+        'Pocco81/DAPInstall.nvim',
+        event = "BufRead",
+        disable = not O.plugin.dap_install.active
+    }
 
     -- LANGUAGE SPECIFIC GOES HERE
 
@@ -421,16 +422,27 @@ return require("packer").startup(function(use)
     use {"simrat39/rust-tools.nvim", disable = not O.lang.rust.active}
 
     -- Elixir
-    use {"elixir-editors/vim-elixir",
+    use {
+        "elixir-editors/vim-elixir",
         ft = {"elixir", "eelixir"},
         disable = not O.lang.elixir.active
     }
 
     if O.personal_plugins then
         -- Personal Plugins
-        use {"wellle/tmux-complete.vim"}
+        use {
+            "wellle/tmux-complete.vim",
+            event = "BufRead",
+            requires = "hrsh7th/nvim-compe"
+        }
         use {"nanotech/jellybeans.vim"}
-        use {"tafryn/vim-tmux-navigator", branch = 'forward-script'}
+        use {
+            "tafryn/vim-tmux-navigator",
+            branch = 'forward-script',
+            config = function()
+                vim.g.tmux_navigator_forward_script = "nested_navigate.sh"
+            end
+        }
         use {
             "ggandor/lightspeed.nvim",
             event = "BufRead",
@@ -440,25 +452,73 @@ return require("packer").startup(function(use)
         }
 
         -- Undo
-        use {"mbbill/undotree"}
+        use {
+            "mbbill/undotree",
+            cmd = {"UndotreeFocus", "UndotreeShow", "UndotreeToggle"}
+        }
 
         -- Tpope-ify
-        use {"tpope/vim-repeat"}
-        use {"tpope/vim-surround"}
-        use {"tpope/vim-unimpaired"}
+        use {"tpope/vim-repeat", event = "BufRead"}
+        use {
+            "tpope/vim-surround",
+            event = "BufRead",
+            config = function()
+                vim.api.nvim_del_keymap("n", "ds")
+                vim.api.nvim_set_keymap("n", "js", "<Plug>Dsurround", {})
+            end
+        }
+        use {"tpope/vim-unimpaired", event = "BufRead"}
         use {"tpope/vim-rsi"}
-        use {"tpope/vim-projectionist"}
+        use {"tpope/vim-projectionist", event = "BufRead"}
 
         -- Additional targets
-        use {"wellle/targets.vim"}
-        use {"michaeljsmith/vim-indent-object"}
-        use {"chaoren/vim-wordmotion"}
+        use {"wellle/targets.vim", event = "BufRead"}
+        use {"michaeljsmith/vim-indent-object", event = "BufRead"}
+        use {"chaoren/vim-wordmotion", event = "BufRead"}
 
-        use {"tommcdo/vim-exchange"}
-        use {"tommcdo/vim-lion"}
-        use {"dyng/ctrlsf.vim"}
-        use {"voldikss/vim-floaterm"}
-        use {"cdelledonne/vim-cmake"}
+        use {"tommcdo/vim-exchange", event = "BufRead"}
+        use {"tommcdo/vim-lion", event = "BufRead"}
+        use {
+            "dyng/ctrlsf.vim",
+            setup = function()
+                vim.g.ctrlsf_default_root = "project"
+                vim.g.ctrlsf_mapping = {
+                    open = {"<CR>", "o"},
+                    openb = "O",
+                    split = "<C-X>",
+                    vsplit = "<C-V>",
+                    tab = "",
+                    tabb = "T",
+                    popen = "p",
+                    popenf = "P",
+                    quit = "q",
+                    next = "<C-H>",
+                    prev = "<C-T>",
+                    pquit = "q",
+                    loclist = "",
+                    chgmode = "M",
+                    stop = "<C-C>"
+                }
+            end
+        }
+        use {
+            "voldikss/vim-floaterm",
+            config = function()
+                vim.g.floaterm_autoinsert = 1
+                vim.g.floaterm_autoclose = 1
+                vim.g.floaterm_title = 0
+                vim.g.floaterm_width = 0.8
+                vim.g.floaterm_height = 0.8
+            end
+        }
+        use {
+            "cdelledonne/vim-cmake",
+            event = "BufRead",
+            config = function()
+                vim.g.cmake_command = "cmake3"
+                vim.g.cmake_jump_on_error = 0
+            end
+        }
     end
 
 end)
