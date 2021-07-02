@@ -16,6 +16,7 @@ end
 
 packer.init {
   -- compile_path = vim.fn.stdpath('data')..'/site/pack/loader/start/packer.nvim/plugin/packer_compiled.vim',
+  compile_path = require("packer.util").join_paths(vim.fn.stdpath('config'), 'plugin', 'packer_compiled.vim'),
   git = {
     clone_timeout = 300
   },
@@ -44,6 +45,15 @@ return require("packer").startup(function(use)
         "nvim-telescope/telescope.nvim",
         config = [[require('lv-telescope')]],
         -- cmd = "Telescope"
+    }
+    -- Snap
+    use {
+        "camspiers/snap",
+        rocks = "fzy",
+        config = function()
+          require("lv-snap").config()
+        end,
+        disable = not O.plugin.snap.active,
     }
     -- Autocomplete
     use {
@@ -395,8 +405,9 @@ return require("packer").startup(function(use)
     -- Lush Create Color Schemes
     use {
         "rktjmp/lush.nvim",
-        cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
-        disable = not O.plugin.lush.active,
+        event = "VimEnter",
+        -- cmd = {"LushRunQuickstart", "LushRunTutorial", "Lushify"},
+        -- disable = not O.plugin.lush.active,
     }
     -- HTML preview
     use {

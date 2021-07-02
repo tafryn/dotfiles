@@ -34,4 +34,6 @@ require'nvim-treesitter.configs'.setup {
     }
 }
 
-vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
+if O.plugin.ts_fold.active then
+    vim.cmd('set foldexpr=nvim_treesitter#foldexpr()')
+end

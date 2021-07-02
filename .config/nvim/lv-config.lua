@@ -18,6 +18,7 @@ O.personal_plugins = true
 O.leader_key = ' '
 O.ignore_case = true
 O.smart_case = true
+O.lushmode = false
 
 -- After changing plugin config it is recommended to run :PackerCompile
 O.plugin.hop.active = false
@@ -27,6 +28,7 @@ O.plugin.matchup.active = true
 O.plugin.colorizer.active = false
 O.plugin.numb.active = true
 O.plugin.ts_playground.active = false
+O.plugin.ts_fold.active = true
 O.plugin.indent_line.active = false
 O.plugin.gitlinker.active = false
 O.plugin.zen.active = true

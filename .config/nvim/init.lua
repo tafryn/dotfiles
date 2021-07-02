@@ -6,16 +6,14 @@ require('lv-autocommands')
 require('mappings')
 vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim') -- Must be included before colorscheme is set
 require('highlights') -- Must be included before colorscheme is set
-require('colorscheme')
+vim.g.colors_name = O.colorscheme
+vim.g.syntax = true
 require('lv-utils')
 require('lv-galaxyline')
 -- require('lv-telescope')
 require('lv-treesitter')
 require('lv-which-key')
-
 -- TODO is there a way to do this without vimscript
 vim.cmd('source '..CONFIG_PATH..'/vimscript/functions.vim')
-
--- LSP
 require('lsp')
 if O.lang.emmet.active then require('lsp.emmet-ls') end

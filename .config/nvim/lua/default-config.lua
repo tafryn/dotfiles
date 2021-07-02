@@ -17,6 +17,7 @@ O = {
     extras = false,
     ignore_case = true,
     smart_case = true,
+    lushmode = false,
 
     -- @usage pass a table with your desired languages
     treesitter = {
@@ -37,6 +38,7 @@ O = {
         numb = {active = false},
         zen = {active = false},
         ts_playground = {active = false},
+        ts_fold = {active = false},
         indent_line = {active = false},
         ts_context_commentstring = {active = false},
         symbol_outline = {active = false},
@@ -50,6 +52,7 @@ O = {
         codi = {active = false},
         telescope_fzy = {active = false},
         sanegx = {active = false},
+        snap = {active = false},
         ranger = {active = false},
         todo_comments = {active = false},
         lsp_colors = {active = false},
