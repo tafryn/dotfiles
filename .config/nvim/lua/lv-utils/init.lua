@@ -25,7 +25,7 @@ end
 lv_utils.define_augroups {
 
     _user_autocommands = O.user_autocommands,
-    _general_settings = {
+  _general_settings = {
     {
       "TextYankPost",
       "*",
