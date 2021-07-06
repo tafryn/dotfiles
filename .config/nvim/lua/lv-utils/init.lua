@@ -25,7 +25,7 @@ end
 lv_utils.define_augroups {
 
     _user_autocommands = O.user_autocommands,
-  _general_settings = {
+    _general_settings = {
     {
       "TextYankPost",
       "*",
@@ -47,7 +47,6 @@ lv_utils.define_augroups {
       "setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
     },
     { "VimLeavePre", "*", "set title set titleold=" },
-    -- { "FileType", "qf", "set nobuflisted" },
   },
   -- _solidity = {
   --     {'BufWinEnter', '.sol', 'setlocal filetype=solidity'}, {'BufRead', '*.sol', 'setlocal filetype=solidity'},

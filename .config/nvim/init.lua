@@ -5,7 +5,6 @@ vim.cmd('source '..CONFIG_PATH..'/vimscript/jellybeans/init.vim') -- Must be inc
 require('highlights') -- Must be included before colorscheme is set
 require "settings"
 require "plugins"
-require('lv-autocommands')
 require('mappings') -- TODO: Reconcile LunarVim mappings with personal mappings
 require "lv-utils"
 require "lv-galaxyline"

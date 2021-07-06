@@ -129,3 +129,8 @@ O.cursorline = false
 -- user defined plugin config
 -- custom settings
 
+table.insert(O.user_autocommands, { "FileType", "gitcommit", "setlocal nofoldenable spell" })
+table.insert(O.user_autocommands, { "FileType", "git", "setlocal nofoldenable" })
+table.insert(O.user_autocommands, { "FileType", "dashboard", "nnoremap <silent> <buffer> q :q<CR>" })
+table.insert(O.user_autocommands, { "FileType", "lspinfo", "nnoremap <silent> <buffer> q :q<CR>" })
+table.insert(O.user_autocommands, { "FileType", "floaterm", "nnoremap <silent> <buffer> q :q<CR>" })
