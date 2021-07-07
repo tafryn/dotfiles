@@ -32,6 +32,7 @@ O.plugin.ts_fold.active = true
 O.plugin.indent_line.active = false
 O.plugin.zen.active = false
 O.plugin.floatterm.active = true
+O.plugin.trouble.active = true
 
 -- dashboard
 O.dashboard.custom_header = {
@@ -112,6 +113,29 @@ O.user_autocommands = {
 
 -- Additional Plugins
 O.user_plugins = {
+  {
+    "folke/todo-comments.nvim",
+    requires = "kyazdani42/nvim-web-devicons",
+    config = function()
+      -- require("todo-comments").setup {}
+      require("todo-comments").setup {
+        keywords = { WARN = { alt = {} } },
+        highlight = { pattern = [=[.*<(KEYWORDS)(\([^):]*\))*:]=] },
+        search = { pattern = [=[\b(KEYWORDS)(\(\w*\))*:]=] },
+      }
+    end,
+    -- event = "BufRead",
+  },
+  {
+    "ahmedkhalf/lsp-rooter.nvim",
+    config = function()
+      require("lsp-rooter").setup()
+    end,
+  },
+  {
+    "kevinhwang91/nvim-bqf",
+    event = "BufRead",
+  },
   {
     "wellle/tmux-complete.vim",
     event = "BufRead",
