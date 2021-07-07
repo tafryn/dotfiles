@@ -149,7 +149,7 @@ O.user_plugins = {
   },
   { "tpope/vim-unimpaired", event = "BufRead" },
   { "tpope/vim-rsi" },
-  { "tpope/vim-projectionist", event = "BufRead" },
+  { "tpope/vim-projectionist" },
 
   -- Additional targets
   { "wellle/targets.vim", event = "BufRead" },
@@ -182,16 +182,6 @@ O.user_plugins = {
     end,
   },
   {
-    "voldikss/vim-floaterm",
-    config = function()
-      vim.g.floaterm_autoinsert = 1
-      vim.g.floaterm_autoclose = 1
-      vim.g.floaterm_title = 0
-      vim.g.floaterm_width = 0.8
-      vim.g.floaterm_height = 0.8
-    end,
-  },
-  {
     "cdelledonne/vim-cmake",
     event = "BufRead",
     config = function()
@@ -213,19 +203,6 @@ O.user_which_key = {
   B = { "<cmd>Telescope buffers<cr>", "Buffer search" },
   m = { "<cmd>CMakeBuild -j8<CR>", "CMake Build" },
   P = { ":Telescope git_files<CR>", "Project File Search" },
-  t = {
-    name = "+Terminal",
-    T = { "<cmd>15split term://$SHELL<CR>", "terminal" },
-    f = { "<cmd>FloatermNew fzf<CR>", "fzf" },
-    g = { "<cmd>FloatermNew lazygit<CR>", "git" },
-    d = { "<cmd>FloatermNew lazydocker<CR>", "docker" },
-    h = { "<cmd>FloatermNew htop<CR>", "htop" },
-    N = { "<cmd>FloatermNew node<CR>", "node" },
-    n = { "<cmd>FloatermNew nnn<CR>", "nnn" },
-    p = { "<cmd>FloatermNew python<CR>", "python" },
-    r = { "<cmd>FloatermNew ranger<CR>", "ranger" },
-    t = { "<cmd>FloatermToggle<CR>", "toggle" },
-    s = { "<cmd>FloatermNew ncdu<CR>", "ncdu" },
-  },
+  t = { "<cmd>lua require('FTerm').toggle()<CR>", "Terminal" },
   z = { ":call QuarterFocus()<CR>", "Focus Line" },
 }
