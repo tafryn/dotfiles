@@ -57,13 +57,16 @@ xdvi.background: 		white
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! XTerm
 
-XTerm*pointerColorBackground: rgb:40/50/c0
+xterm*pointerColorBackground: rgb:40/50/c0
 *VT100.color3: 			light goldenrod
-XTerm*scrollBar: 		true
-XTerm*Scrollbar.foreground: dark slate blue
+xterm*scrollBar: 		true
+xterm*Scrollbar.foreground: dark slate blue
+xterm*faceName: DejaVu Sans Mono for Powerline
+xterm*renderFont: true
+xterm*faceSize: 12
 
 ! Number of Lines to buffer
-XTerm*saveLines: 		2048
+xterm*saveLines: 		2048
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! urxvt
