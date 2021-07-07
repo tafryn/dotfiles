@@ -20,6 +20,7 @@ O = {
   smart_case = true,
   lushmode = false,
   hl_search = false,
+  document_highlight = false,
   transparent_window = false,
   leader_key = "space",
   vnsip_dir = vim.fn.stdpath "config" .. "/snippets",
@@ -79,7 +80,6 @@ O = {
     symbol_outline = { active = false },
     debug = { active = false },
     dap_install = { active = false },
-    lazygit = { active = false },
     lush = { active = false },
     diffview = { active = false },
     floatterm = { active = false },
@@ -87,7 +87,9 @@ O = {
     sanegx = { active = false },
   },
 
-  custom_plugins = {
+  user_which_key = {},
+
+  user_plugins = {
     -- use lv-config.lua for this not put here
   },
 
@@ -192,7 +194,13 @@ O = {
       },
     },
     svelte = {},
+
     php = {
+      format = {
+        format = {
+          default = "psr12",
+        },
+      },
       environment = {
         php_version = "7.4",
       },

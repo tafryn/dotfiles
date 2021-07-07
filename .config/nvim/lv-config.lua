@@ -31,6 +31,7 @@ O.plugin.ts_playground.active = false
 O.plugin.ts_fold.active = true
 O.plugin.indent_line.active = false
 O.plugin.zen.active = false
+O.plugin.floatterm.active = true
 
 -- dashboard
 O.dashboard.custom_header = {
@@ -110,7 +111,7 @@ O.user_autocommands = {
 }
 
 -- Additional Plugins
-O.custom_plugins = {
+O.user_plugins = {
   {
     "wellle/tmux-complete.vim",
     event = "BufRead",
@@ -198,4 +199,33 @@ O.custom_plugins = {
       vim.g.cmake_jump_on_error = 0
     end,
   },
+}
+
+-- Additional Leader bindings for WhichKey
+O.user_which_key = {
+  A = {
+    name = "+Custom Leader Keys",
+    a = { "<cmd>A<CR>", "Alternate" }, -- TODO: fix broken command
+    h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover Doc" },
+    -- a = { "<cmd>echo 'first custom command'<cr>", "Description for a" },
+    -- b = { "<cmd>echo 'second custom command'<cr>", "Description for b" },
+  },
+  B = { "<cmd>Telescope buffers<cr>", "Buffer search" },
+  m = { "<cmd>CMakeBuild -j8<CR>", "CMake Build" },
+  P = { ":Telescope git_files<CR>", "Project File Search" },
+  t = {
+    name = "+Terminal",
+    T = { "<cmd>15split term://$SHELL<CR>", "terminal" },
+    f = { "<cmd>FloatermNew fzf<CR>", "fzf" },
+    g = { "<cmd>FloatermNew lazygit<CR>", "git" },
+    d = { "<cmd>FloatermNew lazydocker<CR>", "docker" },
+    h = { "<cmd>FloatermNew htop<CR>", "htop" },
+    N = { "<cmd>FloatermNew node<CR>", "node" },
+    n = { "<cmd>FloatermNew nnn<CR>", "nnn" },
+    p = { "<cmd>FloatermNew python<CR>", "python" },
+    r = { "<cmd>FloatermNew ranger<CR>", "ranger" },
+    t = { "<cmd>FloatermToggle<CR>", "toggle" },
+    s = { "<cmd>FloatermNew ncdu<CR>", "ncdu" },
+  },
+  z = { ":call QuarterFocus()<CR>", "Focus Line" },
 }

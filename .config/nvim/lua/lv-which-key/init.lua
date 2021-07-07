@@ -1,8 +1,12 @@
 -- if not package.loaded['which-key'] then
 --  return
 -- end
+local status_ok, which_key = pcall(require, "which-key")
+if not status_ok then
+  return
+end
 
-require("which-key").setup {
+which_key.setup {
   plugins = {
     marks = true, -- shows a list of your marks on ' and `
     registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
@@ -24,10 +28,10 @@ require("which-key").setup {
     group = "+", -- symbol prepended to a group
   },
   window = {
-    border = "none", -- none, single, double, shadow
+    border = "single", -- none, single, double, shadow
     position = "bottom", -- bottom, top
     margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
-    padding = { 1, 2, 1, 2 }, -- extra window padding [top, right, bottom, left]
+    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
   },
   layout = {
     height = { min = 4, max = 25 }, -- min and max height of the columns
@@ -56,25 +60,17 @@ local opts = {
   nowait = false, -- use `nowait` when creating keymaps
 }
 
--- alternate
-vim.api.nvim_set_keymap('n', '<Leader>a', ':A<CR>',
-                        {noremap = true, silent = true})
-
 -- no hl
 vim.api.nvim_set_keymap("n", "<Leader>h", ':let @/=""<CR>', { noremap = true, silent = true })
 
 -- explorer
 
--- TODO this introduces some bugs unfortunately
 vim.api.nvim_set_keymap(
   "n",
   "<Leader>e",
   ":lua require'lv-nvimtree'.toggle_tree()<CR>",
   { noremap = true, silent = true }
 )
--- vim.api.nvim_set_keymap('n', '<Leader>e',
---                         ":NvimTreeToggle<CR>",
---                         {noremap = true, silent = true})
 
 vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
 
@@ -88,40 +84,25 @@ vim.api.nvim_set_keymap("v", "<leader>/", ":CommentToggle<CR>", { noremap = true
 -- close buffer
 vim.api.nvim_set_keymap("n", "<leader>c", ":BufferClose<CR>", { noremap = true, silent = true })
 
--- telescope git
-vim.api.nvim_set_keymap("n", "<leader>P", ":Telescope git_files<CR>", { noremap = true, silent = true })
-
--- zoom
-vim.api.nvim_set_keymap("n", "<leader>z", ":call QuarterFocus()<CR>", { noremap = true, silent = true })
-
--- project search
-vim.api.nvim_set_keymap("n", "<leader>?",
-                        ":CtrlSF <C-R>=expand(\"<cword>\")<CR><CR>",
-                        {noremap = true, silent = true})
-vim.api.nvim_set_keymap("v", "<leader>?", "y:CtrlSF <C-R>\"<CR><CR>",
-                        {noremap = true, silent = true})
-
--- build project
-vim.api.nvim_set_keymap("n", "<leader>m", ":CMakeBuild -j8<CR>", { noremap = true, silent = true })
-
--- TODO create entire treesitter section
+-- open lv-config
+vim.api.nvim_set_keymap(
+  "n",
+  "<leader>.",
+  ":e " .. CONFIG_PATH .. "/lv-config.lua<CR>",
+  { noremap = true, silent = true }
+)
 
 local mappings = {
 
-  ["?"] = "Project Search",
+  ["."] = "LunarConfig",
   ["/"] = "Comment",
-  ["a"] = "Alternate",
   ["c"] = "Close Buffer",
   ["e"] = "Explorer",
   ["f"] = "Find File",
   ["h"] = "No Highlight",
-  ["m"] = "CMake Build",
-  ["P"] = "Find Git File",
-  ["z"] = "Focus Line",
   [";"] = "Dashboard",
   b = {
     name = "Buffers",
-    b = {"<cmd>Telescope buffers<cr>", "buffer search"},
     j = { "<cmd>BufferPick<cr>", "jump to buffer" },
     f = { "<cmd>Telescope buffers<cr>", "Find buffer" },
     w = { "<cmd>BufferWipeout<cr>", "wipeout buffer" },
@@ -147,30 +128,10 @@ local mappings = {
     name = "Packer",
     c = { "<cmd>PackerCompile<cr>", "Compile" },
     i = { "<cmd>PackerInstall<cr>", "Install" },
-    r = { ":luafile %<cr>", "Reload" },
+    r = { "<cmd>lua require('lv-utils').reload_lv_config()<cr>", "Reload" },
     s = { "<cmd>PackerSync<cr>", "Sync" },
     u = { "<cmd>PackerUpdate<cr>", "Update" },
   },
-  -- diagnostics vanilla nvim
-  -- -- diagnostic
-  -- function lv_utils.get_all()
-  --     vim.lsp.diagnostic.get_all()
-  -- end
-  -- function lv_utils.get_next()
-  --     vim.lsp.diagnostic.get_next()
-  -- end
-  -- function lv_utils.get_prev()
-  --     vim.lsp.diagnostic.get_prev()
-  -- end
-  -- function lv_utils.goto_next()
-  --     vim.lsp.diagnostic.goto_next()
-  -- end
-  -- function lv_utils.goto_prev()
-  --     vim.lsp.diagnostic.goto_prev()
-  -- end
-  -- function lv_utils.show_line_diagnostics()
-  --     vim.lsp.diagnostic.show_line_diagnostics()
-  -- end
 
   -- " Available Debug Adapters:
   -- "   https://microsoft.github.io/debug-adapter-protocol/implementors/adapters/
@@ -227,8 +188,7 @@ local mappings = {
       "<cmd>Telescope lsp_workspace_diagnostics<cr>",
       "Workspace Diagnostics",
     },
-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
-    h = { "<cmd>lua vim.lsp.buf.hover()<CR>", "Hover Doc" },
+    f = { "<cmd>Neoformat<cr>", "Format" },
     i = { "<cmd>LspInfo<cr>", "Info" },
     j = { "<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<cr>", "Next Diagnostic" },
     k = { "<cmd>lua vim.lsp.diagnostic.goto_prev({popup_opts = {border = O.lsp.popup_border}})<cr>", "Prev Diagnostic" },
@@ -259,20 +219,6 @@ local mappings = {
     s = { "<cmd>SessionSave<cr>", "Save Session" },
     l = { "<cmd>SessionLoad<cr>", "Load Session" },
   },
-  t = {
-    name = "+Terminal",
-    T = {":15split term://$SHELL<CR>", "terminal"},
-    f = {":FloatermNew fzf<CR>", "fzf"},
-    g = {":FloatermNew lazygit<CR>", "git"},
-    d = {":FloatermNew lazydocker<CR>", "docker"},
-    h = {":FloatermNew htop<CR>", "htop"},
-    N = {":FloatermNew node<CR>", "node"},
-    n = {":FloatermNew nnn<CR>", "nnn"},
-    p = {":FloatermNew python<CR>", "python"},
-    r = {":FloatermNew ranger<CR>", "ranger"},
-    t = {":FloatermToggle<CR>", "toggle"},
-    s = {":FloatermNew ncdu<CR>", "ncdu"}
-  },
   T = {
     name = "Treesitter",
     i = { ":TSConfigInfo<cr>", "Info" },
@@ -298,22 +244,36 @@ end
 
 if O.plugin.ts_playground.active then
   vim.api.nvim_set_keymap("n", "<leader>Th", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true })
-  mappings[""] = "Highlight Capture" -- TODO:fix mapping
+  mappings[""] = "Highlight Capture"
 end
 
 if O.plugin.zen.active then
   vim.api.nvim_set_keymap("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = true })
   mappings["z"] = "Zen"
 end
-if O.plugin.lazygit.active then
-  vim.api.nvim_set_keymap("n", "<leader>gg", ":LazyGit<CR>", { noremap = true, silent = true })
+if O.plugin.floatterm.active then
+  vim.api.nvim_set_keymap("n", "<leader>gg", "<CMD>lua _G.__fterm_lazygit()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap("n", "<A-i>", "<CMD>lua require('FTerm').toggle()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(
+    "t",
+    "<A-i>",
+    "<C-\\><C-n><CMD>lua require('FTerm').toggle()<CR>",
+    { noremap = true, silent = true }
+  )
+  vim.api.nvim_set_keymap("n", "<A-l>", "<CMD>lua _G.__fterm_lazygit()<CR>", { noremap = true, silent = true })
+  vim.api.nvim_set_keymap(
+    "t",
+    "<A-l>",
+    "<C-\\><C-n><CMD>lua _G.__fterm_lazygit()<CR>",
+    { noremap = true, silent = true }
+  )
   mappings["gg"] = "LazyGit"
 end
 if O.plugin.telescope_project.active then
   -- open projects
   vim.api.nvim_set_keymap(
     "n",
-    "<leader>p", -- TODO:fix mapping
+    "<leader>P",
     ":lua require'telescope'.extensions.project.project{}<CR>",
     { noremap = true, silent = true }
   )
@@ -342,6 +302,15 @@ if O.lushmode then
     t = { ":LushRunTutorial<cr>", "Lush Tutorial" },
     q = { ":LushRunQuickstart<cr>", "Lush Quickstart" },
   }
+end
+
+-- for _, v in pairs(O.user_which_key) do
+-- end
+for k, v in pairs(O.user_which_key) do
+  mappings[k] = v
+  -- table.insert(mappings, O.user_which_key[1])
+  -- print(k)
+  --   print(v)
 end
 
 local wk = require "which-key"
