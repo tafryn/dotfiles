@@ -1,3 +1,57 @@
+#|    Set Prompt Variables                                                 {{{
+#|============================================================================
+if not set -q __fish_git_prompt_showcolorhints
+    set -g __fish_git_prompt_showcolorhints 1
+end
+
+if not set -q __fish_git_prompt_showstashstate
+    set -g __fish_git_prompt_showstashstate 1
+end
+
+if not set -q __fish_git_prompt_show_informative_status
+    set -g __fish_git_prompt_show_informative_status 1
+end
+
+if not set -q __fish_git_prompt_showdirtystate
+    set -g __fish_git_prompt_showdirtystate "yes"
+end
+
+if not set -q $__fish_git_prompt_color
+    set -g __fish_git_prompt_color brblack
+end
+
+if not set -q __fish_git_prompt_color_branch
+    set -g __fish_git_prompt_color_branch blue
+end
+
+if not set -q __fish_git_prompt_color_cleanstate
+    set -g __fish_git_prompt_color_cleanstate brgreen
+end
+
+if not set -q __fish_git_prompt_color_stashstate
+    set -g __fish_git_prompt_color_stashstate brcyan
+end
+
+if not set -q __fish_git_prompt_color_upstream
+    set -g __fish_git_prompt_color_upstream yellow
+end
+
+# if not set -q __fish_git_prompt_color_stagedstate
+#     set -g __fish_git_prompt_color_stagedstate yellow
+# end
+
+# if not set -q __fish_git_prompt_color_invalidstate
+#     set -g __fish_git_prompt_color_invalidstate red
+# end
+
+if not set -q $__fish_git_prompt_color_prefix
+    set -g __fish_git_prompt_color_prefix brblack
+end
+
+if not set -q $__fish_git_prompt_color_suffix
+    set -g __fish_git_prompt_color_suffix brblack
+end
+
 #|    Git Functions                                                        {{{
 #|============================================================================
 
@@ -36,7 +90,7 @@ function __git_stashed -d "Return the number of stashes."
     test -r $__GIT_DIR/refs/stash
 end
 
-function __git_display
+function __git_prompt
     set -l git_branch (__git_branch_name)
     set -l upstream_delta ""
     set -l repo_changes ""
@@ -111,57 +165,60 @@ function __repeat_dot
     end
 end
 
+function __display_width
+    string replace -ra '\e\[[^m]*m' '' "$argv" | \
+    string replace -ra '[^\x00-\x7F]' 'A' | \
+    string replace -ra '[^[:print:]]' ''| \
+    string length
+end
+
+
 # }}} #
 
 function fish_prompt
     if not set -q __fish_prompt_hostname
         set -g __fish_prompt_hostname (hostname | cut -d . -f 1)
     end
-    set -g TOP_BAR_MINUS    ""
     set -l __total_span     $COLUMNS
     set -l symbol           "λ "
     set -l bar_color        cyan
+    set -l bar_glyph        "─"
     set -l __git_display    ""
     set -l __ssh_display    ""
     set -l st               $status
-
-    set -l __pwd (prompt_pwd)
-    # Add cwd length to be removed from span length.
-    set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count $__pwd))
+    set -l __top_widths     "0 -1"
 
     if __git_is_repo
-        set __git_display (__git_display)
+        # set __git_display (__git_prompt)
+        set __git_display (fish_git_prompt)
     end
 
     if test -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT"
         set bar_color yellow
-        set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$__fish_prompt_hostname.."))
-        set __ssh_display (set_color brblack)"("(set_color normal)"$USER@"(set_color yellow)"$__fish_prompt_hostname"(set_color normal)(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
+        set __ssh_display (set_color brblack)"("(set_color normal)"$USER@"(set_color $bar_color)"$__fish_prompt_hostname"(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
+        set -a __top_widths (__display_width "$__ssh_display")
     end
-
-    # Subtract length of static elements from span bar length.
-    set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot 5)
 
     #|    First Line of Prompt                                                 {{{
     #|============================================================================
     
-    echo -n (set_color $bar_color)"┌─"(set_color normal)
-    echo -n (set_color brblack)"("(set_color normal)
-    echo -n (set_color green)"$__pwd"(set_color normal)
-    echo -n (set_color brblack)")"(set_color normal)
-    echo -n (set_color $bar_color)"─"(set_color normal)
+    # Print abbreviated working directory 
+    set -l __top_prompt (set_color $bar_color)"┌─"(set_color brblack)"("(set_color green)(prompt_pwd)(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
 
-    echo -n $__git_display
+    # Print git display if relevant 
+    set -la __top_prompt $__git_display
 
     # Adjust length of horizontal span to account for top line elements.
-    set -l tbm (__char_count $TOP_BAR_MINUS)
-    set -l __total_span (math "$__total_span - $tbm") 
+    set -la __top_widths (__display_width "$__top_prompt")
 
-    # Print spanning bar
-    echo -n (set_color $bar_color)(__repeat_bar $__total_span)(set_color normal)
+    # Add spanning bar
+    set -l __total_top_width (math (string join "+" $__top_widths))
+    set -la __top_prompt (set_color $bar_color)(string pad -w(math "$COLUMNS - $__total_top_width") -r --char=$bar_glyph "")(set_color normal)
 
     # Print username and host information for ssh sessions.
-    echo $__ssh_display
+    set -la __top_prompt $__ssh_display
+    
+    printf '%s\n' (string join "" $__top_prompt)
 
     # }}} #
 
@@ -169,14 +226,15 @@ function fish_prompt
     #|============================================================================
     
     # Second Line of Prompt
-    echo -n (set_color $bar_color)"└─"(set_color normal)
+    echo -n (set_color $bar_color)"└─"
     if [ "$st" = 0 ]
         echo -n (set_color brblue)"$symbol"(set_color normal)
     else
-        echo -n (set_color bred)"$symbol"(set_color normal)
+        echo -n (set_color brred)"$symbol"(set_color normal)
     end
     # }}} #
 
+    # printf 'COLUMNS:%s WIDTHS:%s TOTAL_WIDTH:%s' "$COLUMNS" "$__top_widths" "$__total_top_width"
 end
 
 function fish_right_prompt
