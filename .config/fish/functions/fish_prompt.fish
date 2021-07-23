@@ -48,42 +48,42 @@ function __git_display
     set -l behead (__git_behead)
     if [ $behead[1] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$behead[1]"))
-        set upstream_delta "$upstream_delta"(yellow)"↑$behead[1]"(off)
+        set upstream_delta "$upstream_delta"(set_color yellow)"↑$behead[1]"(set_color normal)
     end
     if [ $behead[2] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$behead[2]"))
-        set upstream_delta "$upstream_delta"(byellow)"↓$behead[2]"(off)
+        set upstream_delta "$upstream_delta"(set_color bryellow)"↓$behead[2]"(set_color normal)
     end
 
     if __git_stashed
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count "."))
-        set upstream_delta "$upstream_delta"(bcyan)"↩"(off)
+        set upstream_delta "$upstream_delta"(set_color brcyan)"↩"(set_color normal)
     end
 
     set -l changes (__git_changes)
     if [ $changes[1] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$changes[1]"))
-        set repo_changes "$repo_changes"(bgreen)"●$changes[1]"(off)
+        set repo_changes "$repo_changes"(set_color brgreen)"●$changes[1]"(set_color normal)
     end
     if [ $changes[2] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$changes[2]"))
-        set repo_changes "$repo_changes"(red)"+$changes[2]"(off)
+        set repo_changes "$repo_changes"(set_color red)"+$changes[2]"(set_color normal)
     end
     if [ $changes[3] != "0" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$changes[3]"))
-        set repo_changes "$repo_changes"(bblue)"…$changes[3]"(off)
+        set repo_changes "$repo_changes"(set_color brblue)"…$changes[3]"(set_color normal)
     end
     if [ $repo_changes = "" ]
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot 1)
-        set repo_changes "$repo_changes"(bgreen)"✔"(off)
+        set repo_changes "$repo_changes"(set_color brgreen)"✔"(set_color normal)
     end
 
     # Add length of git branch to be removed from span length
     set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count "$git_branch..."))
 
-    echo -n (bgray)"("(off)
-    echo -n (blue)"$git_branch$upstream_delta"(bgray)"|"(off)"$repo_changes"
-    echo -n (bgray)")"(off)
+    echo -n (set_color brblack)"("(set_color normal)
+    echo -n (set_color blue)"$git_branch$upstream_delta"(set_color brblack)"|"(set_color normal)"$repo_changes"
+    echo -n (set_color brblack)")"(set_color normal)
 end
 
 # }}} #
@@ -120,7 +120,7 @@ function fish_prompt
     set -g TOP_BAR_MINUS    ""
     set -l __total_span     $COLUMNS
     set -l symbol           "λ "
-    set -l bar_color        (cyan)
+    set -l bar_color        cyan
     set -l __git_display    ""
     set -l __ssh_display    ""
     set -l st               $status
@@ -134,9 +134,9 @@ function fish_prompt
     end
 
     if test -n "$SSH_CONNECTION" -o -n "$SSH_CLIENT"
-        set bar_color (yellow)
+        set bar_color yellow
         set -g TOP_BAR_MINUS $TOP_BAR_MINUS(__repeat_dot (__char_count ".$USER.$__fish_prompt_hostname.."))
-        set __ssh_display (bgray)"("(off)"$USER@"(yellow)"$__fish_prompt_hostname"(off)(bgray)")"(off)$bar_color"─"(off)
+        set __ssh_display (set_color brblack)"("(set_color normal)"$USER@"(set_color yellow)"$__fish_prompt_hostname"(set_color normal)(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
     end
 
     # Subtract length of static elements from span bar length.
@@ -145,11 +145,11 @@ function fish_prompt
     #|    First Line of Prompt                                                 {{{
     #|============================================================================
     
-    echo -n $bar_color"┌─"(off)
-    echo -n (bgray)"("(off)
-    echo -n (green)"$__pwd"(off)
-    echo -n (bgray)")"(off)
-    echo -n $bar_color"─"(off)
+    echo -n (set_color $bar_color)"┌─"(set_color normal)
+    echo -n (set_color brblack)"("(set_color normal)
+    echo -n (set_color green)"$__pwd"(set_color normal)
+    echo -n (set_color brblack)")"(set_color normal)
+    echo -n (set_color $bar_color)"─"(set_color normal)
 
     echo -n $__git_display
 
@@ -158,7 +158,7 @@ function fish_prompt
     set -l __total_span (math "$__total_span - $tbm") 
 
     # Print spanning bar
-    echo -n $bar_color(__repeat_bar $__total_span)(off)
+    echo -n (set_color $bar_color)(__repeat_bar $__total_span)(set_color normal)
 
     # Print username and host information for ssh sessions.
     echo $__ssh_display
@@ -169,11 +169,11 @@ function fish_prompt
     #|============================================================================
     
     # Second Line of Prompt
-    echo -n $bar_color"└─"(off)
+    echo -n (set_color $bar_color)"└─"(set_color normal)
     if [ "$st" = 0 ]
-        echo -n (bblue)"$symbol"(off)
+        echo -n (set_color brblue)"$symbol"(set_color normal)
     else
-        echo -n (bred)"$symbol"(off)
+        echo -n (set_color bred)"$symbol"(set_color normal)
     end
     # }}} #
 
