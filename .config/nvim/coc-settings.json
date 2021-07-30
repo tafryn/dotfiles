@@ -1,0 +1,14 @@
+{
+  /* "list.previewHighlightGroup": "Whitespace", */
+  /* "list.matchHighlightGroup": "Whitespace", */
+  "codeLens.enable": true,
+  "diagnostic.displayByAle": true,
+  "languageserver": {
+    "rust": {
+      "command": "ra_lsp_server",
+      "filetypes": ["rust"],
+      "rootPatterns": ["Cargo.toml"]
+    }
+  },
+  "clangd.fallbackFlags": ["-std=c++17"],
+}
