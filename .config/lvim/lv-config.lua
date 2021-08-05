@@ -75,6 +75,7 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Trouble lsp_workspace_diagnostics<cr>", "Diagnosticss" },
 }
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
+lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" }
 
 -- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
