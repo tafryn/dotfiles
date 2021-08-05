@@ -1,35 +1,16 @@
 --[[
 lvim is the global options object
 
-Linters should be
-filled in as strings with either
-a global executable or a path to
-an executable
+Linters should be filled in as strings with either a global executable or a path to an executable
 ]]
--- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
 -- general
-
--- lvim.transparent_window = true
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.colorscheme = "jellybeans"
+
 -- keymappings
 lvim.leader = "space"
-
-require("highlights")
-
-vim.g.jellybeans_overrides = {
-	Folded = { guifg = "6c6c6c", guibg = "202020", ctermfg = "", ctermbg = "", attr = "italic" },
-	Comment = { guifg = "626262", guibg = "", ctermfg = "Grey", ctermbg = "", attr = "italic" },
-	LineNr = { guifg = "605958", guibg = "262626", ctermfg = "262626", ctermbg = "", attr = "" },
-	Function = { guifg = "ffd75f", guibg = "", ctermfg = "Yellow", ctermbg = "", attr = "" },
-	Search = { guifg = "ff87ff", guibg = "302028", ctermfg = "Magenta", ctermbg = "", attr = "underline" },
-	SpecialKey = { guifg = "808080", guibg = "af0000", ctermfg = "Dark Red", ctermbg = "", attr = "" },
-	Whitespace = { guifg = "808080", guibg = "af0000", ctermfg = "Dark Red", ctermbg = "", attr = "" },
-	Pmenu = { guifg = "668799", guibg = "1f1f1f", ctermfg = "Dark Red", ctermbg = "", attr = "" },
-	background = { guibg = "none", ctermbg = "none", ["256ctermbg"] = "none" },
-}
 
 -- overwrite the key-mappings provided by LunarVim for any mode, or leave it empty to keep them
 -- lvim.keys.normal_mode = {
@@ -95,14 +76,13 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 
--- TODO: User Config for predefined plugins
+-- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
 
--- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = "maintained"
 lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
@@ -125,6 +105,21 @@ if status_ok then
 end
 
 -- TODO: Elimintae <S-l> and <S-h> bufferline mappings (PR #1177 exists)
+
+-- Tailor colorscheme
+require("highlights")
+
+vim.g.jellybeans_overrides = {
+	Folded = { guifg = "6c6c6c", guibg = "202020", ctermfg = "", ctermbg = "", attr = "italic" },
+	Comment = { guifg = "626262", guibg = "", ctermfg = "Grey", ctermbg = "", attr = "italic" },
+	LineNr = { guifg = "605958", guibg = "262626", ctermfg = "262626", ctermbg = "", attr = "" },
+	Function = { guifg = "ffd75f", guibg = "", ctermfg = "Yellow", ctermbg = "", attr = "" },
+	Search = { guifg = "ff87ff", guibg = "302028", ctermfg = "Magenta", ctermbg = "", attr = "underline" },
+	SpecialKey = { guifg = "808080", guibg = "af0000", ctermfg = "Dark Red", ctermbg = "", attr = "" },
+	Whitespace = { guifg = "808080", guibg = "af0000", ctermfg = "Dark Red", ctermbg = "", attr = "" },
+	Pmenu = { guifg = "668799", guibg = "1f1f1f", ctermfg = "Dark Red", ctermbg = "", attr = "" },
+	background = { guibg = "none", ctermbg = "none", ["256ctermbg"] = "none" },
+}
 
 --- Additional Options ---
 vim.opt.relativenumber = true
@@ -153,13 +148,10 @@ vim.cmd("set path+=./include,include;")
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- TODO: Fix fast "gcc" mapping for comment toggle
--- TODO: Fix Dashboard centering
--- TODO: Translate vim functions to lvim (stringTrailingWhitespace, QuarterFocus, and IdentifyHighlightGroup )
+-- TODO: Translate vim functions to lvim (stringTrailingWhitespace, and IdentifyHighlightGroup )
 
 -- Additional Plugins
 lvim.plugins = {
-	{ "folke/tokyonight.nvim" },
 	{
 		"ray-x/lsp_signature.nvim",
 		config = function()
@@ -171,14 +163,12 @@ lvim.plugins = {
 		"folke/todo-comments.nvim",
 		requires = "kyazdani42/nvim-web-devicons",
 		config = function()
-			-- require("todo-comments").setup {}
 			require("todo-comments").setup({
 				keywords = { WARN = { alt = {} } },
 				highlight = { pattern = [=[.*<(KEYWORDS)(\([^):]*\))*:]=] },
 				search = { pattern = [=[\b(KEYWORDS)(\(\w*\))*:]=] },
 			})
 		end,
-		-- event = "BufRead",
 	},
 	{
 		"ahmedkhalf/lsp-rooter.nvim",
@@ -197,6 +187,9 @@ lvim.plugins = {
 	{
 		"kevinhwang91/nvim-bqf",
 		event = "BufRead",
+		config = function()
+			require("bqf").setup({ func_map = { tab = "" } })
+		end,
 	},
 	{
 		-- "wellle/tmux-complete.vim",
@@ -228,25 +221,6 @@ lvim.plugins = {
 		"mbbill/undotree",
 		cmd = { "UndotreeFocus", "UndotreeShow", "UndotreeToggle" },
 	},
-
-	-- Tpope-ify
-	{ "tpope/vim-repeat", event = "BufRead" },
-	{
-		"tpope/vim-surround",
-		event = "BufRead",
-		config = function()
-			vim.api.nvim_del_keymap("n", "ds")
-			vim.api.nvim_set_keymap("n", "js", "<Plug>Dsurround", {})
-		end,
-	},
-	{ "tpope/vim-unimpaired", event = "BufRead" },
-	{ "tpope/vim-rsi" },
-	{ "tpope/vim-projectionist" },
-
-	-- Additional targets
-	{ "wellle/targets.vim", event = "BufRead" },
-	{ "michaeljsmith/vim-indent-object", event = "BufRead" },
-	{ "chaoren/vim-wordmotion", event = "BufRead" },
 
 	{ "tommcdo/vim-exchange", event = "BufRead" },
 	{ "tommcdo/vim-lion", event = "BufRead" },
@@ -285,6 +259,25 @@ lvim.plugins = {
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
 	},
+
+	-- Tpope-ify
+	{ "tpope/vim-repeat", event = "BufRead" },
+	{
+		"tpope/vim-surround",
+		event = "BufRead",
+		config = function()
+			vim.api.nvim_del_keymap("n", "ds")
+			vim.api.nvim_set_keymap("n", "js", "<Plug>Dsurround", {})
+		end,
+	},
+	{ "tpope/vim-unimpaired", event = "BufRead" },
+	{ "tpope/vim-rsi" },
+	{ "tpope/vim-projectionist" },
+
+	-- Additional targets
+	{ "wellle/targets.vim", event = "BufRead" },
+	{ "michaeljsmith/vim-indent-object", event = "BufRead" },
+	{ "chaoren/vim-wordmotion", event = "BufRead" },
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
