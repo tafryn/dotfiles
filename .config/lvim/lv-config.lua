@@ -148,10 +148,12 @@ vim.cmd("set path+=./include,include;")
 --   buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
 -- end
 
--- TODO: Translate vim functions to lvim (stringTrailingWhitespace, and IdentifyHighlightGroup )
-
 -- Additional Plugins
 lvim.plugins = {
+	{
+		"axelf4/vim-strip-trailing-whitespace",
+		event = "BufRead",
+	},
 	{
 		"ray-x/lsp_signature.nvim",
 		config = function()

@@ -2,6 +2,15 @@ local cmd = vim.cmd
 
 Util = {}
 
+function Util.identify_highlight_group()
+	local r, c = unpack(vim.api.nvim_win_get_cursor(0))
+	local hi_name = vim.fn.synIDattr(vim.fn["synID"](r, c, 1), "name")
+	local trans_name = vim.fn.synIDattr(vim.fn["synID"](r, c, 0), "name")
+	local lo_name = vim.fn.synIDattr(vim.fn["synIDtrans"](vim.fn["synID"](r, c, 1)), "name")
+
+	print(string.format("hi<%s> trans<%s> lo<%s>", hi_name, trans_name, lo_name))
+end
+
 Util.N = {}
 
 for i, n in pairs({ 47, 68, 40, 40, 40, 21 }) do
