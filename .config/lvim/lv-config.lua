@@ -92,6 +92,7 @@ lvim.builtin.treesitter.highlight.enabled = true
 lvim.builtin.telescope.defaults.mappings["i"]["<esc>"] = require("telescope.actions").close
 
 -- TODO: Add tmux completion to compe (this doesn't currently work)
+-- TODO: Remove compe <C-e> binding
 lvim.builtin.compe.source.tmux = { all_panes = true, kind = "   (Tmux)" }
 
 -- Adapt default nvim-tree mappings for dvorak
@@ -105,7 +106,8 @@ if status_ok then
 	}
 end
 
--- TODO: Elimintae <S-l> and <S-h> bufferline mappings (PR #1177 exists)
+-- TODO: Elimintae <S-l> and <S-h> bufferline mappings (update next time rolling is merged)
+-- lvim.builtin.bufferline.keymap.normal_mode = {}
 
 -- Tailor colorscheme
 require("highlights")
@@ -151,42 +153,17 @@ vim.cmd("set path+=./include,include;")
 
 -- Additional Plugins
 lvim.plugins = {
+	{ "nanotech/jellybeans.vim" },
+
+	-- Enhancements to existing capabilities and other plugins
 	{
-		"axelf4/vim-strip-trailing-whitespace",
-		event = "BufRead",
-	},
-	{
-		"ray-x/lsp_signature.nvim",
+		"monaqa/dial.nvim",
+		-- event = "BufRead",
 		config = function()
-			require("lsp_signature").on_attach()
-		end,
-		event = "InsertEnter",
-	},
-	{
-		"folke/todo-comments.nvim",
-		requires = "kyazdani42/nvim-web-devicons",
-		config = function()
-			require("todo-comments").setup({
-				keywords = { WARN = { alt = {} } },
-				highlight = { pattern = [=[.*<(KEYWORDS)(\([^):]*\))*:]=] },
-				search = { pattern = [=[\b(KEYWORDS)(\(\w*\))*:]=] },
-			})
+			vim.api.nvim_set_keymap("", "<C-a>", "<Plug>(dial-increment)", {})
+			vim.api.nvim_set_keymap("", "<C-x>", "<Plug>(dial-decrement)", {})
 		end,
 	},
-	{
-		"ahmedkhalf/lsp-rooter.nvim",
-		config = function()
-			require("lsp-rooter").setup()
-		end,
-	},
-	-- {
-	--   "monaqa/dial.nvim",
-	--   -- event = "BufRead",
-	--   config = function()
-	--     vim.api.nvim_set_keymap("", "<C-a>", "<Plug>(dial-increment)", {})
-	--     vim.api.nvim_set_keymap("", "<C-x>", "<Plug>(dial-decrement)", {})
-	--   end,
-	-- },
 	{
 		"kevinhwang91/nvim-bqf",
 		event = "BufRead",
@@ -200,12 +177,35 @@ lvim.plugins = {
 		event = "InsertEnter",
 		requires = "hrsh7th/nvim-compe",
 	},
-	{ "nanotech/jellybeans.vim" },
 	{
 		"tafryn/vim-tmux-navigator",
 		branch = "forward-script",
 		config = function()
 			vim.g.tmux_navigator_forward_script = "nested_navigate.sh"
+		end,
+	},
+
+	-- New Capabilities
+	{
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("lsp_signature").on_attach()
+		end,
+		event = "InsertEnter",
+	},
+	{
+		"axelf4/vim-strip-trailing-whitespace",
+		event = "BufRead",
+	},
+	{
+		"folke/todo-comments.nvim",
+		requires = "kyazdani42/nvim-web-devicons",
+		config = function()
+			require("todo-comments").setup({
+				keywords = { WARN = { alt = {} } },
+				highlight = { pattern = [=[.*<(KEYWORDS)(\([^):]*\))*:]=] },
+				search = { pattern = [=[\b(KEYWORDS)(\(\w*\))*:]=] },
+			})
 		end,
 	},
 	{
@@ -224,32 +224,6 @@ lvim.plugins = {
 		"mbbill/undotree",
 		cmd = { "UndotreeFocus", "UndotreeShow", "UndotreeToggle" },
 	},
-
-	{ "tommcdo/vim-exchange", event = "BufRead" },
-	{ "tommcdo/vim-lion", event = "BufRead" },
-	{
-		"dyng/ctrlsf.vim",
-		setup = function()
-			vim.g.ctrlsf_default_root = "project"
-			vim.g.ctrlsf_mapping = {
-				open = { "<CR>", "o" },
-				openb = "O",
-				split = "<C-X>",
-				vsplit = "<C-V>",
-				tab = "",
-				tabb = "T",
-				popen = "p",
-				popenf = "P",
-				quit = "q",
-				next = "<C-H>",
-				prev = "<C-T>",
-				pquit = "q",
-				loclist = "",
-				chgmode = "M",
-				stop = "<C-C>",
-			}
-		end,
-	},
 	{
 		"cdelledonne/vim-cmake",
 		event = "BufRead",
@@ -265,6 +239,11 @@ lvim.plugins = {
 
 	-- Tpope-ify
 	{ "tpope/vim-repeat", event = "BufRead" },
+	{ "tpope/vim-unimpaired", event = "BufRead" },
+	{ "tpope/vim-rsi" },
+	{ "tpope/vim-projectionist" },
+
+	-- Additional operators
 	{
 		"tpope/vim-surround",
 		event = "BufRead",
@@ -273,9 +252,8 @@ lvim.plugins = {
 			vim.api.nvim_set_keymap("n", "js", "<Plug>Dsurround", {})
 		end,
 	},
-	{ "tpope/vim-unimpaired", event = "BufRead" },
-	{ "tpope/vim-rsi" },
-	{ "tpope/vim-projectionist" },
+	{ "tommcdo/vim-exchange", event = "BufRead" },
+	{ "tommcdo/vim-lion", event = "BufRead" },
 
 	-- Additional targets
 	{ "wellle/targets.vim", event = "BufRead" },
