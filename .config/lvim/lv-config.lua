@@ -32,8 +32,8 @@ require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
 	{ "<C-e>", ":lne<CR>" },
 	{ "<F7>", ":setlocal spell!<CR>" },
 	{ "<S-F7>", "z=" },
-	{ "<Tab>", ":bnext<CR>" },
-	{ "<S-Tab>", ":bprevious<CR>" },
+	{ "<Tab>", ":BufferNext<CR>" },
+	{ "<S-Tab>", ":BufferPrevious<CR>" },
 	{ "<PageUp>", "<C-u>" },
 	{ "<PageDown>", "<C-d>" },
 })
