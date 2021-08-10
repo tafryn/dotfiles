@@ -10,7 +10,7 @@
 
 [core]
     excludesfile = ~/.gitignore
-    editor = nvim
+    editor = lvim
 
 [diff]
     renameLimit = 549
