@@ -76,6 +76,7 @@ lvim.builtin.which_key.mappings["t"] = {
 }
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" }
+lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
 
 -- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
@@ -90,6 +91,13 @@ lvim.builtin.treesitter.highlight.enabled = true
 
 -- Enable quick closing of telescope windows
 lvim.builtin.telescope.defaults.mappings["i"]["<esc>"] = require("telescope.actions").close
+lvim.builtin.telescope.extensions["fzf"] = {
+  fuzzy = true,
+  override_generic_sorter = true
+}
+lvim.builtin.telescope.on_config_done = function(telescope)
+  telescope.load_extension('fzf')
+end
 
 -- TODO: Add tmux completion to compe (this doesn't currently work)
 -- TODO: Remove compe <C-e> binding
@@ -184,6 +192,10 @@ lvim.plugins = {
 			vim.g.tmux_navigator_forward_script = "nested_navigate.sh"
 		end,
 	},
+	{
+		"nvim-telescope/telescope-fzf-native.nvim",
+    run = 'make',
+  },
 
 	-- New Capabilities
 	{
