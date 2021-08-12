@@ -5,47 +5,38 @@ Linters should be filled in as strings with either a global executable or a path
 ]]
 
 -- general
+lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.colorscheme = "jellybeans"
 
--- keymappings
+-- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
+-- add your own keymapping
+-- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+-- unmap a default keymapping
+-- lvim.keys.normal_mode["<C-Up>"] = ""
+-- edit a default keymapping
+-- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
 
--- overwrite the key-mappings provided by LunarVim for any mode, or leave it empty to keep them
--- lvim.keys.normal_mode = {
---   {'[d', '<PageUp>'},
---   {']d', '<PageDown>'},
---
---   Page down/up
---   Navigate buffers
---   {'<Tab>', ':bnext<CR>'},
---   {'<S-Tab>', ':bprevious<CR>'},
--- }
+lvim.keys.normal_mode["<S-h>"] = nil
+lvim.keys.normal_mode["<S-l>"] = nil
 
--- if you just want to augment the existing ones then use the utility function
-require("utils").add_keymap_normal_mode({ silent = true, noremap = true }, {
-	{ "gp", "`[v`]" },
-	{ "<F9>", ":cp<CR>" },
-	{ "<F10>", ":cn<CR>" },
-	{ "<C-u>", ":lp<CR>" },
-	{ "<C-e>", ":lne<CR>" },
-	{ "<F7>", ":setlocal spell!<CR>" },
-	{ "<S-F7>", "z=" },
-	{ "<Tab>", ":BufferNext<CR>" },
-	{ "<S-Tab>", ":BufferPrevious<CR>" },
-	{ "<PageUp>", "<C-u>" },
-	{ "<PageDown>", "<C-d>" },
-})
+lvim.keys.normal_mode["gp"] = "`[v`]"
+lvim.keys.normal_mode["<F9>"] = ":cp<CR>"
+lvim.keys.normal_mode["<F10>"] = ":cn<CR>"
+lvim.keys.normal_mode["<C-u>"] = ":lp<CR>"
+lvim.keys.normal_mode["<C-e>"] = ":lne<CR>"
+lvim.keys.normal_mode["<F7>"] = ":setlocal spell!<CR>"
+lvim.keys.normal_mode["<S-F7>"] = "z="
+lvim.keys.normal_mode["<Tab>"] = ":BufferNext<CR>"
+lvim.keys.normal_mode["<S-Tab>"] = ":BufferPrevious<CR>"
+lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
+lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
-require("utils").add_keymap_insert_mode({ silent = true, noremap = true }, {
-	{ "<F7>", "<C-o>:setlocal spell!<CR>" },
-	{ "<PageUp>", "<C-o><C-u>" },
-	{ "<PageDown>", "<C-o><C-d>" },
-})
-
--- you can also use the native vim way directly
--- vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
+lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
+lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
+lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
 
 -- Dvorak compensators
 vim.api.nvim_set_keymap("", "d", "h", { noremap = true })
@@ -63,7 +54,7 @@ vim.api.nvim_set_keymap("", "J", "D", { noremap = true })
 vim.api.nvim_set_keymap("", "l", "n", { noremap = true })
 vim.api.nvim_set_keymap("", "L", "N", { noremap = true })
 
--- Additional Leader bindings for WhichKey
+-- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>lua require'telescope'.extensions.project.project{}<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
 	name = "+Trouble",
@@ -92,16 +83,16 @@ lvim.builtin.treesitter.highlight.enabled = true
 -- Enable quick closing of telescope windows
 lvim.builtin.telescope.defaults.mappings["i"]["<esc>"] = require("telescope.actions").close
 lvim.builtin.telescope.extensions["fzf"] = {
-  fuzzy = true,
-  override_generic_sorter = true
+	fuzzy = true,
+	override_generic_sorter = true,
 }
 lvim.builtin.telescope.on_config_done = function(telescope)
-  telescope.load_extension('fzf')
+	telescope.load_extension("fzf")
 end
 
 -- TODO: Add tmux completion to compe (this doesn't currently work)
--- TODO: Remove compe <C-e> binding
 lvim.builtin.compe.source.tmux = { all_panes = true, kind = "   (Tmux)" }
+lvim.builtin.compe.keymap.values.insert_mode["<C-e>"] = nil
 
 -- Adapt default nvim-tree mappings for dvorak
 local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
@@ -113,9 +104,6 @@ if status_ok then
 		{ key = "v", cb = tree_cb("vsplit") },
 	}
 end
-
--- TODO: Elimintae <S-l> and <S-h> bufferline mappings (update next time rolling is merged)
--- lvim.builtin.bufferline.keymap.normal_mode = {}
 
 -- Tailor colorscheme
 require("highlights")
@@ -194,8 +182,8 @@ lvim.plugins = {
 	},
 	{
 		"nvim-telescope/telescope-fzf-native.nvim",
-    run = 'make',
-  },
+		run = "make",
+	},
 
 	-- New Capabilities
 	{
@@ -285,5 +273,9 @@ lvim.autocommands.custom_groups = {
 }
 
 -- Language specific tweaks
-lvim.lang.cpp.formatter.exe = "clang-format"
-lvim.lang.c.formatter.exe = "clang-format"
+lvim.lang.lua.formatters = {
+	{
+		exe = "stylua",
+		args = {},
+	},
+}
