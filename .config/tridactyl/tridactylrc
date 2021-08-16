@@ -18,10 +18,11 @@ unbind <C-f>
 
 set smoothscroll true
 set allowautofocus false
-set searchengine googlelucky
 set updatenag false
 set searchurls.wp https://en.wikipedia.org/w/index.php?search=%s
 set searchurls.g https://www.google.com/search?q=
+set searchurls.ddgl https://duckduckgo.com/?q=!+
+set searchengine ddgl
 
 set editorcmd i3-sensible-terminal -t Firefox-NVIM -e nvim
 
