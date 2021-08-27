@@ -4,6 +4,8 @@ lvim is the global options object
 Linters should be filled in as strings with either a global executable or a path to an executable
 ]]
 
+User = {}
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save = true
@@ -68,6 +70,12 @@ lvim.builtin.which_key.mappings["t"] = {
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
+
+-- Add diagnostic clearing function and mapping until enable/disable functions hit neovim stable
+function User.clear_diagnostic()
+	vim.lsp.diagnostic.clear(vim.fn.winbufnr(0))
+end
+lvim.builtin.which_key.mappings["d"] = { "<cmd>lua User.clear_diagnostic()<cr>", "Clear Diagnostics" }
 
 -- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
