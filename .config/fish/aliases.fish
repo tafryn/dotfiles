@@ -61,3 +61,4 @@ alias gpc "git log -p -1"
 alias y 'pikaur'
 alias o 'xdg-open (fzf)'
 alias ccze 'ccze -o nolookups'
+alias sudo '/usr/bin/sudo'
