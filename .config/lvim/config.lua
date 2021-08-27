@@ -11,6 +11,7 @@ lvim.log.level = "warn"
 lvim.format_on_save = true
 lvim.lint_on_save = true
 lvim.colorscheme = "jellybeans"
+lvim.lsp.diagnostics.virtual_text = true
 
 -- keymappings [view all the defaults by pressing <leader>Lk]
 lvim.leader = "space"
@@ -140,6 +141,8 @@ vim.opt.wildignorecase = true
 vim.opt.foldopen = vim.o.foldopen .. ",jump"
 vim.opt.wrapscan = false
 vim.opt.linebreak = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.cmd("set path+=./include,include;")
 
 -- TODO setting foldmethod to "expr" disables treesitter and lsp by default
