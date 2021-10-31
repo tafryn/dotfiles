@@ -36,6 +36,8 @@ lvim.keys.normal_mode["<Tab>"] = ":BufferNext<CR>"
 lvim.keys.normal_mode["<S-Tab>"] = ":BufferPrevious<CR>"
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
+vim.api.nvim_set_keymap("", "<C-PageUp>", "<S-Tab>", {})
+vim.api.nvim_set_keymap("", "<C-PageDown>", "<Tab>", {})
 
 lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
@@ -90,7 +92,7 @@ lvim.builtin.treesitter.ignore_install = { "haskell" }
 lvim.builtin.treesitter.highlight.enabled = true
 
 -- Enable quick closing of telescope windows
-lvim.builtin.telescope.defaults.mappings["i"]["<esc>"] = require("telescope.actions").close
+lvim.builtin.telescope.defaults.mappings = { i = { ["<esc>"] = require("telescope.actions").close } }
 lvim.builtin.telescope.extensions["fzf"] = {
 	fuzzy = true,
 	override_generic_sorter = true,
@@ -100,14 +102,14 @@ lvim.builtin.telescope.on_config_done = function(telescope)
 end
 
 -- TODO: Add tmux completion to compe (this doesn't currently work)
-lvim.builtin.compe.source.tmux = { all_panes = true, kind = "   (Tmux)" }
-lvim.builtin.compe.keymap.values.insert_mode["<C-e>"] = nil
+-- lvim.builtin.compe.source.tmux = { all_panes = true, kind = "   (Tmux)" }
+-- lvim.builtin.compe.keymap.values.insert_mode["<C-e>"] = nil
 
 -- Adapt default nvim-tree mappings for dvorak
 local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
 if status_ok then
 	local tree_cb = nvim_tree_config.nvim_tree_callback
-	vim.g.nvim_tree_bindings = {
+	lvim.builtin.nvimtree.setup.view.mappings.list = {
 		{ key = { "n", "<CR>", "o" }, cb = tree_cb("edit") },
 		{ key = "d", cb = tree_cb("close_node") },
 		{ key = "v", cb = tree_cb("vsplit") },
@@ -178,12 +180,12 @@ lvim.plugins = {
 			require("bqf").setup({ func_map = { tab = "" } })
 		end,
 	},
-	{
-		-- "wellle/tmux-complete.vim",
-		"andersevenrud/compe-tmux",
-		event = "InsertEnter",
-		requires = "hrsh7th/nvim-compe",
-	},
+	-- {
+	-- 	-- "wellle/tmux-complete.vim",
+	-- 	"andersevenrud/compe-tmux",
+	-- 	event = "InsertEnter",
+	-- 	requires = "hrsh7th/nvim-compe",
+	-- },
 	{
 		"tafryn/vim-tmux-navigator",
 		branch = "forward-script",
@@ -197,13 +199,13 @@ lvim.plugins = {
 	},
 
 	-- New Capabilities
-	{
-		"ray-x/lsp_signature.nvim",
-		config = function()
-			require("lsp_signature").on_attach()
-		end,
-		event = "InsertEnter",
-	},
+	-- {
+	-- 	"ray-x/lsp_signature.nvim",
+	-- 	config = function()
+	-- 		require("lsp_signature").on_attach()
+	-- 	end,
+	-- 	event = "InsertEnter",
+	-- },
 	{
 		"axelf4/vim-strip-trailing-whitespace",
 		event = "BufRead",

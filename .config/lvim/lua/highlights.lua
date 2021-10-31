@@ -1,5 +1,3 @@
-local cmd = vim.cmd
-
 Util = {}
 
 function Util.identify_highlight_group()
