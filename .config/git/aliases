@@ -12,7 +12,7 @@
     recent = "!f() { git for-each-ref --count=8 --sort=-committerdate refs/heads/ --format=\"%(committerdate:format:%b %d) %(authorname)%%%(refname:short)\" | column -t -s%; }; f"
     my-week = "!f() { git log --all --author=\"$(git config user.name)\" --since=\"8 days ago\" --shortstat; }; f"
     team-week = "log --all --since='8 days ago' --oneline --no-merges"
-    review-week = "!f() { git log --since='8 days ago' --pretty=\"%H\" --no-merges | xargs -n 1 -I{} bash -c \"git log -1 -p {} | nvimpager -p\"; }; f"
+    review-week = "!f() { git log --all --since='8 days ago' --pretty=\"%H\" --no-merges | xargs -n 1 -I{} bash -c \"git log -1 -p {} | nvimpager -p\"; }; f"
     commit-count = "shortlog -sn --since='last year' --all"
     authors = "log --all --format='%cN <%cE>'" # | sort -u
     branch-sync = "!f() { git fetch --prune; git branch -vv | rg \"gone]\" | awk '{print $1}' | xargs git branch -d; }; f"
