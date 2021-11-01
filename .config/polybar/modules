@@ -1,0 +1,303 @@
+[module/launcher]
+type = custom/text
+
+content = 
+content-foreground = ${colors.secondary}
+content-font = 2
+
+click-left = rofi -show run
+
+
+[module/date]
+type = internal/date
+
+interval = 1.0
+time = "%m-%d %H:%M"
+time-alt = %m-%d-%Y %H:%M:%S
+format-prefix-foreground = ${colors.foreground-alt}
+
+label = %date% %time%
+
+
+[module/i3]
+type = internal/i3
+
+format = <label-state> <label-mode>
+format-font = 2
+index-sort = true
+wrapping-scroll = false
+
+ws-icon-0 = 1;
+ws-icon-1 = 2;
+ws-icon-2 = 3;
+ws-icon-3 = 4;
+ws-icon-4 = 5;
+ws-icon-5 = 6;
+ws-icon-6 = 7;
+ws-icon-7 = 8;
+ws-icon-8 = 9;
+ws-icon-9 = 10;
+ws-icon-10 = 11;
+ws-icon-11 = 12;ﰂ
+
+ws-icon-default = ﱡ
+
+label-mode-padding = 1
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %icon%
+; label-focused-background = ${colors.background-alt}
+label-focused-foreground= ${colors.blue}
+label-focused-underline= ${colors.primary}
+label-focused-padding-right = 1
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %icon%
+label-unfocused-foreground = ${colors.background-alt}
+label-unfocused-padding-right = 1
+
+; visible = Active workspace on unfocused monitor
+label-visible = %icon%
+label-visible-padding-right = 1
+
+; urgent = Workspace with urgency hint set
+label-urgent = %icon%
+label-urgent-background = ${colors.alert}
+label-urgent-padding-right = 1
+
+
+[module/alsa]
+type = internal/alsa
+
+format-volume = <ramp-volume> <label-volume>
+label-volume-foreground = ${colors.foreground}
+label-volume = %percentage:2%%
+
+label-muted = "µt "
+format-muted-prefix = "婢 "
+format-muted-prefix-font = 2
+format-muted-foreground = ${colors.foreground-alt}
+
+ramp-volume-0 = 奄
+ramp-volume-1 = 奔
+ramp-volume-2 = 墳
+ramp-volume-font = 2
+
+
+[module/brightness]
+type = internal/xbacklight
+
+format = <ramp> <label>
+
+ramp-0 = ""
+ramp-1 = ""
+ramp-2 = ""
+ramp-3 = ""
+ramp-font = 2
+
+
+[module/temperature]
+type = internal/temperature
+
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+base-temperature = 55
+warn-temperature = 70
+interval = 1
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+
+label = %temperature-c%
+label-warn = %temperature-c%
+
+ramp-foreground = ${colors.foreground-alt}
+ramp-0 = 
+ramp-0-foreground = ${colors.foreground-alt}
+ramp-1 = 
+ramp-1-foreground = ${colors.warning}
+ramp-2 = 
+ramp-2-foreground = ${colors.alert}
+ramp-font = 2
+
+
+[module/cpu]
+type = internal/cpu
+
+interval = 2
+
+format = <ramp-load> <label>
+label = %percentage:2%%
+
+ramp-load-0 = ""
+ramp-load-0-foreground = ${colors.foreground}
+ramp-load-1 = ""
+ramp-load-1-foreground = ${colors.foreground}
+ramp-load-2 = ""
+ramp-load-2-foreground = ${colors.foreground}
+ramp-load-3 = ""
+ramp-load-3-foreground = ${colors.foreground}
+ramp-load-4 = ""
+ramp-load-4-foreground = ${colors.warning}
+ramp-load-5 = ""
+ramp-load-5-foreground = ${colors.warning}
+ramp-load-6 = ""
+ramp-load-6-foreground = ${colors.alert}
+ramp-load-7 = ""
+ramp-load-7-foreground = ${colors.alert}
+ramp-load-font = 2
+
+
+[module/memory]
+type = internal/memory
+
+interval = 2
+
+format = <label>
+format-prefix = "﬙ "
+format-prefix-foreground = ${colors.foreground-alt}
+format-prefix-font = 2
+label = %percentage_used%%
+
+
+[module/filesystem]
+type = internal/fs
+
+interval = 32
+format-mounted= "<ramp-capacity> <label-mounted>%"
+format-mounted-foreground = ${colors.foreground}
+
+mount-0 = /home
+
+label-mounted = %percentage_used%
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = ${colors.alert}
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = ${colors.warning}
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-5 = 
+ramp-capacity-6 = 
+ramp-capacity-7 = 
+ramp-capacity-8 = 
+ramp-capacity-9 = 
+ramp-capacity-font = 2
+
+
+[module/battery]
+type = internal/battery
+
+battery = BAT0
+adapter = AC
+full-at = 98
+
+format-charging-prefix = "⚡"
+format-changing-prefix-font = 2
+format-charging = <ramp-capacity> <label-charging>
+format-discharging = <ramp-capacity> <label-discharging>
+format-full = <ramp-capacity> <label-full>
+
+ramp-capacity-0 = 
+ramp-capacity-0-foreground = ${colors.alert}
+ramp-capacity-1 = 
+ramp-capacity-1-foreground = ${colors.warning}
+ramp-capacity-2 = 
+ramp-capacity-2-foreground = ${colors.foreground}
+ramp-capacity-3 = 
+ramp-capacity-3-foreground = ${colors.foreground}
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.foreground}
+ramp-capacity-font = 2
+
+
+[module/eth]
+type = internal/network
+
+interface = ${env:WIRED_INTERFACE:enp0s31f6}
+interval = 3.0
+
+format-connected = <label-connected>
+; label-connected = %local_ip% %upspeed% %downspeed%
+label-connected = %{A1:notify-send "$(hostname -I)":}%{A}
+label-connected-foreground = ${colors.foreground}
+label-connected-font = 2
+
+format-disconnected =
+; format-disconnected = <label-disconnected>
+; label-disconnected = ""
+label-disconnected =
+label-disconnected-foreground = ${colors.background-alt}
+label-disconnected-font = 2
+
+
+[module/wlan]
+type = internal/network
+
+interface = ${env:WIRELESS_INTERFACE:wlp4s0}
+interval = 3.0
+
+format-connected = <ramp-signal>
+format-connected-prefix = "直"
+format-connected-prefix-foreground = ${colors.foreground-alt}
+format-connected-prefix-font = 2
+label-connected = "%essid%"
+label-connected-foreground = ${colors.foreground}
+
+format-disconnected =
+; format-disconnected = <label-disconnected>
+label-disconnected = "睊"
+label-disconnected-foreground = ${colors.background-alt}
+label-disconnected-font = 2
+
+ramp-signal-0 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-0-foreground = ${colors.alert}
+ramp-signal-1 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-1-foreground = ${colors.alert}
+ramp-signal-2 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-2-foreground = ${colors.warning}
+ramp-signal-3 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-3-foreground = ${colors.warning}
+ramp-signal-4 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-4-foreground = ${colors.foreground}
+ramp-signal-5 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-5-foreground = ${colors.foreground}
+ramp-signal-6 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-6-foreground = ${colors.foreground}
+ramp-signal-7 = %{A1:notify-send "$(iwgetid -r)":}直%{A}
+ramp-signal-7-foreground = ${colors.foreground-alt}
+ramp-signal-font = 2
+
+
+[module/powermenu]
+type = custom/menu
+
+menu-0-0 = " Shutdown |"
+menu-0-0-exec = menu-open-1
+menu-0-1 = " Reboot |"
+menu-0-1-exec = menu-open-2
+menu-0-2 = " Logoff "
+menu-0-2-exec = menu-open-3
+
+
+menu-1-0 = " Back |"
+menu-1-0-exec = menu-open-0
+menu-1-1 = " Shutdown "
+menu-1-1-exec = touch /tmp/shutdown
+
+menu-2-0 = " Back |"
+menu-2-0-exec = menu-open-0
+menu-2-1 = " Reboot "
+menu-2-1-exec = touch /tmp/reboot
+
+menu-3-0 = " Back |"
+menu-3-0-exec = menu-open-0
+menu-3-1 = " Logoff "
+menu-3-1-exec = touch /tmp/logoff
+
+format = <label-toggle><menu>
+
+label-open = 襤
+label-close = 
