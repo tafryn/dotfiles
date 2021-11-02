@@ -17,7 +17,7 @@ set -U fish_user_paths $HOME/sfw/bin /usr/local/bin
 
 set MANPATH ":$HOME/sfw/man/:$HOME/sfw/share/man"
 
-set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sfw/lib
+set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sfw/lib:$HOME/.local/lib64
 
 set -gx JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk/
 #set -gx JAVA_HOME (which java)
