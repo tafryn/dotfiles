@@ -111,6 +111,11 @@ client.background         $transparent
 #|    workspaces                                                            <<<
 #|=============================================================================
 
+set $monitor1 DP-0.2
+set $monitor2 DP-0.1
+set $monitor3 DP-0.3
+set $monitor4 DP-2
+
 # Workspace names:
 # the default modifier being Super_L, workspaces 6 to 12 are preferred
 # (=> left thumb + right hand to select a workspace)
@@ -128,20 +133,21 @@ set $w11 11
 set $w12 12
 
 # Assign first n workspaces to first n outputs
-workspace $w01 output DP-2
-workspace $w02 output DP-0.2
-workspace $w03 output DP-0.1
-workspace $w04 output DP-0.3
+workspace $w01 output $monitor1
+workspace $w02 output $monitor2
+workspace $w03 output $monitor3
 
-workspace $w05 output DP-2
-workspace $w06 output DP-0.2
-workspace $w07 output DP-0.1
-workspace $w08 output DP-0.3
+workspace $w04 output $monitor1
+workspace $w05 output $monitor2
+workspace $w06 output $monitor3
 
-workspace $w09 output DP-2
-workspace $w10 output DP-0.2
-workspace $w11 output DP-0.1
-workspace $w12 output DP-0.3
+workspace $w07 output $monitor1
+workspace $w08 output $monitor2
+workspace $w09 output $monitor3
+
+workspace $w10 output $monitor4
+workspace $w11 output $monitor4
+workspace $w12 output $monitor4
 
 # http://i3wm.org/docs/userguide.html#command_criteria (xprop might be useful…)
 # - instance    : window instance = 1st part of WM_CLASS
@@ -150,10 +156,11 @@ workspace $w12 output DP-0.3
 # - title       : X11 window title (_NET_WM_NAME or WM_NAME as fallback)
 
 # Common apps are sorted by workspace
-assign [class="^VirtualBox" title="System Processor"]   → $w12
-assign [class="^VirtualBox" title="Display Processor"]  → $w12
-assign [class="^VirtualBox" title="Manager"]            → $w09
-assign [class="^VirtualBox" title="Development VM"]     → $w10
+assign [class="^VirtualBox" title="System Processor"]   → $w09
+assign [class="^VirtualBox" title="Display Processor"]  → $w09
+assign [class="^VirtualBox" title="Manager"]            → $w12
+assign [class="^VirtualBox" title="Development VM"]     → $w12
+assign [class="^VirtualBox" title="Dev VM"]             → $w12
 
 # Firefox can be run with a --class argument: (= "Firefox" by default)
 #   https://bugzilla.mozilla.org/show_bug.cgi?id=496653
