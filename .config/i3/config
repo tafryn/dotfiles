@@ -345,12 +345,12 @@ bindsym $mod+Shift+m move workspace to output down
 bindsym $mod+Shift+w move workspace to output up
 bindsym $mod+Shift+v move workspace to output right
 
-# Move the currently focused window to the scratchpad                  ($mod+/)
-bindsym $mod+z scratchpad show
-
-# Show/hide the scratchpad window                                ($mod+Shift+/)
-# If there are multiple scratchpad windows, this command cycles through them.
+# Move the currently focused window to the scratchpad            ($mod+Shift+/)
 bindsym $mod+Shift+z move scratchpad
+
+# Show/hide the scratchpad window                                      ($mod+/)
+# If there are multiple scratchpad windows, this command cycles through them.
+bindsym $mod+z scratchpad show
 
 # Reload i3 configuration                                        ($mod+Shift+r)
 bindsym $mod+Shift+r reload
