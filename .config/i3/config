@@ -408,6 +408,7 @@ bindsym $mod+l exec --no-startup-id xscreensaver-command -lock
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 exec --no-startup-id xscreensaver -no-splash
 exec --no-startup-id compton -b
+exec --no-startup-id dunst
 exec --no-startup-id sleep 5; sh ~/.fehbg
 exec --no-startup-id mattermost-desktop
 exec --no-startup-id ssh-agent -t 3600
