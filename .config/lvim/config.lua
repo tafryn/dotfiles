@@ -180,12 +180,6 @@ lvim.plugins = {
 			require("bqf").setup({ func_map = { tab = "" } })
 		end,
 	},
-	-- {
-	-- 	-- "wellle/tmux-complete.vim",
-	-- 	"andersevenrud/compe-tmux",
-	-- 	event = "InsertEnter",
-	-- 	requires = "hrsh7th/nvim-compe",
-	-- },
 	{
 		"tafryn/vim-tmux-navigator",
 		branch = "forward-script",
@@ -193,19 +187,15 @@ lvim.plugins = {
 			vim.g.tmux_navigator_forward_script = "nested_navigate.sh"
 		end,
 	},
-	{
-		"nvim-telescope/telescope-fzf-native.nvim",
-		run = "make",
-	},
 
 	-- New Capabilities
-	-- {
-	-- 	"ray-x/lsp_signature.nvim",
-	-- 	config = function()
-	-- 		require("lsp_signature").on_attach()
-	-- 	end,
-	-- 	event = "InsertEnter",
-	-- },
+	{
+		"ray-x/lsp_signature.nvim",
+		config = function()
+			require("lsp_signature").on_attach()
+		end,
+		event = "InsertEnter",
+	},
 	{
 		"axelf4/vim-strip-trailing-whitespace",
 		event = "BufRead",
@@ -286,9 +276,10 @@ lvim.autocommands.custom_groups = {
 }
 
 -- Language specific tweaks
-lvim.lang.lua.formatters = {
+local formatters = require("lvim.lsp.null-ls.formatters")
+formatters.setup({
 	{
 		exe = "stylua",
-		args = {},
+		filetypes = { "lua" },
 	},
-}
+})
