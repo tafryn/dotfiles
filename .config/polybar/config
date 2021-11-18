@@ -51,3 +51,5 @@ padding = 1
 
 tray-position = right
 tray-padding = 2
+
+; vim: ft=dosini

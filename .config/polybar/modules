@@ -168,7 +168,7 @@ interval = 32
 format-mounted= "<ramp-capacity> <label-mounted>%"
 format-mounted-foreground = ${colors.foreground}
 
-mount-0 = /home
+mount-0 = ${env:HOME_MOUNT:/home}
 
 label-mounted = %percentage_used%
 
@@ -301,3 +301,5 @@ format = <label-toggle><menu>
 
 label-open = 襤
 label-close = 
+
+; vim: ft=dosini
