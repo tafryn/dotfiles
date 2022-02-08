@@ -240,9 +240,6 @@ interface = ${env:WIRELESS_INTERFACE:wlp4s0}
 interval = 3.0
 
 format-connected = <ramp-signal>
-format-connected-prefix = "直"
-format-connected-prefix-foreground = ${colors.foreground-alt}
-format-connected-prefix-font = 2
 label-connected = "%essid%"
 label-connected-foreground = ${colors.foreground}
 
