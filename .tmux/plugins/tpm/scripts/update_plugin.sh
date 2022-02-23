@@ -27,7 +27,6 @@ pull_changes() {
 
 update() {
 	local plugin="$1"
-	echo_ok "Updating \"$plugin\""
 	$(pull_changes "$plugin" > /dev/null 2>&1) &&
 		echo_ok "  \"$plugin\" update success" ||
 		echo_err "  \"$plugin\" update fail"
@@ -38,27 +37,32 @@ update_all() {
 	echo_ok ""
 	local plugins="$(tpm_plugins_list_helper)"
 	for plugin in $plugins; do
-		local plugin_name="$(plugin_name_helper "$plugin")"
+		IFS='#' read -ra plugin <<< "$plugin"
+		local plugin_name="$(plugin_name_helper "${plugin[0]}")"
 		# updating only installed plugins
 		if plugin_already_installed "$plugin_name"; then
-			update "$plugin_name"
+			update "$plugin_name" &
 		fi
 	done
+	wait
 }
 
 update_plugins() {
 	local plugins="$*"
 	for plugin in $plugins; do
-		local plugin_name="$(plugin_name_helper "$plugin")"
+		IFS='#' read -ra plugin <<< "$plugin"
+		local plugin_name="$(plugin_name_helper "${plugin[0]}")"
 		if plugin_already_installed "$plugin_name"; then
-			update "$plugin_name"
+			update "$plugin_name" &
 		else
-			echo_err "$plugin_name not installed!"
+			echo_err "$plugin_name not installed!" &
 		fi
 	done
+	wait
 }
 
 main() {
+	ensure_tpm_path_exists
 	if [ "$1" == "all" ]; then
 		update_all
 	else
