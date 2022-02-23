@@ -32,8 +32,8 @@ lvim.keys.normal_mode["<C-u>"] = ":lp<CR>"
 lvim.keys.normal_mode["<C-e>"] = ":lne<CR>"
 lvim.keys.normal_mode["<F7>"] = ":setlocal spell!<CR>"
 lvim.keys.normal_mode["<S-F7>"] = "z="
-lvim.keys.normal_mode["<Tab>"] = ":BufferNext<CR>"
-lvim.keys.normal_mode["<S-Tab>"] = ":BufferPrevious<CR>"
+lvim.keys.normal_mode["<Tab>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-Tab>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 vim.api.nvim_set_keymap("", "<C-PageUp>", "<S-Tab>", {})
@@ -137,7 +137,6 @@ vim.opt.cmdheight = 1
 vim.opt.showmatch = true
 vim.opt.visualbell = true
 vim.opt.shiftround = true
-vim.opt.smartindent = true
 vim.opt.gdefault = true
 vim.opt.wildignorecase = true
 vim.opt.foldopen = vim.o.foldopen .. ",jump"

@@ -64,31 +64,6 @@ vim.cmd([[
   autocmd ColorScheme * hi! link GitGutterChangeDeleteLineNr Number
   autocmd ColorScheme * hi! link GitGutterDeleteLineNr WarningMsg
 
-  " Hop
-  autocmd ColorScheme * hi! link HopNextKey WarningMsg
-  autocmd ColorScheme * hi! link HopNextKey1 Title
-  autocmd ColorScheme * hi! link HopNextKey2 Question
-  autocmd ColorScheme * hi! link HopUnmatched LineNr
-
-  " BarBar
-  autocmd ColorScheme * hi! link BufferCurrent ModeMsg
-  autocmd ColorScheme * hi! link BufferCurrentMod Type
-  autocmd ColorScheme * hi! link BufferCurrentSign Operator
-  autocmd ColorScheme * hi! link BufferCurrentTarget WarningMsg
-
-  autocmd ColorScheme * hi! link BufferVisible CursorLineNr
-  autocmd ColorScheme * hi! link BufferVisibleMod StorageClass
-  autocmd ColorScheme * hi! link BufferVisibleSign Comment
-  autocmd ColorScheme * hi! link BufferVisibleTarget WarningMsg
-
-  autocmd ColorScheme * hi! link BufferInactive Comment
-  autocmd ColorScheme * hi! link BufferInactiveMod StorageClass
-  autocmd ColorScheme * hi! link BufferInactiveSign Comment
-  autocmd ColorScheme * hi! link BufferInactiveTarget WarningMsg
-
-  autocmd ColorScheme * hi! link BufferTabpages TabLine
-  autocmd ColorScheme * hi! link BufferTabpageFill TabLineFill
-
   " Folds
   hi Folded ctermfg=green ctermbg=darkgray
 
@@ -108,7 +83,6 @@ vim.cmd([[
 
   " Misc
   autocmd ColorScheme * hi FloatermBorder guifg=#06989a
-  autocmd ColorScheme * hi! link VistaColon VistaLineNr
   autocmd ColorScheme * hi! link CursorLine Visual
   autocmd ColorScheme * hi! link gitblame SpecialComment
 ]])
