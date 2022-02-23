@@ -207,13 +207,6 @@ lvim.plugins = {
 			require("bqf").setup({ func_map = { tab = "" } })
 		end,
 	},
-	{
-		"tafryn/vim-tmux-navigator",
-		branch = "forward-script",
-		config = function()
-			vim.g.tmux_navigator_forward_script = "nested_navigate.sh"
-		end,
-	},
 
 	-- New Capabilities
 	{
