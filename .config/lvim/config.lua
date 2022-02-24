@@ -82,6 +82,7 @@ lvim.builtin.which_key.mappings["d"] = { "<cmd>lua User.clear_diagnostic()<cr>",
 
 -- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
+lvim.builtin.bufferline.options.always_show_bufferline = true
 lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.side = "left"
