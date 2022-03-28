@@ -82,8 +82,8 @@ lvim.builtin.which_key.mappings["d"] = { "<cmd>lua User.clear_diagnostic()<cr>",
 
 -- Configuration for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
+lvim.builtin.alpha.mode = "startify"
 lvim.builtin.bufferline.options.always_show_bufferline = true
-lvim.builtin.dashboard.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.side = "left"
 lvim.builtin.nvimtree.show_icons.git = 0
@@ -291,7 +291,7 @@ lvim.autocommands.custom_groups = {
 	{ "FileType", "qf", "set nobuflisted" },
 	{ "FileType", "gitcommit", "setlocal nofoldenable spell" },
 	{ "FileType", "git", "setlocal nofoldenable" },
-	{ "FileType", "dashboard", "nnoremap <silent> <buffer> q :q<CR>" },
+	{ "FileType", "alpha", "nnoremap <silent> <buffer> q :q<CR>" },
 	{ "FileType", "lspinfo", "nnoremap <silent> <buffer> q :q<CR>" },
 	{ "FileType", "floaterm", "nnoremap <silent> <buffer> q :q<CR>" },
 }
