@@ -208,6 +208,11 @@ lvim.plugins = {
 			require("bqf").setup({ func_map = { tab = "" } })
 		end,
 	},
+	{
+		"peterhoeg/vim-qml",
+		event = "BufRead",
+		ft = { "qml" },
+	},
 
 	-- New Capabilities
 	{
