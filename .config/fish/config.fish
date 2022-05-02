@@ -22,6 +22,9 @@ set -gx LD_LIBRARY_PATH /usr/local/lib64:/usr/local/lib:$HOME/sfw/lib64:$HOME/sf
 set -gx JAVA_HOME /usr/lib/jvm/java-1.8.0-openjdk/
 #set -gx JAVA_HOME (which java)
 
+# Set mount point for status bar display
+set -x HOME_MOUNT (df -P /home | tail -1 | tr -s ' ' | cut -d' ' -f 6)
+
 # Tweak fish colors
 set -e fish_color_valid_path
 
