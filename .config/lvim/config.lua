@@ -144,10 +144,6 @@ lvim.builtin.telescope.on_config_done = function(telescope)
 	telescope.load_extension("fzf")
 end
 
--- TODO: Add tmux completion to compe (this doesn't currently work)
--- lvim.builtin.compe.source.tmux = { all_panes = true, kind = "   (Tmux)" }
--- lvim.builtin.compe.keymap.values.insert_mode["<C-e>"] = nil
-
 -- Adapt default nvim-tree mappings for dvorak
 local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
 if status_ok then
@@ -292,6 +288,10 @@ lvim.plugins = {
 		"peterhoeg/vim-qml",
 		event = "BufRead",
 		ft = { "qml" },
+	},
+	{
+		"andersevenrud/cmp-tmux",
+		requires = "hrsh7th/nvim-cmp",
 	},
 
 	-- New Capabilities
