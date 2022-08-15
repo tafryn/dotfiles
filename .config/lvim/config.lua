@@ -30,8 +30,9 @@ lvim.keys.normal_mode["<S-h>"] = nil
 lvim.keys.normal_mode["<S-l>"] = nil
 
 lvim.keys.normal_mode["gp"] = "`[v`]"
-lvim.keys.normal_mode["<F8>"] = ":cp<CR>"
-lvim.keys.normal_mode["<F9>"] = ":cn<CR>"
+lvim.keys.normal_mode["ga"] = ":A<CR>"
+lvim.keys.normal_mode["<F4>"] = ":cp<CR>"
+lvim.keys.normal_mode["<F6>"] = ":cn<CR>"
 lvim.keys.normal_mode["<C-u>"] = ":lp<CR>"
 lvim.keys.normal_mode["<C-e>"] = ":lne<CR>"
 lvim.keys.normal_mode["<F7>"] = ":setlocal spell!<CR>"
@@ -100,10 +101,12 @@ lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", 
 
 lvim.builtin.which_key.mappings["d"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 
+lvim.builtin.which_key.mappings["a"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
+
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.alpha.mode = "startify"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
