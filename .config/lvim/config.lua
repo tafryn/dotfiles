@@ -22,9 +22,9 @@ lvim.leader = "space"
 -- add your own keymapping
 -- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 -- unmap a default keymapping
--- lvim.keys.normal_mode["<C-Up>"] = false
--- edit a default keymapping
--- lvim.keys.normal_mode["<C-q>"] = ":q<cr>"
+-- vim.keymap.del("n", "<C-Up>")
+-- override a default keymapping
+-- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
 
 lvim.keys.normal_mode["<S-h>"] = nil
 lvim.keys.normal_mode["<S-l>"] = nil
@@ -107,7 +107,7 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
-lvim.builtin.nvimtree.show_icons.git = 0
+lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.bufferline.options.always_show_bufferline = true
 
 -- if you don't want all the parsers change this to a table of the ones you want
@@ -191,6 +191,20 @@ require("tmux-navigate")
 
 -- generic LSP settings
 
+-- -- make sure server will always be installed even if the server is in skipped_servers list
+-- lvim.lsp.installer.setup.ensure_installed = {
+--     "sumeko_lua",
+--     "jsonls",
+-- }
+-- -- change UI setting of `LspInstallInfo`
+-- -- see <https://github.com/williamboman/nvim-lsp-installer#default-configuration>
+-- lvim.lsp.installer.setup.ui.check_outdated_servers_on_open = false
+-- lvim.lsp.installer.setup.ui.border = "rounded"
+-- lvim.lsp.installer.setup.ui.keymaps = {
+--     uninstall_server = "d",
+--     toggle_server_expand = "o",
+-- }
+
 -- ---@usage disable automatic installation of servers
 -- lvim.lsp.automatic_servers_installation = false
 
@@ -201,7 +215,7 @@ require("tmux-navigate")
 -- require("lvim.lsp.manager").setup("pyright", opts)
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
--- ---`:LvimInfo` lists which server(s) are skiipped for the current filetype
+-- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
 -- vim.tbl_map(function(server)
 --   return server ~= "emmet_ls"
 -- end, lvim.lsp.automatic_configuration.skipped_servers)
@@ -342,11 +356,11 @@ lvim.plugins = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-lvim.autocommands.custom_groups = {
-	{ "FileType", "qf", "set nobuflisted" },
-	{ "FileType", "gitcommit", "setlocal nofoldenable spell" },
-	{ "FileType", "git", "setlocal nofoldenable" },
-	{ "FileType", "alpha", "nnoremap <silent> <buffer> q :q<CR>" },
-	{ "FileType", "lspinfo", "nnoremap <silent> <buffer> q :q<CR>" },
-	{ "FileType", "floaterm", "nnoremap <silent> <buffer> q :q<CR>" },
+lvim.autocommands = {
+	{ "FileType", { pattern = { "qf" }, command = "set nobuflisted" } },
+	{ "FileType", { pattern = { "gitcommit" }, command = "setlocal nofoldenable spell" } },
+	{ "FileType", { pattern = { "git" }, command = "setlocal nofoldenable" } },
+	{ "FileType", { pattern = { "alpha" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
+	{ "FileType", { pattern = { "lspinfo" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
+	{ "FileType", { pattern = { "floaterm" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
 }
