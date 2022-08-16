@@ -95,6 +95,16 @@ lvim.builtin.which_key.mappings["t"] = {
 	w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 }
 
+lvim.builtin.which_key.mappings["D"] = {
+	name = "+Diffview",
+	c = { "<cmd>DiffviewClose<CR>", "Close" },
+	f = { "<cmd>DiffviewFileHistory %<CR>", "File History" },
+	l = {
+		'<cmd>lua require("diffview").open(vim.fn.expand("<cword>")..".."..vim.fn.expand("<cword>").."^")<CR>',
+		"Test",
+	},
+}
+
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
@@ -292,6 +302,10 @@ lvim.plugins = {
 	{
 		"andersevenrud/cmp-tmux",
 		requires = "hrsh7th/nvim-cmp",
+	},
+	{
+		"sindrets/diffview.nvim",
+		requires = "nvim-lua/plenary.nvim",
 	},
 
 	-- New Capabilities
