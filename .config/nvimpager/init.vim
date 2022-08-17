@@ -9,10 +9,15 @@ set nomodeline
 "|    Theme                                                               {{{
 "|===========================================================================
 "autocmd ColorScheme * highlight RedundantSpaces term=standout ctermbg=red guibg=red
-colo jellybeans
 "match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
 hi Folded ctermfg=green ctermbg=darkgray
-let g:jellybeans_background_color_256="none"
+let g:jellybeans_overrides = {
+\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
+\}
+if has('termguicolors') && &termguicolors
+    let g:jellybeans_overrides['background']['guibg'] = 'none'
+endif
+colo jellybeans
 
 " }}} "
 
