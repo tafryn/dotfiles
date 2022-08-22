@@ -1,5 +1,3 @@
-. ~/.config/fish/aliases.fish
-
 # Environment Variables
 set -gx LC_COLLATE "C"
 set -gx GCC_COLORS "on"
@@ -27,6 +25,9 @@ set -x HOME_MOUNT (df -P /home | tail -1 | tr -s ' ' | cut -d' ' -f 6)
 
 # Tweak fish colors
 set -e fish_color_valid_path
+
+# Set aliases
+. ~/.config/fish/aliases.fish
 
 # Local changes for this machine
 . ~/.config/fish/local.fish
