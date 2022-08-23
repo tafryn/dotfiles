@@ -101,7 +101,7 @@ lvim.builtin.which_key.mappings["D"] = {
 	f = { "<cmd>DiffviewFileHistory %<CR>", "File History" },
 	l = {
 		'<cmd>lua require("diffview").open(vim.fn.expand("<cword>")..".."..vim.fn.expand("<cword>").."^")<CR>',
-		"Test",
+		"Cursor Commit",
 	},
 }
 

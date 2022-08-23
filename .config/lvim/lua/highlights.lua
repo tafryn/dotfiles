@@ -62,7 +62,13 @@ vim.cmd([[
   autocmd ColorScheme * hi! link GitGutterAddLineNr Question
   autocmd ColorScheme * hi! link GitGutterChangeLineNr Type
   autocmd ColorScheme * hi! link GitGutterChangeDeleteLineNr Number
-  autocmd ColorScheme * hi! link GitGutterDeleteLineNr WarningMsg
+  autocmd ColorScheme * hi! link GitGutterDeleteLineNr Constant
+
+  " VimDiff
+  autocmd ColorScheme * hi! DiffAdd guifg=none guibg=#223F1B gui=none
+  autocmd ColorScheme * hi! DiffChange guifg=none guibg=none
+  autocmd ColorScheme * hi! DiffText guifg=none guibg=#533C21 gui=none
+  autocmd ColorScheme * hi! link DiffDelete Constant
 
   " Folds
   hi Folded ctermfg=green ctermbg=darkgray
