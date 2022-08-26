@@ -49,6 +49,8 @@ lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
 
+vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {})
+
 -- Dvorak compensators
 vim.api.nvim_set_keymap("", "d", "h", { noremap = true })
 vim.api.nvim_set_keymap("", "h", "j", { noremap = true })
@@ -59,6 +61,11 @@ vim.api.nvim_set_keymap("", "D", "^", { noremap = true })
 vim.api.nvim_set_keymap("", "H", "<C-D>", { noremap = true })
 vim.api.nvim_set_keymap("", "T", "<C-U>", { noremap = true })
 vim.api.nvim_set_keymap("", "N", "$", { noremap = true })
+
+vim.api.nvim_set_keymap("", "<C-w>d", "<C-w>H", { noremap = true })
+vim.api.nvim_set_keymap("", "<C-w>h", "<C-w>J", { noremap = true })
+vim.api.nvim_set_keymap("", "<C-w>t", "<C-w>K", { noremap = true })
+vim.api.nvim_set_keymap("", "<C-w>n", "<C-w>L", { noremap = true })
 
 vim.api.nvim_set_keymap("", "j", "d", { noremap = true })
 vim.api.nvim_set_keymap("", "J", "D", { noremap = true })
@@ -380,4 +387,6 @@ lvim.autocommands = {
 	{ "FileType", { pattern = { "alpha" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
 	{ "FileType", { pattern = { "lspinfo" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
 	{ "FileType", { pattern = { "floaterm" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
+	{ "BufEnter", { pattern = { "term://*" }, command = "startinsert" } },
+	{ "TermOpen", { pattern = { "*" }, command = "startinsert | set nonu | set nornu" } },
 }
