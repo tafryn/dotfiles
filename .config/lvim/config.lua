@@ -62,11 +62,6 @@ vim.api.nvim_set_keymap("", "H", "<C-D>", { noremap = true })
 vim.api.nvim_set_keymap("", "T", "<C-U>", { noremap = true })
 vim.api.nvim_set_keymap("", "N", "$", { noremap = true })
 
-vim.api.nvim_set_keymap("", "<C-w>d", "<C-w>H", { noremap = true })
-vim.api.nvim_set_keymap("", "<C-w>h", "<C-w>J", { noremap = true })
-vim.api.nvim_set_keymap("", "<C-w>t", "<C-w>K", { noremap = true })
-vim.api.nvim_set_keymap("", "<C-w>n", "<C-w>L", { noremap = true })
-
 vim.api.nvim_set_keymap("", "j", "d", { noremap = true })
 vim.api.nvim_set_keymap("", "J", "D", { noremap = true })
 vim.api.nvim_set_keymap("", "l", "n", { noremap = true })
