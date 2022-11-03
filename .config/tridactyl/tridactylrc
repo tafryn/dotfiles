@@ -29,3 +29,4 @@ set editorcmd i3-sensible-terminal -t Firefox-NVIM -e nvim
 colorscheme dark
 
 blacklistadd https://www.nytimes.com/games/wordle/index.html
+blacklistadd https://godbolt.org
