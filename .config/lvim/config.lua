@@ -10,10 +10,8 @@ an executable
 
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save = true
-lvim.lint_on_save = true
+lvim.format_on_save.enabled = true
 lvim.colorscheme = "jellybeans"
-lvim.lsp.diagnostics.virtual_text = false
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -21,13 +19,12 @@ lvim.lsp.diagnostics.virtual_text = false
 lvim.leader = "space"
 -- add your own keymapping
 -- lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+-- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+-- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
-
-lvim.keys.normal_mode["<S-h>"] = nil
-lvim.keys.normal_mode["<S-l>"] = nil
 
 lvim.keys.normal_mode["gp"] = "`[v`]"
 lvim.keys.normal_mode["ga"] = ":A<CR>"
@@ -37,13 +34,11 @@ lvim.keys.normal_mode["<C-u>"] = ":lp<CR>"
 lvim.keys.normal_mode["<C-e>"] = ":lne<CR>"
 lvim.keys.normal_mode["<F7>"] = ":setlocal spell!<CR>"
 lvim.keys.normal_mode["<S-F7>"] = "z="
-lvim.keys.normal_mode["<Tab>"] = ":BufferLineCycleNext<CR>"
-lvim.keys.normal_mode["<S-Tab>"] = ":BufferLineCyclePrev<CR>"
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
-vim.api.nvim_set_keymap("", "<C-PageUp>", "<S-Tab>", {})
-vim.api.nvim_set_keymap("", "<C-PageDown>", "<Tab>", {})
+vim.api.nvim_set_keymap("", "<C-PageUp>", ":BufferLineCyclePrev<CR>", {})
+vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", {})
 
 lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
@@ -85,6 +80,10 @@ vim.api.nvim_set_keymap("", "L", "N", { noremap = true })
 --   },
 -- }
 
+-- Change theme settings
+-- lvim.builtin.theme.options.dim_inactive = true
+-- lvim.builtin.theme.options.style = "storm"
+
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 lvim.builtin.which_key.mappings["t"] = {
@@ -108,22 +107,19 @@ lvim.builtin.which_key.mappings["D"] = {
 }
 
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
-lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature Help" }
+lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
-
-lvim.builtin.which_key.mappings["d"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
-
 lvim.builtin.which_key.mappings["a"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
 lvim.builtin.alpha.active = true
 lvim.builtin.alpha.mode = "startify"
-lvim.builtin.notify.active = true
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.bufferline.options.always_show_bufferline = true
+lvim.builtin.indentlines.active = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -144,7 +140,7 @@ lvim.builtin.treesitter.ensure_installed = {
 }
 
 lvim.builtin.treesitter.ignore_install = { "haskell" }
-lvim.builtin.treesitter.highlight.enabled = true
+lvim.builtin.treesitter.highlight.enable = true
 
 -- Enable quick closing of telescope windows
 lvim.builtin.telescope.defaults.mappings = { i = { ["<esc>"] = require("telescope.actions").close } }
@@ -184,7 +180,6 @@ vim.g.jellybeans_overrides = {
 
 --- Additional Options ---
 vim.opt.relativenumber = true
-vim.opt.cmdheight = 1
 vim.opt.showmatch = true
 vim.opt.visualbell = true
 vim.opt.shiftround = true
@@ -193,8 +188,6 @@ vim.opt.wildignorecase = true
 vim.opt.foldopen = vim.o.foldopen .. ",jump"
 vim.opt.wrapscan = false
 vim.opt.linebreak = true
-vim.opt.tabstop = 4
-vim.opt.shiftwidth = 4
 vim.opt.path = vim.opt.path._info.default .. "./include,include;"
 
 -- tmux-navigate support
@@ -204,7 +197,7 @@ require("tmux-navigate")
 
 -- -- make sure server will always be installed even if the server is in skipped_servers list
 -- lvim.lsp.installer.setup.ensure_installed = {
---     "sumeko_lua",
+--     "sumneko_lua",
 --     "jsonls",
 -- }
 -- -- change UI setting of `LspInstallInfo`
@@ -217,7 +210,7 @@ require("tmux-navigate")
 -- }
 
 -- ---@usage disable automatic installation of servers
--- lvim.lsp.automatic_servers_installation = false
+-- lvim.lsp.installer.setup.automatic_installation = false
 
 -- ---configure a server manually. !!Requires `:LvimCacheReset` to take effect!!
 -- ---see the full default list `:lua print(vim.inspect(lvim.lsp.automatic_configuration.skipped_servers))`
@@ -227,7 +220,7 @@ vim.list_extend(lvim.lsp.automatic_configuration.skipped_servers, { "cmake_forma
 
 -- ---remove a server from the skipped list, e.g. eslint, or emmet_ls. !!Requires `:LvimCacheReset` to take effect!!
 -- ---`:LvimInfo` lists which server(s) are skipped for the current filetype
--- vim.tbl_map(function(server)
+-- lvim.lsp.automatic_configuration.skipped_servers = vim.tbl_filter(function(server)
 --   return server ~= "emmet_ls"
 -- end, lvim.lsp.automatic_configuration.skipped_servers)
 
@@ -385,3 +378,4 @@ lvim.autocommands = {
 	{ "BufEnter", { pattern = { "term://*" }, command = "startinsert" } },
 	{ "TermOpen", { pattern = { "*" }, command = "startinsert | set nonu | set nornu" } },
 }
+-- vim: set ts=2 sw=2:
