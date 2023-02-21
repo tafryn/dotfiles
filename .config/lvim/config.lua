@@ -26,7 +26,7 @@ lvim.leader = "space"
 -- override a default keymapping
 -- lvim.keys.normal_mode["<C-q>"] = ":q<cr>" -- or vim.keymap.set("n", "<C-q>", ":q<cr>" )
 
-lvim.keys.normal_mode["gp"] = "`[v`]"
+lvim.keys.normal_mode["gp"] = ":lua require('peek').Peek('definition')<CR>"
 lvim.keys.normal_mode["ga"] = ":A<CR>"
 lvim.keys.normal_mode["<F4>"] = ":cp<CR>"
 lvim.keys.normal_mode["<F6>"] = ":cn<CR>"
@@ -39,12 +39,12 @@ lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
 vim.api.nvim_set_keymap("", "<C-PageUp>", ":BufferLineCyclePrev<CR>", {})
 vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", {})
+vim.api.nvim_set_keymap("", "<C-S-PageUp>", ":BufferLineMovePrev<CR>", {})
+vim.api.nvim_set_keymap("", "<C-S-PageDown>", ":BufferLineMoveNext<CR>", {})
 
 lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
-
-vim.api.nvim_set_keymap("t", "<Esc>", "<C-\\><C-n>", {})
 
 -- Dvorak compensators
 vim.api.nvim_set_keymap("", "d", "h", { noremap = true })
@@ -86,7 +86,7 @@ vim.api.nvim_set_keymap("", "L", "N", { noremap = true })
 
 -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
-lvim.builtin.which_key.mappings["t"] = {
+lvim.builtin.which_key.mappings["r"] = {
 	name = "+Trouble",
 	r = { "<cmd>Trouble lsp_references<cr>", "References" },
 	f = { "<cmd>Trouble lsp_definitions<cr>", "Definitions" },
@@ -106,6 +106,7 @@ lvim.builtin.which_key.mappings["D"] = {
 	},
 }
 
+lvim.builtin.which_key.mappings["t"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
@@ -120,6 +121,8 @@ lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.bufferline.options.always_show_bufferline = true
 lvim.builtin.indentlines.active = false
+lvim.builtin.breadcrumbs.active = false
+lvim.builtin.illuminate.active = false
 
 -- if you don't want all the parsers change this to a table of the ones you want
 lvim.builtin.treesitter.ensure_installed = {
@@ -188,6 +191,8 @@ vim.opt.wildignorecase = true
 vim.opt.foldopen = vim.o.foldopen .. ",jump"
 vim.opt.wrapscan = false
 vim.opt.linebreak = true
+vim.opt.tabstop = 4
+vim.opt.shiftwidth = 4
 vim.opt.path = vim.opt.path._info.default .. "./include,include;"
 
 -- tmux-navigate support
@@ -342,6 +347,9 @@ lvim.plugins = {
 	{
 		"folke/trouble.nvim",
 		cmd = "TroubleToggle",
+	},
+	{
+		"LunarVim/peek.lua",
 	},
 
 	-- Tpope-ify
