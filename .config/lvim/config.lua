@@ -37,10 +37,10 @@ lvim.keys.normal_mode["<S-F7>"] = "z="
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
-vim.api.nvim_set_keymap("", "<C-PageUp>", ":BufferLineCyclePrev<CR>", {})
-vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", {})
-vim.api.nvim_set_keymap("", "<C-S-PageUp>", ":BufferLineMovePrev<CR>", {})
-vim.api.nvim_set_keymap("", "<C-S-PageDown>", ":BufferLineMoveNext<CR>", {})
+vim.api.nvim_set_keymap("", "<C-PageUp>", ":BufferLineCyclePrev<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-S-PageUp>", ":BufferLineMovePrev<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-S-PageDown>", ":BufferLineMoveNext<CR>", { silent = true })
 
 lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
