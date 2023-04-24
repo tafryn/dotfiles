@@ -1,5 +1,5 @@
 configuration {
-	modi: "run,drun,window";
+	modi: "run,drun,window,tod:tod.sh";
 	font: "Hack Nerd Font 12";
 }
 

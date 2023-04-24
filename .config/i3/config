@@ -408,6 +408,9 @@ bindsym $mod+Shift+p exec --no-startup-id "rofi -show drun"
 # Window switcher                                                    ($mod+Tab)
 bindsym $mod+Tab exec --no-startup-id "rofi -show window"
 
+# Todo adder                                                   ($mod+Shift+Tab)
+bindsym $mod+Shift+Tab exec --no-startup-id "rofi -theme-str 'window {height: 3.2em;}' -show tod"
+
 # Lock screen                                                          ($mod+l)
 bindsym $mod+l exec --no-startup-id xscreensaver-command -lock
 
