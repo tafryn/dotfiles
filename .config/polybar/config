@@ -30,9 +30,9 @@ width = 100%
 fixed-center = true
 ; border-color = ${colors.alert}
 
-font-0 = Hack Nerd Font:size=10;2
-font-1 = Hack Nerd Font:size=12;2
-font-2 = Hack Nerd Font:size=14;2
+font-0 = HackNerdFont:size=10;2
+font-1 = HackNerdFont:size=12;2
+font-2 = HackNerdFont:size=14;2
 font-3 = DejaVu Sans Mono
 font-4 = Monoid
 

@@ -1,6 +1,6 @@
 configuration {
 	modi: "run,drun,window,tod:tod.sh";
-	font: "Hack Nerd Font 12";
+	font: "HackNerdFont 12";
 }
 
 @theme "~/.local/share/rofi/themes/mod_blue.rasi"
