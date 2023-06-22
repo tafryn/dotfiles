@@ -30,10 +30,12 @@ lvim.keys.normal_mode["gp"] = ":lua require('peek').Peek('definition')<CR>"
 lvim.keys.normal_mode["ga"] = ":A<CR>"
 lvim.keys.normal_mode["<F4>"] = ":cp<CR>"
 lvim.keys.normal_mode["<F6>"] = ":cn<CR>"
+lvim.keys.normal_mode["<F7>"] = ":lua vim.diagnostic.goto_prev()<CR>"
+lvim.keys.normal_mode["<F9>"] = ":lua vim.diagnostic.goto_next()<CR>"
 lvim.keys.normal_mode["<C-u>"] = ":lp<CR>"
 lvim.keys.normal_mode["<C-e>"] = ":lne<CR>"
-lvim.keys.normal_mode["<F7>"] = ":setlocal spell!<CR>"
-lvim.keys.normal_mode["<S-F7>"] = "z="
+lvim.keys.normal_mode["<F8>"] = ":setlocal spell!<CR>"
+lvim.keys.normal_mode["<S-F8>"] = "z="
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
@@ -42,7 +44,7 @@ vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", { silent
 vim.api.nvim_set_keymap("", "<C-S-PageUp>", ":BufferLineMovePrev<CR>", { silent = true })
 vim.api.nvim_set_keymap("", "<C-S-PageDown>", ":BufferLineMoveNext<CR>", { silent = true })
 
-lvim.keys.insert_mode["<F7>"] = "<C-o>:setlocal spell!<CR>"
+lvim.keys.insert_mode["<F8>"] = "<C-o>:setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
 
