@@ -279,8 +279,24 @@ formatters.setup({
 
 -- Additional Plugins
 lvim.plugins = {
+	-- Colorschemes
 	{ "nanotech/jellybeans.vim" },
+	{
+		"rebelot/kanagawa.nvim",
+		config = function()
+			require("kanagawa").setup({
+				transparent = true,
+				background = {
+					dark = "dragon",
+					light = "wave",
+				},
+			})
+		end,
+	},
+	{ "folke/twilight.nvim" },
 	{ "sainnhe/gruvbox-material" },
+	{ "EdenEast/nightfox.nvim" },
+	{ "catppuccin/nvim" },
 
 	-- Enhancements to existing capabilities and other plugins
 	{
