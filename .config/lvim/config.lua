@@ -11,7 +11,7 @@ an executable
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = true
-lvim.colorscheme = "jellybeans"
+lvim.colorscheme = "gruvbox-material"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -194,6 +194,9 @@ vim.opt.linebreak = true
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.path = vim.opt.path._info.default .. "./include,include;"
+vim.g.gruvbox_material_background = "hard"
+vim.g.gruvbox_material_transparent_background = 1
+vim.g.gruvbox_material_disable_italic_comment = 1
 
 -- tmux-navigate support
 require("tmux-navigate")
@@ -277,6 +280,7 @@ formatters.setup({
 -- Additional Plugins
 lvim.plugins = {
 	{ "nanotech/jellybeans.vim" },
+	{ "sainnhe/gruvbox-material" },
 
 	-- Enhancements to existing capabilities and other plugins
 	{

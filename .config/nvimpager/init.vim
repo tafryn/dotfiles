@@ -1,7 +1,7 @@
 "|    Settings                                                            {{{
 "|===========================================================================
 "let g:vimpager_passthrough = 0
-set runtimepath^=~/.vim/bundle/jellybeans.vim
+set runtimepath^=~/.local/share/lunarvim/site/pack/packer/start/gruvbox-material
 set nomodeline
 
 " }}} "
@@ -10,14 +10,10 @@ set nomodeline
 "|===========================================================================
 "autocmd ColorScheme * highlight RedundantSpaces term=standout ctermbg=red guibg=red
 "match RedundantSpaces /\s\+$\| \+\ze\t/ "\ze sets end of match so only spaces highlighted
-hi Folded ctermfg=green ctermbg=darkgray
-let g:jellybeans_overrides = {
-\    'background': { 'ctermbg': 'none', '256ctermbg': 'none' },
-\}
-if has('termguicolors') && &termguicolors
-    let g:jellybeans_overrides['background']['guibg'] = 'none'
-endif
-colo jellybeans
+let g:gruvbox_material_background = "hard"
+let g:gruvbox_material_transparent_background = 1
+let g:gruvbox_material_disable_italic_comment = 1
+colo gruvbox-material
 
 " }}} "
 
