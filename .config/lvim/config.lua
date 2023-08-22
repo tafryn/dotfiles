@@ -331,11 +331,15 @@ lvim.plugins = {
 
   -- Additional operators
   {
-    "tpope/vim-surround",
-    event = "BufRead",
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
     config = function()
-      vim.api.nvim_del_keymap("n", "ds")
-      vim.api.nvim_set_keymap("n", "js", "<Plug>Dsurround", {})
+      require("nvim-surround").setup({
+        keymaps = {
+          delete = "js",
+        },
+      })
     end,
   },
   { "tommcdo/vim-exchange", event = "BufRead" },
