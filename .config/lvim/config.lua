@@ -244,10 +244,7 @@ lvim.plugins = {
       })
     end,
   },
-  { "folke/twilight.nvim" },
   { "sainnhe/gruvbox-material" },
-  { "EdenEast/nightfox.nvim" },
-  { "catppuccin/nvim" },
 
   -- Enhancements to existing capabilities and other plugins
   {
