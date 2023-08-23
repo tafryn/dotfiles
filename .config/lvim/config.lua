@@ -104,6 +104,8 @@ lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>"
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
 lvim.builtin.which_key.mappings["a"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
+lvim.builtin.which_key.mappings["x"] = { "", "Substitute" }
+lvim.builtin.which_key.mappings["X"] = { "", "Substitute range" }
 
 -- -- Change theme settings
 lvim.colorscheme = "gruvbox-material"
@@ -339,7 +341,16 @@ lvim.plugins = {
       })
     end,
   },
-  { "tommcdo/vim-exchange", event = "BufRead" },
+  {
+    "gbprod/substitute.nvim",
+    event = "BufRead",
+    config = function()
+      require("substitute").setup({})
+      vim.keymap.set("n", "<leader>x", require("substitute").operator, { noremap = true })
+      vim.keymap.set("n", "<leader>X", require("substitute.range").operator, { noremap = true })
+      vim.keymap.set("n", "cx", require("substitute.exchange").operator, { noremap = true })
+    end,
+  },
 
   -- Additional targets
   { "wellle/targets.vim", event = "BufRead" },
