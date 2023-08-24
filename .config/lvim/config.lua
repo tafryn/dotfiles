@@ -38,25 +38,25 @@ lvim.leader = "space"
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
-lvim.keys.normal_mode["gp"] = ":lua require('peek').Peek('definition')<CR>"
-lvim.keys.normal_mode["ga"] = ":A<CR>"
-lvim.keys.normal_mode["<F4>"] = ":cp<CR>"
-lvim.keys.normal_mode["<F6>"] = ":cn<CR>"
-lvim.keys.normal_mode["<S-F4>"] = ":lp<CR>"
-lvim.keys.normal_mode["<S-F6>"] = ":lne<CR>"
-lvim.keys.normal_mode["<F7>"] = ":lua vim.diagnostic.goto_prev()<CR>"
-lvim.keys.normal_mode["<F9>"] = ":lua vim.diagnostic.goto_next()<CR>"
-lvim.keys.normal_mode["<F8>"] = ":setlocal spell!<CR>"
+lvim.keys.normal_mode["gp"] = "<cmd>lua require('peek').Peek('definition')<CR>"
+lvim.keys.normal_mode["ga"] = "<cmd>A<CR>"
+lvim.keys.normal_mode["<F4>"] = "<cmd>cp<CR>"
+lvim.keys.normal_mode["<F6>"] = "<cmd>cn<CR>"
+lvim.keys.normal_mode["<S-F4>"] = "<cmd>lp<CR>"
+lvim.keys.normal_mode["<S-F6>"] = "<cmd>lne<CR>"
+lvim.keys.normal_mode["<F7>"] = "<cmd>lua vim.diagnostic.goto_prev()<CR>"
+lvim.keys.normal_mode["<F9>"] = "<cmd>lua vim.diagnostic.goto_next()<CR>"
+lvim.keys.normal_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.normal_mode["<S-F8>"] = "z="
 lvim.keys.normal_mode["<PageUp>"] = "<C-u>"
 lvim.keys.normal_mode["<PageDown>"] = "<C-d>"
 
-vim.api.nvim_set_keymap("", "<C-PageUp>", ":BufferLineCyclePrev<CR>", { silent = true })
-vim.api.nvim_set_keymap("", "<C-PageDown>", ":BufferLineCycleNext<CR>", { silent = true })
-vim.api.nvim_set_keymap("", "<C-S-PageUp>", ":BufferLineMovePrev<CR>", { silent = true })
-vim.api.nvim_set_keymap("", "<C-S-PageDown>", ":BufferLineMoveNext<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-PageUp>", "<cmd>BufferLineCyclePrev<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-PageDown>", "<cmd>BufferLineCycleNext<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-S-PageUp>", "<cmd>BufferLineMovePrev<CR>", { silent = true })
+vim.api.nvim_set_keymap("", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<CR>", { silent = true })
 
-lvim.keys.insert_mode["<F8>"] = "<C-o>:setlocal spell!<CR>"
+lvim.keys.insert_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
 
