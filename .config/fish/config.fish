@@ -5,7 +5,7 @@ set -gx TZ "America/Los_Angeles"
 set -x EDITOR "lvim"
 set -x TERMINAL "alacritty"
 set -x BROWSER "firefox"
-set -x EXA_COLORS "sn=;32:sb=;37:uu=;36:un=;37:gu=;36:gn=;37:ur=;36:uw=;36:ue=;36:gr=;36:gw=;31:gx=;36:tr=;36:tx=;36"
+set -x EZA_COLORS "sn=;32:sb=;37:uu=;36:uR=;37:gu=;36:gR=;37:ur=;36:uw=;36:ue=;36:gr=;36:gw=;31:gx=;36:tr=;36:tx=;36"
 
 # PATH is handled specially by fish so the elements are space separated
 # instead of colon separated.

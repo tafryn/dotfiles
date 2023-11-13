@@ -14,11 +14,11 @@ else
     alias less "less -r"
 end
 
-if command --search "exa" >/dev/null
-    alias ls "exa --group-directories-first"
-    alias ll "exa -l --group-directories-first"
-    alias la "exa -a --group-directories-first"
-    alias tree "exa --tree"
+if command --search "eza" >/dev/null
+    alias ls "eza --group-directories-first"
+    alias ll "eza -l --group-directories-first"
+    alias la "eza -a --group-directories-first"
+    alias tree "eza --tree"
 else if command --search "lsd" >/dev/null
     alias ls "lsd"
     alias ll "lsd -l"
