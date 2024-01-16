@@ -60,6 +60,8 @@ lvim.keys.insert_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
 
+vim.keymap.set("x", "p", [["_dP]])
+
 -- Dvorak compensators
 vim.api.nvim_set_keymap("", "d", "h", { noremap = true })
 vim.api.nvim_set_keymap("", "h", "j", { noremap = true })
