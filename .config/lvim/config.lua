@@ -59,6 +59,9 @@ vim.api.nvim_set_keymap("", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<CR>", { s
 lvim.keys.insert_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
+lvim.keys.insert_mode["<C-s>"] = function()
+  require("luasnip").expand()
+end
 
 vim.keymap.set("x", "p", [["_dP]])
 
@@ -99,6 +102,12 @@ lvim.builtin.which_key.mappings["D"] = {
     '<cmd>lua require("diffview").open(vim.fn.expand("<cword>")..".."..vim.fn.expand("<cword>").."^")<CR>',
     "Cursor Commit",
   },
+}
+
+lvim.builtin.which_key.mappings["S"] = {
+  name = "+Snippets",
+  e = { "<cmd>lua require('scissors').editSnippet()<CR>", "Edit Snippet" },
+  n = { "<cmd>lua require('scissors').addNewSnippet()<CR>", "New Snippet" },
 }
 
 lvim.builtin.which_key.mappings["t"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
@@ -322,6 +331,13 @@ lvim.plugins = {
   },
   {
     "LunarVim/peek.lua",
+  },
+  {
+    "chrisgrieser/nvim-scissors",
+    dependencies = "nvim-telescope/telescope.nvim", -- optional
+    opts = {
+      snippetDir = vim.env.LUNARVIM_CONFIG_DIR .. "/snippets",
+    },
   },
 
   -- Tpope-ify
