@@ -37,6 +37,7 @@ lvim.leader = "space"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.lsp.buffer_mappings.normal_mode["gs"] = nil
 
 lvim.keys.normal_mode["gp"] = "<cmd>lua require('peek').Peek('definition')<CR>"
 lvim.keys.normal_mode["ga"] = "<cmd>A<CR>"
@@ -306,15 +307,25 @@ lvim.plugins = {
     end,
   },
   {
-    "ggandor/lightspeed.nvim",
-    event = "BufRead",
+    "ggandor/leap.nvim",
     config = function()
-      vim.api.nvim_set_keymap("n", "k", "<Plug>Lightspeed_t", { silent = true })
-      vim.api.nvim_set_keymap("n", "K", "<Plug>Lightspeed_T", { silent = true })
-      vim.api.nvim_set_keymap("x", "k", "<Plug>Lightspeed_t", { silent = true })
-      vim.api.nvim_set_keymap("x", "K", "<Plug>Lightspeed_T", { silent = true })
-      vim.api.nvim_set_keymap("o", "k", "<Plug>Lightspeed_t", { silent = true })
-      vim.api.nvim_set_keymap("o", "K", "<Plug>Lightspeed_T", { silent = true })
+      local leap = require("leap")
+      leap.create_default_mappings()
+      leap.opts.safe_labels = "sfujklm/SFUJKLMUGZ?"
+      vim.api.nvim_create_autocmd("ColorScheme", {
+        callback = function()
+          vim.api.nvim_set_hl(0, "LeapLabelPrimary", { link = "LeapMatch" })
+          -- etc.
+        end,
+      })
+    end,
+  },
+  {
+    "ggandor/flit.nvim",
+    config = function()
+      require("flit").setup({
+        keys = { f = "f", F = "F", t = "k", T = "K" },
+      })
     end,
   },
   {
@@ -355,6 +366,7 @@ lvim.plugins = {
       require("nvim-surround").setup({
         keymaps = {
           delete = "js",
+          visual = "ms",
         },
       })
     end,
