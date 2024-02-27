@@ -114,8 +114,8 @@ lvim.builtin.which_key.mappings["t"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Ho
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
-lvim.builtin.which_key.mappings["a"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
 lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers previewer=false<cr>", "Find buffers" }
+lvim.builtin.which_key.mappings["A"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
 lvim.builtin.which_key.mappings["x"] = { "", "Substitute" }
 lvim.builtin.which_key.mappings["X"] = { "", "Substitute range" }
 
@@ -142,9 +142,9 @@ lvim.builtin.alpha.mode = "startify"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
-lvim.builtin.bufferline.options.always_show_bufferline = true
+lvim.builtin.bufferline.active = false
 lvim.builtin.indentlines.active = false
-lvim.builtin.breadcrumbs.active = false
+lvim.builtin.breadcrumbs.active = true
 lvim.builtin.illuminate.active = false
 
 -- Automatically install missing parsers when entering buffer
@@ -286,6 +286,23 @@ lvim.plugins = {
   {
     "sindrets/diffview.nvim",
     dependencies = "nvim-lua/plenary.nvim",
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    dependencies = "nvim-lua/plenary.nvim",
+    init = function() require("harpoon").setup({}) end,
+    config = function()
+      local harpoon = require("harpoon")
+      vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { noremap = true })
+      vim.keymap.set("n", "-", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { noremap = true })
+      vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end, { noremap = true })
+      vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end, { noremap = true })
+      vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end, { noremap = true })
+      vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end, { noremap = true })
+      vim.keymap.set("n", "<C-S-H>", function() harpoon:list():next() end, { noremap = true })
+      vim.keymap.set("n", "<C-S-T>", function() harpoon:list():prev() end, { noremap = true })
+    end,
   },
 
   -- New Capabilities
