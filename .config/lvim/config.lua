@@ -37,6 +37,7 @@ lvim.leader = "space"
 
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+vim.api.nvim_set_keymap("", "gQ", "<Nop>", { noremap = true })
 lvim.lsp.buffer_mappings.normal_mode["gs"] = nil
 
 lvim.keys.normal_mode["gp"] = "<cmd>lua require('peek').Peek('definition')<CR>"
@@ -114,6 +115,7 @@ lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>"
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
 lvim.builtin.which_key.mappings["a"] = { "<cmd>lua vim.lsp.buf.code_action()<cr>1<cr>", "Apply Default Code Action" }
+lvim.builtin.which_key.mappings["b"]["b"] = { "<cmd>Telescope buffers previewer=false<cr>", "Find buffers" }
 lvim.builtin.which_key.mappings["x"] = { "", "Substitute" }
 lvim.builtin.which_key.mappings["X"] = { "", "Substitute range" }
 
@@ -186,6 +188,8 @@ if status_ok then
     { key = { "n", "<CR>", "o" }, cb = tree_cb("edit") },
     { key = "d", cb = tree_cb("close_node") },
     { key = "v", cb = tree_cb("vsplit") },
+    { key = "s", action = "" },
+    { key = "S", action = "" },
   }
 end
 
@@ -391,5 +395,6 @@ lvim.autocommands = {
   { "FileType", { pattern = { "floaterm" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
   { "BufEnter", { pattern = { "term://*" }, command = "startinsert" } },
   { "TermOpen", { pattern = { "*" }, command = "startinsert | set nonu | set nornu" } },
+  { "BufWinEnter", { pattern = { "*" }, command = "set formatoptions-=o" } },
 }
 -- vim: set ts=2 sw=2 et:
