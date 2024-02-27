@@ -60,9 +60,7 @@ vim.api.nvim_set_keymap("", "<C-S-PageDown>", "<cmd>BufferLineMoveNext<CR>", { s
 lvim.keys.insert_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
-lvim.keys.insert_mode["<C-s>"] = function()
-  require("luasnip").expand()
-end
+lvim.keys.insert_mode["<C-s>"] = function() require("luasnip").expand() end
 
 vim.keymap.set("x", "p", [["_dP]])
 
@@ -178,9 +176,7 @@ lvim.builtin.telescope.extensions["fzf"] = {
   fuzzy = true,
   override_generic_sorter = true,
 }
-lvim.builtin.telescope.on_config_done = function(telescope)
-  telescope.load_extension("fzf")
-end
+lvim.builtin.telescope.on_config_done = function(telescope) telescope.load_extension("fzf") end
 
 -- Adapt default nvim-tree mappings for dvorak
 local status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
@@ -272,9 +268,7 @@ lvim.plugins = {
   {
     "kevinhwang91/nvim-bqf",
     event = "BufRead",
-    config = function()
-      require("bqf").setup({ func_map = { tab = "" } })
-    end,
+    config = function() require("bqf").setup({ func_map = { tab = "" } }) end,
   },
   {
     "peterhoeg/vim-qml",
