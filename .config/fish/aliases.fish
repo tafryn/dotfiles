@@ -34,6 +34,12 @@ if command --search "systemctl" >/dev/null
     alias restart "sudo systemctl restart"
 end
 
+if command --search "nvim" >/dev/null
+    alias v "nvim"
+    alias vk "NVIM_APPNAME=nvim-kickstart-mod nvim"
+    # alias vl "NVIM_APPNAME=lvim nvim"
+end
+
 alias cls "clear; ls"
 alias grep "grep --color=auto --binary-files=without-match --exclude-dir=.svn"
 alias socks "ssh -f -N -D 8080"
