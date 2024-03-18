@@ -1,7 +1,8 @@
 "|    Settings                                                            {{{
 "|===========================================================================
 "let g:vimpager_passthrough = 0
-set runtimepath^=~/.local/share/lunarvim/site/pack/packer/start/gruvbox-material
+set runtimepath^=~/.local/share/lunarvim/site/pack/lazy/opt/gruvbox-material
+set termguicolors
 set nomodeline
 
 " }}} "
