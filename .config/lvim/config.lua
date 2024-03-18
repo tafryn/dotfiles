@@ -42,6 +42,8 @@ lvim.lsp.buffer_mappings.normal_mode["gs"] = nil
 
 lvim.keys.normal_mode["gp"] = "<cmd>lua require('peek').Peek('definition')<CR>"
 lvim.keys.normal_mode["ga"] = "<cmd>A<CR>"
+lvim.keys.insert_mode["<C-s>"] = function() require("luasnip").expand() end
+
 lvim.keys.normal_mode["<F4>"] = "<cmd>cp<CR>"
 lvim.keys.normal_mode["<F6>"] = "<cmd>cn<CR>"
 lvim.keys.normal_mode["<S-F4>"] = "<cmd>lp<CR>"
@@ -61,9 +63,9 @@ vim.api.nvim_set_keymap("", "<C-S-PageDown>", "<cmd>tabmove +1<CR>", { silent = 
 lvim.keys.insert_mode["<F8>"] = "<cmd>setlocal spell!<CR>"
 lvim.keys.insert_mode["<PageUp>"] = "<C-o><C-u>"
 lvim.keys.insert_mode["<PageDown>"] = "<C-o><C-d>"
-lvim.keys.insert_mode["<C-s>"] = function() require("luasnip").expand() end
 
 vim.keymap.set("x", "p", [["_dP]])
+vim.keymap.set("n", "*", "*``")
 
 -- Dvorak compensators
 vim.api.nvim_set_keymap("", "d", "h", { noremap = true })
@@ -294,7 +296,10 @@ lvim.plugins = {
     init = function() require("harpoon").setup({}) end,
     config = function()
       local harpoon = require("harpoon")
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():append() end, { noremap = true })
+      vim.keymap.set("n", "<S-m>", function()
+        harpoon:list():append()
+        vim.notify("󱡅 marked file")
+      end, { noremap = true })
       vim.keymap.set("n", "-", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { noremap = true })
       vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end, { noremap = true })
       vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end, { noremap = true })
