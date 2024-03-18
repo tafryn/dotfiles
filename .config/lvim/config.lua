@@ -110,7 +110,7 @@ lvim.builtin.which_key.mappings["S"] = {
   n = { "<cmd>lua require('scissors').addNewSnippet()<CR>", "New Snippet" },
 }
 
-lvim.builtin.which_key.mappings["t"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
+lvim.builtin.which_key.mappings["n"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["h"] = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover Doc" }
 lvim.builtin.which_key.mappings["l"]["H"] = { "<cmd>lua vim.diagnostic.hide()<cr>", "Hide Diagnostics" }
 lvim.builtin.which_key.mappings["s"]["w"] = { "<cmd>Telescope grep_string<cr>", "Search Word" }
@@ -482,6 +482,37 @@ lvim.plugins = {
       snippetDir = vim.env.LUNARVIM_CONFIG_DIR .. "/snippets",
     },
   },
+  {
+    "nvim-neotest/neotest",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-lua/plenary.nvim",
+      "alfaix/neotest-gtest",
+      -- your other adapters here
+    },
+    init = function()
+      require("neotest").setup({
+        adapters = { require("neotest-gtest").setup({}) },
+        summary = {
+          enabled = true,
+          open = "botright vsplit | vertical resize 50",
+          mappings = { target = ">", expand = "n", jumpto = "<CR>" },
+        },
+      })
+    end,
+    config = function()
+      vim.keymap.set("n", "<leader>tt", function() require("neotest").run.run() end, { noremap = true })
+      vim.keymap.set(
+        "n",
+        "<leader>tf",
+        function() require("neotest").run.run(vim.fn.expand("%")) end,
+        { noremap = true }
+      )
+      vim.keymap.set("n", "<leader>ts", function() require("neotest").run.stop() end, { noremap = true })
+      vim.keymap.set("n", "<leader>ta", function() require("neotest").run.attach() end, { noremap = true })
+      vim.keymap.set("n", "<leader>tS", function() require("neotest").summary.toggle() end, { noremap = true })
+    end,
+  },
 
   -- Tpope-ify
   { "tpope/vim-repeat", event = "BufRead" },
@@ -527,8 +558,8 @@ lvim.autocommands = {
   { "FileType", { pattern = { "git" }, command = "setlocal nofoldenable" } },
   { "FileType", { pattern = { "lspinfo" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
   { "FileType", { pattern = { "floaterm" }, command = "nnoremap <silent> <buffer> q :q<CR>" } },
-  { "BufEnter", { pattern = { "term://*" }, command = "startinsert" } },
-  { "TermOpen", { pattern = { "*" }, command = "startinsert | set nonu | set nornu" } },
+  -- { "BufEnter", { pattern = { "term://*" }, command = "startinsert" } },
+  -- { "TermOpen", { pattern = { "*" }, command = "startinsert | set nonu | set nornu" } },
   { "BufWinEnter", { pattern = { "*" }, command = "set formatoptions-=o" } },
 }
 -- vim: set ts=2 sw=2 et:
