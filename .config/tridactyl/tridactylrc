@@ -20,6 +20,7 @@ set smoothscroll true
 set allowautofocus false
 set updatenag false
 set searchurls.wp https://en.wikipedia.org/w/index.php?search=%s
+set searchurls.yt https://www.youtube.com/results?search_query=%s
 set searchurls.g https://www.google.com/search?q=
 set searchurls.ddgl https://duckduckgo.com/?q=!+
 set searchengine ddgl
