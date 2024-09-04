@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ ! -d "$HOME/.dotfiles" ]; then
+	echo "Setting up dotfiles repository..."
+	cp -r .git "$HOME/.dotfiles"
+	git config -f "$HOME/.dotfiles/config" status.showUntrackedFiles no
+fi
+
+echo "Synchronizing dotfiles..."
+rsync --recursive --exclude '.git' ./ "$HOME"/
