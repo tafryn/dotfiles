@@ -41,10 +41,14 @@ set -x HOME_MOUNT (df -P /home | tail -1 | tr -s ' ' | cut -d' ' -f 6)
 set -e fish_color_valid_path
 
 # Set aliases
-. ~/.config/fish/aliases.fish
+if test -f ~/.config/fish/aliases.fish
+    . ~/.config/fish/aliases.fish
+end
 
 # Local changes for this machine
-. ~/.config/fish/local.fish
+if test -f ~/.config/fish/local.fish
+    . ~/.config/fish/local.fish
+end
 
 # Remove duplicates from paths
 varclear PATH MANPATH INFOPATH LD_LIBRARY_PATH
