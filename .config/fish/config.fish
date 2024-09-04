@@ -2,6 +2,7 @@
 set -gx LC_COLLATE "C"
 set -gx GCC_COLORS "on"
 set -gx TZ "America/Los_Angeles"
+set -gx UID (id -u)
 set -x EDITOR "lvim"
 set -x TERMINAL "alacritty"
 set -x BROWSER "firefox"
