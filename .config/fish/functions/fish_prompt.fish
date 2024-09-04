@@ -68,6 +68,14 @@ function fish_prompt
         set bar_color yellow
         set __ssh_display (set_color brblack)"("(set_color normal)"$USER@"(set_color $bar_color)"$__fish_prompt_hostname"(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
         set -a __top_widths (__display_width "$__ssh_display")
+    else if test -n "$container" -o -n "$DEVPOD"
+        set bar_color magenta
+        set -l container_name $__fish_prompt_hostname
+        if test -n "$DEVPOD_WORKSPACE_ID"
+            set container_name $DEVPOD_WORKSPACE_ID
+        end
+        set __ssh_display (set_color brblack)"("(set_color normal)"$USER@"(set_color $bar_color)"$container_name"(set_color brblack)")"(set_color $bar_color)"─"(set_color normal)
+        set -a __top_widths (__display_width "$__ssh_display")
     end
 
     #|    First Line of Prompt                                                 {{{
