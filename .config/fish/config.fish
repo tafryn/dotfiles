@@ -41,6 +41,11 @@ set -x HOME_MOUNT (df -P /home | tail -1 | tr -s ' ' | cut -d' ' -f 6)
 # Tweak fish colors
 set -e fish_color_valid_path
 
+# Enable gcc-toolset if available
+if test -f /opt/rh/gcc-toolset-13/enable
+    bass source /opt/rh/gcc-toolset-13/enable
+end
+
 # Set aliases
 if test -f ~/.config/fish/aliases.fish
     . ~/.config/fish/aliases.fish
